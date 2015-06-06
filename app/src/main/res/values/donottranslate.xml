@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Logs -->
+    <string name="LOG_TAG">DebitorsControllaLog</string>
+
+    <!-- Fake data (for layout, do not translate) -->
+    <string name="fake_contact_name">Contact Long Man Name</string>
+    <string name="fake_debit_date">"12/06/2012\n4:15 PM"</string>
+    <string name="fake_debitor">Long Man Contact Name</string>
+    <string name="fake_update_date">Updated 15.10.2012</string>
+    <string name="fake_debit_sum">238614.88</string>
+    <string name="fake_debit_direction">I gave money</string>
+</resources>

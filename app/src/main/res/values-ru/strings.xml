@@ -1,0 +1,87 @@
+<resources>
+
+    <!-- Строки связанные со всем приложением -->
+    <string name="app_name">Долги</string>
+    <string name="title_activity_main">Долги</string>
+    <string name="title_activity_debitor">Должник</string>
+    <string name="title_debts_list_fragment_debitors">Должники</string>
+    <string name="title_debts_list_fragment_my_debts">Мои долги</string>
+
+    <!-- Заголовки разделов -->
+    <string name="title_personal_data">КОНТАКТ</string>
+    <string name="title_current_debt">ТЕКУЩИЙ ДОЛГ</string>
+    <string name="title_debits_history">ИСТОРИЯ ДОЛГОВ</string>
+
+    <!-- Action Bar -->
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_add_new">Добавить должника из контактов</string>
+    <string name="menu_add_new_no_contact">Добавить должника не из контактов</string>
+    <string name="menu_remove_debitor">Удалить должника</string>
+    <string name="menu_remove_debitor_history">Очистить историю долгов</string>
+    <string name="menu_delete_items">Удалить элементы</string>
+    <string name="menu_delete_items_cancel">Отменить удаление</string>
+    <string name="menu_sort">Сортировка</string>
+    <string name="menu_sort_alph">По имени</string>
+    <string name="menu_sort_date">По дате</string>
+    <string name="menu_sort_amount">По сумме</string>
+    <string name="menu_sort_desc">убыв.</string>
+    <string name="menu_sort_reset">очистить</string>
+
+    <!-- Сообщеня пользователю (обычно Toast) -->
+    <string name="message_all_debits_removed">Все долги удалены</string>
+    <string name="message_debit_removed">Долг удален</string>
+    <string name="message_debit_added">Долг добавлен</string>
+    <string name="message_debitor_removed">Должник удален</string>
+    <string name="message_debitor_history_removed">История долгов очищена</string>
+
+    <!-- Сообщения об ошибках (обычно Toast) -->
+    <string name="err_contact_not_found">Контакт не найден</string>
+    <string name="err_debit_not_added">Долг не добавлен</string>
+    <string name="err_id_not_valid">Неверный идентификатор</string>
+    <string name="err_remove_fail">Ошибка удаления</string>
+    <string name="err_value_to_long">Значение слишком большое</string>
+    <string name="err_value_to_small">Значение слишком маленькое</string>
+    <string name="err_cant_save_to_file">Не удается сохранить в файл на SD</string>
+    <string name="err_crash_text">Возникла ошибка. Пожалуйста, отправьте письмо разработчику</string>
+    <string name="err_no_debitor_name">Нельзя сохранить без имени должника</string>
+
+    <!-- Текст кнопок -->
+    <!--
+    <string name="add_new_debit">Add</string>
+	<string name="clear_all">Clear all</string>
+    -->
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Отмена</string>
+
+    <!-- Описание контента (всплывающее сообщение) -->
+    <string name="cont_descr_contact_picture">Картинка контакта</string>
+    <string name="cont_descr_add_debit">Добавить долг</string>
+    <string name="cont_descr_delete">Удалить</string>
+    <string name="cont_descr_show_more_fields">Показать дополнительные поля</string>
+    <string name="cont_descr_plus_debt">Даю в долг</string>
+    <string name="cont_descr_minus_debt">Беру в долг</string>
+
+    <!-- Модальные окна -->
+    <string name="modal_text_are_you_sure">Вы уверены?</string>
+    <string name="modal_text_delete_debitor">Удалить должника и его историю?</string>
+    <string name="modal_text_delete_debitor_history">Удалить историю долгов?</string>
+    <string name="modal_text_delete_debt">Удалить один долг?</string>
+
+    <!-- Текстовые значения и т.д. -->
+    <string name="text_result_sum">ВСЕГО</string>
+    <string name="text_plus_minus">+/—</string>
+    <string name="text_zero">0</string>
+    <string name="text_updated">Обновлено</string>
+    <string name="text_no_debitors">Нет должников. Добавьте кого-нибудь.</string>
+    <string name="text_no_my_debts">Нет долгов. Добавьте что-нибудь.</string>
+    <string name="text_contact_not_found">ВНИМНИЕ: НЕ НАЙДЕН</string>
+    <string name="text_i_gave_money">Я отдал</string>
+    <string name="text_i_took_money">Я получил</string>
+    <string name="text_no_debts">Нет долгов</string>
+
+    <!-- Подсказки в TextEdit -->
+    <string name="hint_debitor_name">Имя</string>
+    <string name="hint_debitor_phone">Телефон</string>
+    <string name="hint_debitor_email">Почта</string>
+
+</resources>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App strings -->
+    <string name="app_name">Deudas</string>
+    <string name="title_activity_main">Deudas</string>
+    <string name="title_activity_debitor">Trajeta deudor</string>
+    <string name="title_debts_list_fragment_debitors">Lista deudores</string>
+    <string name="title_debts_list_fragment_my_debts">Mis deudas</string>
+
+    <!-- Titles of sections -->
+    <string name="title_personal_data">DATOS PERSONALES</string>
+    <string name="title_current_debt">DEUDA ACTUAL</string>
+    <string name="title_debits_history">HISTORIAL DE DEUDAS</string>
+
+    <!-- Action Bar -->
+    <string name="menu_settings">Ajustes</string>
+    <string name="menu_add_new">Añadir deudor desde contactos</string>
+    <string name="menu_add_new_no_contact">Añadir deudor</string>
+    <string name="menu_remove_debitor">Eliminar deudor</string>
+    <string name="menu_remove_debitor_history">Limpiar historial de deudas</string>
+    <string name="menu_delete_items">Eliminar elementos</string>
+    <string name="menu_delete_items_cancel">Cancelar eliminación</string>
+    <string name="menu_sort">Ordenar deudores</string>
+    <string name="menu_sort_alph">Por nombre</string>
+    <string name="menu_sort_date">Por Fecha</string>
+    <string name="menu_sort_amount">Por Importe</string>
+    <string name="menu_sort_desc">desc</string>
+    <string name="menu_sort_reset">Limpiar</string>
+
+    <!-- Messages to user (ordinary Toast) -->
+    <string name="message_all_debits_removed">Todos los débitos se han eliminado</string>
+    <string name="message_debit_removed">La deuda ha sido eliminada</string>
+    <string name="message_debit_added">La deuda ha sido agregada</string>
+    <string name="message_debitor_removed">El deudor se ha eliminado</string>
+    <string name="message_debitor_history_removed">Historial de deudas eliminado</string>
+
+    <!-- Error messages (ordinary Toast) -->
+    <string name="err_contact_not_found">El contacto no se ha encontrado</string>
+    <string name="err_debit_not_added">La deuda no se ha agregado</string>
+    <string name="err_id_not_valid">Identidad no válida</string>
+    <string name="err_remove_fail">Fallo al eliminar</string>
+    <string name="err_value_to_long">El valor es largo</string>
+    <string name="err_value_to_small">El valor es corto</string>
+    <string name="err_cant_save_to_file">No se puede guardar el archivo en SD</string>
+    <string name="err_crash_text">Falló la aplicación. Por favor, envíe un correo al desarrollador</string>
+    <string name="err_no_debitor_name">No se puede guardar sin nombre del deudor</string>
+
+    <!-- Button texts -->
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancelar</string>
+
+    <!-- Content description (pop-up) -->
+    <string name="cont_descr_contact_picture">Imagen del contacto</string>
+    <string name="cont_descr_add_debit">Añadir deuda</string>
+    <string name="cont_descr_delete">Eliminar</string>
+    <string name="cont_descr_show_more_fields">Mostrar más campos</string>
+    <string name="cont_descr_plus_debt">Deuda positiva</string>
+    <string name="cont_descr_minus_debt">Deuda negativa</string>
+
+    <!-- Modal windows -->
+    <string name="modal_text_are_you_sure">Estás seguro?</string>
+    <string name="modal_text_delete_debitor">Eliminar deudor y limpiar historial de deudas?</string>
+    <string name="modal_text_delete_debitor_history">Limpiar historial de deudas?</string>
+    <string name="modal_text_delete_debt">Eliminar una deuda?</string>
+
+    <!-- Text values, etc -->
+    <string name="text_result_sum">TOTAL</string>
+    <string name="text_plus_minus">+/—</string>
+    <string name="text_zero">0</string>
+    <string name="text_updated">Actualizado</string>
+    <string name="text_no_debitors">No hay deudores. Añadir alguno.</string>
+    <string name="text_no_my_debts">No hay deudas. Añadir alguna.</string>
+    <string name="text_contact_not_found">ADVERTENCIA: No encontrado</string>
+    <string name="text_i_gave_money">Le di de la deuda</string>
+    <string name="text_i_took_money">Pedí prestado</string>
+    <string name="text_no_debts">Sin deudas</string>
+
+    <!-- Tips for TextEdit -->
+    <string name="hint_debitor_name">Nombre</string>
+    <string name="hint_debitor_phone">Teléfono</string>
+    <string name="hint_debitor_email">Email</string>
+</resources>

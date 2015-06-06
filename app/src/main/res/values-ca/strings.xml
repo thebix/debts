@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App strings -->
+    <string name="app_name">Deutes</string>
+    <string name="title_activity_main">Deutes</string>
+    <string name="title_activity_debitor">trajeta deutor</string>
+    <string name="title_debts_list_fragment_debitors">Llista deutors</string>
+    <string name="title_debts_list_fragment_my_debts">Els meus deutes</string>
+
+    <!-- Titles of sections -->
+    <string name="title_personal_data">DADES PERSONALS</string>
+    <string name="title_current_debt">DEUTE ACTUAL</string>
+    <string name="title_debits_history">HISTORIAL DE DEUTES</string>
+
+    <!-- Action Bar -->
+    <string name="menu_settings">Ajustaments</string>
+    <string name="menu_add_new">Afegir deutor des de contactes</string>
+    <string name="menu_add_new_no_contact">Afegir deutor</string>
+    <string name="menu_remove_debitor">Eliminar deutor</string>
+    <string name="menu_remove_debitor_history">Netejar historial de deutes</string>
+    <string name="menu_delete_items">Eliminar elements</string>
+    <string name="menu_delete_items_cancel">Cancel·la eliminació</string>
+    <string name="menu_sort">Ordenar deutors</string>
+    <string name="menu_sort_alph">Per nom</string>
+    <string name="menu_sort_date">Per Data</string>
+    <string name="menu_sort_amount">Per Import</string>
+    <string name="menu_sort_desc">desc</string>
+    <string name="menu_sort_reset">Netejar</string>
+
+    <!-- Messages to user (ordinary Toast) -->
+    <string name="message_all_debits_removed">Tots els dèbits s\'han eliminat</string>
+    <string name="message_debit_removed">El deute ha estat eliminat</string>
+    <string name="message_debit_added">El deute ha estat agregat</string>
+    <string name="message_debitor_removed">El deutor s\'ha eliminat</string>
+    <string name="message_debitor_history_removed">Historial de deutes eliminat</string>
+
+    <!-- Error messages (ordinary Toast) -->
+    <string name="err_contact_not_found">El contacte no s\'ha trobat</string>
+    <string name="err_debit_not_added">El deute no s\'ha afegit</string>
+    <string name="err_id_not_valid">Identitat no vàlida</string>
+    <string name="err_remove_fail">Error al eliminar</string>
+    <string name="err_value_to_long">El valor és llarg</string>
+    <string name="err_value_to_small">El valor és curt</string>
+    <string name="err_cant_save_to_file">No es pot desar el fitxer en SD</string>
+    <string name="err_crash_text">Ha fallat l\'aplicació. Si us plau, envieu un correu al desenvolupador</string>
+    <string name="err_no_debitor_name">No es pot desar sense nom del deutor</string>
+
+    <!-- Button texts -->
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel·lar</string>
+
+    <!-- Content description (pop-up) -->
+    <string name="cont_descr_contact_picture">Imatge del contacte</string>
+    <string name="cont_descr_add_debit">Afegir deute</string>
+    <string name="cont_descr_delete">Eliminar</string>
+    <string name="cont_descr_show_more_fields">Mostra més camps</string>
+    <string name="cont_descr_plus_debt">Deute positiu</string>
+    <string name="cont_descr_minus_debt">Deute negatiu</string>
+
+    <!-- Modal windows -->
+    <string name="modal_text_are_you_sure">Estàs segur?</string>
+    <string name="modal_text_delete_debitor">Eliminar deutor i netejar historial de deutes?</string>
+    <string name="modal_text_delete_debitor_history">Netejar historial de deutes?</string>
+    <string name="modal_text_delete_debt">Eliminar un deute?</string>
+
+    <!-- Text values, etc -->
+    <string name="text_result_sum">TOTAL</string>
+    <string name="text_plus_minus">+/—</string>
+    <string name="text_zero">0</string>
+    <string name="text_updated">Actualitzat</string>
+    <string name="text_no_debitors">No hi ha deutors. Afegir algun.</string>
+    <string name="text_no_my_debts">No hi ha deutes. Afegir algun.</string>
+    <string name="text_contact_not_found">ADVERTENCIA: No trobat</string>
+    <string name="text_i_gave_money">Li vaig donar del deute</string>
+    <string name="text_i_took_money">Vaig demanar prestat</string>
+    <string name="text_no_debts">Sense deutes</string>
+
+    <!-- Tips for TextEdit -->
+    <string name="hint_debitor_name">Nom</string>
+    <string name="hint_debitor_phone">Telèfon</string>
+    <string name="hint_debitor_email">Email</string>
+</resources>

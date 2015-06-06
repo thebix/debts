@@ -1,0 +1,27 @@
+<!-- Двигающийся список с типами должников (DebtsTypesFragment) -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="net.thebix.debts.activities.DebitorsTypesFragment">
+
+    <android.support.v4.view.ViewPager
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/viewPagerMainActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="net.thebix.debts.activities.DebitorsTypesFragment">
+
+        <android.support.v4.view.PagerTitleStrip
+                android:id="@+id/pagerTitleStripMainActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="@drawable/ch_tabs_line_divider"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:textColor="@color/Main" />
+    </android.support.v4.view.ViewPager>
+
+</FrameLayout>

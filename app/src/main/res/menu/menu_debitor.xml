@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_remove_debitor"
+        android:icon="@drawable/ic_content_discard"
+        android:orderInCategory="150"
+        android:showAsAction="always"
+        android:title="@string/menu_remove_debitor">
+    </item>
+    <item
+        android:id="@+id/menu_remove_debitor_history"
+        android:icon="@drawable/ic_content_remove"
+        android:orderInCategory="250"
+        android:showAsAction="always"
+        android:title="@string/menu_remove_debitor_history">
+    </item>
+
+</menu>

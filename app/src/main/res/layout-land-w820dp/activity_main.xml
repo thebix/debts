@@ -1,0 +1,21 @@
+<!-- Главная активити Landscape (MainActivity) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/containerMain">
+
+    <!-- "Fragment A" -->
+    <fragment class="net.thebix.debts.activities.DebitorsTypesFragment"
+        android:id="@+id/fragDebtsTypes"
+        android:layout_width="@dimen/frag_debts_list_size"
+        android:layout_height="match_parent"/>
+
+    <!-- "Fragment B" -->
+    <FrameLayout android:id="@+id/containerDebitor"
+        android:layout_weight="1"
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:background="?android:attr/detailsElementBackground" />
+
+</LinearLayout>

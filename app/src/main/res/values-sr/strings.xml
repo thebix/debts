@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Строки связанные со всем приложением -->
+    <string name="app_name">Дугови</string>
+    <string name="title_activity_main">Дугови</string>
+    <string name="title_activity_debitor">Дужник</string>
+    <string name="title_debts_list_fragment_debitors">Дужници</string>
+    <string name="title_debts_list_fragment_my_debts">Моји дугови</string>
+
+    <!-- Заголовки разделов -->
+    <string name="title_personal_data">КОНТАКТ</string>
+    <string name="title_current_debt">ТРЕНУТНИ ДУГ</string>
+    <string name="title_debits_history">ИСТОРИЈА ДУГОВА</string>
+
+    <!-- Action Bar -->
+    <string name="menu_settings">Подешавања</string>
+    <string name="menu_add_new">Додати дужника из контакт листе</string>
+    <string name="menu_add_new_no_contact">Додати дужника не из контакт листе</string>
+    <string name="menu_remove_debitor">Избрисати дужника</string>
+    <string name="menu_remove_debitor_history">Обрисати историју дугова</string>
+    <string name="menu_delete_items">Избрисати елементе</string>
+    <string name="menu_delete_items_cancel">Отказати брисање</string>
+    <string name="menu_sort">Сортирање</string>
+    <string name="menu_sort_alph">По имену</string>
+    <string name="menu_sort_date">По датуму</string>
+    <string name="menu_sort_amount">По износу</string>
+    <string name="menu_sort_desc">опад.</string>
+    <string name="menu_sort_reset">обрисати</string>
+
+    <!-- Сообщеня пользователю (обычно Toast) -->
+    <string name="message_all_debits_removed">Сви дугови су избрисани</string>
+    <string name="message_debit_removed">Дуг је избрисан</string>
+    <string name="message_debit_added">Дуг је додат</string>
+    <string name="message_debitor_removed">Дужник је избрисан</string>
+    <string name="message_debitor_history_removed">Историја дугова је обрисана</string>
+
+    <!-- Сообщения об ошибках (обычно Toast) -->
+    <string name="err_contact_not_found">Контакт није пронађен</string>
+    <string name="err_debit_not_added">Дуг није додат</string>
+    <string name="err_id_not_valid">Неисправан идентификатор</string>
+    <string name="err_remove_fail">Грешка брисања</string>
+    <string name="err_value_to_long">Вредност је исувише велика</string>
+    <string name="err_value_to_small">Вредност је исувише мала</string>
+    <string name="err_cant_save_to_file">Немогуће сачувати фајл на SD-карту</string>
+    <string name="err_crash_text">Дошло је до грешке. Молимо Вас, пошаљите мејл развојном програмеру</string>
+    <string name="err_no_debitor_name">Не може се сачувати без имена дужника</string>
+
+    <!-- Текст кнопок -->
+    <!--
+    <string name="add_new_debit">Додати</string>
+	<string name="clear_all">Обрисати све</string>
+    -->
+    <string name="button_ok">ОК</string>
+    <string name="button_cancel">Отказати</string>
+
+    <!-- Описание контента (всплывающее сообщение) -->
+    <string name="cont_descr_contact_picture">Слика контакта</string>
+    <string name="cont_descr_add_debit">Додати дуг</string>
+    <string name="cont_descr_delete">Избрисати</string>
+    <string name="cont_descr_show_more_fields">Показати додатна поља</string>
+    <string name="cont_descr_plus_debt">Дајем у дуг</string>
+    <string name="cont_descr_minus_debt">Узимам у дуг</string>
+
+    <!-- Модальные окна -->
+    <string name="modal_text_are_you_sure">Да ли сте сигурни?</string>
+    <string name="modal_text_delete_debitor">Избрисати дужника и његову историју?</string>
+    <string name="modal_text_delete_debitor_history">Избрисати исторју дугова?</string>
+    <string name="modal_text_delete_debt">Избрисати један дуг?</string>
+
+    <!-- Текстовые значения и т.д. -->
+    <string name="text_result_sum">УКУПНО</string>
+    <string name="text_plus_minus">+/—</string>
+    <string name="text_zero">0</string>
+    <string name="text_updated">Ажурирано</string>
+    <string name="text_no_debitors">Нема дужника. Додајте некога.</string>
+    <string name="text_no_my_debts">Нема дугова. Додајте неки.</string>
+    <string name="text_contact_not_found">УПОЗОРЕЊЕ: НИЈЕ НАЂЕН</string>
+    <string name="text_i_gave_money">Вратио/ла сам</string>
+    <string name="text_i_took_money">Добио/ла сам</string>
+    <string name="text_no_debts">Нема дугова</string>
+
+    <!-- Подсказки в TextEdit -->
+    <string name="hint_debitor_name">Име</string>
+    <string name="hint_debitor_phone">Телефон</string>
+    <string name="hint_debitor_email">Мејл</string>
+
+</resources>
