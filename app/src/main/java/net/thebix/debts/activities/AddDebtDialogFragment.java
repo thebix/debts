@@ -1,7 +1,6 @@
 package net.thebix.debts.activities;
 
 import android.support.v4.app.DialogFragment;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,7 @@ import net.thebix.debts.R;
 import net.thebix.debts.enums.Constants;
 
 public class AddDebtDialogFragment
-                extends DialogFragment  {
+                extends DialogFragment {
 
     // region  онструкторы
     public static AddDebtDialogFragment newInstance() { //TODO: передача параметром идентификатора выбранного должника в списке
