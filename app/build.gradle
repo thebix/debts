@@ -7,7 +7,7 @@ android {
         applicationId 'net.thebix.debts'
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 6
+        versionCode 7
         versionName '1.0.2'
     }
 
