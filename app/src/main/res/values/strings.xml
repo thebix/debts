@@ -7,11 +7,15 @@
     <string name="title_activity_debitor">Debitor card</string>
     <string name="title_debts_list_fragment_debitors">Debitors List</string>
     <string name="title_debts_list_fragment_my_debts">My Debts</string>
+    <string name="title_dialog_fragment_add_debt">Add Debt</string>
 
     <!-- Titles of sections -->
     <string name="title_personal_data">PERSONAL DATA</string>
     <string name="title_current_debt">CURRENT DEBT</string>
     <string name="title_debits_history">DEBTS HISTORY</string>
+    <string name="title_name">Name</string>
+    <string name="title_action">Action</string>
+    <string name="title_amount">Amount</string>
 
     <!-- Action Bar -->
     <string name="menu_settings">Settings</string>
@@ -47,7 +51,7 @@
     <string name="err_no_debitor_name">Can\'t be saved without debitor\'s name</string>
 
     <!-- Button texts -->
-    <string name="button_ok">OK</string>
+    <string name="button_ok">Confirm</string>
     <string name="button_cancel">Cancel</string>
 
     <!-- Content description (pop-up) -->
@@ -75,10 +79,13 @@
     <string name="text_i_gave_money">I lent</string>
     <string name="text_i_took_money">I borrowed</string>
     <string name="text_no_debts">No debts</string>
+    <string name="text_add">Add</string>
+    <string name="text_subtract">Subtract</string>
 
     <!-- Tips for TextEdit -->
     <string name="hint_debitor_name">Name</string>
     <string name="hint_debitor_phone">Phone</string>
     <string name="hint_debitor_email">Email</string>
+    <string name="hint_debitor_amount">Amount</string>
 
 </resources>

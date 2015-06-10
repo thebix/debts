@@ -2,10 +2,12 @@
 package net.thebix.debts.activities;
 
 import android.app.Activity;
+//import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -127,10 +129,12 @@ public class DebitorsTypesFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_add_new:
-                // добавить новый контакт-должник‚ onActivityResult
-                Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
-                        ContactsContract.Contacts.CONTENT_URI);
-                startActivityForResult(contactPickerIntent, Constants.CONTACT_PICKER_RESULT);
+//                // добавить новый контакт-должник‚ onActivityResult
+//                Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
+//                        ContactsContract.Contacts.CONTENT_URI);
+//                startActivityForResult(contactPickerIntent, Constants.CONTACT_PICKER_RESULT);
+                AddDebtDialogFragment dialog = AddDebtDialogFragment.newInstance();
+                dialog.show(getFragmentManager(), null);
                 break;
             case R.id.menu_add_new_no_contact:
                 startDebitorActivity(-1);
