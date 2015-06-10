@@ -1,4 +1,4 @@
-package net.thebix.debts.activities;
+п»їpackage net.thebix.debts.activities;
 
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import net.thebix.debts.enums.Constants;
 public class AddDebtDialogFragment
                 extends DialogFragment {
 
-    // region Конструкторы
-    public static AddDebtDialogFragment newInstance() { //TODO: передача параметром идентификатора выбранного должника в списке
+    // region РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹
+    public static AddDebtDialogFragment newInstance() { //TODO: РїРµСЂРµРґР°С‡Р° РїР°СЂР°РјРµС‚СЂРѕРј РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР° РІС‹Р±СЂР°РЅРЅРѕРіРѕ РґРѕР»Р¶РЅРёРєР° РІ СЃРїРёСЃРєРµ
         AddDebtDialogFragment fragment = new AddDebtDialogFragment();
 //        Bundle args = new Bundle();
 //        args.putLong(Constants.KEY_DEBITOR_ID, debitorId);
@@ -26,7 +26,7 @@ public class AddDebtDialogFragment
     }
     // endregion
 
-    // region События
+    // region РЎРѕР±С‹С‚РёСЏ
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //getDialog().setTitle(getString(R.string.title_dialog_fragment_add_debt));
@@ -40,20 +40,20 @@ public class AddDebtDialogFragment
         v.findViewById(R.id.buttonOk).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: добавить долг addDebt(false);
+                //TODO: РґРѕР±Р°РІРёС‚СЊ РґРѕР»Рі addDebt(false);
                 dismiss();
             }
         });
         return v;
     }
 
-//    // Метод onDismiss срабатывает, когда диалог закрывается
+//    // РњРµС‚РѕРґ onDismiss СЃСЂР°Р±Р°С‚С‹РІР°РµС‚, РєРѕРіРґР° РґРёР°Р»РѕРі Р·Р°РєСЂС‹РІР°РµС‚СЃСЏ
 //    @Override
 //    public void onDismiss(DialogInterface dialog) {
 //        super.onDismiss(dialog);
 //    }
 //
-//    // Метод onCancel срабатывает, когда диалог отменяют кнопкой Назад
+//    // РњРµС‚РѕРґ onCancel СЃСЂР°Р±Р°С‚С‹РІР°РµС‚, РєРѕРіРґР° РґРёР°Р»РѕРі РѕС‚РјРµРЅСЏСЋС‚ РєРЅРѕРїРєРѕР№ РќР°Р·Р°Рґ
 //    @Override
 //    public void onCancel(DialogInterface dialog) {
 //        super.onCancel(dialog);
@@ -61,7 +61,7 @@ public class AddDebtDialogFragment
 
     // endregion
 
-    // region Закрытые методы
+    // region Р—Р°РєСЂС‹С‚С‹Рµ РјРµС‚РѕРґС‹
 
     // endregion
 }
