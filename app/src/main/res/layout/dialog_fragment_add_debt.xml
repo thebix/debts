@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/autoCompleteTextViewName"
-        android:hint="@string/hint_debitor_name" />
+        android:hint="@string/hint_debitor_name"
+        android:completionThreshold="1" />
 
     <TextView
         android:layout_width="wrap_content"

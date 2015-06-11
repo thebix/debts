@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -52,10 +53,20 @@ public class ContactsAutocompleteListAdapter extends ArrayAdapter<ContactsListIt
             itemView = (RelativeLayout) convertView;
         }
 
-        TextView sumTextView =(TextView)itemView.findViewById(R.id.textViewDebitSum);
+        ImageView userPictureImageView =(ImageView)itemView.findViewById(R.id.imageViewConactPicture); //TODO: выводить картинку пользователя
+        TextView сontactNameTextView =(TextView)itemView.findViewById(R.id.textViewContactName);
+        //TextView сontactPhoneTextView =(TextView)itemView.findViewById(R.id.textViewContactPhone);
 
-        double sum = item.getId();
-        sumTextView.setText(Misc.getSumText(sum < 0 ? -sum : sum, false));
+        //Картинка
+        if(item.getUserPic() == null) {
+            userPictureImageView.setImageResource(R.drawable.ic_contact_picture);
+        } else {
+            userPictureImageView.setImageBitmap(item.getUserPic());
+        }
+
+        сontactNameTextView.setText(item.getName());
+        //сontactPhoneTextView.setText(item.hasPhone() ? item.getPhones().get(0) : ""); //TODO: выводить все телефоны
+
         return itemView;
     }
     // endregion
