@@ -21,7 +21,8 @@ import net.thebix.debts.enums.Constants;
 import net.thebix.debts.enums.DebitorsListSortTypes;
 import net.thebix.debts.adapters.DebitorsTypesFragmentPagerAdapter;
 
-public class DebitorsTypesFragment extends Fragment {
+public class DebitorsTypesFragment extends Fragment
+    implements AddDebtDialogFragment.IDebtsOnUpdate {
     // region Переменные
     DebitorsTypesFragmentPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
@@ -83,7 +84,7 @@ public class DebitorsTypesFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     // Тут меняются названия кнопок сортировки, в зависимости от выбранного типа
@@ -133,7 +134,7 @@ public class DebitorsTypesFragment extends Fragment {
 //                Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
 //                        ContactsContract.Contacts.CONTENT_URI);
 //                startActivityForResult(contactPickerIntent, Constants.CONTACT_PICKER_RESULT);
-                AddDebtDialogFragment dialog = AddDebtDialogFragment.newInstance();
+                AddDebtDialogFragment dialog = AddDebtDialogFragment.newInstance(this);
                 dialog.show(getFragmentManager(), null);
                 break;
             case R.id.menu_add_new_no_contact:
@@ -173,6 +174,12 @@ public class DebitorsTypesFragment extends Fragment {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    public void onDebtsUpdate() {
+        //TODO: проверить, что обновляется список должников
+        updateTabs();
     }
     // endregion
 
@@ -236,5 +243,7 @@ public class DebitorsTypesFragment extends Fragment {
                 break;
         }
     }
+
+
     // endregion
 }

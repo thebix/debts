@@ -84,23 +84,6 @@ public class DebitorFragment extends Fragment implements
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_debitor, container, false);
         final View view = inflater.inflate(R.layout.fragment_debitor, container, false);
-        // Клик по кнопке добавления долга
-        view.findViewById(R.id.buttonMinusDebit).setOnClickListener(
-                new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        addDebt(false);
-                    }
-                }
-        );
-        view.findViewById(R.id.buttonPlusDebit).setOnClickListener(
-                new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        addDebt(true);
-                    }
-                }
-        );
         view.findViewById(R.id.buttonNoContactShowMoreFields).setOnClickListener(
                 new OnClickListener() {
                     @Override
@@ -386,110 +369,6 @@ public class DebitorFragment extends Fragment implements
                 return true;
             }
         });
-    }
-
-    // Функция добавления/удаления долга
-    private void addDebt(Boolean isPlusDebt) {
-        EditText editTextAddDebit = (EditText) getActivity().findViewById(R.id.editTextAddDebit);
-
-        //После внесения долга клавиатура убирается
-        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(editTextAddDebit.getWindowToken(), 0);
-
-        if (editTextAddDebit.length() == 0) // Если нечего вносить, ниего не делаем
-            return;
-
-        double sum = Double.parseDouble(editTextAddDebit.getText().toString());
-        if(sum == 0) // Если нечего вносить, ниего не делаем
-            return;
-
-        if (!isPlusDebt)
-            sum = sum * -1;
-
-        DBAdapter db = new DBAdapter(getActivity());
-        try {
-            // Если должник не проассоциирован с контактом, надо обновить данные
-            // с активити
-            String debName = "";
-            String debPhone = "";
-            String debEmail = "";
-            if (this.mContactId == 0) // Если не прикреплен контакт,
-            // заводим/апдейтим без него => с
-            // дополнительными полями
-            {
-                EditText editTextDebitorName = (EditText) getActivity().findViewById(R.id.editTextDebitorName);
-                debName = editTextDebitorName.getText().toString();
-                if (debName.length() == 0) // Если у должника нет имени
-                {
-                    Toast.makeText(getActivity(), R.string.err_no_debitor_name,
-                            Toast.LENGTH_LONG).show();
-                    return;
-                }
-                EditText editTextNoContactDebitorPhone = (EditText) getActivity().findViewById(R.id.editTextNoContactDebitorPhone);
-                debPhone = editTextNoContactDebitorPhone.getText().toString();
-                EditText editTextNoContactDebitorEmail = (EditText) getActivity().findViewById(R.id.editTextNoContactDebitorEmail);
-                debEmail = editTextNoContactDebitorEmail.getText().toString();
-
-            }
-
-            // Добавление/апдейт должника
-            if (this.mDebitorId == 0) // Если должник не был заведен, сначала его
-            // надо завести
-            {
-                if (this.mContactId > 0) // Внесение должника ассоциированного с
-                    // контактом
-                    this.mDebitorId = db.insertDebitor(this.mContactId);
-                else
-                    this.mDebitorId = db.insertDebitor(debName, debPhone,
-                            debEmail);
-
-                //Т.к. новый юзер внесен, надо обновить меню actionbar, чтобы там отображались кнопки
-                getActivity().invalidateOptionsMenu();
-            } else if (this.mContactId == 0) // Если должник уже заведен, но не
-            // связан с контактом => обновить
-            // данные по нему
-            {
-                db.updateDebitor(this.mDebitorId, debName, debPhone, debEmail);
-            }
-
-            // Записываем в БД новую строку с данными, связанную с этим юзером
-            Date currentDate = new Date();
-
-            double sumAbs = Math.abs(sum);
-            if (sumAbs > Constants.MAX_DEBIT_VALUE) {
-                Toast.makeText(getActivity(), R.string.err_value_to_long,
-                        Toast.LENGTH_SHORT).show();
-                return;
-            } else if (sumAbs < Constants.MIN_DEBIT_VALUE)
-            {
-                Toast.makeText(getActivity(), R.string.err_value_to_small,
-                        Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // Приведем сумму к 2 числам после запятой
-            sum = new BigDecimal(sum).setScale(2, BigDecimal.ROUND_HALF_UP)
-                    .doubleValue();
-
-            long id = db.insertDebt(this.mDebitorId, currentDate, sum);
-            Throws.ifLongNullOrZeroOrLess(id,
-                    getString(R.string.err_debit_not_added));
-            SDAdapter.writeDebit(getActivity().getApplicationContext(), this.mContactId,
-                    currentDate, sum);
-
-            Toast.makeText(getActivity(), R.string.message_debit_added,
-                    Toast.LENGTH_SHORT).show();
-
-            editTextAddDebit.setText("");
-        } catch (Exception ex) {
-            Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_LONG).show();
-            Misc.WriteLog(ex);
-        } finally {
-            db.close();
-        }
-
-        // Обновляем таблицу долгов на этой странице
-        initOrUpdateDebits();
     }
 
     // Отображение главного окна

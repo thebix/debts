@@ -28,11 +28,11 @@
         android:text="@string/title_action"
         android:id="@+id/textViewActionTitle" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
+    <RadioGroup
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="@string/text_subtract"
             android:id="@+id/radioButtonSubtract" />
-    </LinearLayout>
+    </RadioGroup>
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/editTextAmount"
         android:hint="@string/hint_debitor_amount" />
 
     <LinearLayout
@@ -76,7 +76,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_ok"
-            android:id="@+id/buttonOk" />
+            android:id="@+id/buttonConfirm"
+            android:enabled="false" />
     </LinearLayout>
 
 </LinearLayout>

@@ -13,7 +13,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
 	// Этот интерфейс должна реализовать соответствующий фрагмент, у которого
 	// показывается диалог подтверждения
 	public interface ConfirmationDialogListener {
-		public void onConfirmationDialogPositiveClick(DialogFragment dialog,
+		void onConfirmationDialogPositiveClick(DialogFragment dialog,
                                                       int topicId, long itemId);
 	}
 
