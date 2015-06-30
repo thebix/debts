@@ -31,7 +31,7 @@ public class DBAdapter {
 
 	// Получить пользователя из базы
 	public long getDebitorIdByNameAndPhoneAndEmail(String name, String phone,
-			String email) throws SQLException {
+												   String email) throws SQLException {
 		String[] columns = new String[] { net.thebix.debts.DBHelper.DebitorsEntry._ID,
 				net.thebix.debts.DBHelper.DebitorsEntry.COL_NAME, net.thebix.debts.DBHelper.DebitorsEntry.COL_CONTACT_ID };
 		String predicate = net.thebix.debts.DBHelper.DebitorsEntry.COL_NAME + "=\"" + name + "\" AND "
@@ -41,6 +41,20 @@ public class DBAdapter {
 		Cursor c = db.query(net.thebix.debts.DBHelper.DebitorsEntry.TABLE_TITLE, columns, predicate,
 				null, null, null, null);
 
+		long res = 0;
+		if (c.moveToFirst()) // Юзер найден
+			res = c.getLong(c.getColumnIndex(net.thebix.debts.DBHelper.DebitorsEntry._ID));
+		return res;
+	}
+
+	// Получить пользователя из базы
+	public long getDebitorIdByName(String name) throws SQLException {
+		SQLiteDatabase db = DBHelper.getReadableDatabase();
+		String query = "SELECT " + net.thebix.debts.DBHelper.DebitorsEntry._ID
+				+ " FROM " + net.thebix.debts.DBHelper.DebitorsEntry.TABLE_TITLE + " WHERE "
+				+  "UPPER(" + net.thebix.debts.DBHelper.DebitorsEntry.COL_NAME + ")==UPPER(\"" + name + "\")";
+
+		Cursor c = db.rawQuery(query, null);
 		long res = 0;
 		if (c.moveToFirst()) // Юзер найден
 			res = c.getLong(c.getColumnIndex(net.thebix.debts.DBHelper.DebitorsEntry._ID));
@@ -77,8 +91,7 @@ public class DBAdapter {
 	public long insertDebitor(String debitorName, String debitorPhone,
 			String debitorEmail) {
 		// Проверим наличие пользователя, если что, вернем
-		long debitorId = getDebitorIdByNameAndPhoneAndEmail(debitorName,
-				debitorPhone, debitorEmail);
+		long debitorId = getDebitorIdByName(debitorName);
 
 		if (debitorId <= 0) // Пользователя нет, заводим
 		{

@@ -26,7 +26,7 @@ public class ContactsList {
                 ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
         return new ContactsList(cursor, context, true);
     }
-    public ContactsList(Cursor cursor, Context context, boolean closeCursor){
+    private ContactsList(Cursor cursor, Context context, boolean closeCursor){
         _Items = new ArrayList<ContactsListItem>();
 
         while(cursor.moveToNext()) {
@@ -38,6 +38,16 @@ public class ContactsList {
     // endregion
 
     // region Окрытые методы
-
+    public ContactsListItem getByName(String name){
+        name = name.trim();
+        if(name == null || name == "")
+            return  null;
+        for(int i=0; i<_Items.size(); i++){
+            ContactsListItem contact = _Items.get(i);
+            if(contact.getName().equalsIgnoreCase(name))
+                return contact;
+        }
+        return null;
+    }
     // endregion
 }

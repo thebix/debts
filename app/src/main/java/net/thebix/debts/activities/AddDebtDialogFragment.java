@@ -1,9 +1,7 @@
 package net.thebix.debts.activities;
 
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,16 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
 import net.thebix.debts.DBAdapter;
-import net.thebix.debts.DBHelper;
 import net.thebix.debts.Misc;
 import net.thebix.debts.R;
 import net.thebix.debts.SDAdapter;
@@ -32,7 +27,6 @@ import net.thebix.debts.models.ContactsList;
 import net.thebix.debts.models.ContactsListItem;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -48,7 +42,8 @@ public class AddDebtDialogFragment
 
     // region Переменные
     static IDebtsOnUpdate mListener; //Подписчик на событие, что долги обновились
-    Long mContactId;
+    ContactsList mContacts; //все контакты
+    Long mContactId = (long)0;
     String mContactName; //Имя контактов. сохраняется при выборе в выпадающем списке. Позволяет отслеживать, что юзер начал менять имя должника и => mContactId больше не актуален
     HashMap<Integer, Boolean> mToggleConfirm = new HashMap<Integer, Boolean>(); //Хэшмап с элементами, которые должны быть изменены, чтобы кнопка Confirm стала активной
     // endregion
@@ -124,9 +119,9 @@ public class AddDebtDialogFragment
         });
 
         AutoCompleteTextView contactListTextView = (AutoCompleteTextView)v.findViewById(R.id.autoCompleteTextViewName);
-        ContactsList contacts = ContactsList.newInstance(getActivity());
+        mContacts = ContactsList.newInstance(getActivity());
         ContactsAutocompleteListAdapter adapter =
-                new ContactsAutocompleteListAdapter(getActivity(), R.layout.autocomplete_contact_item, contacts.getItems());
+                new ContactsAutocompleteListAdapter(getActivity(), R.layout.autocomplete_contact_item, mContacts.getItems());
         contactListTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> av, View arg1, int index,
@@ -141,7 +136,7 @@ public class AddDebtDialogFragment
         });
         contactListTextView.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                String name = s.toString();
+                String name = s.toString().trim();
                 if (name.length() > 0) {
                     toggleConfirm(R.id.autoCompleteTextViewName, true);
                     if(mContactName != name) //если часть символов удалить из выбранного имени, должен обнуляться и идентификатор, т.к. теперь дебитор не соответствует контакту
@@ -159,11 +154,15 @@ public class AddDebtDialogFragment
             }
         });
         contactListTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    //TODO: поиск по контактам по введенному имени, если mContactId == 0
-                    //mContactId = item.getId();
+                    if(mContactId == 0) {//Ранее не был выбран контакт либо текст имени изменился после выбора
+                        ContactsListItem item = mContacts.getByName(((AutoCompleteTextView) v).getText().toString());
+                        if(item != null) {
+                            mContactId = item.getId();
+                            mContactName = item.getName();
+                        }
+                    }
                 }
             }
         });
@@ -190,7 +189,6 @@ public class AddDebtDialogFragment
     private void updateDebt() {
         RadioButton radioAdd = (RadioButton) getView().findViewById(R.id.radioButtonAdd);
         boolean isAdd = radioAdd.isChecked();
-
         long debitorId = getDebitorId();
 
         //После внесения долга клавиатура убирается
@@ -254,22 +252,19 @@ public class AddDebtDialogFragment
         // Получим контакт запросом ко всем контактам
         DBAdapter db = new DBAdapter(getActivity());
         Long debitorId = (long)0;
+        String autocompleteText = ((AutoCompleteTextView)getView().findViewById(R.id.autoCompleteTextViewName)).getText().toString().trim();
         try {
             if(mContactId > 0){ //Из контактов
                 debitorId = db.getDebitorIdByContactId(this.mContactId);
-            } else {
-                //TODO: поиск по имени добавленных без contactId
-                if(debitorId > 0){ // Если должник уже заведен, но не связан с контактом => обновить данные по нему
-                    //TODO: db.updateDebitor(debitorId, debName, debPhone, debEmail);
-                }
+            } else { //Не из контактов. Поиск существующего по имени
+                debitorId = db.getDebitorIdByName(autocompleteText);
             }
 
             if(debitorId == 0){ //Должник так и не найден, добавляем как нового
                 if (mContactId > 0) // Внесение должника ассоциированного с контактом
                     debitorId = db.insertDebitor(mContactId);
                 else {// Не из контактов
-                    //TODO: сначала пробуем искать по имени в контактах. Возможно, юзер вбил но не выбрал в выпадающем списке
-                    debitorId = (long) 0;//TODO: не из контактов db.insertDebitor(debName, debPhone, debEmail);
+                    debitorId = db.insertDebitor(autocompleteText, null, null);
                 }
 
                 //Т.к. новый юзер внесен, надо обновить меню actionbar, чтобы там отображались кнопки
