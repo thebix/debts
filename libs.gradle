@@ -5,5 +5,13 @@ ext.androidConfig = [
         targetSdkVersion : 28,
 ]
 ext.versions = [
+        leakCanary    : '1.6.3',
         supportLibrary: "28.0.0"
+]
+ext.libs = [
+        kotlin                   : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+        leakCanary               : "com.squareup.leakcanary:leakcanary-android:$versions.leakCanary",
+        leakCanaryNoOp           : "com.squareup.leakcanary:leakcanary-android-no-op:$versions.leakCanary",
+        leakCanarySupportFragment: "com.squareup.leakcanary:leakcanary-support-fragment:$versions.leakCanary",
+        timber                   : "com.jakewharton.timber:timber:4.7.1"
 ]
