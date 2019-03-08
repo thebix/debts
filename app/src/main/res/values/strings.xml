@@ -81,4 +81,17 @@
     <string name="hint_debitor_phone">Phone</string>
     <string name="hint_debitor_email">Email</string>
 
+
+    <!-- NO TRANSLATION SECTION -->
+
+    <string name="LOG_TAG" translatable="false">DebitorsControllaLog</string>
+
+    <!-- Fake data (for layout, do not translate) -->
+    <string name="fake_contact_name" translatable="false">Contact Long Man Name</string>
+    <string name="fake_debit_date" translatable="false">"12/06/2012\n4:15 PM"</string>
+    <string name="fake_debitor" translatable="false">Long Man Contact Name</string>
+    <string name="fake_update_date" translatable="false">Updated 15.10.2012</string>
+    <string name="fake_debit_sum" translatable="false">238614.88</string>
+    <string name="fake_debit_direction" translatable="false">I gave money</string>
+
 </resources>
