@@ -10,12 +10,12 @@ android {
         }
     }
     // TODO: move versions to androidConfig
-    compileSdkVersion 28
+    compileSdkVersion androidConfig.compileSdkVersion
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId 'net.thebix.debts'
-        minSdkVersion 21
-        targetSdkVersion 28
+        minSdkVersion androidConfig.minSdkVersion
+        targetSdkVersion androidConfig.targetSdkVersion
         // TODO: increase version to 2.0.0 before release
         versionCode 8
         versionName '1.0.2'
