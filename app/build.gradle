@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias DEBTS_STORE_KEY_ALIAS
+            keyPassword DEBTS_STORE_KEY_ALIAS_PASSWORD
+            storeFile file(DEBTS_STORE_KEY_FILE)
+            storePassword DEBTS_STORE_KEY_PASSWORD
+        }
+    }
     // TODO: move versions to androidConfig
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
@@ -8,8 +16,8 @@ android {
         applicationId 'net.thebix.debts'
         minSdkVersion 21
         targetSdkVersion 28
-        // TODO: increase version to 8 / 2.0.0
-        versionCode 7
+        // TODO: increase version to 2.0.0 before release
+        versionCode 8
         versionName '1.0.2'
     }
 
@@ -17,6 +25,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
