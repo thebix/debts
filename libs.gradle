@@ -5,13 +5,13 @@ ext.androidConfig = [
         targetSdkVersion : 28,
 ]
 ext.versions = [
-        koin          : "1.0.2",
+        koin          : "2.0.0-beta-1",
         leakCanary    : '1.6.3',
         supportLibrary: "28.0.0"
 ]
 ext.libs = [
         koin                     : "org.koin:koin-android:$versions.koin",
-        koinScope               : "org.koin:koin-android-scope:$versions.koin",
+        koinScope                : "org.koin:koin-android-scope:$versions.koin",
         koinViewModel            : "org.koin:koin-android-viewmodel:$versions.koin",
         kotlin                   : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
         leakCanary               : "com.squareup.leakcanary:leakcanary-android:$versions.leakCanary",
