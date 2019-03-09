@@ -41,6 +41,9 @@ dependencies {
     debugImplementation libs.leakCanary
     releaseImplementation libs.leakCanaryNoOp
     debugImplementation libs.leakCanarySupportFragment
+    implementation libs.rxAndroid
+    implementation libs.rxBinding
+    implementation libs.rxJava2
     implementation libs.supportAppcompat
     implementation libs.timber
 }
