@@ -17,8 +17,8 @@ android {
         minSdkVersion androidConfig.minSdkVersion
         targetSdkVersion androidConfig.targetSdkVersion
         // TODO: increase version to 2.0.0 before release
-        versionCode 8
-        versionName '1.0.2'
+        versionCode 9
+        versionName '1.0.3'
     }
 
     buildTypes {
