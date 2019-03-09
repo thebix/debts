@@ -38,5 +38,6 @@ dependencies {
     debugImplementation libs.leakCanary
     releaseImplementation libs.leakCanaryNoOp
     debugImplementation libs.leakCanarySupportFragment
+    implementation libs.supportAppcompat
     implementation libs.timber
 }
