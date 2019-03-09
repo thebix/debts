@@ -1,5 +1,11 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <style name="Debts" />
+
+    <style name="Debts.Theme" parent="Theme.AppCompat.Light.NoActionBar" />
+
+    <!-- old styles -->
+
     <style name="AppBaseTheme" parent="@android:style/Theme.Holo.Light"></style>
 
     <style name="AppTheme" parent="@style/AppBaseTheme">

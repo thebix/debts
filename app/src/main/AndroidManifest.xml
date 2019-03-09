@@ -12,13 +12,13 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
+        <!-- deprecated -->
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -28,6 +28,19 @@
             <intent-filter>
                 <action android:name=".activities.DebitorActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!-- /deprecated -->
+
+        <activity
+            android:name="debts.home.HomeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Debts.Theme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
