@@ -34,6 +34,9 @@ android {
 }
 
 dependencies {
+    implementation libs.koin
+    implementation libs.koinScope
+    implementation libs.koinViewModel
     implementation libs.kotlin
     debugImplementation libs.leakCanary
     releaseImplementation libs.leakCanaryNoOp
