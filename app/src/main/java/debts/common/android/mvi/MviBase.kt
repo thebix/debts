@@ -1,4 +1,4 @@
-package interview.common.mvi
+package debts.common.android.mvi
 
 import android.arch.lifecycle.ViewModel
 import io.reactivex.Observable

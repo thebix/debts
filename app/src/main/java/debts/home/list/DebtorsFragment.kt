@@ -8,15 +8,15 @@ import debts.common.android.BaseFragment
 import debts.home.details.DetailsFragment
 import net.thebix.debts.R
 
-class DebitorsFragment : BaseFragment() {
+class DebtorsFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
-        inflater.inflate(R.layout.home_debitors_fragment, container, false)
+        inflater.inflate(R.layout.home_debtors_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.findViewById<View>(R.id.home_debitors_details)?.setOnClickListener {
+        activity?.findViewById<View>(R.id.home_debtors_details)?.setOnClickListener {
             addFragment(DetailsFragment(), R.id.home_root)
         }
     }

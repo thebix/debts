@@ -2,7 +2,7 @@ package debts.home
 
 import android.os.Bundle
 import debts.common.android.BaseActivity
-import debts.home.list.DebitorsFragment
+import debts.home.list.DebtorsFragment
 import net.thebix.debts.R
 
 class HomeActivity : BaseActivity() {
@@ -12,7 +12,7 @@ class HomeActivity : BaseActivity() {
         setContentView(R.layout.home_activity)
 
         if (savedInstanceState == null) {
-            addFragment(DebitorsFragment(), R.id.home_root)
+            addFragment(DebtorsFragment(), R.id.home_root)
         }
     }
 }
