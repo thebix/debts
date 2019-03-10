@@ -2,9 +2,7 @@ package debts
 
 import android.app.Application
 import com.squareup.leakcanary.LeakCanary
-import debts.di.appModule
-import debts.di.repositoriesModule
-import debts.di.useCasesModule
+import debts.di.*
 import net.thebix.debts.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -36,7 +34,9 @@ class DebtsApp : Application() {
             modules(
                 appModule,
                 repositoriesModule,
-                useCasesModule
+                useCasesModule,
+                interactorModule,
+                viewModelModule
             )
         }
     }
