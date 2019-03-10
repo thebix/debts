@@ -5,10 +5,10 @@
     android:background="@color/ListDivider">
 
     <TextView
-        android:id="@+id/home_debitors_details"
+        android:id="@+id/home_debtors_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="HomeDebitorsFragment" />
+        android:text="HomeDebtorsFragment" />
 
 </FrameLayout>
