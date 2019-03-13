@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="width_50dp">50dp</dimen>
+    <dimen name="width_66dp">66dp</dimen>
+
+    <dimen name="height_1dp">1dp</dimen>
+    <dimen name="height_50dp">50dp</dimen>
+
+    <dimen name="margin_4dp">4dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="margin_12dp">12dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="margin_20dp">20dp</dimen>
+
+    <dimen name="padding_4dp">4dp</dimen>
+    <dimen name="padding_8dp">8dp</dimen>
+    <dimen name="padding_12dp">12dp</dimen>
+    <dimen name="padding_16dp">16dp</dimen>
+    <dimen name="padding_20dp">20dp</dimen>
+
+    <!-- Legacy -->
+
     <dimen name="StandartText">17sp</dimen>
     <dimen name="ListSubItem">12sp</dimen>
     <dimen name="AddDebtItem">28sp</dimen>

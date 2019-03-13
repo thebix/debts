@@ -2,7 +2,72 @@
 
     <style name="Debts" />
 
-    <style name="Debts.Theme" parent="Theme.AppCompat.Light.NoActionBar" />
+    <style name="Debts.Theme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Text -->
+
+    <style name="Debts.Text" />
+
+    <!-- Large -->
+
+    <style name="Debts.Text.Large">
+        <item name="android:textSize">0sp</item>
+    </style>
+
+    <style name="Debts.Text.Large.Title">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Debts.Text.Large.Headline">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="Debts.Text.Large.Extra">
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <!-- Body -->
+
+    <style name="Debts.Text.Body">
+        <item name="android:textSize">0sp</item>
+    </style>
+
+    <style name="Debts.Text.Body.Long">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Debts.Text.Body.Short">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Debts.Text.Body.Header">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Debts.Text.Body.Header.Highlight">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Body altered -->
+
+    <style name="Debts.Text.Body.Short.Alt">
+        <item name="android:textColor">@color/debts_grey</item>
+    </style>
+
+    <!-- Small -->
+
+    <style name="Debts.Text.Small">
+        <item name="android:textSize">0sp</item>
+    </style>
+
+    <style name="Debts.Text.Small.Text" />
+
+    <style name="Debts.Text.Small.Text.Highlight" />
+
 
     <!-- old styles -->
 
@@ -73,23 +138,23 @@
     </style>
 
     <!-- Текствью дочернего элемента листа -->
-    <style name="TextView.ListSubItem" >
+    <style name="TextView.ListSubItem">
         <item name="android:textColor">@color/ListSubItem</item>
         <item name="android:textSize">@dimen/ListSubItem</item>
     </style>
 
     <!-- Стиль для строки с суммарным долгом -->
-    <style name="TextView.Total" >
-<!--         <item name="android:layout_width">wrap_content</item> -->
-<!--         <item name="android:layout_height">36dp</item> -->
+    <style name="TextView.Total">
+        <!--         <item name="android:layout_width">wrap_content</item> -->
+        <!--         <item name="android:layout_height">36dp</item> -->
         <!-- <item name="android:layout_alignParentLeft">true</item> -->
         <item name="android:text">@string/text_result_sum</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextView.Sum" >
-<!--         <item name="android:layout_width">80dp</item> -->
-<!--         <item name="android:layout_height">36dp</item> -->
+    <style name="TextView.Sum">
+        <!--         <item name="android:layout_width">80dp</item> -->
+        <!--         <item name="android:layout_height">36dp</item> -->
         <item name="android:gravity">right|center_vertical</item>
         <item name="android:paddingLeft">8dp</item>
         <item name="android:layout_alignParentRight">true</item>

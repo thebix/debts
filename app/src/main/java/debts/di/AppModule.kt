@@ -1,5 +1,10 @@
 package debts.di
 
+import debts.home.list.mvi.DebtorsInteractor
+import debts.home.list.mvi.DebtorsViewModel
+import debts.home.repository.DebtsRepository
+import debts.home.usecase.ObserveDebtorsListItemsUseCase
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
@@ -11,18 +16,17 @@ val networkModule = module {
 }
 
 val repositoriesModule = module {
-    single { Repository() }
+    single { DebtsRepository() }
 }
 
 val useCasesModule = module {
-    single { UseCase1(get()) }
-    single { UseCase2(get()) }
+    single { ObserveDebtorsListItemsUseCase(repository = get()) }
 }
 
-// region just to show approach
+val interactorModule = module {
+    factory { DebtorsInteractor(observeDebtorsListItemsUseCase = get()) }
+}
 
-class Repository
-class UseCase1(val repository: Repository)
-class UseCase2(val repository: Repository)
-
-// endregion
+val viewModelModule = module {
+    viewModel { DebtorsViewModel(interactor = get()) }
+}
