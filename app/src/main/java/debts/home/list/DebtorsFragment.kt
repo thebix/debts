@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import com.jakewharton.rxbinding3.view.clicks
 import debts.common.android.BaseFragment
 import debts.common.android.bindView
-import debts.home.details.DetailsFragment
 import debts.home.list.adapter.DebtorsAdapter
 import debts.home.list.mvi.DebtorsIntention
 import debts.home.list.mvi.DebtorsState
@@ -19,7 +18,9 @@ import debts.home.list.mvi.DebtorsViewModel
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.subjects.PublishSubject
 import okb.common.android.extension.getDrawableCompat
+import okb.common.android.extension.showAlert
 import org.koin.android.viewmodel.ext.viewModel
 import timber.log.Timber
 import net.thebix.debts.R
@@ -27,13 +28,16 @@ import net.thebix.debts.R
 class DebtorsFragment : BaseFragment() {
 
     private val recyclerView by bindView<RecyclerView>(R.id.home_debtors_recycler)
+    private val fabView by bindView<View>(R.id.home_debtors_fab)
 
     private val viewModel: DebtorsViewModel by viewModel()
     private val adapter = DebtorsAdapter()
+    private val intentionSubject = PublishSubject.create<DebtorsIntention>()
 
     private lateinit var disposables: CompositeDisposable
     private var adapterDisposable: Disposable? = null
     private var isConfigurationChange: Boolean = false
+    private lateinit var addDebtLayout: AddDebtLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +69,11 @@ class DebtorsFragment : BaseFragment() {
         disposables = CompositeDisposable(
             viewModel.states()
                 .subscribe(::render),
-            viewModel.processIntentions(intentions())
+            viewModel.processIntentions(intentions()),
+            fabView.clicks()
+                .subscribe {
+                    intentionSubject.onNext(DebtorsIntention.GetContacts)
+                }
         )
     }
 
@@ -87,13 +95,40 @@ class DebtorsFragment : BaseFragment() {
                 adapterDisposable = adapter.setItems(items)
                     .subscribe()
             }
+            contacts.get(this)?.let { contacts ->
+                if (context == null) return@let
+                addDebtLayout = AddDebtLayout(
+                    context!!,
+                    contacts = contacts
+                )
+                context?.showAlert(
+                    addDebtLayout,
+                    titleResId = R.string.home_debtors_dialog_add_debt,
+                    positiveButtonResId = R.string.home_debtors_dialog_confirm,
+                    negativeButtonResId = R.string.home_debtors_dialog_cancel,
+                    actionPositive = {
+                        with(addDebtLayout.data) {
+                            intentionSubject.onNext(
+                                DebtorsIntention.AddDebt(
+                                    contactId,
+                                    name,
+                                    amount,
+                                    currency,
+                                    comment
+                                )
+                            )
+                        }
+                    }
+                )
+            }
         }
     }
 
     private fun intentions() =
         Observable.merge(
             listOf(
-                Observable.fromCallable { DebtorsIntention.Init }
+                Observable.fromCallable { DebtorsIntention.Init },
+                intentionSubject
             )
         )
 }

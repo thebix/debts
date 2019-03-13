@@ -5,6 +5,7 @@
     <color name="colorAccent">#fc4582</color>
 
 
+    <color name="debts_black">#000000</color>
     <color name="debts_white">#ffffff</color>
     <color name="debts_grey">#ababab</color>
     <color name="debts_grey_light">#dbe2e8</color>
