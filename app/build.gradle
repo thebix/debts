@@ -36,10 +36,14 @@ android {
 
 dependencies {
     kapt libs.archLifecycleCompiler
+    // TODO: remove this dependency
     implementation libs.circleimageview
+    implementation libs.glide
+    kapt libs.glideCompiler
     implementation libs.koin
     implementation libs.koinScope
     implementation libs.koinViewModel
+    implementation libs.koptional
     implementation libs.kotlin
     debugImplementation libs.leakCanary
     releaseImplementation libs.leakCanaryNoOp
@@ -49,6 +53,7 @@ dependencies {
     implementation libs.rxJava2
     implementation libs.supportAppcompat
     implementation libs.supportConstraintLayout
+    implementation libs.supportDesign
     implementation libs.supportRecyclerView
     implementation libs.timber
 }

@@ -1,5 +1,6 @@
 package debts.home.list.adapter
 
+import debts.home.usecase.ContactsItemModel
 import debts.home.usecase.DebtorsListItemModel
 
 sealed class DebtorsItemViewModel(open val id: Long) {
@@ -14,6 +15,8 @@ sealed class DebtorsItemViewModel(open val id: Long) {
 
 }
 
+data class ContactsItemViewModel(val id: Long, val name: String, val avatarUrl: String)
+
 // region Mapping
 ////////////////////////////////////////////////////////////////
 
@@ -26,4 +29,8 @@ fun DebtorsListItemModel.toDebtorsItemViewModel() =
         lastDate
     )
 
+fun ContactsItemModel.toContactsItemViewModel() =
+    ContactsItemViewModel(
+        id, name, avatarUrl
+    )
 // endregion

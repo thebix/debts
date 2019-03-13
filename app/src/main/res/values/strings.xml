@@ -4,6 +4,16 @@
     <string name="home_debtors_item_amount" translatable="false">%1$s %2$s</string>
     <string name="home_debtors_item_date" translatable="false">- %1$s</string>
 
+    <string name="home_debtors_dialog_cancel">Cancel</string>
+    <string name="home_debtors_dialog_confirm">Confirm</string>
+    <string name="home_debtors_dialog_add_debt">Add Debt</string>
+    <string name="home_debtors_dialog_name">Name</string>
+    <string name="home_debtors_dialog_action">Action</string>
+    <string name="home_debtors_dialog_add">Add</string>
+    <string name="home_debtors_dialog_subtract">Subtract</string>
+    <string name="home_debtors_dialog_amount">Amount</string>
+    <string name="home_debtors_dialog_comment">Comment</string>
+
     <!-- Legacy -->
 
     <!-- App strings -->
