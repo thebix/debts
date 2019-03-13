@@ -12,6 +12,7 @@ ext.versions = [
 ]
 ext.libs = [
         archLifecycleCompiler    : "android.arch.lifecycle:compiler:$versions.archLifecycle",
+        circleimageview          : "de.hdodenhof:circleimageview:3.0.0",
         koin                     : "org.koin:koin-android:$versions.koin",
         koinScope                : "org.koin:koin-android-scope:$versions.koin",
         koinViewModel            : "org.koin:koin-android-viewmodel:$versions.koin",

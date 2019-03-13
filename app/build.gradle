@@ -36,6 +36,7 @@ android {
 
 dependencies {
     kapt libs.archLifecycleCompiler
+    implementation libs.circleimageview
     implementation libs.koin
     implementation libs.koinScope
     implementation libs.koinViewModel
