@@ -13,7 +13,7 @@ abstract class BaseActivity : AppCompatActivity() {
         if (addToBackStack) {
             fragmentTransaction.addToBackStack(null)
         }
-        fragmentTransaction.commitNow()
+        fragmentTransaction.commit()
     }
 
     fun addFragment(fragment: androidx.fragment.app.Fragment, @IdRes rootId: Int, addToBackStack: Boolean = true) {

@@ -8,6 +8,7 @@ import debts.db.DebtsDao
 import debts.home.usecase.ContactsItemModel
 import debts.home.usecase.DebtModel
 import debts.home.usecase.DebtorModel
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.util.*
@@ -24,17 +25,21 @@ class DebtsRepository(
     fun observeDebtors(): Observable<List<DebtorModel>> = dao.observeDebtors()
         .map { items -> items.map { it.toDebtorModel() } }
 
+    fun observeDebtor(debtorId: Long): Observable<DebtorModel> = dao.observeDebtor(debtorId)
+        .map { items -> items.toDebtorModel() }
 
     fun getDebtors(): Single<List<DebtorModel>> =
         observeDebtors()
             .take(1)
             .single(emptyList())
 
-    fun observeDebts(): Observable<List<DebtModel>> = dao.observeDebts()
-        .map { items -> items.map { it.toDebtModel() } }
+    fun observeDebts(debtorId: Long = 0): Observable<List<DebtModel>> =
+        (if (debtorId == 0L) dao.observeDebts() else dao.observeDebts(debtorId))
+            .map { items -> items.map { it.toDebtModel() } }
 
-    fun getDebts(): Single<List<DebtModel>> =
-        observeDebts()
+    fun getDebts(debtorId: Long = 0L): Single<List<DebtModel>> =
+        observeDebts(debtorId)
+            .take(1)
             .single(emptyList())
 
     @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -103,4 +108,7 @@ class DebtsRepository(
                 comment
             )
         )
+
+    fun clearDebts(debtorId: Long): Completable = dao.clearAllDebts(debtorId)
+
 }

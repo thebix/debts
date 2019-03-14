@@ -1,5 +1,6 @@
 package debts.home.list.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.util.AttributeSet
@@ -15,10 +16,12 @@ import okb.common.android.extension.*
 import java.util.*
 import net.thebix.debts.R
 
+@SuppressLint("ViewConstructor")
 class DebtorItemLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
+    private val itemClickCallback: DebtorsAdapter.ItemClickCallback
 ) : ConstraintLayout(context, attrs, defStyleAttr),
     ItemRenderer<DebtorsItemViewModel> {
 
@@ -27,6 +30,8 @@ class DebtorItemLayout @JvmOverloads constructor(
     private val amountView by bindView<TextView>(R.id.home_debtors_item_amount)
     private val dateView by bindView<TextView>(R.id.home_debtors_item_date)
 
+    private var debtorId: Long = 0
+
     init {
         selfInflate(R.layout.home_debtors_item_layout)
         doInRuntime {
@@ -34,11 +39,15 @@ class DebtorItemLayout @JvmOverloads constructor(
             setPaddingTopResCompat(R.dimen.padding_16dp)
             setPaddingBottomResCompat(R.dimen.padding_16dp)
         }
+        this.setOnClickListener {
+            itemClickCallback.onItemClick(debtorId)
+        }
     }
 
     override fun render(data: DebtorsItemViewModel) {
         if (data is DebtorsItemViewModel.DebtorItemViewModel) {
             with(data) {
+                debtorId = id
                 nameView.text = name
                 amountView.text = resources.getString(
                     R.string.home_debtors_item_amount,

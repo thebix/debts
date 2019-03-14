@@ -26,12 +26,28 @@ data class ContactsItemModel(val id: Long, val name: String, val avatarUrl: Stri
 // region UseCase return models
 ////////////////////////////////////////////////////////////////
 
+// TODO: rename to DebtorsItemModel
 data class DebtorsListItemModel(
     val id: Long,
     val name: String,
     val amount: Double,
     val currency: String,
     val lastDate: Long,
+    val avatarUrl: String
+)
+
+data class DebtItemModel(
+    val id: Long,
+    val amount: Double,
+    val currency: String,
+    val date: Long,
+    val comment: String
+)
+
+data class DebtorDetailsModel(
+    val name: String,
+    val amount: Double,
+    val currency: String,
     val avatarUrl: String
 )
 

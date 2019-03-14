@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import com.jakewharton.rxbinding3.view.clicks
 import debts.common.android.BaseFragment
 import debts.common.android.bindView
+import debts.home.details.DetailsFragment
 import debts.home.list.adapter.DebtorsAdapter
 import debts.home.list.mvi.DebtorsIntention
 import debts.home.list.mvi.DebtorsState
@@ -31,8 +32,14 @@ class DebtorsFragment : BaseFragment() {
     private val recyclerView by bindView<androidx.recyclerview.widget.RecyclerView>(R.id.home_debtors_recycler)
     private val fabView by bindView<View>(R.id.home_debtors_fab)
 
+    private val itemCallback = object : DebtorsAdapter.ItemClickCallback {
+        override fun onItemClick(debtorId: Long) {
+            replaceFragment(DetailsFragment.createInstance(debtorId), R.id.home_root)
+        }
+
+    }
     private val viewModel: DebtorsViewModel by viewModel()
-    private val adapter = DebtorsAdapter()
+    private val adapter = DebtorsAdapter(itemCallback)
     private val intentionSubject = PublishSubject.create<DebtorsIntention>()
 
     private lateinit var disposables: CompositeDisposable
@@ -63,7 +70,6 @@ class DebtorsFragment : BaseFragment() {
                     setDrawable(context.applicationContext.getDrawableCompat(R.drawable.list_divider))
                 }
             )
-
         }
     }
 
