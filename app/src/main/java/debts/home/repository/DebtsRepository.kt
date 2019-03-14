@@ -78,7 +78,8 @@ class DebtsRepository(
 
     fun createDebtor(
         name: String,
-        contactId: Long?
+        contactId: Long?,
+        avatarUrl: String
     ): Single<Long> = getDebtors()
         .map { items ->
             val list: MutableList<DebtorModel> = mutableListOf()
@@ -87,7 +88,8 @@ class DebtsRepository(
                 DebtorModel(
                     items.size.toLong(),
                     name,
-                    contactId
+                    contactId,
+                    avatarUrl
                 )
             )
             list.toList()

@@ -5,7 +5,8 @@ import io.reactivex.Completable
 import io.reactivex.Single
 
 class AddDebtUseCase(
-    private val repository: DebtsRepository
+    private val repository: DebtsRepository,
+    private val createDebtorUseCase: CreateDebtorUseCase
 ) {
 
     @Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
@@ -30,7 +31,7 @@ class AddDebtUseCase(
                         items.firstOrNull { it.name == name }?.let {
                             return@flatMap Single.fromCallable { it.id }
                         }
-                        return@flatMap repository.createDebtor(name, contactId)
+                        return@flatMap createDebtorUseCase.execute(name, contactId)
                     }
             }
         }

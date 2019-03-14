@@ -3,8 +3,10 @@ package debts.home.list.adapter
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
-import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import debts.common.android.adapters.ItemRenderer
 import debts.common.android.bindView
 import debts.common.android.extensions.toDecimal
@@ -20,13 +22,13 @@ class DebtorItemLayout @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr),
     ItemRenderer<DebtorsItemViewModel> {
 
+    private val avatarView by bindView<ImageView>(R.id.home_debtors_item_avatar)
     private val nameView by bindView<TextView>(R.id.home_debtors_item_name)
     private val amountView by bindView<TextView>(R.id.home_debtors_item_amount)
     private val dateView by bindView<TextView>(R.id.home_debtors_item_date)
 
     init {
-        View.inflate(context, R.layout.home_debtors_item_layout, this)
-
+        selfInflate(R.layout.home_debtors_item_layout)
         doInRuntime {
             applyLayoutParams()
             setPaddingTopResCompat(R.dimen.padding_16dp)
@@ -48,6 +50,15 @@ class DebtorItemLayout @JvmOverloads constructor(
                     R.string.home_debtors_item_date,
                     Date(lastDate).toSimpleDateString()
                 )
+                if (avatarUrl.isNotBlank()) {
+                    Glide.with(avatarView)
+                        .load(avatarUrl)
+                        .placeholder(R.drawable.ic_launcher)
+                        .error(R.drawable.ic_launcher)
+                        .fallback(R.drawable.ic_launcher)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(avatarView)
+                }
             }
         }
     }

@@ -10,7 +10,8 @@ sealed class DebtorsItemViewModel(open val id: Long) {
         val name: String,
         val amount: Double,
         val currency: String,
-        val lastDate: Long
+        val lastDate: Long,
+        val avatarUrl: String
     ) : DebtorsItemViewModel(id)
 
 }
@@ -26,7 +27,8 @@ fun DebtorsListItemModel.toDebtorsItemViewModel() =
         name,
         amount,
         currency,
-        lastDate
+        lastDate,
+        avatarUrl
     )
 
 fun ContactsItemModel.toContactsItemViewModel() =

@@ -8,11 +8,12 @@
 
     <ImageView
         android:id="@+id/home_debtors_add_debt_contact_avatar"
-        android:layout_width="@dimen/width_20dp"
-        android:layout_height="@dimen/height_20dp"
+        android:layout_width="@dimen/width_40dp"
+        android:layout_height="@dimen/height_40dp"
         android:src="@drawable/ic_launcher"
         app:layout_constraintEnd_toStartOf="@id/home_debtors_item_name"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/home_debtors_add_debt_contact_name"
@@ -26,6 +27,5 @@
         app:layout_constraintTop_toBottomOf="@id/home_debtors_add_debt_name_layout"
         tools:ignore="RtlSymmetry"
         tools:text="John Zorn" />
-
 
 </LinearLayout>

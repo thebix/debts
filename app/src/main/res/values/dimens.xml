@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="width_50dp">50dp</dimen>
     <dimen name="width_20dp">20dp</dimen>
+    <dimen name="width_40dp">40dp</dimen>
+    <dimen name="width_50dp">50dp</dimen>
     <dimen name="width_66dp">66dp</dimen>
 
     <dimen name="height_1dp">1dp</dimen>
     <dimen name="height_20dp">20dp</dimen>
+    <dimen name="height_40dp">40dp</dimen>
     <dimen name="height_50dp">50dp</dimen>
 
     <dimen name="margin_4dp">4dp</dimen>

@@ -6,7 +6,8 @@ package debts.home.usecase
 data class DebtorModel(
     val id: Long,
     val name: String,
-    val contactId: Long?
+    val contactId: Long?,
+    val avatarUrl: String
 )
 
 data class DebtModel(
@@ -30,7 +31,8 @@ data class DebtorsListItemModel(
     val name: String,
     val amount: Double,
     val currency: String,
-    val lastDate: Long
+    val lastDate: Long,
+    val avatarUrl: String
 )
 
 // endregion

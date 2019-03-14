@@ -2,6 +2,7 @@ package debts.home.list
 
 import android.os.Bundle
 import android.support.annotation.UiThread
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -108,15 +109,22 @@ class DebtorsFragment : BaseFragment() {
                     negativeButtonResId = R.string.home_debtors_dialog_cancel,
                     actionPositive = {
                         with(addDebtLayout.data) {
-                            intentionSubject.onNext(
-                                DebtorsIntention.AddDebt(
-                                    contactId,
-                                    name,
-                                    amount,
-                                    currency,
-                                    comment
+                            if (name.isNotBlank() && amount != 0.0) {
+                                intentionSubject.onNext(
+                                    DebtorsIntention.AddDebt(
+                                        contactId,
+                                        name,
+                                        amount,
+                                        currency,
+                                        comment
+                                    )
                                 )
-                            )
+                            } else {
+                                Snackbar
+                                    .make(fabView, R.string.home_debtors_empty_debt_fields, Snackbar.LENGTH_SHORT)
+                                    .show()
+                            }
+
                         }
                     }
                 )
