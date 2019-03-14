@@ -56,6 +56,7 @@ class AddDebtLayout @JvmOverloads constructor(
                 .error(R.drawable.ic_launcher)
                 .fallback(R.drawable.ic_launcher)
                 .into(avatarView)
+            amountView.requestFocus()
         }
 
         disposable =
@@ -74,10 +75,16 @@ class AddDebtLayout @JvmOverloads constructor(
 
     val data: Data
         get() {
+            val inverseAmount = radioAdd.checkedRadioButtonId == R.id.home_debtors_add_debt_radio_subtract
+            val amount = try {
+                amountView.text.toString().toDouble() * if (inverseAmount) -1 else 1
+            } catch (ex: Throwable) {
+                0.0
+            }
             return Data(
                 contact?.id,
                 nameView.text.trim().toString(),
-                amountView.text.toString().toDouble(),
+                amount,
                 // TODO: return proper value
                 "$",
                 commentView.text.trim().toString()

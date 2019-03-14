@@ -4,6 +4,8 @@
     <string name="home_debtors_item_amount" translatable="false">%1$s %2$s</string>
     <string name="home_debtors_item_date" translatable="false">- %1$s</string>
 
+    <string name="home_debtors_empty_debt_fields">Empty debtor or debt amount</string>
+
     <string name="home_debtors_dialog_cancel">Cancel</string>
     <string name="home_debtors_dialog_confirm">Confirm</string>
     <string name="home_debtors_dialog_add_debt">Add Debt</string>

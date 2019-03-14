@@ -4,6 +4,7 @@ import debts.home.list.mvi.DebtorsInteractor
 import debts.home.list.mvi.DebtorsViewModel
 import debts.home.repository.DebtsRepository
 import debts.home.usecase.AddDebtUseCase
+import debts.home.usecase.CreateDebtorUseCase
 import debts.home.usecase.GetContactsUseCase
 import debts.home.usecase.ObserveDebtorsListItemsUseCase
 import org.koin.android.ext.koin.androidApplication
@@ -25,7 +26,13 @@ val repositoriesModule = module {
 val useCasesModule = module {
     single { ObserveDebtorsListItemsUseCase(repository = get()) }
     single { GetContactsUseCase(repository = get()) }
-    single { AddDebtUseCase(repository = get()) }
+    single {
+        AddDebtUseCase(
+            repository = get(),
+            createDebtorUseCase = get()
+        )
+    }
+    single { CreateDebtorUseCase(repository = get()) }
 }
 
 val interactorModule = module {
