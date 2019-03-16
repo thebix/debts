@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     tools:context="net.thebix.debts.activities.DebitorsTypesFragment">
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/viewPagerMainActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="net.thebix.debts.activities.DebitorsTypesFragment">
 
-        <android.support.v4.view.PagerTitleStrip
+        <androidx.viewpager.widget.PagerTitleStrip
                 android:id="@+id/pagerTitleStripMainActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -22,6 +22,6 @@
                 android:paddingBottom="4dp"
                 android:paddingTop="4dp"
                 android:textColor="@color/Main" />
-    </android.support.v4.view.ViewPager>
+    </androidx.viewpager.widget.ViewPager>
 
 </FrameLayout>

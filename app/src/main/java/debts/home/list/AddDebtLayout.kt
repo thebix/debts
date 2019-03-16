@@ -1,8 +1,8 @@
 package debts.home.list
 
 import android.content.Context
-import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.AppCompatAutoCompleteTextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import android.util.AttributeSet
 import android.widget.EditText
 import android.widget.ImageView

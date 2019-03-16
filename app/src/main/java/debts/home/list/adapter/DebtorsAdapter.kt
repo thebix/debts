@@ -1,6 +1,6 @@
 package debts.home.list.adapter
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 import debts.common.android.adapters.CommonDiffUtilCallback
 import debts.common.android.adapters.DelegatedAdapter
 import debts.common.android.adapters.TypedAdapterDelegate

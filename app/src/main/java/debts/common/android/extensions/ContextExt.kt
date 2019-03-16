@@ -8,9 +8,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.support.annotation.*
-import android.support.v4.content.ContextCompat
-import android.support.v7.content.res.AppCompatResources
+import androidx.annotation.*
+import androidx.core.content.ContextCompat
+import androidx.appcompat.content.res.AppCompatResources
 import android.view.View
 import timber.log.Timber
 

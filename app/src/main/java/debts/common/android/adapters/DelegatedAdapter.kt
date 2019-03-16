@@ -1,10 +1,10 @@
 package debts.common.android.adapters
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.util.SparseArray
 import android.view.ViewGroup
 
-abstract class DelegatedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class DelegatedAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
 
     private val delegates: SparseArray<AdapterDelegate> = SparseArray()
 
@@ -18,12 +18,12 @@ abstract class DelegatedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
 
     abstract override fun getItemViewType(position: Int): Int
 
-    final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
         val adapterDelegate = delegates[viewType] ?: throw IllegalStateException("No delegate for $viewType viewType")
         return adapterDelegate.onCreateViewHolder(parent)
     }
 
-    final override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    final override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
         delegates[getItemViewType(position)].onBindViewHolder(holder, position, items)
     }
 }
@@ -31,9 +31,9 @@ abstract class DelegatedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
 
 interface AdapterDelegate {
 
-    fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
+    fun onCreateViewHolder(parent: ViewGroup): androidx.recyclerview.widget.RecyclerView.ViewHolder
 
-    fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, items: List<Any>)
+    fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int, items: List<Any>)
 }
 
 
@@ -46,7 +46,7 @@ class TypedAdapterDelegate<in Data>(
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, items: List<Any>) {
+    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int, items: List<Any>) {
         val data = items[position] as? Data
             ?: throw IllegalStateException("Incorrect data for position $position. Was ${items[position]}. Check your items list.")
         (holder as ViewHolder<Data>).bind(data)

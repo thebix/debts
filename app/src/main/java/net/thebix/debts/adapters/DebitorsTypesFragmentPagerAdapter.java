@@ -1,8 +1,9 @@
 package net.thebix.debts.adapters;
 
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import net.thebix.debts.R;
 import net.thebix.debts.activities.DebitorsListFragment;
 import net.thebix.debts.enums.Constants;
@@ -34,7 +35,7 @@ public class DebitorsTypesFragmentPagerAdapter extends
     // Получение фрагмента по номеру позиции
     @Override
     // i -- тип листа (DebitorsListTypes.Debitors, DebitorsListTypes.Debitors)
-    public android.support.v4.app.Fragment getItem(int i) {
+    public Fragment getItem(int i) {
         if(mFragments.containsKey(i))
             return mFragments.get(i);
 

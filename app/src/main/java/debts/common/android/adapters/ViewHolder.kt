@@ -1,9 +1,9 @@
 package debts.common.android.adapters
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 
-abstract class ViewHolder<in Data>(itemView: View) : RecyclerView.ViewHolder(itemView) {
+abstract class ViewHolder<in Data>(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
     abstract fun bind(data: Data)
 }

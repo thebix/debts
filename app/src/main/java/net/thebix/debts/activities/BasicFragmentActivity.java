@@ -1,7 +1,7 @@
 package net.thebix.debts.activities;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import android.util.Log;
 import net.thebix.debts.enums.Constants;
 

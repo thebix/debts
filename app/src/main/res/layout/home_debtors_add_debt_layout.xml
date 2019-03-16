@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingStart="@dimen/padding_20dp"
     android:paddingEnd="@dimen/padding_20dp"
-    tools:parentTag="android.support.constraint.ConstraintLayout">
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <ImageView
         android:id="@+id/home_debtors_add_debt_avatar"
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="ContentDescription" />
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/home_debtors_add_debt_name_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         app:layout_constraintStart_toEndOf="@id/home_debtors_add_debt_avatar"
         app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.v7.widget.AppCompatAutoCompleteTextView
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/home_debtors_add_debt_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             android:textColorHint="@color/debts_grey_light"
             tools:ignore="Autofill" />
 
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/home_debtors_add_debt_action"
@@ -80,7 +80,7 @@
 
     </RadioGroup>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/home_debtors_add_debt_amount_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -104,9 +104,9 @@
             android:textColorHint="@color/debts_grey_light"
             tools:ignore="Autofill" />
 
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/home_debtors_add_debt_comment_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -129,6 +129,6 @@
             android:textColorHint="@color/debts_grey_light"
             tools:ignore="Autofill" />
 
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
 </merge>

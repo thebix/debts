@@ -1,7 +1,7 @@
 package debts.home.list.adapter
 
 import android.content.Context
-import android.support.constraint.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import android.util.AttributeSet
 import android.widget.ImageView
 import android.widget.TextView

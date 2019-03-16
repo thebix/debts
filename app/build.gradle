@@ -35,7 +35,9 @@ android {
 }
 
 dependencies {
-    kapt libs.archLifecycleCompiler
+    implementation libs.androidxConstraintLayout
+    implementation libs.androidxDesign
+    kapt libs.androidxLifecycleCompiler
     // TODO: remove this dependency
     implementation libs.circleimageview
     implementation libs.glide
@@ -48,12 +50,11 @@ dependencies {
     debugImplementation libs.leakCanary
     releaseImplementation libs.leakCanaryNoOp
     debugImplementation libs.leakCanarySupportFragment
+    implementation libs.room
+    kapt libs.roomCompiler
+    implementation libs.roomRxJava
     implementation libs.rxAndroid
     implementation libs.rxBinding
     implementation libs.rxJava2
-    implementation libs.supportAppcompat
-    implementation libs.supportConstraintLayout
-    implementation libs.supportDesign
-    implementation libs.supportRecyclerView
     implementation libs.timber
 }
