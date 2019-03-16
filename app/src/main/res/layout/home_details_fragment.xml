@@ -1,14 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ListDivider">
+    android:background="@color/debts_white"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/home_details_legacy"
+        android:id="@+id/home_details_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="HomeDetailsFragment" />
+        android:layout_marginStart="@dimen/margin_65dp"
+        android:textAppearance="@style/Debts.Text.Large.Headline"
+        tools:text="John Zorn" />
 
-</FrameLayout>
+    <View
+        android:id="@+id/home_details_wallet"
+        android:layout_width="@dimen/width_20dp"
+        android:layout_height="@dimen/height_20dp"
+        android:background="@drawable/ic_wallet" />
+
+    <TextView
+        android:id="@+id/home_details_debt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_65dp"
+        android:text="@string/home_details_debt_title"
+        android:textAppearance="@style/Debts.Text.Large.Title.Alt" />
+
+    <TextView
+        android:id="@+id/home_details_debt_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_65dp"
+        android:text="@string/home_details_debt_total"
+        android:textAppearance="@style/Debts.Text.Large.Title" />
+
+    <TextView
+        android:id="@+id/home_details_debt_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_65dp"
+        android:textAppearance="@style/Debts.Text.Large.Extra"
+        tools:text="150$" />
+
+    <TextView
+        android:id="@+id/home_details_debt_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_65dp"
+        android:padding="10dp"
+        android:text="@string/home_details_debt_change" />
+
+    <TextView
+        android:id="@+id/home_details_debt_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_65dp"
+        android:padding="10dp"
+        android:text="@string/home_details_debt_clear" />
+
+    <View
+        android:id="@+id/home_details_clock"
+        android:layout_width="@dimen/width_20dp"
+        android:layout_height="@dimen/height_20dp"
+        android:background="@drawable/ic_clock" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_details_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_65dp" />
+
+</LinearLayout>

@@ -20,8 +20,29 @@ class AddDebtLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-    private val contacts: List<ContactsItemViewModel> = emptyList()
+    private val contacts: List<ContactsItemViewModel> = emptyList(),
+    private val name: String = "",
+    private val avatarUrl: String = ""
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
+
+    val data: Data
+        get() {
+            val inverseAmount = radioAdd.checkedRadioButtonId == R.id.home_debtors_add_debt_radio_subtract
+            val amount = try {
+                amountView.text.toString().toDouble() * if (inverseAmount) -1 else 1
+            } catch (ex: Throwable) {
+                0.0
+            }
+            return Data(
+                contact?.id,
+                nameView.text.trim().toString(),
+                amount,
+                // TODO: return proper value
+                "$",
+                commentView.text.trim().toString()
+
+            )
+        }
 
     private val avatarView by bindView<ImageView>(R.id.home_debtors_add_debt_avatar)
     private val nameView by bindView<AppCompatAutoCompleteTextView>(R.id.home_debtors_add_debt_name)
@@ -50,12 +71,7 @@ class AddDebtLayout @JvmOverloads constructor(
         nameView.setAdapter<ContactsAdapter>(adapter)
         nameView.setOnItemClickListener { _, _, _, id ->
             contact = contacts.firstOrNull { it.id == id }
-            Glide.with(avatarView)
-                .load(contact?.avatarUrl)
-                .placeholder(R.drawable.ic_launcher)
-                .error(R.drawable.ic_launcher)
-                .fallback(R.drawable.ic_launcher)
-                .into(avatarView)
+            showAvatar(contact?.avatarUrl)
             amountView.requestFocus()
         }
 
@@ -66,6 +82,15 @@ class AddDebtLayout @JvmOverloads constructor(
                     contact = null
                     avatarView.setImageResource(R.drawable.ic_launcher)
                 }
+
+        if (name.isNotBlank()) {
+            nameView.setText(name)
+            nameView.isEnabled = false
+            amountView.requestFocus()
+        }
+        if (avatarUrl.isNotBlank()) {
+            showAvatar(avatarUrl)
+        }
     }
 
     override fun onDetachedFromWindow() {
@@ -73,24 +98,14 @@ class AddDebtLayout @JvmOverloads constructor(
         super.onDetachedFromWindow()
     }
 
-    val data: Data
-        get() {
-            val inverseAmount = radioAdd.checkedRadioButtonId == R.id.home_debtors_add_debt_radio_subtract
-            val amount = try {
-                amountView.text.toString().toDouble() * if (inverseAmount) -1 else 1
-            } catch (ex: Throwable) {
-                0.0
-            }
-            return Data(
-                contact?.id,
-                nameView.text.trim().toString(),
-                amount,
-                // TODO: return proper value
-                "$",
-                commentView.text.trim().toString()
-
-            )
-        }
+    private fun showAvatar(url: String?) {
+        Glide.with(avatarView)
+            .load(url)
+            .placeholder(R.drawable.ic_launcher)
+            .error(R.drawable.ic_launcher)
+            .fallback(R.drawable.ic_launcher)
+            .into(avatarView)
+    }
 
     data class Data(
         val contactId: Long?,

@@ -35,4 +35,5 @@ fun ContactsItemModel.toContactsItemViewModel() =
     ContactsItemViewModel(
         id, name, avatarUrl
     )
+
 // endregion

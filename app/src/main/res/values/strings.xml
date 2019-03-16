@@ -4,6 +4,9 @@
     <string name="home_debtors_item_amount" translatable="false">%1$s %2$s</string>
     <string name="home_debtors_item_date" translatable="false">- %1$s</string>
 
+    <string name="default_positive_button">Ok</string>
+    <string name="default_negative_button">Cancel</string>
+
     <string name="home_debtors_empty_debt_fields">Empty debtor or debt amount</string>
 
     <string name="home_debtors_dialog_cancel">Cancel</string>
@@ -15,6 +18,19 @@
     <string name="home_debtors_dialog_subtract">Subtract</string>
     <string name="home_debtors_dialog_amount">Amount</string>
     <string name="home_debtors_dialog_comment">Comment</string>
+
+    <string name="home_details_debt_title">Debt</string>
+    <string name="home_details_debt_total">Total</string>
+    <string name="home_details_debt_amount">%1$s%2$s</string>
+    <string name="home_details_debt_change">Change</string>
+    <string name="home_details_debt_clear">Clear</string>
+
+    <string name="home_debtors_item_amount_borrowed">Borrowed</string>
+    <string name="home_details_debts_item_sign_lent">Lent</string>
+
+    <string name="home_details_clear_all_dialog_confirmation_title">Are you sure?</string>
+    <string name="home_details_clear_all_dialog_confirmation_message">Clear debts history?</string>
+    <string name="home_details_empty_debt_fields">Empty debt amount</string>
 
     <!-- Legacy -->
 

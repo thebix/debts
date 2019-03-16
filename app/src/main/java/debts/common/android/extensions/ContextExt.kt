@@ -8,11 +8,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import androidx.annotation.*
-import androidx.core.content.ContextCompat
-import androidx.appcompat.content.res.AppCompatResources
 import android.view.View
+import androidx.annotation.*
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import timber.log.Timber
+import net.thebix.debts.R
 
 // region Resources
 ///////////////////////////////////////////////////////////////////////////
@@ -88,19 +89,20 @@ fun Context.checkPermissionIsGranted(permission: String): Boolean {
 // region AlertDialog
 ///////////////////////////////////////////////////////////////////////////
 
-fun <T : View> Context.showAlert(
-    customView: T,
+fun Context.showAlert(
+    customView: View? = null,
     isCancelable: Boolean = true,
     @StringRes titleResId: Int = 0,
     @StringRes messageId: Int = 0,
-    @StringRes positiveButtonResId: Int = 0,
-    @StringRes negativeButtonResId: Int = 0,
+    @StringRes positiveButtonResId: Int = R.string.default_positive_button,
+    @StringRes negativeButtonResId: Int = R.string.default_negative_button,
     actionPositive: (() -> Unit)? = null,
     actionNegative: (() -> Unit)? = null
 ): AlertDialog {
     val builder = AlertDialog
         .Builder(this)
-        .setView(customView)
+    if (customView != null)
+        builder.setView(customView)
     if (titleResId != 0) {
         builder.setTitle(titleResId)
     }

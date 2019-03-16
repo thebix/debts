@@ -45,14 +45,20 @@ abstract class DebtsDao {
     abstract fun deleteDebtor(debtEntity: DebtEntity): Completable
 
     @Query("DELETE FROM ${DebtorEntity.TABLE_NAME} WHERE ${DebtorEntity.ID} = :id")
-    abstract fun deleteDebtor(id: Long)
+    abstract fun deleteDebtor(id: Long): Completable
 
     @Query("DELETE FROM ${DebtEntity.TABLE_NAME} WHERE ${DebtEntity.DEBTOR_ID} = :debtorId")
-    abstract fun clearAllDebts(debtorId: Long)
+    abstract fun clearAllDebts(debtorId: Long): Completable
+
+    @Query("SELECT * FROM ${DebtorEntity.TABLE_NAME} WHERE ${DebtorEntity.ID} = :id")
+    abstract fun observeDebtor(id: Long): Observable<DebtorEntity>
 
     @Query("SELECT * FROM ${DebtorEntity.TABLE_NAME}")
     abstract fun observeDebtors(): Observable<List<DebtorEntity>>
 
     @Query("SELECT * FROM ${DebtEntity.TABLE_NAME}")
     abstract fun observeDebts(): Observable<List<DebtEntity>>
+
+    @Query("SELECT * FROM ${DebtEntity.TABLE_NAME} WHERE ${DebtEntity.DEBTOR_ID} = :debtorId")
+    abstract fun observeDebts(debtorId: Long): Observable<List<DebtEntity>>
 }

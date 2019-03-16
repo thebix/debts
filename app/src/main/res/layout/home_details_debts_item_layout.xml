@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="debts.home.HomeActivity"
+    tools:parentTag="android.support.constraint.ConstraintLayout">
+
+    <TextView
+        android:id="@+id/home_details_debts_item_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/Debts.Text.Body.Header"
+        app:layout_constraintEnd_toStartOf="@id/home_details_debts_item_amount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Borrowed" />
+
+    <TextView
+        android:id="@+id/home_details_debts_item_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/Debts.Text.Body.Short"
+        app:layout_constraintBaseline_toBaselineOf="@id/home_details_debts_item_sign"
+        app:layout_constraintStart_toEndOf="@id/home_details_debts_item_sign"
+        tools:text="132.23$" />
+
+
+    <TextView
+        android:id="@+id/home_details_debts_item_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/Debts.Text.Body.Short.Alt"
+        app:layout_constraintStart_toStartOf="@id/home_details_debts_item_sign"
+        app:layout_constraintTop_toBottomOf="@id/home_details_debts_item_sign"
+        tools:text="14 November 2014 14 November 201414 November 201414 November 2014" />
+
+    <TextView
+        android:id="@+id/home_details_debts_item_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/Debts.Text.Body.Long"
+        app:layout_constraintStart_toStartOf="@id/home_details_debts_item_sign"
+        app:layout_constraintTop_toBottomOf="@id/home_details_debts_item_date"
+        tools:text="Foo bar comment long long text foo bar comment long long text foo bar comment long long text foo bar comment long long text " />
+
+</merge>

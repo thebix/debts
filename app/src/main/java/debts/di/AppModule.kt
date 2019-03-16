@@ -2,11 +2,16 @@ package debts.di
 
 import androidx.room.Room
 import debts.db.DebtsDatabase
+import debts.home.details.mvi.DetailsInteractor
 import debts.home.list.mvi.DebtorsInteractor
 import debts.home.list.mvi.DebtorsViewModel
+import debts.home.details.mvi.DetailsViewModel
 import debts.home.repository.DebtsRepository
 import debts.home.usecase.AddDebtUseCase
 import debts.home.usecase.CreateDebtorUseCase
+import debts.home.usecase.ClearHistoryUseCase
+import debts.home.usecase.ObserveDebtorUseCase
+import debts.home.usecase.ObserveDebtsUseCase
 import debts.home.usecase.GetContactsUseCase
 import debts.home.usecase.ObserveDebtorsListItemsUseCase
 import org.koin.android.ext.koin.androidApplication
@@ -49,6 +54,9 @@ val useCasesModule = module {
         )
     }
     single { CreateDebtorUseCase(repository = get()) }
+    single { ClearHistoryUseCase(repository = get()) }
+    single { ObserveDebtorUseCase(repository = get()) }
+    single { ObserveDebtsUseCase(repository = get()) }
 }
 
 val interactorModule = module {
@@ -59,8 +67,17 @@ val interactorModule = module {
             addDebtUseCase = get()
         )
     }
+    factory {
+        DetailsInteractor(
+            clearHistoryUseCase = get(),
+            addDebtUseCase = get(),
+            observeDebtorUseCase = get(),
+            observeDebtsUseCase = get()
+        )
+    }
 }
 
 val viewModelModule = module {
     viewModel { DebtorsViewModel(interactor = get()) }
+    viewModel { DetailsViewModel(interactor = get()) }
 }

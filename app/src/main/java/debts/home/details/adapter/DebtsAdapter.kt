@@ -1,4 +1,4 @@
-package debts.home.list.adapter
+package debts.home.details.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import debts.common.android.adapters.CommonDiffUtilCallback
@@ -10,28 +10,26 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class DebtorsAdapter(
-    private val itemClickCallback: ItemClickCallback
-) : DelegatedAdapter() {
+class DebtsAdapter : DelegatedAdapter() {
 
     companion object {
-        const val TYPE_DEBTOR = 1
+        const val TYPE_DEBT = 1
     }
 
-    override var items: List<DebtorsItemViewModel> = emptyList()
+    override var items: List<DebtsItemViewModel> = emptyList()
 
     init {
-        addDelegate(TYPE_DEBTOR, TypedAdapterDelegate { parent ->
-            val layout = DebtorItemLayout(parent.context, itemClickCallback = itemClickCallback)
+        addDelegate(TYPE_DEBT, TypedAdapterDelegate { parent ->
+            val layout = DebtItemLayout(parent.context)
             ViewHolderRenderer(layout)
         })
     }
 
     override fun getItemViewType(position: Int) = when (items[0]) {
-        is DebtorsItemViewModel.DebtorItemViewModel -> TYPE_DEBTOR
+        is DebtsItemViewModel.DebtItemViewModel -> TYPE_DEBT
     }
 
-    fun setItems(newItems: List<DebtorsItemViewModel>): Completable =
+    fun setItems(newItems: List<DebtsItemViewModel>): Completable =
         Single.fromCallable<DiffUtil.DiffResult> { DiffUtil.calculateDiff(CommonDiffUtilCallback(items, newItems)) }
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
@@ -41,13 +39,8 @@ class DebtorsAdapter(
             }
             .ignoreElement()
 
-    fun replaceAllItems(newItems: List<DebtorsItemViewModel>) {
+    fun replaceAllItems(newItems: List<DebtsItemViewModel>) {
         this.items = newItems
         notifyDataSetChanged()
-    }
-
-    interface ItemClickCallback {
-
-        fun onItemClick(debtorId: Long)
     }
 }
