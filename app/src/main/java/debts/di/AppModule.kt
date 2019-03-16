@@ -1,5 +1,7 @@
 package debts.di
 
+import androidx.room.Room
+import debts.db.DebtsDatabase
 import debts.home.list.mvi.DebtorsInteractor
 import debts.home.list.mvi.DebtorsViewModel
 import debts.home.repository.DebtsRepository
@@ -12,6 +14,14 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
+    single {
+        Room
+            .databaseBuilder(
+                androidApplication(),
+                DebtsDatabase::class.java,
+                DebtsDatabase.DB_NAME
+            ).build()
+    }
 
 }
 
@@ -20,7 +30,13 @@ val networkModule = module {
 }
 
 val repositoriesModule = module {
-    single { DebtsRepository(contentResolver = androidApplication().contentResolver) }
+    single {
+        val debtsDatabase: DebtsDatabase = get()
+        DebtsRepository(
+            contentResolver = androidApplication().contentResolver,
+            dao = debtsDatabase.debtsDao()
+        )
+    }
 }
 
 val useCasesModule = module {

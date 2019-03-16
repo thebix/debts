@@ -2,47 +2,40 @@ package debts.home.repository
 
 import android.content.ContentResolver
 import android.provider.ContactsContract
+import debts.db.DebtEntity
+import debts.db.DebtorEntity
+import debts.db.DebtsDao
 import debts.home.usecase.ContactsItemModel
 import debts.home.usecase.DebtModel
 import debts.home.usecase.DebtorModel
-import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.subjects.ReplaySubject
 import java.util.*
 
 class DebtsRepository(
-    private val contentResolver: ContentResolver
+    private val contentResolver: ContentResolver,
+    private val dao: DebtsDao
 ) {
 
-    // region temporary storage
-
-    private val debtors = ReplaySubject.create<List<DebtorModel>>(1)
-    private val debts = ReplaySubject.create<List<DebtModel>>(1)
-
-    private var debtorsList = emptyList<DebtorModel>()
-    private var debtsList = emptyList<DebtModel>()
-
-    init {
-        debtors.onNext(
-            debtorsList
-        )
-        debts.onNext(
-            debtsList
-        )
+    private companion object {
+        const val INSERT_ID = 0L
     }
 
-    // endregion
+    fun observeDebtors(): Observable<List<DebtorModel>> = dao.observeDebtors()
+        .map { items -> items.map { it.toDebtorModel() } }
 
-    fun observeDebtors(): Observable<List<DebtorModel>> = debtors
 
     fun getDebtors(): Single<List<DebtorModel>> =
-        Single.fromCallable { debtorsList }
+        observeDebtors()
+            .take(1)
+            .single(emptyList())
 
-    fun observeDebts(): Observable<List<DebtModel>> = debts
+    fun observeDebts(): Observable<List<DebtModel>> = dao.observeDebts()
+        .map { items -> items.map { it.toDebtModel() } }
 
     fun getDebts(): Single<List<DebtModel>> =
-        Single.fromCallable { debtsList }
+        observeDebts()
+            .single(emptyList())
 
     @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     fun getContacts(): Single<List<ContactsItemModel>> =
@@ -79,52 +72,35 @@ class DebtsRepository(
     fun createDebtor(
         name: String,
         contactId: Long?,
-        avatarUrl: String
-    ): Single<Long> = getDebtors()
-        .map { items ->
-            val list: MutableList<DebtorModel> = mutableListOf()
-            list.addAll(items)
-            list.add(
-                DebtorModel(
-                    items.size.toLong(),
-                    name,
-                    contactId,
-                    avatarUrl
-                )
+        avatarUrl: String,
+        email: String = "",
+        phone: String = ""
+    ): Single<Long> =
+        dao.insertDebtor(
+            DebtorEntity(
+                INSERT_ID,
+                contactId,
+                name,
+                avatarUrl,
+                email,
+                phone
             )
-            list.toList()
-        }
-        .doOnSuccess {
-            debtorsList = it
-            debtors.onNext(it)
-        }
-        .map { it.size.toLong() - 1 }
-
+        )
 
     fun saveDebt(
         debtorId: Long,
         amount: Double,
         currency: String,
         comment: String
-    ): Completable = getDebts()
-        .map { items ->
-            val list: MutableList<DebtModel> = mutableListOf()
-            list.addAll(items)
-            list.add(
-                DebtModel(
-                    items.size.toLong(),
-                    debtorId,
-                    amount,
-                    currency,
-                    Date().time,
-                    comment
-                )
+    ): Single<Long> =
+        dao.insertDebt(
+            DebtEntity(
+                INSERT_ID,
+                debtorId,
+                amount,
+                currency,
+                Date().time,
+                comment
             )
-            list.toList()
-        }
-        .doOnSuccess {
-            debtsList = it
-            debts.onNext(it)
-        }
-        .ignoreElement()
+        )
 }
