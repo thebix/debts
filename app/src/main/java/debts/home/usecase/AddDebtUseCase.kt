@@ -41,7 +41,7 @@ class AddDebtUseCase(
                     amount,
                     currency,
                     comment
-                )
+                ).ignoreElement()
             }
     }
 }
