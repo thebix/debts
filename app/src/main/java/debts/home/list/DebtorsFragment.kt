@@ -1,11 +1,11 @@
 package debts.home.list
 
 import android.os.Bundle
-import android.support.annotation.UiThread
-import android.support.design.widget.Snackbar
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.UiThread
+import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +28,7 @@ import net.thebix.debts.R
 
 class DebtorsFragment : BaseFragment() {
 
-    private val recyclerView by bindView<RecyclerView>(R.id.home_debtors_recycler)
+    private val recyclerView by bindView<androidx.recyclerview.widget.RecyclerView>(R.id.home_debtors_recycler)
     private val fabView by bindView<View>(R.id.home_debtors_fab)
 
     private val viewModel: DebtorsViewModel by viewModel()
@@ -53,10 +53,13 @@ class DebtorsFragment : BaseFragment() {
 
         recyclerView.apply {
             adapter = this@DebtorsFragment.adapter
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
 
             addItemDecoration(
-                DividerItemDecoration(context.applicationContext, DividerItemDecoration.VERTICAL).apply {
+                androidx.recyclerview.widget.DividerItemDecoration(
+                    context.applicationContext,
+                    androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
+                ).apply {
                     setDrawable(context.applicationContext.getDrawableCompat(R.drawable.list_divider))
                 }
             )

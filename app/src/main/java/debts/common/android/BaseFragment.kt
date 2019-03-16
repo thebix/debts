@@ -1,13 +1,13 @@
 package debts.common.android
 
 import android.app.Activity
-import android.support.annotation.CallSuper
-import android.support.annotation.IdRes
-import android.support.v4.app.Fragment
+import androidx.annotation.CallSuper
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : androidx.fragment.app.Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
@@ -55,13 +55,13 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    fun replaceFragment(fragment: Fragment, @IdRes rootId: Int, addToBackStack: Boolean = true) {
+    fun replaceFragment(fragment: androidx.fragment.app.Fragment, @IdRes rootId: Int, addToBackStack: Boolean = true) {
         if (activity != null) {
             (activity as BaseActivity).replaceFragment(fragment, rootId, addToBackStack)
         }
     }
 
-    fun addFragment(fragment: Fragment, @IdRes rootId: Int, addToBackStack: Boolean = true) {
+    fun addFragment(fragment: androidx.fragment.app.Fragment, @IdRes rootId: Int, addToBackStack: Boolean = true) {
         if (activity != null) {
             (activity as BaseActivity).addFragment(fragment, rootId, addToBackStack)
         }

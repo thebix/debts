@@ -1,6 +1,6 @@
 package debts.common.android.adapters
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 import debts.home.list.adapter.DebtorsItemViewModel
 
 class CommonDiffUtilCallback(

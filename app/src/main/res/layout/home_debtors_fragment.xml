@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     android:background="@color/debts_white">
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_debtors_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingStart="@dimen/padding_16dp"
         tools:ignore="RtlSymmetry" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/home_debtors_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

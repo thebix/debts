@@ -2,10 +2,10 @@ package okb.common.android.extension
 
 import android.app.Activity
 import android.content.Context
-import android.support.annotation.DimenRes
-import android.support.annotation.IdRes
-import android.support.v4.view.MarginLayoutParamsCompat
-import android.support.v4.view.ViewCompat
+import androidx.annotation.DimenRes
+import androidx.annotation.IdRes
+import androidx.core.view.MarginLayoutParamsCompat
+import androidx.core.view.ViewCompat
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
