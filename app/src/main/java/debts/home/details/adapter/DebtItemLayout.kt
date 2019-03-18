@@ -46,6 +46,7 @@ class DebtItemLayout @JvmOverloads constructor(
                     currency
                 )
                 dateView.text = Date(date).toSimpleDateString()
+                commentView.visible = comment.isNotBlank()
                 commentView.text = comment
             }
         }

@@ -24,6 +24,7 @@
     <string name="home_details_debt_amount">%1$s%2$s</string>
     <string name="home_details_debt_change">Change</string>
     <string name="home_details_debt_clear">Clear</string>
+    <string name="home_details_history_title">History</string>
 
     <string name="home_debtors_item_amount_borrowed">Borrowed</string>
     <string name="home_details_debts_item_sign_lent">Lent</string>

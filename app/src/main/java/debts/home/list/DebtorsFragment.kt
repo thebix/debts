@@ -67,7 +67,7 @@ class DebtorsFragment : BaseFragment() {
                     context.applicationContext,
                     androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
                 ).apply {
-                    setDrawable(context.applicationContext.getDrawableCompat(R.drawable.list_divider))
+                    setDrawable(context.applicationContext.getDrawableCompat(R.drawable.list_divider_start_66dp))
                 }
             )
         }
