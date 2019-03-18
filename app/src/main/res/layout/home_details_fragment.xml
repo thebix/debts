@@ -1,75 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/debts_white"
-    android:orientation="vertical">
+    android:paddingStart="@dimen/padding_16dp"
+    tools:ignore="RtlSymmetry">
 
     <TextView
         android:id="@+id/home_details_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_65dp"
+        android:layout_marginStart="@dimen/margin_48dp"
+        android:layout_marginTop="@dimen/margin_28dp"
+        android:layout_marginBottom="@dimen/margin_20dp"
         android:textAppearance="@style/Debts.Text.Large.Headline"
-        tools:text="John Zorn" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="John Zorn John Zorn John Zorn John Zorn John Zorn John Zorn" />
+
+    <View
+        android:id="@+id/home_details_name_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_1dp"
+        android:layout_marginTop="@dimen/margin_20dp"
+        android:background="@color/debts_grey_light"
+        app:layout_constraintTop_toBottomOf="@id/home_details_name" />
 
     <View
         android:id="@+id/home_details_wallet"
         android:layout_width="@dimen/width_20dp"
         android:layout_height="@dimen/height_20dp"
-        android:background="@drawable/ic_wallet" />
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:background="@drawable/ic_wallet"
+        app:layout_constraintTop_toBottomOf="@id/home_details_name_divider" />
 
     <TextView
         android:id="@+id/home_details_debt_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_65dp"
+        android:layout_marginStart="@dimen/margin_48dp"
+
         android:text="@string/home_details_debt_title"
-        android:textAppearance="@style/Debts.Text.Large.Title.Alt" />
+        android:textAppearance="@style/Debts.Text.Large.Title.Alt"
+        app:layout_constraintBottom_toBottomOf="@id/home_details_wallet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/home_details_wallet" />
 
     <TextView
         android:id="@+id/home_details_debt_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_65dp"
+        android:layout_marginTop="@dimen/margin_16dp"
         android:text="@string/home_details_debt_total"
-        android:textAppearance="@style/Debts.Text.Large.Title" />
+        android:textAppearance="@style/Debts.Text.Large.Title"
+        app:layout_constraintStart_toStartOf="@id/home_details_debt_title"
+        app:layout_constraintTop_toBottomOf="@id/home_details_debt_title" />
 
     <TextView
         android:id="@+id/home_details_debt_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_65dp"
+        android:layout_marginStart="@dimen/margin_2dp"
         android:textAppearance="@style/Debts.Text.Large.Extra"
+        app:layout_constraintStart_toStartOf="@id/home_details_debt_total"
+        app:layout_constraintTop_toBottomOf="@id/home_details_debt_total"
         tools:text="150$" />
 
     <TextView
         android:id="@+id/home_details_debt_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_65dp"
+        android:layout_marginTop="@dimen/margin_20dp"
         android:padding="10dp"
-        android:text="@string/home_details_debt_change" />
+        android:text="@string/home_details_debt_change"
+        app:layout_constraintStart_toStartOf="@id/home_details_debt_amount"
+        app:layout_constraintTop_toBottomOf="@id/home_details_debt_amount" />
 
     <TextView
         android:id="@+id/home_details_debt_clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_65dp"
+        android:layout_marginStart="@dimen/margin_16dp"
         android:padding="10dp"
-        android:text="@string/home_details_debt_clear" />
+        android:text="@string/home_details_debt_clear"
+        app:layout_constraintStart_toEndOf="@id/home_details_debt_change"
+        app:layout_constraintTop_toTopOf="@id/home_details_debt_change" />
+
+    <View
+        android:id="@+id/home_details_debt_divider"
+        android:layout_width="match_parent"
+
+        android:layout_height="@dimen/height_1dp"
+        android:layout_marginTop="@dimen/margin_20dp"
+        android:background="@color/debts_grey_light"
+        app:layout_constraintTop_toBottomOf="@id/home_details_debt_change" />
 
     <View
         android:id="@+id/home_details_clock"
         android:layout_width="@dimen/width_20dp"
         android:layout_height="@dimen/height_20dp"
-        android:background="@drawable/ic_clock" />
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:background="@drawable/ic_clock"
+        app:layout_constraintTop_toBottomOf="@id/home_details_debt_divider" />
+
+    <TextView
+        android:id="@+id/home_details_history_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_48dp"
+        android:text="@string/home_details_history_title"
+        android:textAppearance="@style/Debts.Text.Large.Title.Alt"
+        app:layout_constraintBottom_toBottomOf="@id/home_details_clock"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/home_details_clock" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_details_history"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_65dp" />
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_48dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/home_details_history_title"
+        app:layout_constraintTop_toBottomOf="@id/home_details_history_title" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
