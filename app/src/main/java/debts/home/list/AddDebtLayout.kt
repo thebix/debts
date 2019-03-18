@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.RadioGroup
 import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding3.widget.textChanges
-import debts.common.android.bindView
 import debts.home.list.adapter.ContactsAdapter
 import debts.home.list.adapter.ContactsItemViewModel
 import io.reactivex.disposables.Disposable
@@ -44,11 +43,11 @@ class AddDebtLayout @JvmOverloads constructor(
             )
         }
 
-    private val avatarView by bindView<ImageView>(R.id.home_debtors_add_debt_avatar)
-    private val nameView by bindView<AppCompatAutoCompleteTextView>(R.id.home_debtors_add_debt_name)
-    private val amountView by bindView<EditText>(R.id.home_debtors_add_debt_amount)
-    private val radioAdd by bindView<RadioGroup>(R.id.home_debtors_add_debt_radio)
-    private val commentView by bindView<EditText>(R.id.home_debtors_add_debt_comment)
+    private val avatarView: ImageView
+    private val nameView: AppCompatAutoCompleteTextView
+    private val amountView: EditText
+    private val radioAdd: RadioGroup
+    private val commentView: EditText
     private var contact: ContactsItemViewModel? = null
     private lateinit var disposable: Disposable
 
@@ -61,6 +60,11 @@ class AddDebtLayout @JvmOverloads constructor(
             setPaddingStartResCompat(R.dimen.padding_20dp)
             setPaddingEndResCompat(R.dimen.padding_20dp)
         }
+        avatarView = findViewById(R.id.home_debtors_add_debt_avatar)
+        nameView = findViewById(R.id.home_debtors_add_debt_name)
+        amountView = findViewById(R.id.home_debtors_add_debt_amount)
+        radioAdd = findViewById(R.id.home_debtors_add_debt_radio)
+        commentView = findViewById(R.id.home_debtors_add_debt_comment)
     }
 
     override fun onAttachedToWindow() {
@@ -87,6 +91,7 @@ class AddDebtLayout @JvmOverloads constructor(
             nameView.setText(name)
             nameView.isEnabled = false
             amountView.requestFocus()
+            amountView.showKeyboard()
         }
         if (avatarUrl.isNotBlank()) {
             showAvatar(avatarUrl)

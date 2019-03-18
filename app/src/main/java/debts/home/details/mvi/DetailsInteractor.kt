@@ -38,7 +38,6 @@ class DetailsInteractor(
 
     private val clearHistoryProcessor = ObservableTransformer<DetailsAction.ClearHistory, DetailsResult> { actions ->
         actions.switchMap { action ->
-            Observable.fromCallable { DetailsResult.Error }
             clearHistoryUseCase
                 .execute(action.id)
                 .subscribeOn(Schedulers.io())
@@ -51,7 +50,6 @@ class DetailsInteractor(
 
     private val addDebtProcessor = ObservableTransformer<DetailsAction.AddDebt, DetailsResult> { actions ->
         actions.switchMap {
-            Observable.fromCallable { DetailsResult.Error }
             addDebtUseCase
                 .execute(
                     it.debtorId,

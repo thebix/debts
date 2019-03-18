@@ -9,4 +9,7 @@
     <color name="debts_grey">#ababab</color>
     <color name="debts_grey_light">#dbe2e8</color>
 
+    <color name="debts_white_pressed">#fafafa</color>
+    <color name="debts_accent_pressed">#f5437e</color>
+
 </resources>

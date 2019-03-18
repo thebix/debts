@@ -4,16 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.UiThread
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
 import debts.common.android.BaseFragment
 import debts.common.android.FragmentArgumentDelegate
-import debts.common.android.bindView
+import debts.common.android.extensions.findViewById
 import debts.home.details.adapter.DebtsAdapter
 import debts.home.details.mvi.DetailsIntention
 import debts.home.details.mvi.DetailsState
@@ -40,11 +43,12 @@ class DetailsFragment : BaseFragment() {
             }
     }
 
-    private val nameView by bindView<TextView>(R.id.home_details_name)
-    private val amountView by bindView<TextView>(R.id.home_details_debt_amount)
-    private val changeView by bindView<View>(R.id.home_details_debt_change)
-    private val clearView by bindView<View>(R.id.home_details_debt_clear)
-    private val recyclerView by bindView<RecyclerView>(R.id.home_details_history)
+    private var avatarView: ImageView? = null
+    private var nameView: TextView? = null
+    private var amountView: TextView? = null
+    private var changeView: View? = null
+    private var clearView: View? = null
+    private var recyclerView: RecyclerView? = null
 
     private val viewModel: DetailsViewModel by viewModel()
     private val adapter = DebtsAdapter()
@@ -54,20 +58,21 @@ class DetailsFragment : BaseFragment() {
     private var debtorId: Long  by FragmentArgumentDelegate()
     private lateinit var disposables: CompositeDisposable
     private var adapterDisposable: Disposable? = null
-    private var isConfigurationChange: Boolean = false
     private var avatarUrl: String = ""
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        isConfigurationChange = savedInstanceState != null
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
         inflater.inflate(R.layout.home_details_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView.apply {
+        avatarView = findViewById(R.id.home_details_avatar)
+        nameView = findViewById(R.id.home_details_name)
+        amountView = findViewById(R.id.home_details_debt_amount)
+        changeView = findViewById(R.id.home_details_debt_change)
+        clearView = findViewById(R.id.home_details_debt_clear)
+        recyclerView = findViewById(R.id.home_details_history)
+
+        recyclerView?.apply {
             adapter = this@DetailsFragment.adapter
             layoutManager = LinearLayoutManager(context)
 
@@ -86,11 +91,11 @@ class DetailsFragment : BaseFragment() {
             viewModel.states()
                 .subscribe(::render),
             viewModel.processIntentions(intentions()),
-            changeView.clicks()
+            changeView!!.clicks()
                 .subscribe {
                     addDebtLayout = AddDebtLayout(
                         context!!,
-                        name = nameView.text.toString(),
+                        name = nameView?.text.toString(),
                         avatarUrl = avatarUrl
 
                     )
@@ -113,7 +118,7 @@ class DetailsFragment : BaseFragment() {
                                 } else {
                                     Snackbar
                                         .make(
-                                            changeView,
+                                            changeView!!,
                                             R.string.home_details_empty_debt_fields,
                                             Snackbar.LENGTH_SHORT
                                         )
@@ -124,7 +129,7 @@ class DetailsFragment : BaseFragment() {
                         }
                     )
                 },
-            clearView.clicks()
+            clearView!!.clicks()
                 .subscribe {
                     context?.showAlert(
                         titleResId = R.string.home_details_clear_all_dialog_confirmation_title,
@@ -142,21 +147,35 @@ class DetailsFragment : BaseFragment() {
         super.onStop()
     }
 
+    override fun onDestroyView() {
+        avatarView = null
+        nameView = null
+        amountView = null
+        changeView = null
+        clearView = null
+        recyclerView = null
+        super.onDestroyView()
+    }
+
     @UiThread
     private fun render(state: DetailsState) {
         Timber.d("State is: $state")
+        // TODO: make loader on add debt / load screen
         with(state) {
-            adapterDisposable?.dispose()
-            if (isConfigurationChange) {
-                adapter.replaceAllItems(items)
-                isConfigurationChange = false
-            } else {
-                adapterDisposable = adapter.setItems(items)
-                    .subscribe()
-            }
-            nameView.text = name
-            amountView.text = context?.getString(R.string.home_details_debt_amount, amount, currency)
+            adapter.replaceAllItems(items)
+            nameView?.text = name
+            amountView?.text = context?.getString(R.string.home_details_debt_amount, amount, currency)
             this@DetailsFragment.avatarUrl = avatarUrl
+            if (avatarUrl.isNotBlank() && avatarView != null) {
+                Glide.with(avatarView!!)
+                    .load(avatarUrl)
+                    .placeholder(R.drawable.ic_launcher)
+                    .error(R.drawable.ic_launcher)
+                    .fallback(R.drawable.ic_launcher)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(avatarView!!)
+            }
+            clearView?.isEnabled = items.isNotEmpty()
 
             // TODO: isError
         }

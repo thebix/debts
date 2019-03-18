@@ -9,7 +9,6 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import debts.common.android.adapters.ItemRenderer
-import debts.common.android.bindView
 import debts.common.android.extensions.toDecimal
 import debts.common.android.extensions.toSimpleDateString
 import okb.common.android.extension.*
@@ -25,10 +24,10 @@ class DebtorItemLayout @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr),
     ItemRenderer<DebtorsItemViewModel> {
 
-    private val avatarView by bindView<ImageView>(R.id.home_debtors_item_avatar)
-    private val nameView by bindView<TextView>(R.id.home_debtors_item_name)
-    private val amountView by bindView<TextView>(R.id.home_debtors_item_amount)
-    private val dateView by bindView<TextView>(R.id.home_debtors_item_date)
+    private val avatarView: ImageView
+    private val nameView: TextView
+    private val amountView: TextView
+    private val dateView: TextView
 
     private var debtorId: Long = 0
 
@@ -42,6 +41,10 @@ class DebtorItemLayout @JvmOverloads constructor(
         this.setOnClickListener {
             itemClickCallback.onItemClick(debtorId)
         }
+        avatarView = findViewById(R.id.home_debtors_item_avatar)
+        nameView = findViewById(R.id.home_debtors_item_name)
+        amountView = findViewById(R.id.home_debtors_item_amount)
+        dateView = findViewById(R.id.home_debtors_item_date)
     }
 
     override fun render(data: DebtorsItemViewModel) {

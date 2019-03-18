@@ -5,9 +5,8 @@ import android.util.AttributeSet
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import debts.common.android.adapters.ItemRenderer
-import debts.common.android.bindView
 import debts.common.android.extensions.toDecimal
-import debts.common.android.extensions.toSimpleDateString
+import debts.common.android.extensions.toSimpleDateTimeString
 import okb.common.android.extension.*
 import java.util.*
 import kotlin.math.absoluteValue
@@ -20,10 +19,10 @@ class DebtItemLayout @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr),
     ItemRenderer<DebtsItemViewModel> {
 
-    private val signView by bindView<TextView>(R.id.home_details_debts_item_sign)
-    private val amountView by bindView<TextView>(R.id.home_details_debts_item_amount)
-    private val dateView by bindView<TextView>(R.id.home_details_debts_item_date)
-    private val commentView by bindView<TextView>(R.id.home_details_debts_item_comment)
+    private val signView: TextView
+    private val amountView: TextView
+    private val dateView: TextView
+    private val commentView: TextView
 
     init {
         selfInflate(R.layout.home_details_debts_item_layout)
@@ -31,7 +30,12 @@ class DebtItemLayout @JvmOverloads constructor(
             applyLayoutParams()
             setPaddingTopResCompat(R.dimen.padding_16dp)
             setPaddingBottomResCompat(R.dimen.padding_16dp)
+
         }
+        signView = findViewById(R.id.home_details_debts_item_sign)
+        amountView = findViewById(R.id.home_details_debts_item_amount)
+        dateView = findViewById(R.id.home_details_debts_item_date)
+        commentView = findViewById(R.id.home_details_debts_item_comment)
     }
 
     override fun render(data: DebtsItemViewModel) {
@@ -45,7 +49,7 @@ class DebtItemLayout @JvmOverloads constructor(
                     amount.toDecimal().absoluteValue,
                     currency
                 )
-                dateView.text = Date(date).toSimpleDateString()
+                dateView.text = Date(date).toSimpleDateTimeString()
                 commentView.visible = comment.isNotBlank()
                 commentView.text = comment
             }
