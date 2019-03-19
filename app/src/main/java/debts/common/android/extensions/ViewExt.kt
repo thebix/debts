@@ -2,14 +2,17 @@ package okb.common.android.extension
 
 import android.app.Activity
 import android.content.Context
-import androidx.annotation.DimenRes
-import androidx.annotation.IdRes
-import androidx.core.view.MarginLayoutParamsCompat
-import androidx.core.view.ViewCompat
+import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.annotation.DimenRes
+import androidx.annotation.IdRes
+import androidx.annotation.MenuRes
+import androidx.appcompat.widget.PopupMenu
+import androidx.core.view.MarginLayoutParamsCompat
+import androidx.core.view.ViewCompat
 
 // region Helpers
 ///////////////////////////////////////////////////////////////////////////
@@ -168,6 +171,17 @@ fun View.setPaddingBottomCompat(padding: Int) {
 
 // endregion
 
+// region Background
+///////////////////////////////////////////////////////////////////////////
+
+fun View.setSelectableItemBackground() {
+    val outValue = TypedValue()
+    context.theme.resolveAttribute(android.R.attr.selectableItemBackground, outValue, true)
+    this.setBackgroundResource(outValue.resourceId)
+}
+
+// endregion
+
 // region Keyboard management
 ///////////////////////////////////////////////////////////////////////////
 
@@ -219,3 +233,11 @@ fun EditText.showKeyboard(delay: Long = 64L) {
 }
 
 // endregion
+
+fun View.showPopup(@MenuRes menuId: Int, menuItemClickListener: PopupMenu.OnMenuItemClickListener) {
+    PopupMenu(this.context, this).apply {
+        setOnMenuItemClickListener(menuItemClickListener)
+        inflate(menuId)
+        show()
+    }
+}

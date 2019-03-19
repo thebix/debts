@@ -23,6 +23,7 @@ class DetailsViewModel(
                 intent.currency,
                 intent.comment
             )
+            is DetailsIntention.RemoveDebt -> DetailsAction.RemoveDebt(intent.id)
         }
 
     override val reducer: BiFunction<DetailsState, DetailsResult, DetailsState>

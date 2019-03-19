@@ -4,7 +4,9 @@ import debts.common.android.adapters.DelegatedAdapter
 import debts.common.android.adapters.TypedAdapterDelegate
 import debts.common.android.adapters.ViewHolderRenderer
 
-class DebtsAdapter : DelegatedAdapter() {
+class DebtsAdapter(
+    historyItemCallback: DebtItemLayout.HistoryItemCallback
+) : DelegatedAdapter() {
 
     companion object {
         const val TYPE_DEBT = 1
@@ -14,7 +16,10 @@ class DebtsAdapter : DelegatedAdapter() {
 
     init {
         addDelegate(TYPE_DEBT, TypedAdapterDelegate { parent ->
-            val layout = DebtItemLayout(parent.context)
+            val layout = DebtItemLayout(
+                parent.context,
+                historyItemCallback = historyItemCallback
+            )
             ViewHolderRenderer(layout)
         })
     }

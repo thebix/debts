@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_height="match_parent"
-        android:paddingStart="@dimen/padding_16dp"
         tools:ignore="RtlSymmetry" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

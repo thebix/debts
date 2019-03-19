@@ -12,7 +12,7 @@ class HomeActivity : BaseActivity() {
         setContentView(R.layout.home_activity)
 
         if (savedInstanceState == null) {
-            addFragment(DebtorsFragment(), R.id.home_root)
+            replaceFragment(DebtorsFragment(), R.id.home_root)
         }
     }
 }
