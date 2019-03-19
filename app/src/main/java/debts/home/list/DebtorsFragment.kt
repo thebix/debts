@@ -1,17 +1,17 @@
 package debts.home.list
 
 import android.os.Bundle
-import androidx.annotation.UiThread
-import com.google.android.material.snackbar.Snackbar
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.UiThread
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
 import debts.common.android.BaseFragment
-import debts.common.android.bindView
+import debts.common.android.extensions.findViewById
 import debts.home.details.DetailsFragment
 import debts.home.list.adapter.DebtorsAdapter
 import debts.home.list.mvi.DebtorsIntention
@@ -29,11 +29,19 @@ import net.thebix.debts.R
 
 class DebtorsFragment : BaseFragment() {
 
-    private val recyclerView by bindView<androidx.recyclerview.widget.RecyclerView>(R.id.home_debtors_recycler)
-    private val fabView by bindView<View>(R.id.home_debtors_fab)
+    private companion object {
+
+        const val KEY_RECYCLER_STATE = "KEY_RECYCLER_STATE "
+    }
+
+    private var recyclerView: RecyclerView? = null
+    private var fabView: View? = null
 
     private val itemCallback = object : DebtorsAdapter.ItemClickCallback {
         override fun onItemClick(debtorId: Long) {
+            recyclerState =
+                recyclerView?.layoutManager?.onSaveInstanceState() as LinearLayoutManager.SavedState
+            recyclerView?.adapter = null
             replaceFragment(DetailsFragment.createInstance(debtorId), R.id.home_root)
         }
 
@@ -45,27 +53,34 @@ class DebtorsFragment : BaseFragment() {
     private lateinit var disposables: CompositeDisposable
     private var adapterDisposable: Disposable? = null
     private var isConfigurationChange: Boolean = false
-    private lateinit var addDebtLayout: AddDebtLayout
+    private var addDebtLayout: AddDebtLayout? = null
+    private var recyclerState: LinearLayoutManager.SavedState? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isConfigurationChange = savedInstanceState != null
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) =
         inflater.inflate(R.layout.home_debtors_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView.apply {
+        recyclerView = findViewById(R.id.home_debtors_recycler)
+        fabView = findViewById(R.id.home_debtors_fab)
+
+        recyclerView?.apply {
             adapter = this@DebtorsFragment.adapter
-            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
 
             addItemDecoration(
-                androidx.recyclerview.widget.DividerItemDecoration(
+                DividerItemDecoration(
                     context.applicationContext,
-                    androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
+                    DividerItemDecoration.VERTICAL
                 ).apply {
                     setDrawable(context.applicationContext.getDrawableCompat(R.drawable.list_divider_start_66dp))
                 }
@@ -80,16 +95,52 @@ class DebtorsFragment : BaseFragment() {
             viewModel.states()
                 .subscribe(::render),
             viewModel.processIntentions(intentions()),
-            fabView.clicks()
+            fabView!!.clicks()
                 .subscribe {
                     intentionSubject.onNext(DebtorsIntention.GetContacts)
                 }
         )
     }
 
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putParcelable(
+            KEY_RECYCLER_STATE,
+            recyclerView?.layoutManager?.onSaveInstanceState()
+        )
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.getParcelable<LinearLayoutManager.SavedState>(KEY_RECYCLER_STATE)
+            ?.let { state ->
+                recyclerState = state
+            }
+        recyclerState
+            ?.let { savedState ->
+                recyclerView?.layoutManager?.onRestoreInstanceState(savedState)
+            }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        recyclerState?.let {
+            recyclerView?.layoutManager?.onRestoreInstanceState(it)
+        }
+    }
+
+    override fun onDestroyView() {
+        recyclerView = null
+        fabView = null
+        super.onDestroyView()
+    }
+
     override fun onStop() {
         disposables.dispose()
         adapterDisposable?.dispose()
+        addDebtLayout = null
         super.onStop()
     }
 
@@ -117,20 +168,24 @@ class DebtorsFragment : BaseFragment() {
                     positiveButtonResId = R.string.home_debtors_dialog_confirm,
                     negativeButtonResId = R.string.home_debtors_dialog_cancel,
                     actionPositive = {
-                        with(addDebtLayout.data) {
-                            if (name.isNotBlank() && amount != 0.0) {
+                        addDebtLayout?.data?.let { data ->
+                            if (data.name.isNotBlank() && data.amount != 0.0) {
                                 intentionSubject.onNext(
                                     DebtorsIntention.AddDebt(
-                                        contactId,
-                                        name,
-                                        amount,
-                                        currency,
-                                        comment
+                                        data.contactId,
+                                        data.name,
+                                        data.amount,
+                                        data.currency,
+                                        data.comment
                                     )
                                 )
                             } else {
                                 Snackbar
-                                    .make(fabView, R.string.home_debtors_empty_debt_fields, Snackbar.LENGTH_SHORT)
+                                    .make(
+                                        fabView!!,
+                                        R.string.home_debtors_empty_debt_fields,
+                                        Snackbar.LENGTH_SHORT
+                                    )
                                     .show()
                             }
 

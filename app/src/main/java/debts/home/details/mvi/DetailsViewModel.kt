@@ -1,5 +1,6 @@
 package debts.home.details.mvi
 
+import debts.common.android.extensions.toDecimal
 import debts.common.android.mvi.MviViewModel
 import debts.common.android.mvi.OneShot
 import debts.home.details.adapter.toDebtsItemViewModel
@@ -28,13 +29,15 @@ class DetailsViewModel(
         get() = BiFunction { prevState, result ->
             when (result) {
                 is DetailsResult.History ->
-                    prevState.copy(items = result.items.map { it.toDebtsItemViewModel() })
+                    prevState.copy(items = result.items
+                        .sortedByDescending { it.date }
+                        .map { it.toDebtsItemViewModel() })
                 DetailsResult.Error ->
                     prevState.copy(isError = OneShot(true))
                 is DetailsResult.Debtor ->
                     prevState.copy(
                         name = result.name,
-                        amount = result.amount,
+                        amount = result.amount.toDecimal(),
                         currency = result.currency,
                         avatarUrl = result.avatarUrl
                     )

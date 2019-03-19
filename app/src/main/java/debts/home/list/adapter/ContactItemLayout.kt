@@ -7,7 +7,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import debts.common.android.adapters.ItemRenderer
-import debts.common.android.bindView
 import okb.common.android.extension.applyLayoutParams
 import okb.common.android.extension.doInRuntime
 import okb.common.android.extension.selfInflate
@@ -20,14 +19,16 @@ class AddDebtSuggestionItemLayout @JvmOverloads constructor(
 ) : LinearLayout(context, attrs, defStyleAttr),
     ItemRenderer<ContactsItemViewModel> {
 
-    private val nameView by bindView<TextView>(R.id.home_debtors_add_debt_contact_name)
-    private val avatarView by bindView<ImageView>(R.id.home_debtors_add_debt_contact_avatar)
+    private val nameView: TextView
+    private val avatarView: ImageView
 
     init {
         selfInflate(R.layout.home_debtors_add_debt_contact_item)
         doInRuntime {
             applyLayoutParams()
         }
+        nameView = findViewById(R.id.home_debtors_add_debt_contact_name)
+        avatarView = findViewById(R.id.home_debtors_add_debt_contact_avatar)
     }
 
     override fun render(data: ContactsItemViewModel) {
