@@ -15,6 +15,7 @@ sealed class DetailsIntention : MviIntention {
 
     ) : DetailsIntention()
 
+    data class RemoveDebt(val id: Long) : DetailsIntention()
     data class ClearHistory(val id: Long) : DetailsIntention()
 }
 
@@ -29,6 +30,7 @@ sealed class DetailsAction : MviAction {
 
     ) : DetailsAction()
 
+    data class RemoveDebt(val id: Long) : DetailsAction()
     data class ClearHistory(val id: Long) : DetailsAction()
 }
 

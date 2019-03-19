@@ -1,10 +1,7 @@
 package debts.home.details.mvi
 
 import debts.common.android.mvi.MviInteractor
-import debts.home.usecase.AddDebtUseCase
-import debts.home.usecase.ClearHistoryUseCase
-import debts.home.usecase.ObserveDebtorUseCase
-import debts.home.usecase.ObserveDebtsUseCase
+import debts.home.usecase.*
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.schedulers.Schedulers
@@ -14,7 +11,8 @@ class DetailsInteractor(
     private val clearHistoryUseCase: ClearHistoryUseCase,
     private val addDebtUseCase: AddDebtUseCase,
     private val observeDebtorUseCase: ObserveDebtorUseCase,
-    private val observeDebtsUseCase: ObserveDebtsUseCase
+    private val observeDebtsUseCase: ObserveDebtsUseCase,
+    private val removeDebtUseCase: RemoveDebtUseCase
 
 ) : MviInteractor<DetailsAction, DetailsResult> {
 
@@ -66,6 +64,17 @@ class DetailsInteractor(
         }
     }
 
+    private val removeDebtProcessor = ObservableTransformer<DetailsAction.RemoveDebt, DetailsResult> { actions ->
+        actions.switchMap {
+            removeDebtUseCase
+                .execute(it.id)
+                .subscribeOn(Schedulers.io())
+                .toObservable<DetailsResult>()
+                .doOnError { error -> Timber.e(error) }
+                .onErrorReturnItem(DetailsResult.Error)
+        }
+    }
+
     override fun actionProcessor(): ObservableTransformer<in DetailsAction, out DetailsResult> =
         ObservableTransformer { actions ->
             actions.publish { action ->
@@ -76,7 +85,9 @@ class DetailsInteractor(
                         action.ofType(DetailsAction.ClearHistory::class.java)
                             .compose(clearHistoryProcessor),
                         action.ofType(DetailsAction.AddDebt::class.java)
-                            .compose(addDebtProcessor)
+                            .compose(addDebtProcessor),
+                        action.ofType(DetailsAction.RemoveDebt::class.java)
+                            .compose(removeDebtProcessor)
                     )
                 )
             }

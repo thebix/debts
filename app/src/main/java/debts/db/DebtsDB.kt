@@ -36,13 +36,13 @@ abstract class DebtsDao {
     abstract fun updateDebtor(debtorEntity: DebtorEntity): Completable
 
     @Update
-    abstract fun updateDebtor(debtEntity: DebtEntity): Completable
+    abstract fun updateDebt(debtEntity: DebtEntity): Completable
 
     @Delete
     abstract fun deleteDebtor(debtorEntity: DebtorEntity): Completable
 
     @Delete
-    abstract fun deleteDebtor(debtEntity: DebtEntity): Completable
+    abstract fun deleteDebt(debtEntity: DebtEntity): Completable
 
     @Query("DELETE FROM ${DebtorEntity.TABLE_NAME} WHERE ${DebtorEntity.ID} = :id")
     abstract fun deleteDebtor(id: Long): Completable
@@ -61,4 +61,7 @@ abstract class DebtsDao {
 
     @Query("SELECT * FROM ${DebtEntity.TABLE_NAME} WHERE ${DebtEntity.DEBTOR_ID} = :debtorId")
     abstract fun observeDebts(debtorId: Long): Observable<List<DebtEntity>>
+
+    @Query("DELETE FROM ${DebtEntity.TABLE_NAME} WHERE ${DebtEntity.ID} = :id")
+    abstract fun deleteDebt(id: Long): Completable
 }

@@ -37,6 +37,8 @@ class DebtorItemLayout @JvmOverloads constructor(
             applyLayoutParams()
             setPaddingTopResCompat(R.dimen.padding_16dp)
             setPaddingBottomResCompat(R.dimen.padding_16dp)
+            setPaddingStartResCompat(R.dimen.padding_16dp)
+            setSelectableItemBackground()
         }
         this.setOnClickListener {
             itemClickCallback.onItemClick(debtorId)
@@ -54,8 +56,8 @@ class DebtorItemLayout @JvmOverloads constructor(
                 nameView.text = name
                 amountView.text = resources.getString(
                     R.string.home_debtors_item_amount,
-                    amount.toDecimal(),
-                    currency
+                    currency,
+                    amount.toDecimal()
                 )
                 dateView.visible = lastDate > 0
                 dateView.text = resources.getString(

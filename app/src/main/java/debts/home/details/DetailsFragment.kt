@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.UiThread
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ import com.jakewharton.rxbinding3.view.clicks
 import debts.common.android.BaseFragment
 import debts.common.android.FragmentArgumentDelegate
 import debts.common.android.extensions.findViewById
+import debts.home.details.adapter.DebtItemLayout
 import debts.home.details.adapter.DebtsAdapter
 import debts.home.details.mvi.DetailsIntention
 import debts.home.details.mvi.DetailsState
@@ -43,16 +45,22 @@ class DetailsFragment : BaseFragment() {
             }
     }
 
+    private val menuItemClickListener = object : DebtItemLayout.HistoryItemCallback {
+        override fun onDebtRemove(debtId: Long) {
+            intentionSubject.onNext(DetailsIntention.RemoveDebt(debtId))
+        }
+    }
+
+    private val viewModel: DetailsViewModel by viewModel()
+    private val adapter = DebtsAdapter(menuItemClickListener)
+    private val intentionSubject = PublishSubject.create<DetailsIntention>()
+
     private var avatarView: ImageView? = null
     private var nameView: TextView? = null
     private var amountView: TextView? = null
     private var changeView: View? = null
     private var clearView: View? = null
     private var recyclerView: RecyclerView? = null
-
-    private val viewModel: DetailsViewModel by viewModel()
-    private val adapter = DebtsAdapter()
-    private val intentionSubject = PublishSubject.create<DetailsIntention>()
 
     private lateinit var addDebtLayout: AddDebtLayout
     private var debtorId: Long  by FragmentArgumentDelegate()
@@ -97,7 +105,6 @@ class DetailsFragment : BaseFragment() {
                         context!!,
                         name = nameView?.text.toString(),
                         avatarUrl = avatarUrl
-
                     )
                     context?.showAlert(
                         addDebtLayout,
@@ -164,7 +171,7 @@ class DetailsFragment : BaseFragment() {
         with(state) {
             adapter.replaceAllItems(items)
             nameView?.text = name
-            amountView?.text = context?.getString(R.string.home_details_debt_amount, amount, currency)
+            amountView?.text = context?.getString(R.string.home_details_debt_amount, currency, amount)
             this@DetailsFragment.avatarUrl = avatarUrl
             if (avatarUrl.isNotBlank() && avatarView != null) {
                 Glide.with(avatarView!!)
