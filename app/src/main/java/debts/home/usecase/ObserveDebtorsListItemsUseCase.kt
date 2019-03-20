@@ -18,7 +18,7 @@ class ObserveDebtorsListItemsUseCase(
                         val debtorDebts = debts.filter { it.debtorId == debtor.id }
                         val amount = debtorDebts.sumByDouble { it.amount }
                         val lastDebt = debts.sortedByDescending { it.date }
-                            .lastOrNull { it.debtorId == debtor.id }
+                            .firstOrNull { it.debtorId == debtor.id }
                         DebtorsListItemModel(
                             debtor.id,
                             debtor.name,

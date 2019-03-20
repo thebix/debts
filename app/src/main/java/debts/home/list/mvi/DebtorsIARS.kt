@@ -20,6 +20,8 @@ sealed class DebtorsIntention : MviIntention {
     ) : DebtorsIntention()
 
     data class Filter(val name: String = "") : DebtorsIntention()
+    object ToggleSortByName : DebtorsIntention()
+    object ToggleSortByAmount : DebtorsIntention()
 }
 
 sealed class DebtorsAction : MviAction {
@@ -35,6 +37,9 @@ sealed class DebtorsAction : MviAction {
     ) : DebtorsAction()
 
     data class Filter(val name: String = "") : DebtorsAction()
+    data class SortBy(
+        val sortType: DebtorsState.SortType = DebtorsState.SortType.NOTHING
+    ) : DebtorsAction()
 }
 
 sealed class DebtorsResult : MviResult {
@@ -49,12 +54,26 @@ sealed class DebtorsResult : MviResult {
     ) : DebtorsResult()
 
     data class Filter(val name: String) : DebtorsResult()
+
+    data class SortBy(
+        val sortType: DebtorsState.SortType = DebtorsState.SortType.NOTHING
+    ) : DebtorsResult()
 }
 
 data class DebtorsState(
     val items: List<DebtorsListItemModel> = emptyList(),
-    val filteredItems: List<DebtorsItemViewModel.DebtorItemViewModel> = emptyList(),
+    val filteredItems: List<DebtorsItemViewModel> = emptyList(),
     val isError: OneShot<Boolean> = OneShot.empty(),
     val contacts: OneShot<List<ContactsItemViewModel>> = OneShot.empty(),
-    val nameFilter: String = ""
-) : MviState, ViewStateWithId()
+    val nameFilter: String = "",
+    val sortType: SortType = SortType.NOTHING
+) : MviState, ViewStateWithId() {
+
+    enum class SortType {
+        NOTHING,
+        AMOUNT_DESC,
+        AMOUNT_ASC,
+        NAME_DESC,
+        NAME_ASC
+    }
+}

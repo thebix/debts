@@ -60,6 +60,12 @@ class DebtorsInteractor(
         }
     }
 
+    private val sortProcessor = ObservableTransformer<DebtorsAction.SortBy, DebtorsResult> { actions ->
+        actions.switchMap {
+            Observable.fromCallable { DebtorsResult.SortBy(it.sortType) }
+        }
+    }
+
     override fun actionProcessor(): ObservableTransformer<in DebtorsAction, out DebtorsResult> =
         ObservableTransformer { actions ->
             actions.publish { action ->
@@ -72,7 +78,9 @@ class DebtorsInteractor(
                         action.ofType(DebtorsAction.AddDebt::class.java)
                             .compose(addDebtProcessor),
                         action.ofType(DebtorsAction.Filter::class.java)
-                            .compose(filterProcessor)
+                            .compose(filterProcessor),
+                        action.ofType(DebtorsAction.SortBy::class.java)
+                            .compose(sortProcessor)
                     )
                 )
             }

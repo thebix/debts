@@ -58,17 +58,18 @@ class DebtorsFragment : BaseFragment() {
     private val intentionSubject = PublishSubject.create<DebtorsIntention>()
 
     private lateinit var disposables: CompositeDisposable
+    private lateinit var menu: Menu
     private var adapterDisposable: Disposable? = null
     private var isConfigurationChange: Boolean = false
     private var addDebtLayout: AddDebtLayout? = null
     private var recyclerState: LinearLayoutManager.SavedState? = null
+    private var sortType: DebtorsState.SortType = DebtorsState.SortType.NOTHING
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isConfigurationChange = savedInstanceState != null
 
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -161,7 +162,8 @@ class DebtorsFragment : BaseFragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         activity?.menuInflater?.inflate(R.menu.home_debtors_menu, menu)
-        val menuSearch = menu.findItem(R.id.action_search)
+        this.menu = menu
+        val menuSearch = menu.findItem(R.id.home_debtors_menu_search)
         val searchView = menuSearch.actionView as SearchView
         searchView.queryHint = context?.getString(R.string.home_debtors_search_hint) ?: ""
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -174,8 +176,21 @@ class DebtorsFragment : BaseFragment() {
                 return true
             }
         })
-
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.home_debtors_menu_sort_name -> {
+                intentionSubject.onNext(DebtorsIntention.ToggleSortByName)
+                return true
+            }
+            R.id.home_debtors_menu_sort_amount -> {
+                intentionSubject.onNext(DebtorsIntention.ToggleSortByAmount)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     @UiThread
@@ -189,6 +204,22 @@ class DebtorsFragment : BaseFragment() {
             } else {
                 adapterDisposable = adapter.setItems(filteredItems)
                     .subscribe()
+            }
+            if (this@DebtorsFragment.sortType != sortType) {
+                this@DebtorsFragment.sortType = sortType
+                val sortName = menu.findItem(R.id.home_debtors_menu_sort_name)
+                val sortAmount = menu.findItem(R.id.home_debtors_menu_sort_amount)
+                sortAmount.setIcon(R.drawable.ic_arrow_drop_down)
+                sortName.setIcon(R.drawable.ic_arrow_drop_down)
+                when (sortType) {
+                    DebtorsState.SortType.AMOUNT_DESC -> sortAmount.setIcon(R.drawable.ic_clear)
+                    DebtorsState.SortType.AMOUNT_ASC -> sortAmount.setIcon(R.drawable.ic_arrow_drop_up)
+                    DebtorsState.SortType.NAME_DESC -> sortName.setIcon(R.drawable.ic_clear)
+                    DebtorsState.SortType.NAME_ASC -> sortName.setIcon(R.drawable.ic_arrow_drop_up)
+                    else -> {
+                        // no-op
+                    }
+                }
             }
             contacts.get(this)?.let { contacts ->
                 if (context == null) return@let
