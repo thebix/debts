@@ -54,6 +54,10 @@ class DebtorsFragment : BaseFragment() {
             )
         }
 
+        override fun onDebtorRemove(debtorId: Long) {
+            intentionSubject.onNext(DebtorsIntention.RemoveDebtor(debtorId))
+        }
+
     }
     private val viewModel: DebtorsViewModel by viewModel()
     private val adapter = DebtorsAdapter(itemCallback)
@@ -122,35 +126,33 @@ class DebtorsFragment : BaseFragment() {
                         contacts = contacts
                     )
                     context?.showAlert(
-                        addDebtLayout,
+                        customView = addDebtLayout,
                         titleResId = R.string.home_debtors_dialog_add_debt,
-                        positiveButtonResId = R.string.home_debtors_dialog_confirm,
-                        negativeButtonResId = R.string.home_debtors_dialog_cancel,
-                        actionPositive = {
-                            addDebtLayout?.data?.let { data ->
-                                if (data.name.isNotBlank() && data.amount != 0.0) {
-                                    intentionSubject.onNext(
-                                        DebtorsIntention.AddDebt(
-                                            data.contactId,
-                                            data.name,
-                                            data.amount,
-                                            data.currency,
-                                            data.comment
-                                        )
+                        positiveButtonResId = R.string.home_debtors_dialog_confirm
+                    ) {
+                        addDebtLayout?.data?.let { data ->
+                            if (data.name.isNotBlank() && data.amount != 0.0) {
+                                intentionSubject.onNext(
+                                    DebtorsIntention.AddDebt(
+                                        data.contactId,
+                                        data.name,
+                                        data.amount,
+                                        data.currency,
+                                        data.comment
                                     )
-                                } else {
-                                    Snackbar
-                                        .make(
-                                            fabView!!,
-                                            R.string.home_debtors_empty_debt_fields,
-                                            Snackbar.LENGTH_SHORT
-                                        )
-                                        .show()
-                                }
-
+                                )
+                            } else {
+                                Snackbar
+                                    .make(
+                                        fabView!!,
+                                        R.string.home_debtors_empty_debt_fields,
+                                        Snackbar.LENGTH_SHORT
+                                    )
+                                    .show()
                             }
+
                         }
-                    )
+                    }
                 }
         )
     }

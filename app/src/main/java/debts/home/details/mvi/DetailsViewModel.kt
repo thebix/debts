@@ -24,6 +24,7 @@ class DetailsViewModel(
                 intent.comment
             )
             is DetailsIntention.RemoveDebt -> DetailsAction.RemoveDebt(intent.id)
+            is DetailsIntention.RemoveDebtor -> DetailsAction.RemoveDebtor(intent.debtorId)
         }
 
     override val reducer: BiFunction<DetailsState, DetailsResult, DetailsState>
@@ -42,6 +43,9 @@ class DetailsViewModel(
                         currency = result.currency,
                         avatarUrl = result.avatarUrl
                     )
+                DetailsResult.DebtorRemoved -> prevState.copy(
+                    isDebtorRemoved = OneShot(true)
+                )
             }
         }
 }

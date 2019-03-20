@@ -90,14 +90,14 @@ fun Context.checkPermissionIsGranted(permission: String): Boolean {
 ///////////////////////////////////////////////////////////////////////////
 
 fun Context.showAlert(
-    customView: View? = null,
-    isCancelable: Boolean = true,
-    @StringRes titleResId: Int = 0,
     @StringRes messageId: Int = 0,
+    isCancelable: Boolean = true,
+    @StringRes titleResId: Int = R.string.default_dialog_title,
+    customView: View? = null,
     @StringRes positiveButtonResId: Int = R.string.default_positive_button,
     @StringRes negativeButtonResId: Int = R.string.default_negative_button,
-    actionPositive: (() -> Unit)? = null,
-    actionNegative: (() -> Unit)? = null
+    actionNegative: (() -> Unit)? = null,
+    actionPositive: (() -> Unit)? = null
 ): AlertDialog {
     val builder = AlertDialog
         .Builder(this)

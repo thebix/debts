@@ -113,4 +113,6 @@ class DebtsRepository(
 
     fun removeDebt(id: Long): Completable = dao.deleteDebt(id)
 
+    fun removeDebtor(debtorId: Long): Completable = dao.deleteDebtor(debtorId)
+
 }
