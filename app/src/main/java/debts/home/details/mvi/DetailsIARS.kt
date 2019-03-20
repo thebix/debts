@@ -2,6 +2,7 @@ package debts.home.details.mvi
 
 import debts.common.android.mvi.*
 import debts.home.details.adapter.DebtsItemViewModel
+import debts.home.list.mvi.DebtorsIntention
 import debts.home.usecase.DebtItemModel
 
 sealed class DetailsIntention : MviIntention {
@@ -17,6 +18,7 @@ sealed class DetailsIntention : MviIntention {
 
     data class RemoveDebt(val id: Long) : DetailsIntention()
     data class ClearHistory(val id: Long) : DetailsIntention()
+    data class RemoveDebtor(val debtorId: Long) : DetailsIntention()
 }
 
 sealed class DetailsAction : MviAction {
@@ -32,6 +34,7 @@ sealed class DetailsAction : MviAction {
 
     data class RemoveDebt(val id: Long) : DetailsAction()
     data class ClearHistory(val id: Long) : DetailsAction()
+    data class RemoveDebtor(val debtorId: Long) : DetailsAction()
 }
 
 sealed class DetailsResult : MviResult {
@@ -47,6 +50,8 @@ sealed class DetailsResult : MviResult {
         val items: List<DebtItemModel> = emptyList()
     ) : DetailsResult()
 
+    object DebtorRemoved : DetailsResult()
+
     object Error : DetailsResult()
 }
 
@@ -56,5 +61,6 @@ data class DetailsState(
     val amount: Double = 0.0,
     val currency: String = "",
     val avatarUrl: String = "",
-    val isError: OneShot<Boolean> = OneShot.empty()
+    val isError: OneShot<Boolean> = OneShot.empty(),
+    val isDebtorRemoved: OneShot<Boolean> = OneShot.empty()
 ) : MviState, ViewStateWithId()

@@ -12,7 +12,8 @@ class DetailsInteractor(
     private val addDebtUseCase: AddDebtUseCase,
     private val observeDebtorUseCase: ObserveDebtorUseCase,
     private val observeDebtsUseCase: ObserveDebtsUseCase,
-    private val removeDebtUseCase: RemoveDebtUseCase
+    private val removeDebtUseCase: RemoveDebtUseCase,
+    private val removeDebtorUseCase: RemoveDebtorUseCase
 
 ) : MviInteractor<DetailsAction, DetailsResult> {
 
@@ -75,6 +76,18 @@ class DetailsInteractor(
         }
     }
 
+    private val removeDebtorProcessor = ObservableTransformer<DetailsAction.RemoveDebtor, DetailsResult> { actions ->
+        actions.switchMap {
+            removeDebtorUseCase
+                .execute(it.debtorId)
+                .subscribeOn(Schedulers.io())
+                .toSingleDefault(DetailsResult.DebtorRemoved as DetailsResult)
+                .doOnError { error -> Timber.e(error) }
+                .onErrorReturnItem(DetailsResult.Error)
+                .toObservable()
+        }
+    }
+
     override fun actionProcessor(): ObservableTransformer<in DetailsAction, out DetailsResult> =
         ObservableTransformer { actions ->
             actions.publish { action ->
@@ -87,7 +100,9 @@ class DetailsInteractor(
                         action.ofType(DetailsAction.AddDebt::class.java)
                             .compose(addDebtProcessor),
                         action.ofType(DetailsAction.RemoveDebt::class.java)
-                            .compose(removeDebtProcessor)
+                            .compose(removeDebtProcessor),
+                        action.ofType(DetailsAction.RemoveDebtor::class.java)
+                            .compose(removeDebtorProcessor)
                     )
                 )
             }

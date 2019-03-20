@@ -52,6 +52,7 @@ val useCasesModule = module {
     single { ObserveDebtorUseCase(repository = get()) }
     single { ObserveDebtsUseCase(repository = get()) }
     single { RemoveDebtUseCase(repository = get()) }
+    single { RemoveDebtorUseCase(repository = get()) }
 }
 
 val interactorModule = module {
@@ -59,7 +60,8 @@ val interactorModule = module {
         DebtorsInteractor(
             observeDebtorsListItemsUseCase = get(),
             getContactsUseCase = get(),
-            addDebtUseCase = get()
+            addDebtUseCase = get(),
+            removeDebtorUseCase = get()
         )
     }
     factory {
@@ -68,7 +70,8 @@ val interactorModule = module {
             addDebtUseCase = get(),
             observeDebtorUseCase = get(),
             observeDebtsUseCase = get(),
-            removeDebtUseCase = get()
+            removeDebtUseCase = get(),
+            removeDebtorUseCase = get()
         )
     }
 }

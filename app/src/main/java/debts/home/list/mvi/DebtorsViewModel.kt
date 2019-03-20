@@ -43,6 +43,7 @@ class DebtorsViewModel(
                     else -> DebtorsState.SortType.NAME_ASC
                 }
             )
+            is DebtorsIntention.RemoveDebtor -> DebtorsAction.RemoveDebtor(intent.debtorId)
         }
 
     override val reducer: BiFunction<DebtorsState, DebtorsResult, DebtorsState>

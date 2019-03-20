@@ -34,6 +34,7 @@ import org.koin.android.viewmodel.ext.viewModel
 import timber.log.Timber
 import net.thebix.debts.R
 import okb.common.android.extension.getColorCompat
+import okb.common.android.extension.tryToGoBack
 
 class DetailsFragment : BaseFragment() {
 
@@ -91,7 +92,7 @@ class DetailsFragment : BaseFragment() {
 
         setHasOptionsMenu(true)
         toolbarView?.title = ""
-        toolbarView?.setBackgroundColor(context!!.getColorCompat(R.color.debts_white))
+        toolbarView?.setBackgroundColor(context?.getColorCompat(R.color.debts_white) ?: 0)
 
         recyclerView?.apply {
             adapter = this@DetailsFragment.adapter
@@ -113,7 +114,7 @@ class DetailsFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.home_details_menu_delete -> {
-                // TODO: dialog + intention
+                context?.showAlert { intentionSubject.onNext(DetailsIntention.RemoveDebtor(debtorId)) }
                 return true
             }
             R.id.home_details_menu_share -> {
@@ -153,40 +154,41 @@ class DetailsFragment : BaseFragment() {
             viewModel.processIntentions(intentions()),
             changeView!!.clicks()
                 .subscribe {
+                    if (context == null) {
+                        return@subscribe
+                    }
                     addDebtLayout = AddDebtLayout(
                         context!!,
                         name = nameView?.text.toString(),
                         avatarUrl = avatarUrl
                     )
                     context?.showAlert(
-                        addDebtLayout,
+                        customView = addDebtLayout,
                         titleResId = R.string.home_debtors_dialog_add_debt,
-                        positiveButtonResId = R.string.home_debtors_dialog_confirm,
-                        negativeButtonResId = R.string.home_debtors_dialog_cancel,
-                        actionPositive = {
-                            with(addDebtLayout.data) {
-                                if (amount != 0.0) {
-                                    intentionSubject.onNext(
-                                        DetailsIntention.AddDebt(
-                                            debtorId,
-                                            amount,
-                                            currency,
-                                            comment
-                                        )
+                        positiveButtonResId = R.string.home_debtors_dialog_confirm
+                    ) {
+                        with(addDebtLayout.data) {
+                            if (amount != 0.0) {
+                                intentionSubject.onNext(
+                                    DetailsIntention.AddDebt(
+                                        debtorId,
+                                        amount,
+                                        currency,
+                                        comment
                                     )
-                                } else {
-                                    Snackbar
-                                        .make(
-                                            changeView!!,
-                                            R.string.home_details_empty_debt_fields,
-                                            Snackbar.LENGTH_SHORT
-                                        )
-                                        .show()
-                                }
-
+                                )
+                            } else {
+                                Snackbar
+                                    .make(
+                                        changeView!!,
+                                        R.string.home_details_empty_debt_fields,
+                                        Snackbar.LENGTH_SHORT
+                                    )
+                                    .show()
                             }
+
                         }
-                    )
+                    }
                 },
             clearView!!.clicks()
                 .subscribe {
@@ -237,7 +239,13 @@ class DetailsFragment : BaseFragment() {
                     .into(avatarView!!)
             }
             clearView?.isEnabled = items.isNotEmpty()
-
+            // region INFO: this logic should be moved to navigation class called from interactor
+            isDebtorRemoved.get(state)?.let { isRemoved ->
+                if (isRemoved) {
+                    context?.tryToGoBack()
+                }
+            }
+            // endregion
             // TODO: isError
         }
     }

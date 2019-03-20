@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.util.AttributeSet
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.PopupMenu
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import debts.common.android.adapters.ItemRenderer
@@ -47,6 +49,20 @@ class DebtorItemLayout @JvmOverloads constructor(
         nameView = findViewById(R.id.home_debtors_item_name)
         amountView = findViewById(R.id.home_debtors_item_amount)
         dateView = findViewById(R.id.home_debtors_item_date)
+        this.setOnLongClickListener {
+            this.showPopup(R.menu.home_debtors_item_menu, object : PopupMenu.OnMenuItemClickListener {
+                override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
+                    return when (menuItem?.itemId) {
+                        R.id.home_debtors_item_menu_remove -> {
+                            itemClickCallback.onDebtorRemove(debtorId)
+                            true
+                        }
+                        else -> false
+                    }
+                }
+            })
+            true
+        }
     }
 
     override fun render(data: DebtorsItemViewModel) {

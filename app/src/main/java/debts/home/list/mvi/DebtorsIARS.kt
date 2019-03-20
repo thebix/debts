@@ -22,6 +22,7 @@ sealed class DebtorsIntention : MviIntention {
     data class Filter(val name: String = "") : DebtorsIntention()
     object ToggleSortByName : DebtorsIntention()
     object ToggleSortByAmount : DebtorsIntention()
+    data class RemoveDebtor(val debtorId: Long) : DebtorsIntention()
 }
 
 sealed class DebtorsAction : MviAction {
@@ -40,6 +41,8 @@ sealed class DebtorsAction : MviAction {
     data class SortBy(
         val sortType: DebtorsState.SortType = DebtorsState.SortType.NOTHING
     ) : DebtorsAction()
+
+    data class RemoveDebtor(val debtorId: Long) : DebtorsAction()
 }
 
 sealed class DebtorsResult : MviResult {

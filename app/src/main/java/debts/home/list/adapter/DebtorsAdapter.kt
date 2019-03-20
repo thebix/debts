@@ -49,5 +49,6 @@ class DebtorsAdapter(
     interface ItemClickCallback {
 
         fun onItemClick(debtorId: Long)
+        fun onDebtorRemove(debtorId: Long)
     }
 }
