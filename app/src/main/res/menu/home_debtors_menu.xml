@@ -3,9 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_search"
+        android:id="@+id/home_debtors_menu_search"
         android:icon="@drawable/ic_search"
-        android:title="Search"
+        android:title="@string/home_debtors_menu_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
+
+    <item
+        android:id="@+id/home_debtors_menu_sort"
+        android:icon="@drawable/ic_sort"
+        android:title="@string/home_debtors_menu_sort"
+        app:showAsAction="ifRoom" >
+        <menu>
+            <item
+                android:id="@+id/home_debtors_menu_sort_name"
+                android:icon="@drawable/ic_arrow_drop_down"
+                android:title="@string/home_debtors_menu_sort_name" />
+            <item
+                android:id="@+id/home_debtors_menu_sort_amount"
+                android:icon="@drawable/ic_arrow_drop_down"
+                android:title="@string/home_debtors_menu_sort_amount" />
+        </menu>
+
+    </item>
 </menu>
