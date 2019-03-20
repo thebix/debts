@@ -14,6 +14,7 @@ import debts.common.android.BaseActivity
 import debts.common.android.BaseFragment
 import debts.common.android.extensions.findViewById
 import debts.home.details.DetailsFragment
+import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtorsAdapter
 import debts.home.list.mvi.DebtorsIntention
 import debts.home.list.mvi.DebtorsState
@@ -64,6 +65,7 @@ class DebtorsFragment : BaseFragment() {
     private var addDebtLayout: AddDebtLayout? = null
     private var recyclerState: LinearLayoutManager.SavedState? = null
     private var sortType: DebtorsState.SortType = DebtorsState.SortType.NOTHING
+    private var contacts: List<ContactsItemViewModel> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,7 +114,40 @@ class DebtorsFragment : BaseFragment() {
             viewModel.processIntentions(intentions()),
             fabView!!.clicks()
                 .subscribe {
-                    intentionSubject.onNext(DebtorsIntention.GetContacts)
+                    addDebtLayout = AddDebtLayout(
+                        context!!,
+                        contacts = contacts
+                    )
+                    context?.showAlert(
+                        addDebtLayout,
+                        titleResId = R.string.home_debtors_dialog_add_debt,
+                        positiveButtonResId = R.string.home_debtors_dialog_confirm,
+                        negativeButtonResId = R.string.home_debtors_dialog_cancel,
+                        actionPositive = {
+                            addDebtLayout?.data?.let { data ->
+                                if (data.name.isNotBlank() && data.amount != 0.0) {
+                                    intentionSubject.onNext(
+                                        DebtorsIntention.AddDebt(
+                                            data.contactId,
+                                            data.name,
+                                            data.amount,
+                                            data.currency,
+                                            data.comment
+                                        )
+                                    )
+                                } else {
+                                    Snackbar
+                                        .make(
+                                            fabView!!,
+                                            R.string.home_debtors_empty_debt_fields,
+                                            Snackbar.LENGTH_SHORT
+                                        )
+                                        .show()
+                                }
+
+                            }
+                        }
+                    )
                 }
         )
     }
@@ -222,41 +257,7 @@ class DebtorsFragment : BaseFragment() {
                 }
             }
             contacts.get(this)?.let { contacts ->
-                if (context == null) return@let
-                addDebtLayout = AddDebtLayout(
-                    context!!,
-                    contacts = contacts
-                )
-                context?.showAlert(
-                    addDebtLayout,
-                    titleResId = R.string.home_debtors_dialog_add_debt,
-                    positiveButtonResId = R.string.home_debtors_dialog_confirm,
-                    negativeButtonResId = R.string.home_debtors_dialog_cancel,
-                    actionPositive = {
-                        addDebtLayout?.data?.let { data ->
-                            if (data.name.isNotBlank() && data.amount != 0.0) {
-                                intentionSubject.onNext(
-                                    DebtorsIntention.AddDebt(
-                                        data.contactId,
-                                        data.name,
-                                        data.amount,
-                                        data.currency,
-                                        data.comment
-                                    )
-                                )
-                            } else {
-                                Snackbar
-                                    .make(
-                                        fabView!!,
-                                        R.string.home_debtors_empty_debt_fields,
-                                        Snackbar.LENGTH_SHORT
-                                    )
-                                    .show()
-                            }
-
-                        }
-                    }
-                )
+                this@DebtorsFragment.contacts = contacts
             }
         }
     }
@@ -265,6 +266,7 @@ class DebtorsFragment : BaseFragment() {
         Observable.merge(
             listOf(
                 Observable.fromCallable { DebtorsIntention.Init },
+                Observable.fromCallable { DebtorsIntention.GetContacts },
                 intentionSubject
             )
         )
