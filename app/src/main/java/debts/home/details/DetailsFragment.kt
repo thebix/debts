@@ -1,12 +1,12 @@
 package debts.home.details
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.UiThread
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +33,7 @@ import okb.common.android.extension.showAlert
 import org.koin.android.viewmodel.ext.viewModel
 import timber.log.Timber
 import net.thebix.debts.R
+import okb.common.android.extension.getColorCompat
 
 class DetailsFragment : BaseFragment() {
 
@@ -55,6 +56,7 @@ class DetailsFragment : BaseFragment() {
     private val adapter = DebtsAdapter(menuItemClickListener)
     private val intentionSubject = PublishSubject.create<DetailsIntention>()
 
+    private var toolbarView: Toolbar? = null
     private var avatarView: ImageView? = null
     private var nameView: TextView? = null
     private var amountView: TextView? = null
@@ -67,6 +69,7 @@ class DetailsFragment : BaseFragment() {
     private lateinit var disposables: CompositeDisposable
     private var adapterDisposable: Disposable? = null
     private var avatarUrl: String = ""
+    private var isBorrowed: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,12 +81,17 @@ class DetailsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        toolbarView = findViewById(R.id.home_toolbar)
         avatarView = findViewById(R.id.home_details_avatar)
         nameView = findViewById(R.id.home_details_name)
         amountView = findViewById(R.id.home_details_debt_amount)
         changeView = findViewById(R.id.home_details_debt_change)
         clearView = findViewById(R.id.home_details_debt_clear)
         recyclerView = findViewById(R.id.home_details_history)
+
+        setHasOptionsMenu(true)
+        toolbarView?.title = ""
+        toolbarView?.setBackgroundColor(context!!.getColorCompat(R.color.debts_white))
 
         recyclerView?.apply {
             adapter = this@DetailsFragment.adapter
@@ -95,6 +103,45 @@ class DetailsFragment : BaseFragment() {
                 }
             )
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        activity?.menuInflater?.inflate(R.menu.home_details_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.home_details_menu_delete -> {
+                // TODO: dialog + intention
+                return true
+            }
+            R.id.home_details_menu_share -> {
+                // region INFO: this logic should be moved to navigation class called from interactor
+                val message =
+                    resources.getString(
+                        if (isBorrowed)
+                            R.string.home_details_share_message_borrowed else R.string.home_details_share_message_lent,
+                        nameView?.text,
+                        amountView?.text
+                    )
+                val sendIntent = Intent(Intent.ACTION_SEND)
+                    .apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, message)
+                        type = "text/plain"
+                    }
+
+                val title: String = resources.getString(R.string.home_details_share_title)
+                val chooser: Intent = Intent.createChooser(sendIntent, title)
+                if (activity != null && sendIntent.resolveActivity(activity!!.packageManager) != null) {
+                    startActivity(chooser)
+                }
+                // endregion
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onStart() {
@@ -160,6 +207,7 @@ class DetailsFragment : BaseFragment() {
     }
 
     override fun onDestroyView() {
+        toolbarView = null
         avatarView = null
         nameView = null
         amountView = null
@@ -177,6 +225,7 @@ class DetailsFragment : BaseFragment() {
             adapter.replaceAllItems(items)
             nameView?.text = name
             amountView?.text = context?.getString(R.string.home_details_debt_amount, currency, amount)
+            isBorrowed = amount < 0
             this@DetailsFragment.avatarUrl = avatarUrl
             if (avatarUrl.isNotBlank() && avatarView != null) {
                 Glide.with(avatarView!!)
