@@ -1,13 +1,13 @@
 package debts.common.android
 
 import android.app.Activity
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.CallSuper
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 
-abstract class BaseFragment : androidx.fragment.app.Fragment() {
+abstract class BaseFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
@@ -55,15 +55,23 @@ abstract class BaseFragment : androidx.fragment.app.Fragment() {
         }
     }
 
-    fun replaceFragment(fragment: androidx.fragment.app.Fragment, @IdRes rootId: Int, addToBackStack: Boolean = true) {
+    fun replaceFragment(
+        fragment: androidx.fragment.app.Fragment, @IdRes rootId: Int,
+        addToBackStack: Boolean = true,
+        animations: List<Int> = listOf()
+    ) {
         if (activity != null) {
-            (activity as BaseActivity).replaceFragment(fragment, rootId, addToBackStack)
+            (activity as BaseActivity).replaceFragment(fragment, rootId, addToBackStack, animations)
         }
     }
 
-    fun addFragment(fragment: androidx.fragment.app.Fragment, @IdRes rootId: Int, addToBackStack: Boolean = true) {
+    fun addFragment(
+        fragment: androidx.fragment.app.Fragment, @IdRes rootId: Int,
+        addToBackStack: Boolean = true,
+        animations: List<Int> = listOf()
+    ) {
         if (activity != null) {
-            (activity as BaseActivity).addFragment(fragment, rootId, addToBackStack)
+            (activity as BaseActivity).addFragment(fragment, rootId, addToBackStack, animations)
         }
     }
 }

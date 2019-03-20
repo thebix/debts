@@ -44,7 +44,12 @@ class DebtorsFragment : BaseFragment() {
             recyclerState =
                 recyclerView?.layoutManager?.onSaveInstanceState() as LinearLayoutManager.SavedState
             recyclerView?.adapter = null
-            replaceFragment(DetailsFragment.createInstance(debtorId), R.id.home_root)
+            replaceFragment(
+                DetailsFragment.createInstance(debtorId),
+                R.id.home_root,
+                true,
+                listOf(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+            )
         }
 
     }
