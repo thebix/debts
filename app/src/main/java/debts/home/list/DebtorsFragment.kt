@@ -1,15 +1,16 @@
 package debts.home.list
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.annotation.UiThread
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
+import debts.common.android.BaseActivity
 import debts.common.android.BaseFragment
 import debts.common.android.extensions.findViewById
 import debts.home.details.DetailsFragment
@@ -34,6 +35,7 @@ class DebtorsFragment : BaseFragment() {
         const val KEY_RECYCLER_STATE = "KEY_RECYCLER_STATE "
     }
 
+    private var toolbarView: Toolbar? = null
     private var recyclerView: RecyclerView? = null
     private var fabView: View? = null
 
@@ -59,7 +61,9 @@ class DebtorsFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isConfigurationChange = savedInstanceState != null
+
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,8 +75,13 @@ class DebtorsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        toolbarView = findViewById(R.id.home_toolbar)
         recyclerView = findViewById(R.id.home_debtors_recycler)
         fabView = findViewById(R.id.home_debtors_fab)
+
+        setHasOptionsMenu(true)
+        (activity as BaseActivity).setSupportActionBar(toolbarView)
+        (activity as BaseActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         recyclerView?.apply {
             adapter = this@DebtorsFragment.adapter
@@ -134,6 +143,7 @@ class DebtorsFragment : BaseFragment() {
     override fun onDestroyView() {
         recyclerView = null
         fabView = null
+        toolbarView = null
         super.onDestroyView()
     }
 
@@ -144,16 +154,35 @@ class DebtorsFragment : BaseFragment() {
         super.onStop()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        activity?.menuInflater?.inflate(R.menu.home_debtors_menu, menu)
+        val menuSearch = menu.findItem(R.id.action_search)
+        val searchView = menuSearch.actionView as SearchView
+        searchView.queryHint = context?.getString(R.string.home_debtors_search_hint) ?: ""
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                intentionSubject.onNext(DebtorsIntention.Filter(newText))
+                return true
+            }
+        })
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
     @UiThread
     private fun render(state: DebtorsState) {
         Timber.d("State is: $state")
         with(state) {
             adapterDisposable?.dispose()
             if (isConfigurationChange) {
-                adapter.replaceAllItems(items)
+                adapter.replaceAllItems(filteredItems)
                 isConfigurationChange = false
             } else {
-                adapterDisposable = adapter.setItems(items)
+                adapterDisposable = adapter.setItems(filteredItems)
                     .subscribe()
             }
             contacts.get(this)?.let { contacts ->

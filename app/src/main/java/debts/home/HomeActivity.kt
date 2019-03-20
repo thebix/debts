@@ -15,4 +15,9 @@ class HomeActivity : BaseActivity() {
             replaceFragment(DebtorsFragment(), R.id.home_root)
         }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

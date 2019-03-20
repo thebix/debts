@@ -54,6 +54,12 @@ class DebtorsInteractor(
         }
     }
 
+    private val filterProcessor = ObservableTransformer<DebtorsAction.Filter, DebtorsResult> { actions ->
+        actions.switchMap {
+            Observable.fromCallable { DebtorsResult.Filter(it.name.toLowerCase().trim()) }
+        }
+    }
+
     override fun actionProcessor(): ObservableTransformer<in DebtorsAction, out DebtorsResult> =
         ObservableTransformer { actions ->
             actions.publish { action ->
@@ -64,7 +70,9 @@ class DebtorsInteractor(
                         action.ofType(DebtorsAction.GetContacts::class.java)
                             .compose(getContactsProcessor),
                         action.ofType(DebtorsAction.AddDebt::class.java)
-                            .compose(addDebtProcessor)
+                            .compose(addDebtProcessor),
+                        action.ofType(DebtorsAction.Filter::class.java)
+                            .compose(filterProcessor)
                     )
                 )
             }
