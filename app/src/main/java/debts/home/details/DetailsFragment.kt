@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.UiThread
-import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
+import debts.common.android.BaseActivity
 import debts.common.android.BaseFragment
 import debts.common.android.FragmentArgumentDelegate
 import debts.common.android.extensions.findViewById
@@ -68,6 +68,11 @@ class DetailsFragment : BaseFragment() {
     private var adapterDisposable: Disposable? = null
     private var avatarUrl: String = ""
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity as BaseActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
         inflater.inflate(R.layout.home_details_fragment, container, false)
 
@@ -86,7 +91,7 @@ class DetailsFragment : BaseFragment() {
 
             addItemDecoration(
                 DividerItemDecoration(context.applicationContext, DividerItemDecoration.VERTICAL).apply {
-                    setDrawable(context.applicationContext.getDrawableCompat(R.drawable.list_divider))
+                    setDrawable(context.applicationContext.getDrawableCompat(R.drawable.list_divider_start_66dp))
                 }
             )
         }

@@ -2,7 +2,7 @@
 
     <style name="Debts" />
 
-    <style name="Debts.Theme" parent="Theme.AppCompat.Light">
+    <style name="Debts.Theme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>

@@ -8,6 +8,7 @@
     <string name="default_negative_button">Cancel</string>
 
     <string name="home_debtors_empty_debt_fields">Empty debtor or debt amount</string>
+    <string name="home_debtors_search_hint">Search</string>
 
     <string name="home_debtors_dialog_cancel">Cancel</string>
     <string name="home_debtors_dialog_confirm">Confirm</string>

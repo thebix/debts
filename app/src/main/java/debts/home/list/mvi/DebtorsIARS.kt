@@ -18,6 +18,8 @@ sealed class DebtorsIntention : MviIntention {
         val comment: String
 
     ) : DebtorsIntention()
+
+    data class Filter(val name: String = "") : DebtorsIntention()
 }
 
 sealed class DebtorsAction : MviAction {
@@ -31,6 +33,8 @@ sealed class DebtorsAction : MviAction {
         val currency: String,
         val comment: String
     ) : DebtorsAction()
+
+    data class Filter(val name: String = "") : DebtorsAction()
 }
 
 sealed class DebtorsResult : MviResult {
@@ -43,10 +47,14 @@ sealed class DebtorsResult : MviResult {
     data class Contacts(
         val items: List<ContactsItemModel> = emptyList()
     ) : DebtorsResult()
+
+    data class Filter(val name: String) : DebtorsResult()
 }
 
 data class DebtorsState(
-    val items: List<DebtorsItemViewModel.DebtorItemViewModel> = emptyList(),
+    val items: List<DebtorsListItemModel> = emptyList(),
+    val filteredItems: List<DebtorsItemViewModel.DebtorItemViewModel> = emptyList(),
     val isError: OneShot<Boolean> = OneShot.empty(),
-    val contacts: OneShot<List<ContactsItemViewModel>> = OneShot.empty()
+    val contacts: OneShot<List<ContactsItemViewModel>> = OneShot.empty(),
+    val nameFilter: String = ""
 ) : MviState, ViewStateWithId()
