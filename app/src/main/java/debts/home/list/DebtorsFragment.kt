@@ -28,6 +28,7 @@ import okb.common.android.extension.showAlert
 import org.koin.android.viewmodel.ext.viewModel
 import timber.log.Timber
 import net.thebix.debts.R
+import okb.common.android.extension.getColorCompat
 
 class DebtorsFragment : BaseFragment() {
 
@@ -90,6 +91,8 @@ class DebtorsFragment : BaseFragment() {
         setHasOptionsMenu(true)
         (activity as BaseActivity).setSupportActionBar(toolbarView)
         (activity as BaseActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        toolbarView?.title = getString(R.string.app_name)
+        toolbarView?.setBackgroundColor(context?.getColorCompat(R.color.colorPrimary) ?: 0)
 
         recyclerView?.apply {
             adapter = this@DebtorsFragment.adapter
