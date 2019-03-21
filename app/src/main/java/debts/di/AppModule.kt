@@ -1,12 +1,15 @@
 package debts.di
 
 import androidx.room.Room
+import debts.common.android.prefs.AndroidPreferences
+import debts.common.android.prefs.Preferences
 import debts.db.DebtsDatabase
 import debts.home.ScreenContextHolder
 import debts.home.ScreenContextHolderImpl
 import debts.home.details.mvi.DetailsInteractor
 import debts.home.details.mvi.DetailsViewModel
 import debts.home.list.DebtorsNavigator
+import debts.db.migrations.migration1To2
 import debts.home.list.mvi.DebtorsInteractor
 import debts.home.list.mvi.DebtorsViewModel
 import debts.home.repository.DebtsRepository
@@ -22,13 +25,18 @@ val appModule = module {
                 androidApplication(),
                 DebtsDatabase::class.java,
                 DebtsDatabase.DB_NAME
-            ).build()
+            )
+            .addMigrations(
+                migration1To2()
+            )
+            .build()
     }
-
+    single<Preferences> {
+        AndroidPreferences(androidApplication(), AndroidPreferences::class.toString())
+    }
     single<ScreenContextHolder> {
         ScreenContextHolderImpl()
     }
-
 }
 
 val networkModule = module {
@@ -40,7 +48,8 @@ val repositoriesModule = module {
         val debtsDatabase: DebtsDatabase = get()
         DebtsRepository(
             contentResolver = androidApplication().contentResolver,
-            dao = debtsDatabase.debtsDao()
+            dao = debtsDatabase.debtsDao(),
+            preferences = get()
         )
     }
 }
@@ -60,6 +69,7 @@ val useCasesModule = module {
     single { ObserveDebtsUseCase(repository = get()) }
     single { RemoveDebtUseCase(repository = get()) }
     single { RemoveDebtorUseCase(repository = get()) }
+    single { SyncDebtorsWithContactsUseCase(repository = get()) }
 }
 
 val interactorModule = module {
@@ -77,7 +87,8 @@ val interactorModule = module {
             getContactsUseCase = get(),
             addDebtUseCase = get(),
             removeDebtorUseCase = get(),
-            debtorsNavigator = get()
+            debtorsNavigator = get(),
+            syncDebtorsWithContactsUseCase = get()
         )
     }
     factory {

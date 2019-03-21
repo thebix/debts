@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "bb48db1c516a3fc3de47ee95d6381ada",
+    "version": 2,
+    "identityHash": "78d21b7e9b7bad0d9ee6ba3575aa1a0b",
     "entities": [
       {
         "tableName": "debtors_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `contactId` INTEGER, `name` TEXT NOT NULL, `avatar` TEXT NOT NULL, `email` TEXT NOT NULL, `phone` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `contactId` INTEGER, `name` TEXT NOT NULL, `avatar` TEXT NOT NULL, `email` TEXT NOT NULL, `phone` TEXT NOT NULL, `legacy_id` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -43,6 +43,12 @@
             "columnName": "phone",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "legacyId",
+            "columnName": "legacy_id",
+            "affinity": "INTEGER",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -129,7 +135,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"bb48db1c516a3fc3de47ee95d6381ada\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"78d21b7e9b7bad0d9ee6ba3575aa1a0b\")"
     ]
   }
 }

@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
 
 public class DBHelper extends SQLiteOpenHelper {
 	static final String DB_NAME = "dc.db";
-	static final int DB_VERSION = 1;
+	static final int DB_VERSION = 2;
 
 	// Таблица пользователей
 	public static abstract class DebitorsEntry implements BaseColumns {
@@ -59,9 +59,10 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS " + DebitsEntry.TABLE_TITLE);
-		db.execSQL("DROP TABLE IF EXISTS " + DebitorsEntry.TABLE_TITLE);
-		onCreate(db);
+		// WTF?
+//		db.execSQL("DROP TABLE IF EXISTS " + DebitsEntry.TABLE_TITLE);
+//		db.execSQL("DROP TABLE IF EXISTS " + DebitorsEntry.TABLE_TITLE);
+//		onCreate(db);
 	}
 
 	public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {

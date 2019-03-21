@@ -2,6 +2,7 @@ package debts.home.repository
 
 import android.content.ContentResolver
 import android.provider.ContactsContract
+import debts.common.android.prefs.Preferences
 import debts.db.DebtEntity
 import debts.db.DebtorEntity
 import debts.db.DebtsDao
@@ -15,11 +16,13 @@ import java.util.*
 
 class DebtsRepository(
     private val contentResolver: ContentResolver,
-    private val dao: DebtsDao
+    private val dao: DebtsDao,
+    private val preferences: Preferences
 ) {
 
     private companion object {
         const val INSERT_ID = 0L
+        const val PREFS_IS_CONTACT_SYNCED = "PREFS_IS_CONTACT_SYNCED"
     }
 
     fun observeDebtors(): Observable<List<DebtorModel>> = dao.observeDebtors()
@@ -92,6 +95,11 @@ class DebtsRepository(
             )
         )
 
+    fun updateDebtors(items: List<DebtorModel>): Completable =
+        Completable.fromCallable {
+            dao.updateDebtors(items.map { it.toDebtorEntity() })
+        }
+
     fun saveDebt(
         debtorId: Long,
         amount: Double,
@@ -115,4 +123,12 @@ class DebtsRepository(
 
     fun removeDebtor(debtorId: Long): Completable = dao.deleteDebtor(debtorId)
 
+    // region Helpers
+    ///////////////////////////////////////////////////////////////////////////
+
+    fun isContactsSynced() = Single.fromCallable { preferences.getBoolean(PREFS_IS_CONTACT_SYNCED, false) }
+    fun setContactsSynced(isSynced: Boolean = true) =
+        Completable.fromCallable { preferences.putBoolean(PREFS_IS_CONTACT_SYNCED, isSynced) }
+
+    // endregion
 }

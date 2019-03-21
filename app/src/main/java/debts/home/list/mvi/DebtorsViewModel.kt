@@ -51,6 +51,10 @@ class DebtorsViewModel(
                 intent.debtorId,
                 intent.rootId
             )
+            is DebtorsIntention.SyncWithContacts -> DebtorsAction.SyncWithContacts(
+                intent.contactPermission,
+                intent.requestCode
+            )
         }
 
     override val reducer: BiFunction<DebtorsState, DebtorsResult, DebtorsState>

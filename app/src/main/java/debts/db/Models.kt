@@ -25,7 +25,11 @@ data class DebtorEntity(
     val email: String,
 
     @ColumnInfo(name = PHONE)
-    val phone: String
+    val phone: String,
+
+    // INFO: just to migrate from old DB. So can be removed with migration 2_3
+    @ColumnInfo(name = LEGACY_ID)
+    val legacyId: Long? = null
 
     // endregion
 
@@ -38,6 +42,7 @@ data class DebtorEntity(
         const val AVATAR = "avatar"
         const val EMAIL = "email"
         const val PHONE = "phone"
+        const val LEGACY_ID = "legacy_id"
     }
 }
 

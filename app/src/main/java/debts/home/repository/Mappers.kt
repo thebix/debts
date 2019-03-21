@@ -22,3 +22,13 @@ fun DebtEntity.toDebtModel() =
         date,
         comment
     )
+
+fun DebtorModel.toDebtorEntity() =
+    DebtorEntity(
+        id,
+        contactId,
+        name,
+        avatarUrl,
+        "",
+        ""
+    )

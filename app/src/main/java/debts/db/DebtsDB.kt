@@ -16,8 +16,8 @@ import io.reactivex.Single
 abstract class DebtsDatabase : RoomDatabase() {
 
     companion object {
-        const val DB_VERSION = 1
-        const val DB_NAME = "debts-db"
+        const val DB_VERSION = 2
+        const val DB_NAME = "dc.db"
     }
 
     abstract fun debtsDao(): DebtsDao
@@ -34,6 +34,16 @@ abstract class DebtsDao {
 
     @Update
     abstract fun updateDebtor(debtorEntity: DebtorEntity): Completable
+
+    @Query("UPDATE ${DebtorEntity.TABLE_NAME} SET ${DebtorEntity.NAME} = :name, ${DebtorEntity.AVATAR} = :avatar WHERE ${DebtorEntity.ID} = :id")
+    abstract fun updateDebtor(id: Long, name: String, avatar: String)
+
+    @Transaction
+    open fun updateDebtors(debtors: List<DebtorEntity>) {
+        for (item in debtors) {
+            updateDebtor(item.id, item.name, item.avatarUrl)
+        }
+    }
 
     @Update
     abstract fun updateDebt(debtEntity: DebtEntity): Completable
