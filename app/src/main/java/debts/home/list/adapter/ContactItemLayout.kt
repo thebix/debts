@@ -7,9 +7,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import debts.common.android.adapters.ItemRenderer
-import okb.common.android.extension.applyLayoutParams
-import okb.common.android.extension.doInRuntime
-import okb.common.android.extension.selfInflate
+import debts.common.android.extensions.applyLayoutParams
+import debts.common.android.extensions.doInRuntime
+import debts.common.android.extensions.selfInflate
 import net.thebix.debts.R
 
 class AddDebtSuggestionItemLayout @JvmOverloads constructor(

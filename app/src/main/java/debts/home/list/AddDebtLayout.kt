@@ -9,10 +9,10 @@ import android.widget.ImageView
 import android.widget.RadioGroup
 import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding3.widget.textChanges
+import debts.common.android.extensions.*
 import debts.home.list.adapter.ContactsAdapter
 import debts.home.list.adapter.ContactsItemViewModel
 import io.reactivex.disposables.Disposable
-import okb.common.android.extension.*
 import net.thebix.debts.R
 
 class AddDebtLayout @JvmOverloads constructor(

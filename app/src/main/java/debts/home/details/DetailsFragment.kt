@@ -28,13 +28,13 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
-import okb.common.android.extension.getDrawableCompat
-import okb.common.android.extension.showAlert
+import debts.common.android.extensions.getDrawableCompat
+import debts.common.android.extensions.showAlert
 import org.koin.android.viewmodel.ext.viewModel
 import timber.log.Timber
 import net.thebix.debts.R
-import okb.common.android.extension.getColorCompat
-import okb.common.android.extension.tryToGoBack
+import debts.common.android.extensions.getColorCompat
+import debts.common.android.extensions.tryToGoBack
 
 class DetailsFragment : BaseFragment() {
 

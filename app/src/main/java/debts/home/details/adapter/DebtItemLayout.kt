@@ -8,9 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.widget.ConstraintLayout
 import debts.common.android.adapters.ItemRenderer
-import debts.common.android.extensions.toDecimal
-import debts.common.android.extensions.toSimpleDateTimeString
-import okb.common.android.extension.*
+import debts.common.android.extensions.*
 import java.util.*
 import kotlin.math.absoluteValue
 import net.thebix.debts.R

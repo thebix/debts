@@ -1,4 +1,4 @@
-package okb.common.android.extension
+package debts.common.android.extensions
 
 import android.app.Activity
 import android.content.Context

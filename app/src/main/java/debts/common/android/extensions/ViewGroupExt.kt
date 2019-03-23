@@ -1,4 +1,4 @@
-package okb.common.android.extension
+package debts.common.android.extensions
 
 import androidx.annotation.LayoutRes
 import android.view.View

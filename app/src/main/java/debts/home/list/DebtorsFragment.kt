@@ -13,6 +13,9 @@ import com.jakewharton.rxbinding3.view.clicks
 import debts.common.android.BaseActivity
 import debts.common.android.BaseFragment
 import debts.common.android.extensions.findViewById
+import debts.common.android.extensions.getColorCompat
+import debts.common.android.extensions.getDrawableCompat
+import debts.common.android.extensions.showAlert
 import debts.home.details.DetailsFragment
 import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtorsAdapter
@@ -23,12 +26,9 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
-import okb.common.android.extension.getDrawableCompat
-import okb.common.android.extension.showAlert
 import org.koin.android.viewmodel.ext.viewModel
 import timber.log.Timber
 import net.thebix.debts.R
-import okb.common.android.extension.getColorCompat
 
 class DebtorsFragment : BaseFragment() {
 

@@ -11,9 +11,7 @@ import androidx.appcompat.widget.PopupMenu
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import debts.common.android.adapters.ItemRenderer
-import debts.common.android.extensions.toDecimal
-import debts.common.android.extensions.toSimpleDateString
-import okb.common.android.extension.*
+import debts.common.android.extensions.*
 import java.util.*
 import net.thebix.debts.R
 
