@@ -16,7 +16,9 @@ import debts.common.android.extensions.findViewById
 import debts.common.android.extensions.getColorCompat
 import debts.common.android.extensions.getDrawableCompat
 import debts.common.android.extensions.showAlert
-import debts.home.details.DetailsFragment
+import debts.home.FragmentScreenContext
+import debts.home.ScreenContextHolder
+import debts.home.ScreenContextHolder.Companion.FRAGMENT_DEBTORS
 import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtorsAdapter
 import debts.home.list.mvi.DebtorsIntention
@@ -29,6 +31,7 @@ import io.reactivex.subjects.PublishSubject
 import org.koin.android.viewmodel.ext.viewModel
 import timber.log.Timber
 import net.thebix.debts.R
+import org.koin.android.ext.android.inject
 
 class DebtorsFragment : BaseFragment() {
 
@@ -46,12 +49,7 @@ class DebtorsFragment : BaseFragment() {
             recyclerState =
                 recyclerView?.layoutManager?.onSaveInstanceState() as LinearLayoutManager.SavedState
             recyclerView?.adapter = null
-            replaceFragment(
-                DetailsFragment.createInstance(debtorId),
-                R.id.home_root,
-                true,
-                listOf(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
-            )
+            intentionSubject.onNext(DebtorsIntention.OpenDetails(debtorId, R.id.home_root))
         }
 
         override fun onDebtorRemove(debtorId: Long) {
@@ -59,6 +57,7 @@ class DebtorsFragment : BaseFragment() {
         }
 
     }
+    private val screenContextHolder: ScreenContextHolder by inject()
     private val viewModel: DebtorsViewModel by viewModel()
     private val adapter = DebtorsAdapter(itemCallback)
     private val intentionSubject = PublishSubject.create<DebtorsIntention>()
@@ -115,6 +114,10 @@ class DebtorsFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
 
+        screenContextHolder.set(
+            FRAGMENT_DEBTORS,
+            FragmentScreenContext(this)
+        )
         disposables = CompositeDisposable(
             viewModel.states()
                 .subscribe(::render),
@@ -194,6 +197,7 @@ class DebtorsFragment : BaseFragment() {
     }
 
     override fun onStop() {
+        screenContextHolder.remove(FRAGMENT_DEBTORS)
         disposables.dispose()
         adapterDisposable?.dispose()
         addDebtLayout = null

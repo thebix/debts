@@ -7,7 +7,8 @@ import androidx.fragment.app.Fragment
 abstract class BaseActivity : AppCompatActivity() {
 
     fun replaceFragment(
-        fragment: Fragment, @IdRes rootId: Int,
+        fragment: Fragment,
+        @IdRes rootId: Int,
         addToBackStack: Boolean = true,
         animations: List<Int> = listOf()
     ) {

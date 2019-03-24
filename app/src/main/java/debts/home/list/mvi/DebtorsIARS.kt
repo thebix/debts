@@ -1,5 +1,6 @@
 package debts.home.list.mvi
 
+import androidx.annotation.IdRes
 import debts.common.android.mvi.*
 import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtorsItemViewModel
@@ -23,6 +24,7 @@ sealed class DebtorsIntention : MviIntention {
     object ToggleSortByName : DebtorsIntention()
     object ToggleSortByAmount : DebtorsIntention()
     data class RemoveDebtor(val debtorId: Long) : DebtorsIntention()
+    data class OpenDetails(val debtorId: Long, @IdRes val rootId: Int) : DebtorsIntention()
 }
 
 sealed class DebtorsAction : MviAction {
@@ -43,6 +45,7 @@ sealed class DebtorsAction : MviAction {
     ) : DebtorsAction()
 
     data class RemoveDebtor(val debtorId: Long) : DebtorsAction()
+    data class OpenDetails(val debtorId: Long, @IdRes val rootId: Int) : DebtorsAction()
 }
 
 sealed class DebtorsResult : MviResult {

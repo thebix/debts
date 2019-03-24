@@ -44,6 +44,7 @@ class DebtorsViewModel(
                 }
             )
             is DebtorsIntention.RemoveDebtor -> DebtorsAction.RemoveDebtor(intent.debtorId)
+            is DebtorsIntention.OpenDetails -> DebtorsAction.OpenDetails(intent.debtorId, intent.rootId)
         }
 
     override val reducer: BiFunction<DebtorsState, DebtorsResult, DebtorsState>

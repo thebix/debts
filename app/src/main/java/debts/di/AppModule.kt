@@ -2,10 +2,13 @@ package debts.di
 
 import androidx.room.Room
 import debts.db.DebtsDatabase
+import debts.home.ScreenContextHolder
+import debts.home.ScreenContextHolderImpl
 import debts.home.details.mvi.DetailsInteractor
+import debts.home.details.mvi.DetailsViewModel
+import debts.home.list.DebtorsNavigator
 import debts.home.list.mvi.DebtorsInteractor
 import debts.home.list.mvi.DebtorsViewModel
-import debts.home.details.mvi.DetailsViewModel
 import debts.home.repository.DebtsRepository
 import debts.home.usecase.*
 import org.koin.android.ext.koin.androidApplication
@@ -20,6 +23,10 @@ val appModule = module {
                 DebtsDatabase::class.java,
                 DebtsDatabase.DB_NAME
             ).build()
+    }
+
+    single<ScreenContextHolder> {
+        ScreenContextHolderImpl()
     }
 
 }
@@ -56,12 +63,21 @@ val useCasesModule = module {
 }
 
 val interactorModule = module {
+
+    // TODO: scope this navigator to the Debtors screen
+    single {
+        DebtorsNavigator(
+            get()
+        )
+    }
+
     factory {
         DebtorsInteractor(
             observeDebtorsListItemsUseCase = get(),
             getContactsUseCase = get(),
             addDebtUseCase = get(),
-            removeDebtorUseCase = get()
+            removeDebtorUseCase = get(),
+            debtorsNavigator = get()
         )
     }
     factory {
