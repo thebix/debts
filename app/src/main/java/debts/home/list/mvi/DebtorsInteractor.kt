@@ -1,5 +1,6 @@
 package debts.home.list.mvi
 
+import android.Manifest
 import debts.common.android.mvi.MviInteractor
 import debts.home.list.DebtorsNavigator
 import debts.home.usecase.AddDebtUseCase
@@ -33,64 +34,85 @@ class DebtorsInteractor(
         }
     }
 
-    private val getContactsProcessor = ObservableTransformer<DebtorsAction, DebtorsResult> { actions ->
-        actions.switchMap {
-            getContactsUseCase
-                .execute()
+    private val openAddDebtDialogProcessor =
+        ObservableTransformer<DebtorsAction.OpenAddDebtDialog, DebtorsResult> { actions ->
+            actions.switchMap { action ->
+                debtorsNavigator.isPermissionGranted(Manifest.permission.READ_CONTACTS)
+                    .map { isGranted -> action to isGranted }
+                    .toObservable()
+            }
                 .subscribeOn(Schedulers.io())
-                .flatMap { items ->
-                    Single.fromCallable { DebtorsResult.Contacts(items) as DebtorsResult }
+                .flatMap { (action, isContactsAccessGranted) ->
+                    if (isContactsAccessGranted) {
+                        getContactsResult()
+                    } else {
+                        debtorsNavigator.requestPermission(
+                            action.contactPermission,
+                            action.requestCode
+                        )
+                            .toObservable<DebtorsResult>()
+                    }
                 }
+                .subscribeOn(Schedulers.io())
                 .doOnError { Timber.e(it) }
-                .onErrorReturnItem(DebtorsResult.Contacts(emptyList()))
-                .toObservable()
+                .onErrorReturnItem(DebtorsResult.ShowAddDebtDialog(emptyList()))
         }
-    }
 
-    private val addDebtProcessor = ObservableTransformer<DebtorsAction.AddDebt, DebtorsResult> { actions ->
-        actions.switchMap {
-            addDebtUseCase
-                .execute(null, it.contactId, it.name, it.amount, it.currency, it.comment)
-                .subscribeOn(Schedulers.io())
-                .toObservable<DebtorsResult>()
-                .doOnError { error -> Timber.e(error) }
-                .onErrorReturnItem(DebtorsResult.Error)
+    private fun getContactsResult() = getContactsUseCase
+        .execute()
+        .flatMap { items ->
+            Single.fromCallable { DebtorsResult.ShowAddDebtDialog(items) as DebtorsResult }
         }
-    }
+        .toObservable()
 
-    private val filterProcessor = ObservableTransformer<DebtorsAction.Filter, DebtorsResult> { actions ->
-        actions.switchMap {
-            Observable.fromCallable { DebtorsResult.Filter(it.name.toLowerCase().trim()) }
+    private val addDebtProcessor =
+        ObservableTransformer<DebtorsAction.AddDebt, DebtorsResult> { actions ->
+            actions.switchMap {
+                addDebtUseCase
+                    .execute(null, it.contactId, it.name, it.amount, it.currency, it.comment)
+                    .subscribeOn(Schedulers.io())
+                    .toObservable<DebtorsResult>()
+                    .doOnError { error -> Timber.e(error) }
+                    .onErrorReturnItem(DebtorsResult.Error)
+            }
         }
-    }
 
-    private val sortProcessor = ObservableTransformer<DebtorsAction.SortBy, DebtorsResult> { actions ->
-        actions.switchMap {
-            Observable.fromCallable { DebtorsResult.SortBy(it.sortType) }
+    private val filterProcessor =
+        ObservableTransformer<DebtorsAction.Filter, DebtorsResult> { actions ->
+            actions.switchMap {
+                Observable.fromCallable { DebtorsResult.Filter(it.name.toLowerCase().trim()) }
+            }
         }
-    }
 
-    private val removeDebtorProcessor = ObservableTransformer<DebtorsAction.RemoveDebtor, DebtorsResult> { actions ->
-        actions.switchMap {
-            removeDebtorUseCase
-                .execute(it.debtorId)
-                .subscribeOn(Schedulers.io())
-                .toObservable<DebtorsResult>()
-                .doOnError { error -> Timber.e(error) }
-                .onErrorReturnItem(DebtorsResult.Error)
+    private val sortProcessor =
+        ObservableTransformer<DebtorsAction.SortBy, DebtorsResult> { actions ->
+            actions.switchMap {
+                Observable.fromCallable { DebtorsResult.SortBy(it.sortType) }
+            }
         }
-    }
 
-    private val openDetailsProcessor = ObservableTransformer<DebtorsAction.OpenDetails, DebtorsResult> { actions ->
-        actions.switchMap { action ->
-            debtorsNavigator.openDetails(action.debtorId)
-                // TODO: use mainThread?
-                .subscribeOn(Schedulers.io())
-                .toObservable<DebtorsResult>()
-                .doOnError { error -> Timber.e(error) }
-                .onErrorReturnItem(DebtorsResult.Error)
+    private val removeDebtorProcessor =
+        ObservableTransformer<DebtorsAction.RemoveDebtor, DebtorsResult> { actions ->
+            actions.switchMap {
+                removeDebtorUseCase
+                    .execute(it.debtorId)
+                    .subscribeOn(Schedulers.io())
+                    .toObservable<DebtorsResult>()
+                    .doOnError { error -> Timber.e(error) }
+                    .onErrorReturnItem(DebtorsResult.Error)
+            }
         }
-    }
+
+    private val openDetailsProcessor =
+        ObservableTransformer<DebtorsAction.OpenDetails, DebtorsResult> { actions ->
+            actions.switchMap { action ->
+                debtorsNavigator.openDetails(action.debtorId)
+                    .subscribeOn(Schedulers.io())
+                    .toObservable<DebtorsResult>()
+                    .doOnError { error -> Timber.e(error) }
+                    .onErrorReturnItem(DebtorsResult.Error)
+            }
+        }
 
     override fun actionProcessor(): ObservableTransformer<in DebtorsAction, out DebtorsResult> =
         ObservableTransformer { actions ->
@@ -99,8 +121,8 @@ class DebtorsInteractor(
                     listOf(
                         action.ofType(DebtorsAction.Init::class.java)
                             .compose(initProcessor),
-                        action.ofType(DebtorsAction.GetContacts::class.java)
-                            .compose(getContactsProcessor),
+                        action.ofType(DebtorsAction.OpenAddDebtDialog::class.java)
+                            .compose(openAddDebtDialogProcessor),
                         action.ofType(DebtorsAction.AddDebt::class.java)
                             .compose(addDebtProcessor),
                         action.ofType(DebtorsAction.Filter::class.java)

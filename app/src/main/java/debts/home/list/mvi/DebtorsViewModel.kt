@@ -20,7 +20,10 @@ class DebtorsViewModel(
     override fun actionFromIntention(intent: DebtorsIntention): DebtorsAction =
         when (intent) {
             DebtorsIntention.Init -> DebtorsAction.Init
-            DebtorsIntention.GetContacts -> DebtorsAction.GetContacts
+            is DebtorsIntention.OpenAddDebtDialog -> DebtorsAction.OpenAddDebtDialog(
+                intent.contactPermission,
+                intent.requestCode
+            )
             is DebtorsIntention.AddDebt -> DebtorsAction.AddDebt(
                 intent.contactId,
                 intent.name,
@@ -44,7 +47,10 @@ class DebtorsViewModel(
                 }
             )
             is DebtorsIntention.RemoveDebtor -> DebtorsAction.RemoveDebtor(intent.debtorId)
-            is DebtorsIntention.OpenDetails -> DebtorsAction.OpenDetails(intent.debtorId, intent.rootId)
+            is DebtorsIntention.OpenDetails -> DebtorsAction.OpenDetails(
+                intent.debtorId,
+                intent.rootId
+            )
         }
 
     override val reducer: BiFunction<DebtorsState, DebtorsResult, DebtorsState>
@@ -62,8 +68,11 @@ class DebtorsViewModel(
                 }
                 DebtorsResult.Error ->
                     prevState.copy(isError = OneShot(true))
-                is DebtorsResult.Contacts ->
-                    prevState.copy(contacts = OneShot(result.items.map { it.toContactsItemViewModel() }))
+                is DebtorsResult.ShowAddDebtDialog ->
+                    prevState.copy(
+                        contacts = result.items.map { it.toContactsItemViewModel() },
+                        showAddDebtDialog = OneShot(true)
+                    )
                 is DebtorsResult.Filter ->
                     prevState.copy(
                         nameFilter = result.name,
