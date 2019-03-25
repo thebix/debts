@@ -32,15 +32,16 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.viewmodel.ext.viewModel
 import timber.log.Timber
-import net.thebix.debts.R
 import org.koin.android.ext.android.inject
+import net.thebix.debts.R
 
 class DebtorsFragment : BaseFragment() {
 
     private companion object {
 
         const val KEY_RECYCLER_STATE = "KEY_RECYCLER_STATE"
-        const val READ_CONTACTS_PERMISSION_CODE = 1
+        const val READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE = 1
+        const val READ_CONTACTS_SYNC_PERMISSION_CODE = 2
     }
 
     private var toolbarView: Toolbar? = null
@@ -249,17 +250,25 @@ class DebtorsFragment : BaseFragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == READ_CONTACTS_PERMISSION_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        when (requestCode) {
+            READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 intentionSubject
                     .onNext(
                         DebtorsIntention.OpenAddDebtDialog(
                             Manifest.permission.READ_CONTACTS,
-                            READ_CONTACTS_PERMISSION_CODE
+                            READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE
                         )
                     )
             } else {
                 showAddDebtDialog()
+            }
+            READ_CONTACTS_SYNC_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                intentionSubject.onNext(
+                    DebtorsIntention.SyncWithContacts(
+                        Manifest.permission.READ_CONTACTS,
+                        READ_CONTACTS_SYNC_PERMISSION_CODE
+                    )
+                )
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -269,13 +278,19 @@ class DebtorsFragment : BaseFragment() {
         Observable.merge(
             listOf(
                 Observable.fromCallable { DebtorsIntention.Init },
+                Observable.fromCallable {
+                    DebtorsIntention.SyncWithContacts(
+                        Manifest.permission.READ_CONTACTS,
+                        READ_CONTACTS_SYNC_PERMISSION_CODE
+                    )
+                },
                 intentionSubject,
                 (fabView?.clicks() ?: Observable.empty<DebtorsIntention>())
                     .doOnNext { dontShowAddDebtDialog = false }
                     .map {
                         DebtorsIntention.OpenAddDebtDialog(
                             Manifest.permission.READ_CONTACTS,
-                            READ_CONTACTS_PERMISSION_CODE
+                            READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE
                         )
                     }
             )
