@@ -1,6 +1,6 @@
 package debts.home.details.adapter
 
-import debts.home.usecase.DebtItemModel
+import debts.usecase.DebtItemModel
 
 sealed class DebtsItemViewModel(open val id: Long) {
 

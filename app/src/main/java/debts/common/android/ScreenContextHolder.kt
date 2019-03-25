@@ -1,12 +1,9 @@
-package debts.home
+package debts.common.android
 
 import android.content.Intent
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import debts.common.android.BaseActivity
-import debts.common.android.BaseFragment
 import debts.common.android.extensions.isPermissionGranted
 import debts.common.android.extensions.tryToFindActivity
 import java.lang.ref.WeakReference
@@ -17,6 +14,7 @@ interface ScreenContextHolder {
     companion object {
 
         const val FRAGMENT_DEBTORS = "FRAGMENT_DEBTORS"
+        const val FRAGMENT_MAIN_PREFERENCES = "FRAGMENT_MAIN_PREFERENCES"
     }
 
     fun set(screenKey: String, contextHolder: ScreenContext)
@@ -50,15 +48,17 @@ interface ScreenContext {
         @IdRes rootId: Int,
         fragment: Fragment,
         addToBackStack: Boolean = true,
-        animation: ScreenContext.NavAnimation = NavAnimation.FADE
+        animation: NavAnimation = NavAnimation.FADE
     )
 
     fun addFragment(
         @IdRes rootId: Int,
         fragment: Fragment,
         addToBackStack: Boolean = true,
-        animation: ScreenContext.NavAnimation = NavAnimation.FADE
+        animation: NavAnimation = NavAnimation.FADE
     )
+
+    fun openActivity(intent: Intent)
 
     fun sendExplicit(
         @StringRes chooserTitleId: Int = 0,
@@ -85,8 +85,8 @@ interface ScreenContext {
 }
 
 class FragmentScreenContext(
-    fragment: BaseFragment,
-    private val fragmentRef: WeakReference<BaseFragment> = WeakReference(fragment)
+    fragment: Fragment,
+    private val fragmentRef: WeakReference<Fragment> = WeakReference(fragment)
 ) : ScreenContext {
 
     // region Navigation
@@ -97,12 +97,9 @@ class FragmentScreenContext(
         addToBackStack: Boolean,
         animation: ScreenContext.NavAnimation
     ) {
-        fragmentRef.get()?.replaceFragment(
-            fragment = fragment,
-            rootId = rootId,
-            addToBackStack = addToBackStack,
-            animations = animation.value
-        )
+        fragmentRef.get()?.context?.tryToFindActivity()?.let { activity ->
+            (activity as BaseActivity).replaceFragment(fragment, rootId, addToBackStack, animation.value)
+        }
     }
 
     override fun addFragment(
@@ -111,12 +108,13 @@ class FragmentScreenContext(
         addToBackStack: Boolean,
         animation: ScreenContext.NavAnimation
     ) {
-        fragmentRef.get()?.addFragment(
-            fragment = fragment,
-            rootId = rootId,
-            addToBackStack = addToBackStack,
-            animations = animation.value
-        )
+        fragmentRef.get()?.context?.tryToFindActivity()?.let { activity ->
+            (activity as BaseActivity).addFragment(fragment, rootId, addToBackStack, animation.value)
+        }
+    }
+
+    override fun openActivity(intent: Intent) {
+        fragmentRef.get()?.startActivity(intent)
     }
 
     override fun sendExplicit(

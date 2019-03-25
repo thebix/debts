@@ -4,8 +4,8 @@ import androidx.annotation.IdRes
 import debts.common.android.mvi.*
 import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtorsItemViewModel
-import debts.home.usecase.ContactsItemModel
-import debts.home.usecase.DebtorsListItemModel
+import debts.usecase.ContactsItemModel
+import debts.usecase.DebtorsListItemModel
 
 sealed class DebtorsIntention : MviIntention {
 
@@ -19,7 +19,6 @@ sealed class DebtorsIntention : MviIntention {
         val contactId: Long?,
         val name: String,
         val amount: Double,
-        val currency: String,
         val comment: String
 
     ) : DebtorsIntention()
@@ -33,6 +32,7 @@ sealed class DebtorsIntention : MviIntention {
         val contactPermission: String,
         val requestCode: Int
     ) : DebtorsIntention()
+    object OpenSettings: DebtorsIntention()
 }
 
 sealed class DebtorsAction : MviAction {
@@ -47,7 +47,6 @@ sealed class DebtorsAction : MviAction {
         val contactId: Long?,
         val name: String,
         val amount: Double,
-        val currency: String,
         val comment: String
     ) : DebtorsAction()
 
@@ -62,6 +61,7 @@ sealed class DebtorsAction : MviAction {
         val contactPermission: String,
         val requestCode: Int
     ) : DebtorsAction()
+    object OpenSettings: DebtorsAction()
 }
 
 sealed class DebtorsResult : MviResult {

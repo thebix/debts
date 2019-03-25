@@ -1,10 +1,6 @@
 package debts.common.android
 
-import android.app.Activity
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.annotation.CallSuper
-import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 
 abstract class BaseFragment : Fragment() {
@@ -42,36 +38,5 @@ abstract class BaseFragment : Fragment() {
     @CallSuper
     protected open fun onScopeFinished() {
         // implement in children
-    }
-
-    protected fun closeKeyboard() {
-        activity?.let {
-            val imm = it.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-            var view = it.currentFocus
-            if (view == null) {
-                view = View(activity)
-            }
-            imm.hideSoftInputFromWindow(view.windowToken, 0)
-        }
-    }
-
-    fun replaceFragment(
-        fragment: androidx.fragment.app.Fragment, @IdRes rootId: Int,
-        addToBackStack: Boolean = true,
-        animations: List<Int> = listOf()
-    ) {
-        if (activity != null) {
-            (activity as BaseActivity).replaceFragment(fragment, rootId, addToBackStack, animations)
-        }
-    }
-
-    fun addFragment(
-        fragment: androidx.fragment.app.Fragment, @IdRes rootId: Int,
-        addToBackStack: Boolean = true,
-        animations: List<Int> = listOf()
-    ) {
-        if (activity != null) {
-            (activity as BaseActivity).addFragment(fragment, rootId, addToBackStack, animations)
-        }
     }
 }

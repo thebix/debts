@@ -5,7 +5,7 @@ import debts.common.android.mvi.OneShot
 import debts.home.list.adapter.DebtorsItemViewModel
 import debts.home.list.adapter.toContactsItemViewModel
 import debts.home.list.adapter.toDebtorsItemViewModel
-import debts.home.usecase.DebtorsListItemModel
+import debts.usecase.DebtorsListItemModel
 import io.reactivex.functions.BiFunction
 
 class DebtorsViewModel(
@@ -28,7 +28,6 @@ class DebtorsViewModel(
                 intent.contactId,
                 intent.name,
                 intent.amount,
-                intent.currency,
                 intent.comment
             )
             is DebtorsIntention.Filter -> DebtorsAction.Filter(intent.name)
@@ -55,6 +54,7 @@ class DebtorsViewModel(
                 intent.contactPermission,
                 intent.requestCode
             )
+            DebtorsIntention.OpenSettings -> DebtorsAction.OpenSettings
         }
 
     override val reducer: BiFunction<DebtorsState, DebtorsResult, DebtorsState>

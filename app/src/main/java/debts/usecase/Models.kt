@@ -1,4 +1,4 @@
-package debts.home.usecase
+package debts.usecase
 
 // region Repo return models
 ////////////////////////////////////////////////////////////////

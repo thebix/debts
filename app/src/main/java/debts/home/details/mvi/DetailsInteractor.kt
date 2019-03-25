@@ -1,7 +1,8 @@
 package debts.home.details.mvi
 
 import debts.common.android.mvi.MviInteractor
-import debts.home.usecase.*
+import debts.repository.DebtsRepository
+import debts.usecase.*
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.schedulers.Schedulers
@@ -13,7 +14,8 @@ class DetailsInteractor(
     private val observeDebtorUseCase: ObserveDebtorUseCase,
     private val observeDebtsUseCase: ObserveDebtsUseCase,
     private val removeDebtUseCase: RemoveDebtUseCase,
-    private val removeDebtorUseCase: RemoveDebtorUseCase
+    private val removeDebtorUseCase: RemoveDebtorUseCase,
+    private val repository: DebtsRepository
 
 ) : MviInteractor<DetailsAction, DetailsResult> {
 
@@ -48,16 +50,20 @@ class DetailsInteractor(
     }
 
     private val addDebtProcessor = ObservableTransformer<DetailsAction.AddDebt, DetailsResult> { actions ->
-        actions.switchMap {
-            addDebtUseCase
-                .execute(
-                    it.debtorId,
-                    null,
-                    "",
-                    it.amount,
-                    it.currency,
-                    it.comment
-                )
+        actions.switchMap { action ->
+            repository.getCurrency()
+                .flatMapCompletable { currency ->
+                    addDebtUseCase
+                        .execute(
+                            action.debtorId,
+                            null,
+                            "",
+                            action.amount,
+                            currency,
+                            action.comment
+                        )
+                }
+
                 .subscribeOn(Schedulers.io())
                 .toObservable<DetailsResult>()
                 .doOnError { error -> Timber.e(error) }

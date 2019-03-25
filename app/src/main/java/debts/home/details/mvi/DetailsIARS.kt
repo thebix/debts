@@ -2,8 +2,7 @@ package debts.home.details.mvi
 
 import debts.common.android.mvi.*
 import debts.home.details.adapter.DebtsItemViewModel
-import debts.home.list.mvi.DebtorsIntention
-import debts.home.usecase.DebtItemModel
+import debts.usecase.DebtItemModel
 
 sealed class DetailsIntention : MviIntention {
 
@@ -11,7 +10,6 @@ sealed class DetailsIntention : MviIntention {
     data class AddDebt(
         val debtorId: Long,
         val amount: Double,
-        val currency: String,
         val comment: String
 
     ) : DetailsIntention()
@@ -27,7 +25,6 @@ sealed class DetailsAction : MviAction {
     data class AddDebt(
         val debtorId: Long,
         val amount: Double,
-        val currency: String,
         val comment: String
 
     ) : DetailsAction()
