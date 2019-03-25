@@ -1,10 +1,11 @@
 package debts.home.list.mvi
 
 import debts.common.android.mvi.MviInteractor
+import debts.home.list.DebtorsNavigator
 import debts.home.usecase.AddDebtUseCase
-import debts.home.usecase.RemoveDebtorUseCase
 import debts.home.usecase.GetContactsUseCase
 import debts.home.usecase.ObserveDebtorsListItemsUseCase
+import debts.home.usecase.RemoveDebtorUseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.Single
@@ -15,7 +16,8 @@ class DebtorsInteractor(
     private val observeDebtorsListItemsUseCase: ObserveDebtorsListItemsUseCase,
     private val getContactsUseCase: GetContactsUseCase,
     private val addDebtUseCase: AddDebtUseCase,
-    private val removeDebtorUseCase: RemoveDebtorUseCase
+    private val removeDebtorUseCase: RemoveDebtorUseCase,
+    private val debtorsNavigator: DebtorsNavigator
 ) : MviInteractor<DebtorsAction, DebtorsResult> {
 
     private val initProcessor = ObservableTransformer<DebtorsAction, DebtorsResult> { actions ->
@@ -79,6 +81,17 @@ class DebtorsInteractor(
         }
     }
 
+    private val openDetailsProcessor = ObservableTransformer<DebtorsAction.OpenDetails, DebtorsResult> { actions ->
+        actions.switchMap { action ->
+            debtorsNavigator.openDetails(action.debtorId)
+                // TODO: use mainThread?
+                .subscribeOn(Schedulers.io())
+                .toObservable<DebtorsResult>()
+                .doOnError { error -> Timber.e(error) }
+                .onErrorReturnItem(DebtorsResult.Error)
+        }
+    }
+
     override fun actionProcessor(): ObservableTransformer<in DebtorsAction, out DebtorsResult> =
         ObservableTransformer { actions ->
             actions.publish { action ->
@@ -95,7 +108,9 @@ class DebtorsInteractor(
                         action.ofType(DebtorsAction.SortBy::class.java)
                             .compose(sortProcessor),
                         action.ofType(DebtorsAction.RemoveDebtor::class.java)
-                            .compose(removeDebtorProcessor)
+                            .compose(removeDebtorProcessor),
+                        action.ofType(DebtorsAction.OpenDetails::class.java)
+                            .compose(openDetailsProcessor)
                     )
                 )
             }
