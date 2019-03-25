@@ -10,7 +10,11 @@ import debts.home.usecase.DebtorsListItemModel
 sealed class DebtorsIntention : MviIntention {
 
     object Init : DebtorsIntention(), MviInitIntention
-    object GetContacts : DebtorsIntention()
+    data class OpenAddDebtDialog(
+        val contactPermission: String,
+        val requestCode: Int
+    ) : DebtorsIntention()
+
     data class AddDebt(
         val contactId: Long?,
         val name: String,
@@ -30,7 +34,11 @@ sealed class DebtorsIntention : MviIntention {
 sealed class DebtorsAction : MviAction {
 
     object Init : DebtorsAction()
-    object GetContacts : DebtorsAction()
+    data class OpenAddDebtDialog(
+        val contactPermission: String,
+        val requestCode: Int
+    ) : DebtorsAction()
+
     data class AddDebt(
         val contactId: Long?,
         val name: String,
@@ -55,7 +63,7 @@ sealed class DebtorsResult : MviResult {
     ) : DebtorsResult()
 
     object Error : DebtorsResult()
-    data class Contacts(
+    data class ShowAddDebtDialog(
         val items: List<ContactsItemModel> = emptyList()
     ) : DebtorsResult()
 
@@ -70,7 +78,8 @@ data class DebtorsState(
     val items: List<DebtorsListItemModel> = emptyList(),
     val filteredItems: List<DebtorsItemViewModel> = emptyList(),
     val isError: OneShot<Boolean> = OneShot.empty(),
-    val contacts: OneShot<List<ContactsItemViewModel>> = OneShot.empty(),
+    val showAddDebtDialog: OneShot<Boolean> = OneShot.empty(),
+    val contacts: List<ContactsItemViewModel> = emptyList(),
     val nameFilter: String = "",
     val sortType: SortType = SortType.NOTHING
 ) : MviState, ViewStateWithId() {

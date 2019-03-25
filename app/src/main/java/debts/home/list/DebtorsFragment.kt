@@ -1,5 +1,7 @@
 package debts.home.list
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.*
 import androidx.annotation.UiThread
@@ -37,7 +39,8 @@ class DebtorsFragment : BaseFragment() {
 
     private companion object {
 
-        const val KEY_RECYCLER_STATE = "KEY_RECYCLER_STATE "
+        const val KEY_RECYCLER_STATE = "KEY_RECYCLER_STATE"
+        const val READ_CONTACTS_PERMISSION_CODE = 1
     }
 
     private var toolbarView: Toolbar? = null
@@ -70,6 +73,7 @@ class DebtorsFragment : BaseFragment() {
     private var recyclerState: LinearLayoutManager.SavedState? = null
     private var sortType: DebtorsState.SortType = DebtorsState.SortType.NOTHING
     private var contacts: List<ContactsItemViewModel> = emptyList()
+    private var dontShowAddDebtDialog: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,42 +125,7 @@ class DebtorsFragment : BaseFragment() {
         disposables = CompositeDisposable(
             viewModel.states()
                 .subscribe(::render),
-            viewModel.processIntentions(intentions()),
-            fabView!!.clicks()
-                .subscribe {
-                    addDebtLayout = AddDebtLayout(
-                        context!!,
-                        contacts = contacts
-                    )
-                    context?.showAlert(
-                        customView = addDebtLayout,
-                        titleResId = R.string.home_debtors_dialog_add_debt,
-                        positiveButtonResId = R.string.home_debtors_dialog_confirm
-                    ) {
-                        addDebtLayout?.data?.let { data ->
-                            if (data.name.isNotBlank() && data.amount != 0.0) {
-                                intentionSubject.onNext(
-                                    DebtorsIntention.AddDebt(
-                                        data.contactId,
-                                        data.name,
-                                        data.amount,
-                                        data.currency,
-                                        data.comment
-                                    )
-                                )
-                            } else {
-                                Snackbar
-                                    .make(
-                                        fabView!!,
-                                        R.string.home_debtors_empty_debt_fields,
-                                        Snackbar.LENGTH_SHORT
-                                    )
-                                    .show()
-                            }
-
-                        }
-                    }
-                }
+            viewModel.processIntentions(intentions())
         )
     }
 
@@ -265,18 +234,85 @@ class DebtorsFragment : BaseFragment() {
                     }
                 }
             }
-            contacts.get(this)?.let { contacts ->
-                this@DebtorsFragment.contacts = contacts
+            this@DebtorsFragment.contacts = contacts
+            showAddDebtDialog.get(this)?.let {
+                if (dontShowAddDebtDialog.not()) {
+                    dontShowAddDebtDialog = true
+                    showAddDebtDialog()
+                }
             }
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == READ_CONTACTS_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                intentionSubject
+                    .onNext(
+                        DebtorsIntention.OpenAddDebtDialog(
+                            Manifest.permission.READ_CONTACTS,
+                            READ_CONTACTS_PERMISSION_CODE
+                        )
+                    )
+            } else {
+                showAddDebtDialog()
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     private fun intentions() =
         Observable.merge(
             listOf(
                 Observable.fromCallable { DebtorsIntention.Init },
-                Observable.fromCallable { DebtorsIntention.GetContacts },
-                intentionSubject
+                intentionSubject,
+                (fabView?.clicks() ?: Observable.empty<DebtorsIntention>())
+                    .doOnNext { dontShowAddDebtDialog = false }
+                    .map {
+                        DebtorsIntention.OpenAddDebtDialog(
+                            Manifest.permission.READ_CONTACTS,
+                            READ_CONTACTS_PERMISSION_CODE
+                        )
+                    }
             )
         )
+
+    private fun showAddDebtDialog() {
+        if (context == null) return
+        addDebtLayout = AddDebtLayout(
+            context!!,
+            contacts = contacts
+        )
+        context?.showAlert(
+            customView = addDebtLayout,
+            titleResId = R.string.home_debtors_dialog_add_debt,
+            positiveButtonResId = R.string.home_debtors_dialog_confirm
+        ) {
+            addDebtLayout?.data?.let { data ->
+                if (data.name.isNotBlank() && data.amount != 0.0) {
+                    intentionSubject.onNext(
+                        DebtorsIntention.AddDebt(
+                            data.contactId,
+                            data.name,
+                            data.amount,
+                            data.currency,
+                            data.comment
+                        )
+                    )
+                } else if (fabView != null) {
+                    Snackbar
+                        .make(
+                            fabView!!,
+                            R.string.home_debtors_empty_debt_fields,
+                            Snackbar.LENGTH_SHORT
+                        )
+                        .show()
+                }
+            }
+        }
+    }
 }

@@ -3,9 +3,11 @@ package debts.home
 import android.content.Intent
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import debts.common.android.BaseActivity
 import debts.common.android.BaseFragment
+import debts.common.android.extensions.isPermissionGranted
 import debts.common.android.extensions.tryToFindActivity
 import java.lang.ref.WeakReference
 import net.thebix.debts.R
@@ -64,22 +66,30 @@ interface ScreenContext {
         message: String
     )
 
-    fun dispose()
-
     enum class NavAnimation(val value: List<Int>) {
+
         FADE(listOf<Int>(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out))
     }
 
     // endregion
+
+    // region Permissions
+
+    fun isPermissionGranted(permission: String): Boolean
+
+    fun requestPermissions(permissions: Array<String>, requestCode: Int)
+
+    // endregion
+
+    fun dispose()
 }
 
-// INFO: rename it to ActivityScreenContext and create a new class FragmentScreenContext if fragment context be needed
 class FragmentScreenContext(
-    activity: BaseActivity,
-    private val activityRef: WeakReference<BaseActivity> = WeakReference(activity)
+    fragment: BaseFragment,
+    private val fragmentRef: WeakReference<BaseFragment> = WeakReference(fragment)
 ) : ScreenContext {
 
-    constructor(fragment: BaseFragment) : this(fragment.context?.tryToFindActivity() as BaseActivity)
+    // region Navigation
 
     override fun replaceFragment(
         rootId: Int,
@@ -87,14 +97,12 @@ class FragmentScreenContext(
         addToBackStack: Boolean,
         animation: ScreenContext.NavAnimation
     ) {
-        activityRef.get()?.let { activity ->
-            activity.replaceFragment(
-                fragment = fragment,
-                rootId = rootId,
-                addToBackStack = addToBackStack,
-                animations = animation.value
-            )
-        }
+        fragmentRef.get()?.replaceFragment(
+            fragment = fragment,
+            rootId = rootId,
+            addToBackStack = addToBackStack,
+            animations = animation.value
+        )
     }
 
     override fun addFragment(
@@ -103,38 +111,126 @@ class FragmentScreenContext(
         addToBackStack: Boolean,
         animation: ScreenContext.NavAnimation
     ) {
-        activityRef.get()?.let { activity ->
-            activity.addFragment(
-                fragment = fragment,
-                rootId = rootId,
-                addToBackStack = addToBackStack,
-                animations = animation.value
-            )
-        }
+        fragmentRef.get()?.addFragment(
+            fragment = fragment,
+            rootId = rootId,
+            addToBackStack = addToBackStack,
+            animations = animation.value
+        )
     }
 
     override fun sendExplicit(
         chooserTitleId: Int,
         message: String
     ) {
-        activityRef.get()?.let { activity ->
-            val sendIntent = Intent(Intent.ACTION_SEND)
-                .apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, message)
-                    type = "text/plain"
+        fragmentRef.get()?.let { fragment ->
+            (fragment.context?.tryToFindActivity())?.packageManager?.let { packageManager ->
+                val sendIntent = Intent(Intent.ACTION_SEND)
+                    .apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, message)
+                        type = "text/plain"
+                    }
+                val title: String = fragment.getString(chooserTitleId)
+                val chooser: Intent = Intent.createChooser(sendIntent, title)
+                if (sendIntent.resolveActivity(packageManager) != null) {
+                    fragment.startActivity(chooser)
                 }
-
-            val title: String = activity.getString(chooserTitleId)
-            val chooser: Intent = Intent.createChooser(sendIntent, title)
-            if (sendIntent.resolveActivity(activity.packageManager) != null) {
-                activity.startActivity(chooser)
             }
         }
     }
 
+    // endregion
+
+    // region Permissions
+
+    override fun isPermissionGranted(permission: String): Boolean {
+        return fragmentRef.get()?.context?.isPermissionGranted(permission) ?: false
+    }
+
+    override fun requestPermissions(permissions: Array<String>, requestCode: Int) {
+        fragmentRef.get()?.requestPermissions(permissions, requestCode)
+    }
+
+    // endregion
+
     override fun dispose() {
         // TODO: I'm not sure it's necessary
-        activityRef.clear()
+        fragmentRef.clear()
     }
 }
+
+// region ActivityScreenContext. Uncomment and update when ActivityContext is needed
+
+//class ActivityScreenContext(
+//    activity: BaseActivity,
+//    private val activityRef: WeakReference<BaseActivity> = WeakReference(activity)
+//) : ScreenContext {
+//
+//    constructor(fragment: BaseFragment) : this(fragment.context?.tryToFindActivity() as BaseActivity)
+//
+//    override fun replaceFragment(
+//        rootId: Int,
+//        fragment: Fragment,
+//        addToBackStack: Boolean,
+//        animation: ScreenContext.NavAnimation
+//    ) {
+//        activityRef.get()?.replaceFragment(
+//            fragment = fragment,
+//            rootId = rootId,
+//            addToBackStack = addToBackStack,
+//            animations = animation.value
+//        )
+//    }
+//
+//    override fun addFragment(
+//        rootId: Int,
+//        fragment: Fragment,
+//        addToBackStack: Boolean,
+//        animation: ScreenContext.NavAnimation
+//    ) {
+//        activityRef.get()?.addFragment(
+//            fragment = fragment,
+//            rootId = rootId,
+//            addToBackStack = addToBackStack,
+//            animations = animation.value
+//        )
+//    }
+//
+//    override fun sendExplicit(
+//        chooserTitleId: Int,
+//        message: String
+//    ) {
+//        activityRef.get()?.let { activity ->
+//            val sendIntent = Intent(Intent.ACTION_SEND)
+//                .apply {
+//                    action = Intent.ACTION_SEND
+//                    putExtra(Intent.EXTRA_TEXT, message)
+//                    type = "text/plain"
+//                }
+//
+//            val title: String = activity.getString(chooserTitleId)
+//            val chooser: Intent = Intent.createChooser(sendIntent, title)
+//            if (sendIntent.resolveActivity(activity.packageManager) != null) {
+//                activity.startActivity(chooser)
+//            }
+//        }
+//    }
+//
+//    override fun isPermissionGranted(permission: String): Boolean {
+//        return activityRef.get()?.isPermissionGranted(permission) ?: false
+//    }
+//
+//    override fun requestPermissions(permissions: Array<String>, requestCode: Int) {
+//        activityRef.get()?.let { activity ->
+//            ActivityCompat.requestPermissions(activity, permissions, requestCode)
+//        }
+//    }
+//
+//    override fun dispose() {
+//        // TODO: I'm not sure it's necessary
+//        activityRef.clear()
+//    }
+//}
+
+// endregion

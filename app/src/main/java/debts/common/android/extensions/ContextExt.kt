@@ -72,7 +72,7 @@ fun Context.tryToGoBack() {
 /**
  * Returns true if passed [permission] is granted.
  */
-fun Context.checkPermissionIsGranted(permission: String): Boolean {
+fun Context.isPermissionGranted(permission: String): Boolean {
     val permissionResult = try {
         ContextCompat.checkSelfPermission(this, permission)
     } catch (unexpected: Throwable) { // Unknown exception code: 1 msg null
