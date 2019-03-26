@@ -173,7 +173,6 @@ class DetailsFragment : BaseFragment() {
                                     DetailsIntention.AddDebt(
                                         debtorId,
                                         amount,
-                                        currency,
                                         comment
                                     )
                                 )

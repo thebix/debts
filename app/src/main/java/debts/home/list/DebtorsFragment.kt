@@ -18,9 +18,9 @@ import debts.common.android.extensions.findViewById
 import debts.common.android.extensions.getColorCompat
 import debts.common.android.extensions.getDrawableCompat
 import debts.common.android.extensions.showAlert
-import debts.home.FragmentScreenContext
-import debts.home.ScreenContextHolder
-import debts.home.ScreenContextHolder.Companion.FRAGMENT_DEBTORS
+import debts.common.android.FragmentScreenContext
+import debts.common.android.ScreenContextHolder
+import debts.common.android.ScreenContextHolder.Companion.FRAGMENT_DEBTORS
 import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtorsAdapter
 import debts.home.list.mvi.DebtorsIntention
@@ -203,6 +203,10 @@ class DebtorsFragment : BaseFragment() {
                 intentionSubject.onNext(DebtorsIntention.ToggleSortByAmount)
                 return true
             }
+            R.id.home_debtors_menu_settings -> {
+                intentionSubject.onNext(DebtorsIntention.OpenSettings)
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -314,7 +318,6 @@ class DebtorsFragment : BaseFragment() {
                             data.contactId,
                             data.name,
                             data.amount,
-                            data.currency,
                             data.comment
                         )
                     )

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.preference.PreferenceCategory android:title="@string/preference_main_settings_general_title">
+
+        <ListPreference
+            android:defaultValue="$"
+            android:dialogTitle="@string/preference_main_settings_currency"
+            android:entries="@array/preference_main_settings_entries"
+            android:entryValues="@array/preference_main_settings_values"
+            android:key="preference_main_settings_currency"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:summary="@string/preference_main_settings_currency_summary"
+            android:title="@string/preference_main_settings_currency" />
+
+        <androidx.preference.EditTextPreference
+            android:defaultValue="$"
+            android:key="preference_main_settings_currency_custom"
+            android:negativeButtonText="@null"
+            android:title="@string/preference_main_settings_currency_custom"
+            android:visible="false"
+            tools:summary="Summary text" />
+
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory android:title="@string/preference_main_settings_sync_title">
+
+        <Preference
+            app:key="preference_main_settings_sync_contacts"
+            app:summary="@string/preference_main_settings_sync_contacts_summary"
+            app:title="@string/preference_main_settings_sync_contacts" />
+
+    </androidx.preference.PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

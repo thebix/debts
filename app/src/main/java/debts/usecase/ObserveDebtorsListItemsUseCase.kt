@@ -1,6 +1,6 @@
-package debts.home.usecase
+package debts.usecase
 
-import debts.home.repository.DebtsRepository
+import debts.repository.DebtsRepository
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 

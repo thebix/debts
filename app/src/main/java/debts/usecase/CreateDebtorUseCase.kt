@@ -1,8 +1,8 @@
-package debts.home.usecase
+package debts.usecase
 
 import com.gojuno.koptional.None
 import com.gojuno.koptional.toOptional
-import debts.home.repository.DebtsRepository
+import debts.repository.DebtsRepository
 import io.reactivex.Single
 
 class CreateDebtorUseCase(

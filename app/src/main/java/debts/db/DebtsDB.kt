@@ -48,6 +48,9 @@ abstract class DebtsDao {
     @Update
     abstract fun updateDebt(debtEntity: DebtEntity): Completable
 
+    @Query("UPDATE ${DebtEntity.TABLE_NAME} SET ${DebtEntity.CURRENCY} = :currency")
+    abstract fun updateDebtsCurrency(currency: String)
+
     @Delete
     abstract fun deleteDebtor(debtorEntity: DebtorEntity): Completable
 

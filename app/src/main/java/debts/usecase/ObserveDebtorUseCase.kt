@@ -1,8 +1,8 @@
-package debts.home.usecase
+package debts.usecase
 
-import debts.home.repository.DebtsRepository
+import debts.repository.DebtsRepository
 import io.reactivex.Observable
-import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 
 class ObserveDebtorUseCase(
     private val repository: DebtsRepository
@@ -13,12 +13,12 @@ class ObserveDebtorUseCase(
             repository.observeDebtor(debtorId),
             repository.observeDebts(debtorId)
                 .startWith(emptyList<DebtModel>()),
-            BiFunction { debtor, debts ->
+            repository.getCurrency().toObservable(),
+            Function3 { debtor, debts, currency ->
                 DebtorDetailsModel(
                     debtor.name,
                     debts.sumByDouble { it.amount },
-                    // TODO: use proper currency
-                    "$",
+                    currency,
                     debtor.avatarUrl
                 )
             }

@@ -1,7 +1,7 @@
 package debts.home.list.adapter
 
-import debts.home.usecase.ContactsItemModel
-import debts.home.usecase.DebtorsListItemModel
+import debts.usecase.ContactsItemModel
+import debts.usecase.DebtorsListItemModel
 
 sealed class DebtorsItemViewModel(open val id: Long) {
 

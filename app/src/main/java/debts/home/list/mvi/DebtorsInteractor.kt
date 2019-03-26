@@ -1,8 +1,9 @@
 package debts.home.list.mvi
 
 import debts.common.android.mvi.MviInteractor
-import debts.home.list.DebtorsNavigator
-import debts.home.usecase.*
+import debts.common.android.DebtsNavigator
+import debts.repository.DebtsRepository
+import debts.usecase.*
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.Single
@@ -14,8 +15,9 @@ class DebtorsInteractor(
     private val getContactsUseCase: GetContactsUseCase,
     private val addDebtUseCase: AddDebtUseCase,
     private val removeDebtorUseCase: RemoveDebtorUseCase,
-    private val debtorsNavigator: DebtorsNavigator,
-    private val syncDebtorsWithContactsUseCase: SyncDebtorsWithContactsUseCase
+    private val debtsNavigator: DebtsNavigator,
+    private val syncDebtorsWithContactsUseCase: SyncDebtorsWithContactsUseCase,
+    private val repository: DebtsRepository
 ) : MviInteractor<DebtorsAction, DebtorsResult> {
 
     private val initProcessor = ObservableTransformer<DebtorsAction, DebtorsResult> { actions ->
@@ -34,7 +36,7 @@ class DebtorsInteractor(
     private val openAddDebtDialogProcessor =
         ObservableTransformer<DebtorsAction.OpenAddDebtDialog, DebtorsResult> { actions ->
             actions.switchMap { action ->
-                debtorsNavigator.isPermissionGranted(action.contactPermission)
+                debtsNavigator.isPermissionGranted(action.contactPermission)
                     .map { isGranted -> action to isGranted }
                     .toObservable()
             }
@@ -43,7 +45,7 @@ class DebtorsInteractor(
                     if (isContactsAccessGranted) {
                         getContactsResult()
                     } else {
-                        debtorsNavigator.requestPermission(
+                        debtsNavigator.requestPermission(
                             action.contactPermission,
                             action.requestCode
                         )
@@ -65,8 +67,11 @@ class DebtorsInteractor(
     private val addDebtProcessor =
         ObservableTransformer<DebtorsAction.AddDebt, DebtorsResult> { actions ->
             actions.switchMap {
-                addDebtUseCase
-                    .execute(null, it.contactId, it.name, it.amount, it.currency, it.comment)
+                repository.getCurrency()
+                    .flatMapCompletable { currency ->
+                        addDebtUseCase
+                            .execute(null, it.contactId, it.name, it.amount, currency, it.comment)
+                    }
                     .subscribeOn(Schedulers.io())
                     .toObservable<DebtorsResult>()
                     .doOnError { error -> Timber.e(error) }
@@ -103,7 +108,7 @@ class DebtorsInteractor(
     private val openDetailsProcessor =
         ObservableTransformer<DebtorsAction.OpenDetails, DebtorsResult> { actions ->
             actions.switchMap { action ->
-                debtorsNavigator.openDetails(action.debtorId)
+                debtsNavigator.openDetails(action.debtorId)
                     .subscribeOn(Schedulers.io())
                     .toObservable<DebtorsResult>()
                     .doOnError { error -> Timber.e(error) }
@@ -114,7 +119,7 @@ class DebtorsInteractor(
     private val syncWithContactsProcessor =
         ObservableTransformer<DebtorsAction.SyncWithContacts, DebtorsResult> { actions ->
             actions.switchMap { action ->
-                debtorsNavigator.isPermissionGranted(action.contactPermission)
+                debtsNavigator.isPermissionGranted(action.contactPermission)
                     .map { isGranted -> action to isGranted }
                     .toObservable()
             }.flatMapCompletable { (action, isContactsAccessGranted) ->
@@ -122,7 +127,7 @@ class DebtorsInteractor(
                     syncDebtorsWithContactsUseCase
                         .execute()
                 } else {
-                    debtorsNavigator.requestPermission(
+                    debtsNavigator.requestPermission(
                         action.contactPermission,
                         action.requestCode
                     )
@@ -134,6 +139,16 @@ class DebtorsInteractor(
                 .onErrorReturnItem(DebtorsResult.Error)
         }
 
+    private val openSettingsProcessor =
+        ObservableTransformer<DebtorsAction.OpenSettings, DebtorsResult> { actions ->
+            actions.switchMap {
+                debtsNavigator.openSettings()
+                    .subscribeOn(Schedulers.io())
+                    .toObservable<DebtorsResult>()
+                    .doOnError { error -> Timber.e(error) }
+                    .onErrorReturnItem(DebtorsResult.Error)
+            }
+        }
 
     override fun actionProcessor(): ObservableTransformer<in DebtorsAction, out DebtorsResult> =
         ObservableTransformer { actions ->
@@ -155,7 +170,9 @@ class DebtorsInteractor(
                         action.ofType(DebtorsAction.OpenDetails::class.java)
                             .compose(openDetailsProcessor),
                         action.ofType(DebtorsAction.SyncWithContacts::class.java)
-                            .compose(syncWithContactsProcessor)
+                            .compose(syncWithContactsProcessor),
+                        action.ofType(DebtorsAction.OpenSettings::class.java)
+                            .compose(openSettingsProcessor)
                     )
                 )
             }

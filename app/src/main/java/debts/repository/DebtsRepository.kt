@@ -1,4 +1,4 @@
-package debts.home.repository
+package debts.repository
 
 import android.content.ContentResolver
 import android.provider.ContactsContract
@@ -6,9 +6,9 @@ import debts.common.android.prefs.Preferences
 import debts.db.DebtEntity
 import debts.db.DebtorEntity
 import debts.db.DebtsDao
-import debts.home.usecase.ContactsItemModel
-import debts.home.usecase.DebtModel
-import debts.home.usecase.DebtorModel
+import debts.usecase.ContactsItemModel
+import debts.usecase.DebtModel
+import debts.usecase.DebtorModel
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -23,6 +23,7 @@ class DebtsRepository(
     private companion object {
         const val INSERT_ID = 0L
         const val PREFS_IS_CONTACT_SYNCED = "PREFS_IS_CONTACT_SYNCED"
+        const val PREFS_CURRENCY = "preference_main_settings_currency_custom"
     }
 
     fun observeDebtors(): Observable<List<DebtorModel>> = dao.observeDebtors()
@@ -121,14 +122,23 @@ class DebtsRepository(
 
     fun removeDebt(id: Long): Completable = dao.deleteDebt(id)
 
+    fun updateDebtsCurrency(): Completable =
+        getCurrency()
+            .flatMapCompletable {
+                Completable.fromCallable { dao.updateDebtsCurrency(it) }
+            }
+
+
     fun removeDebtor(debtorId: Long): Completable = dao.deleteDebtor(debtorId)
 
-    // region Helpers
+    // region Preferences
     ///////////////////////////////////////////////////////////////////////////
 
     fun isContactsSynced() = Single.fromCallable { preferences.getBoolean(PREFS_IS_CONTACT_SYNCED, false) }
     fun setContactsSynced(isSynced: Boolean = true) =
         Completable.fromCallable { preferences.putBoolean(PREFS_IS_CONTACT_SYNCED, isSynced) }
+
+    fun getCurrency() = Single.fromCallable { preferences.getString(PREFS_CURRENCY, "") }
 
     // endregion
 }

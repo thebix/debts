@@ -20,7 +20,6 @@ class DetailsViewModel(
             is DetailsIntention.AddDebt -> DetailsAction.AddDebt(
                 intent.debtorId,
                 intent.amount,
-                intent.currency,
                 intent.comment
             )
             is DetailsIntention.RemoveDebt -> DetailsAction.RemoveDebt(intent.id)

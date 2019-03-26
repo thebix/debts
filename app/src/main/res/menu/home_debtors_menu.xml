@@ -13,7 +13,7 @@
         android:id="@+id/home_debtors_menu_sort"
         android:icon="@drawable/ic_sort"
         android:title="@string/home_debtors_menu_sort"
-        app:showAsAction="ifRoom" >
+        app:showAsAction="ifRoom">
         <menu>
             <item
                 android:id="@+id/home_debtors_menu_sort_name"
@@ -26,4 +26,10 @@
         </menu>
 
     </item>
+
+    <item
+        android:id="@+id/home_debtors_menu_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/home_debtors_menu_settings"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -1,6 +1,6 @@
-package debts.home.usecase
+package debts.usecase
 
-import debts.home.repository.DebtsRepository
+import debts.repository.DebtsRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -18,14 +18,16 @@ class SyncDebtorsWithContactsUseCase(
             repository.isContactsSynced()
                 .map { it.not() }
         })
-            .filter { it }
-            .flatMapSingle {
-                repository.getDebtors()
+            .flatMap { isShouldSync ->
+                if (isShouldSync) repository.getDebtors() else Single.fromCallable { listOf<DebtorModel>() }
             }
             .map { items ->
                 items.filter { it.contactId != null }
             }
             .flatMap { debtors ->
+                if (debtors.isEmpty()) {
+                    return@flatMap Single.fromCallable { debtors to emptyList<ContactsItemModel>() }
+                }
                 repository.getContacts()
                     .map { contacts -> debtors to contacts }
 
@@ -47,10 +49,12 @@ class SyncDebtorsWithContactsUseCase(
                 updateItems
             }
             .flatMapCompletable { updateItems ->
+                if (updateItems.isEmpty()) return@flatMapCompletable Completable.complete()
                 repository.updateDebtors(updateItems)
-
-            }.andThen(
+            }
+            .andThen(
                 repository.setContactsSynced(true)
             )
+
 }
 

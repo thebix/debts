@@ -50,6 +50,7 @@ dependencies {
     implementation libs.androidxConstraintLayout
     implementation libs.androidxDesign
     kapt libs.androidxLifecycleCompiler
+    implementation libs.androidxPreference
     // TODO: remove this dependency
     implementation libs.circleimageview
     implementation libs.glide

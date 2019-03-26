@@ -1,8 +1,7 @@
-package debts.home.usecase
+package debts.usecase
 
-import debts.home.repository.DebtsRepository
+import debts.repository.DebtsRepository
 import io.reactivex.Completable
-import io.reactivex.Single
 
 class ClearHistoryUseCase(
     private val repository: DebtsRepository
