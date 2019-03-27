@@ -114,11 +114,17 @@ class DetailsFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.home_details_menu_delete -> {
-                context?.showAlert { intentionSubject.onNext(DetailsIntention.RemoveDebtor(debtorId)) }
+                context?.showAlert(messageId = R.string.home_details_dialog_delete_message) {
+                    intentionSubject.onNext(
+                        DetailsIntention.RemoveDebtor(debtorId)
+                    )
+                }
                 return true
             }
             R.id.home_details_menu_share -> {
+
                 // region INFO: this logic should be moved to navigation class called from interactor
+
                 val message =
                     resources.getString(
                         if (isBorrowed)
@@ -138,7 +144,9 @@ class DetailsFragment : BaseFragment() {
                 if (activity != null && sendIntent.resolveActivity(activity!!.packageManager) != null) {
                     startActivity(chooser)
                 }
+
                 // endregion
+
                 return true
             }
         }

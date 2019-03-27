@@ -86,6 +86,8 @@ class DebtorItemLayout @JvmOverloads constructor(
                         .fallback(R.drawable.ic_launcher)
                         .apply(RequestOptions.circleCropTransform())
                         .into(avatarView)
+                } else {
+                    avatarView.setImageResource(R.drawable.ic_launcher)
                 }
             }
         }

@@ -11,7 +11,7 @@
 
     <item
         android:id="@+id/home_debtors_menu_share"
-        android:icon="@drawable/ic_share"
+        android:icon="@drawable/ic_share_main"
         android:title="@string/home_details_menu_share"
         app:showAsAction="ifRoom" />
 
