@@ -21,6 +21,7 @@ import debts.common.android.extensions.showAlert
 import debts.common.android.FragmentScreenContext
 import debts.common.android.ScreenContextHolder
 import debts.common.android.ScreenContextHolder.Companion.FRAGMENT_DEBTORS
+import debts.home.details.mvi.DetailsResult
 import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtorsAdapter
 import debts.home.list.mvi.DebtorsIntention
@@ -53,6 +54,9 @@ class DebtorsFragment : BaseFragment() {
             recyclerState =
                 recyclerView?.layoutManager?.onSaveInstanceState() as LinearLayoutManager.SavedState
             recyclerView?.adapter = null
+            if (hasNameFilter) {
+                intentionSubject.onNext(DebtorsIntention.Filter())
+            }
             intentionSubject.onNext(DebtorsIntention.OpenDetails(debtorId, R.id.home_root))
         }
 
@@ -75,6 +79,7 @@ class DebtorsFragment : BaseFragment() {
     private var sortType: DebtorsState.SortType = DebtorsState.SortType.NOTHING
     private var contacts: List<ContactsItemViewModel> = emptyList()
     private var dontShowAddDebtDialog: Boolean = true
+    private var hasNameFilter = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -247,6 +252,7 @@ class DebtorsFragment : BaseFragment() {
                     }
                 }
             }
+            hasNameFilter = nameFilter.isNotBlank()
             this@DebtorsFragment.contacts = contacts
             showAddDebtDialog.get(this)?.let {
                 if (dontShowAddDebtDialog.not()) {
