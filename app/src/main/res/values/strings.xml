@@ -18,6 +18,7 @@
     <string name="home_debtors_menu_sort_name">Name</string>
     <string name="home_debtors_menu_sort_amount">Amount</string>
     <string name="home_debtors_item_menu_remove">Remove debtor</string>
+    <string name="home_debtors_item_menu_share">Share</string>
 
     <string name="home_debtors_dialog_confirm">Confirm</string>
     <string name="home_debtors_dialog_add_debt">Add Debt</string>
@@ -36,8 +37,8 @@
     <string name="home_details_dialog_delete_message">All debtor data will be deleted</string>
     <string name="home_details_history_title">History</string>
     <string name="home_details_share_title">Share debt information with</string>
-    <string name="home_details_share_message_borrowed">Hey, %1$s borrowed me %2$s</string>
-    <string name="home_details_share_message_lent">Hey, I\'ve lent %2$s to %1$s</string>
+    <string name="home_details_share_message_borrowed">Hey, %1$s borrowed me %2$s %3$s</string>
+    <string name="home_details_share_message_lent">Hey, I\'ve lent %2$s %3$s to %1$s</string>
 
     <string name="home_details_menu_delete">Delete</string>
     <string name="home_details_menu_share">Share</string>

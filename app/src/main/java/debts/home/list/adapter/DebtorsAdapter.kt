@@ -50,5 +50,6 @@ class DebtorsAdapter(
 
         fun onItemClick(debtorId: Long)
         fun onDebtorRemove(debtorId: Long)
+        fun onDebtorShare(debtorId: Long)
     }
 }

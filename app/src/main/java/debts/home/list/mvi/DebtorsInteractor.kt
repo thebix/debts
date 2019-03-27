@@ -25,6 +25,7 @@ class DebtorsInteractor(
     private val debtsNavigator: DebtsNavigator,
     private val syncDebtorsWithContactsUseCase: SyncDebtorsWithContactsUseCase,
     private val getDebtsCsvContentUseCase: GetDebtsCsvContentUseCase,
+    private val getShareDebtorContentUseCase: GetShareDebtorContentUseCase,
     private val repository: DebtsRepository
 ) : MviInteractor<DebtorsAction, DebtorsResult> {
 
@@ -162,12 +163,29 @@ class DebtorsInteractor(
         ObservableTransformer<DebtorsAction.ShareAllDebts, DebtorsResult> { actions ->
             actions.switchMap { action ->
                 getDebtsCsvContentUseCase.execute()
-                    .flatMapCompletable {content ->
+                    .flatMapCompletable { content ->
                         debtsNavigator.sendExplicitFile(
                             action.titleText,
                             "debts.csv",
                             content,
                             "text/csv"
+                        )
+                    }
+                    .subscribeOn(Schedulers.io())
+                    .toObservable<DebtorsResult>()
+                    .doOnError { error -> Timber.e(error) }
+                    .onErrorReturnItem(DebtorsResult.Error)
+            }
+        }
+
+    private val shareDebtorProcessor =
+        ObservableTransformer<DebtorsAction.ShareDebtor, DebtorsResult> { actions ->
+            actions.switchMap { action ->
+                getShareDebtorContentUseCase.execute(action.debtorId, action.borrowedTemplate, action.lentTemplate)
+                    .flatMapCompletable { content ->
+                        debtsNavigator.sendExplicit(
+                            action.titleText,
+                            content
                         )
                     }
                     .subscribeOn(Schedulers.io())
@@ -201,7 +219,9 @@ class DebtorsInteractor(
                         action.ofType(DebtorsAction.OpenSettings::class.java)
                             .compose(openSettingsProcessor),
                         action.ofType(DebtorsAction.ShareAllDebts::class.java)
-                            .compose(shareAllDebtsProcessor)
+                            .compose(shareAllDebtsProcessor),
+                        action.ofType(DebtorsAction.ShareDebtor::class.java)
+                            .compose(shareDebtorProcessor)
                     )
                 )
             }

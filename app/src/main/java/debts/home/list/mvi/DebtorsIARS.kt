@@ -27,6 +27,12 @@ sealed class DebtorsIntention : MviIntention {
     object ToggleSortByName : DebtorsIntention()
     object ToggleSortByAmount : DebtorsIntention()
     data class RemoveDebtor(val debtorId: Long) : DebtorsIntention()
+    data class ShareDebtor(
+        val debtorId: Long,
+        val titleText: String,
+        val borrowedTemplate: String,
+        val lentTemplate: String
+    ) : DebtorsIntention()
     data class OpenDetails(val debtorId: Long, @IdRes val rootId: Int) : DebtorsIntention()
     data class SyncWithContacts(
         val contactPermission: String,
@@ -58,6 +64,13 @@ sealed class DebtorsAction : MviAction {
     ) : DebtorsAction()
 
     data class RemoveDebtor(val debtorId: Long) : DebtorsAction()
+    data class ShareDebtor(
+        val debtorId: Long,
+        val titleText: String,
+        val borrowedTemplate: String,
+        val lentTemplate: String
+    ) : DebtorsAction()
+
     data class OpenDetails(val debtorId: Long, @IdRes val rootId: Int) : DebtorsAction()
     data class SyncWithContacts(
         val contactPermission: String,
