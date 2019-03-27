@@ -1,8 +1,10 @@
 package debts
 
 import android.app.Application
+import com.crashlytics.android.Crashlytics
 import com.squareup.leakcanary.LeakCanary
 import debts.di.*
+import io.fabric.sdk.android.Fabric
 import net.thebix.debts.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -21,6 +23,8 @@ class DebtsApp : Application() {
         LeakCanary.install(this)
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
+        } else {
+            Fabric.with(this, Crashlytics())
         }
         // start Koin!
         startKoin {
