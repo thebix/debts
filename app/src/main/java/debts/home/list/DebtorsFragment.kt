@@ -64,6 +64,17 @@ class DebtorsFragment : BaseFragment() {
             intentionSubject.onNext(DebtorsIntention.RemoveDebtor(debtorId))
         }
 
+        override fun onDebtorShare(debtorId: Long) {
+            intentionSubject.onNext(
+                DebtorsIntention.ShareDebtor(
+                    debtorId,
+                    resources.getString(R.string.home_details_share_title),
+                    resources.getString(R.string.home_details_share_message_borrowed),
+                    resources.getString(R.string.home_details_share_message_lent)
+                )
+            )
+        }
+
     }
     private val screenContextHolder: ScreenContextHolder by inject()
     private val viewModel: DebtorsViewModel by viewModel()

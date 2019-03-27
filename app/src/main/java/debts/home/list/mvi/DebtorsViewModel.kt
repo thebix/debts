@@ -46,6 +46,12 @@ class DebtorsViewModel(
                 }
             )
             is DebtorsIntention.RemoveDebtor -> DebtorsAction.RemoveDebtor(intent.debtorId)
+            is DebtorsIntention.ShareDebtor -> DebtorsAction.ShareDebtor(
+                intent.debtorId,
+                intent.titleText,
+                intent.borrowedTemplate,
+                intent.lentTemplate
+            )
             is DebtorsIntention.OpenDetails -> DebtorsAction.OpenDetails(
                 intent.debtorId,
                 intent.rootId

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/home_debtors_item_menu_share"
+        android:title="@string/home_debtors_item_menu_share" />
+    <item
         android:id="@+id/home_debtors_item_menu_remove"
         android:title="@string/home_debtors_item_menu_remove" />
 </menu>

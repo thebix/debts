@@ -55,6 +55,10 @@ class DebtorItemLayout @JvmOverloads constructor(
                             itemClickCallback.onDebtorRemove(debtorId)
                             true
                         }
+                        R.id.home_debtors_item_menu_share -> {
+                            itemClickCallback.onDebtorShare(debtorId)
+                            true
+                        }
                         else -> false
                     }
                 }
