@@ -207,6 +207,14 @@ class DebtorsFragment : BaseFragment() {
                 intentionSubject.onNext(DebtorsIntention.OpenSettings)
                 return true
             }
+            R.id.home_debtors_menu_share -> {
+                intentionSubject.onNext(
+                    DebtorsIntention.ShareAllDebts(
+                        context?.getString(R.string.home_debtors_share_title) ?: ""
+                    )
+                )
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }

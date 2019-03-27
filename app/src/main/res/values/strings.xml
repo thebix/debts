@@ -10,6 +10,7 @@
 
     <string name="home_debtors_empty_debt_fields">Empty debtor or debt amount</string>
     <string name="home_debtors_search_hint">Search</string>
+    <string name="home_debtors_share_title">Share all debts as csv</string>
 
     <string name="home_debtors_menu_search">Search</string>
     <string name="home_debtors_menu_settings">Settings</string>

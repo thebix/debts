@@ -74,6 +74,7 @@ val useCasesModule = module {
     single { RemoveDebtorUseCase(repository = get()) }
     single { SyncDebtorsWithContactsUseCase(repository = get()) }
     single { UpdateDbDebtsCurrencyUseCase(repository = get()) }
+    single { GetDebtsCsvContentUseCase(repository = get()) }
 }
 
 val interactorModule = module {
@@ -103,6 +104,7 @@ val interactorModule = module {
             removeDebtorUseCase = get(),
             debtsNavigator = get(ScreenContextHolder.FRAGMENT_DEBTORS),
             syncDebtorsWithContactsUseCase = get(),
+            getDebtsCsvContentUseCase = get(),
             repository = get()
         )
     }

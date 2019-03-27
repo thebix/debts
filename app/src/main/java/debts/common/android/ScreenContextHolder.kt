@@ -1,13 +1,17 @@
 package debts.common.android
 
+import android.content.Context
 import android.content.Intent
 import androidx.annotation.IdRes
-import androidx.annotation.StringRes
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import debts.common.android.extensions.isPermissionGranted
 import debts.common.android.extensions.tryToFindActivity
 import java.lang.ref.WeakReference
 import net.thebix.debts.R
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 interface ScreenContextHolder {
 
@@ -61,9 +65,16 @@ interface ScreenContext {
     fun openActivity(intent: Intent)
 
     fun sendExplicit(
-        @StringRes chooserTitleId: Int = 0,
+        chooserTitle: String,
         // TODO: change to Generic
         message: String
+    )
+
+    fun sendExplicitFile(
+        chooserTitle: String,
+        fileName: String,
+        fileContent: String = "",
+        fileMimeType: String = "text/plain"
     )
 
     enum class NavAnimation(val value: List<Int>) {
@@ -118,7 +129,7 @@ class FragmentScreenContext(
     }
 
     override fun sendExplicit(
-        chooserTitleId: Int,
+        chooserTitle: String,
         message: String
     ) {
         fragmentRef.get()?.let { fragment ->
@@ -129,9 +140,47 @@ class FragmentScreenContext(
                         putExtra(Intent.EXTRA_TEXT, message)
                         type = "text/plain"
                     }
-                val title: String = fragment.getString(chooserTitleId)
-                val chooser: Intent = Intent.createChooser(sendIntent, title)
+                val chooser: Intent = Intent.createChooser(sendIntent, chooserTitle)
                 if (sendIntent.resolveActivity(packageManager) != null) {
+                    fragment.startActivity(chooser)
+                }
+            }
+        }
+    }
+
+    override fun sendExplicitFile(
+        chooserTitle: String,
+        fileName: String,
+        fileContent: String,
+        fileMimeType: String
+    ) {
+        fragmentRef.get()?.let { fragment ->
+            (fragment.context?.tryToFindActivity())?.packageManager?.let { packageManager ->
+
+                val applicationContext = fragment.context!!.applicationContext
+                val folder = applicationContext.cacheDir.absolutePath + File.separator + "share"
+                val subFolder = File(folder)
+                if (!subFolder.exists()) {
+                    subFolder.mkdirs()
+                }
+                val file = File(subFolder, fileName)
+                val outputStream = FileOutputStream(file)
+                outputStream.write(fileContent.toByteArray())
+                outputStream.close()
+                val uri = FileProvider.getUriForFile(
+                    applicationContext,
+                    "net.thebix.debts.fileprovider",
+                    file
+                )
+                val intentShareFile = Intent(Intent.ACTION_SEND)
+                intentShareFile.type = fileMimeType
+                intentShareFile.putExtra(Intent.EXTRA_STREAM, uri)
+                val chooser = Intent.createChooser(
+                    intentShareFile,
+                    chooserTitle
+                )
+                chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                if (intentShareFile.resolveActivity(packageManager) != null) {
                     fragment.startActivity(chooser)
                 }
             }
