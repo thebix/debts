@@ -55,6 +55,7 @@ class DebtorsViewModel(
                 intent.requestCode
             )
             DebtorsIntention.OpenSettings -> DebtorsAction.OpenSettings
+            is DebtorsIntention.ShareAllDebts -> DebtorsAction.ShareAllDebts(intent.titleText)
         }
 
     override val reducer: BiFunction<DebtorsState, DebtorsResult, DebtorsState>

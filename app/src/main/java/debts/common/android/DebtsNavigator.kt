@@ -32,6 +32,37 @@ class DebtsNavigator(
 
     // endregion
 
+    // region Share
+
+    fun sendExplicit(
+        chooserTitle: String,
+        // TODO: change to Generic
+        message: String
+    ): Completable =
+        Completable.fromCallable {
+            screenContextHolder.get(name)?.sendExplicit(
+                chooserTitle,
+                message
+            )
+        }
+
+    fun sendExplicitFile(
+        chooserTitle: String,
+        fileName: String,
+        fileContent: String,
+        fileMimeType: String
+    ): Completable =
+        Completable.fromCallable {
+            screenContextHolder.get(name)?.sendExplicitFile(
+                chooserTitle,
+                fileName,
+                fileContent,
+                fileMimeType
+            )
+        }
+
+    // endregion
+
     // region Permissions
 
     fun isPermissionGranted(permission: String): Single<Boolean> =

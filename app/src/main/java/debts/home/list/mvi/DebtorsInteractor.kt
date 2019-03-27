@@ -1,7 +1,7 @@
 package debts.home.list.mvi
 
-import debts.common.android.mvi.MviInteractor
 import debts.common.android.DebtsNavigator
+import debts.common.android.mvi.MviInteractor
 import debts.repository.DebtsRepository
 import debts.usecase.*
 import io.reactivex.Observable
@@ -9,6 +9,13 @@ import io.reactivex.ObservableTransformer
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
+import net.thebix.debts.R
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
+import java.nio.file.Files.exists
+
 
 class DebtorsInteractor(
     private val observeDebtorsListItemsUseCase: ObserveDebtorsListItemsUseCase,
@@ -17,6 +24,7 @@ class DebtorsInteractor(
     private val removeDebtorUseCase: RemoveDebtorUseCase,
     private val debtsNavigator: DebtsNavigator,
     private val syncDebtorsWithContactsUseCase: SyncDebtorsWithContactsUseCase,
+    private val getDebtsCsvContentUseCase: GetDebtsCsvContentUseCase,
     private val repository: DebtsRepository
 ) : MviInteractor<DebtorsAction, DebtorsResult> {
 
@@ -150,6 +158,25 @@ class DebtorsInteractor(
             }
         }
 
+    private val shareAllDebtsProcessor =
+        ObservableTransformer<DebtorsAction.ShareAllDebts, DebtorsResult> { actions ->
+            actions.switchMap { action ->
+                getDebtsCsvContentUseCase.execute()
+                    .flatMapCompletable {content ->
+                        debtsNavigator.sendExplicitFile(
+                            action.titleText,
+                            "debts.csv",
+                            content,
+                            "text/csv"
+                        )
+                    }
+                    .subscribeOn(Schedulers.io())
+                    .toObservable<DebtorsResult>()
+                    .doOnError { error -> Timber.e(error) }
+                    .onErrorReturnItem(DebtorsResult.Error)
+            }
+        }
+
     override fun actionProcessor(): ObservableTransformer<in DebtorsAction, out DebtorsResult> =
         ObservableTransformer { actions ->
             actions.publish { action ->
@@ -172,7 +199,9 @@ class DebtorsInteractor(
                         action.ofType(DebtorsAction.SyncWithContacts::class.java)
                             .compose(syncWithContactsProcessor),
                         action.ofType(DebtorsAction.OpenSettings::class.java)
-                            .compose(openSettingsProcessor)
+                            .compose(openSettingsProcessor),
+                        action.ofType(DebtorsAction.ShareAllDebts::class.java)
+                            .compose(shareAllDebtsProcessor)
                     )
                 )
             }

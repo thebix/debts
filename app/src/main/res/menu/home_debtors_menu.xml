@@ -10,6 +10,12 @@
         app:showAsAction="ifRoom|collapseActionView" />
 
     <item
+        android:id="@+id/home_debtors_menu_share"
+        android:icon="@drawable/ic_share"
+        android:title="@string/home_details_menu_share"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/home_debtors_menu_sort"
         android:icon="@drawable/ic_sort"
         android:title="@string/home_debtors_menu_sort"

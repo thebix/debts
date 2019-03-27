@@ -32,7 +32,9 @@ sealed class DebtorsIntention : MviIntention {
         val contactPermission: String,
         val requestCode: Int
     ) : DebtorsIntention()
-    object OpenSettings: DebtorsIntention()
+
+    object OpenSettings : DebtorsIntention()
+    data class ShareAllDebts(val titleText: String) : DebtorsIntention()
 }
 
 sealed class DebtorsAction : MviAction {
@@ -61,7 +63,9 @@ sealed class DebtorsAction : MviAction {
         val contactPermission: String,
         val requestCode: Int
     ) : DebtorsAction()
-    object OpenSettings: DebtorsAction()
+
+    object OpenSettings : DebtorsAction()
+    data class ShareAllDebts(val titleText: String) : DebtorsAction()
 }
 
 sealed class DebtorsResult : MviResult {
