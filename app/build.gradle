@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'
 
 android {
     signingConfigs {
@@ -25,6 +27,11 @@ android {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
+        }
+        defaultConfig {
+            manifestPlaceholders = [
+                    crashlytics: DEBTS_FABRIC_API_KEY
+            ]
         }
     }
 
@@ -53,6 +60,8 @@ dependencies {
     implementation libs.androidxPreference
     // TODO: remove this dependency
     implementation libs.circleimageview
+    implementation libs.crashlytics
+    implementation libs.firebaseCore
     implementation libs.glide
     kapt libs.glideCompiler
     implementation libs.koin
