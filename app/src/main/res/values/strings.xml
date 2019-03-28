@@ -58,6 +58,7 @@
     <string name="preference_main_settings_currency">Currency</string>
     <string name="preference_main_settings_currency_summary">Selected: %1$s</string>
     <string name="preference_main_settings_currency_custom">Custom currency</string>
+    <string name="preference_main_settings_version">Version</string>
     <string name="preference_main_settings_sync_title">Sync</string>
     <string name="preference_main_settings_sync_contacts">Sync with contacts</string>
     <string name="preference_main_settings_sync_contacts_summary">Update names and pictures</string>

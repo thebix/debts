@@ -17,6 +17,7 @@ import debts.preferences.main.mvi.MainSettingsViewModel
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
+import net.thebix.debts.BuildConfig
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.viewModel
 import timber.log.Timber
@@ -72,6 +73,8 @@ class MainSettingsFragment : PreferenceFragmentCompat() {
             preferenceScreen.findPreference("preference_main_settings_currency_custom") as EditTextPreference
         syncContactsPref = preferenceScreen.findPreference("preference_main_settings_sync_contacts") as Preference
 
+        (preferenceScreen.findPreference("preference_main_settings_version") as Preference).summary =
+            "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
 
         currencyCustomPref?.isVisible = currencyListPref?.value == "Custom"
 
