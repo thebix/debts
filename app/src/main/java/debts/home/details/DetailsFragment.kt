@@ -17,6 +17,8 @@ import com.jakewharton.rxbinding3.view.clicks
 import debts.common.android.BaseActivity
 import debts.common.android.BaseFragment
 import debts.common.android.FragmentArgumentDelegate
+import debts.common.android.FragmentScreenContext
+import debts.common.android.ScreenContextHolder
 import debts.common.android.extensions.findViewById
 import debts.home.details.adapter.DebtItemLayout
 import debts.home.details.adapter.DebtsAdapter
@@ -35,6 +37,7 @@ import timber.log.Timber
 import net.thebix.debts.R
 import debts.common.android.extensions.getColorCompat
 import debts.common.android.extensions.tryToGoBack
+import org.koin.android.ext.android.inject
 
 class DetailsFragment : BaseFragment() {
 
@@ -53,6 +56,7 @@ class DetailsFragment : BaseFragment() {
         }
     }
 
+    private val screenContextHolder: ScreenContextHolder by inject()
     private val viewModel: DetailsViewModel by viewModel()
     private val adapter = DebtsAdapter(menuItemClickListener)
     private val intentionSubject = PublishSubject.create<DetailsIntention>()
@@ -123,29 +127,14 @@ class DetailsFragment : BaseFragment() {
             }
             R.id.home_details_menu_share -> {
 
-                // region INFO: this logic should be moved to navigation class called from interactor
-
-                val message =
-                    resources.getString(
-                        if (isBorrowed)
-                            R.string.home_details_share_message_borrowed else R.string.home_details_share_message_lent,
-                        nameView?.text,
-                        amountView?.text
+                intentionSubject.onNext(
+                    DetailsIntention.ShareDebtor(
+                        debtorId,
+                        resources.getString(R.string.home_details_share_title),
+                        resources.getString(R.string.home_details_share_message_borrowed),
+                        resources.getString(R.string.home_details_share_message_lent)
                     )
-                val sendIntent = Intent(Intent.ACTION_SEND)
-                    .apply {
-                        action = Intent.ACTION_SEND
-                        putExtra(Intent.EXTRA_TEXT, message)
-                        type = "text/plain"
-                    }
-
-                val title: String = resources.getString(R.string.home_details_share_title)
-                val chooser: Intent = Intent.createChooser(sendIntent, title)
-                if (activity != null && sendIntent.resolveActivity(activity!!.packageManager) != null) {
-                    startActivity(chooser)
-                }
-
-                // endregion
+                )
 
                 return true
             }
@@ -156,6 +145,10 @@ class DetailsFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
 
+        screenContextHolder.set(
+            ScreenContextHolder.FRAGMENT_DETAILS,
+            FragmentScreenContext(this)
+        )
         disposables = CompositeDisposable(
             viewModel.states()
                 .subscribe(::render),
@@ -210,6 +203,7 @@ class DetailsFragment : BaseFragment() {
     }
 
     override fun onStop() {
+        screenContextHolder.remove(ScreenContextHolder.FRAGMENT_DETAILS)
         disposables.dispose()
         adapterDisposable?.dispose()
         super.onStop()

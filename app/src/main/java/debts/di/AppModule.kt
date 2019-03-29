@@ -97,6 +97,14 @@ val interactorModule = module {
         )
     }
 
+    single(name = ScreenContextHolder.FRAGMENT_DETAILS) {
+        DebtsNavigator(
+            screenContextHolder = get(),
+            applicationContext = androidContext(),
+            name = ScreenContextHolder.FRAGMENT_DETAILS
+        )
+    }
+
     factory {
         DebtorsInteractor(
             observeDebtorsListItemsUseCase = get(),
@@ -112,12 +120,14 @@ val interactorModule = module {
     }
     factory {
         DetailsInteractor(
+            debtsNavigator = get(ScreenContextHolder.FRAGMENT_DETAILS),
             clearHistoryUseCase = get(),
             addDebtUseCase = get(),
             observeDebtorUseCase = get(),
             observeDebtsUseCase = get(),
             removeDebtUseCase = get(),
             removeDebtorUseCase = get(),
+            getShareDebtorContentUseCase = get(),
             repository = get()
         )
     }

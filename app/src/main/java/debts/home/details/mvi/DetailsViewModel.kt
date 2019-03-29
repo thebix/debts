@@ -4,6 +4,8 @@ import debts.common.android.extensions.toDecimal
 import debts.common.android.mvi.MviViewModel
 import debts.common.android.mvi.OneShot
 import debts.home.details.adapter.toDebtsItemViewModel
+import debts.home.list.mvi.DebtorsAction
+import debts.home.list.mvi.DebtorsIntention
 import io.reactivex.functions.BiFunction
 
 class DetailsViewModel(
@@ -24,6 +26,12 @@ class DetailsViewModel(
             )
             is DetailsIntention.RemoveDebt -> DetailsAction.RemoveDebt(intent.id)
             is DetailsIntention.RemoveDebtor -> DetailsAction.RemoveDebtor(intent.debtorId)
+            is DetailsIntention.ShareDebtor -> DetailsAction.ShareDebtor(
+                intent.debtorId,
+                intent.titleText,
+                intent.borrowedTemplate,
+                intent.lentTemplate
+            )
         }
 
     override val reducer: BiFunction<DetailsState, DetailsResult, DetailsState>
