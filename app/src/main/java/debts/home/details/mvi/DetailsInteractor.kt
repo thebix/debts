@@ -1,5 +1,6 @@
 package debts.home.details.mvi
 
+import debts.common.android.DebtsNavigator
 import debts.common.android.mvi.MviInteractor
 import debts.repository.DebtsRepository
 import debts.usecase.*
@@ -9,12 +10,14 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 class DetailsInteractor(
+    private val debtsNavigator: DebtsNavigator,
     private val clearHistoryUseCase: ClearHistoryUseCase,
     private val addDebtUseCase: AddDebtUseCase,
     private val observeDebtorUseCase: ObserveDebtorUseCase,
     private val observeDebtsUseCase: ObserveDebtsUseCase,
     private val removeDebtUseCase: RemoveDebtUseCase,
     private val removeDebtorUseCase: RemoveDebtorUseCase,
+    private val getShareDebtorContentUseCase: GetShareDebtorContentUseCase,
     private val repository: DebtsRepository
 
 ) : MviInteractor<DetailsAction, DetailsResult> {
@@ -94,6 +97,23 @@ class DetailsInteractor(
         }
     }
 
+    private val shareDebtorProcessor =
+        ObservableTransformer<DetailsAction.ShareDebtor, DetailsResult> { actions ->
+            actions.switchMap { action ->
+                getShareDebtorContentUseCase.execute(action.debtorId, action.borrowedTemplate, action.lentTemplate)
+                    .flatMapCompletable { content ->
+                        debtsNavigator.sendExplicit(
+                            action.titleText,
+                            content
+                        )
+                    }
+                    .subscribeOn(Schedulers.io())
+                    .toObservable<DetailsResult>()
+                    .doOnError { error -> Timber.e(error) }
+                    .onErrorReturnItem(DetailsResult.Error)
+            }
+        }
+
     override fun actionProcessor(): ObservableTransformer<in DetailsAction, out DetailsResult> =
         ObservableTransformer { actions ->
             actions.publish { action ->
@@ -108,7 +128,9 @@ class DetailsInteractor(
                         action.ofType(DetailsAction.RemoveDebt::class.java)
                             .compose(removeDebtProcessor),
                         action.ofType(DetailsAction.RemoveDebtor::class.java)
-                            .compose(removeDebtorProcessor)
+                            .compose(removeDebtorProcessor),
+                        action.ofType(DetailsAction.ShareDebtor::class.java)
+                            .compose(shareDebtorProcessor)
                     )
                 )
             }
