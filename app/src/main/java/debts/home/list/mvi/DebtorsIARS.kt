@@ -9,7 +9,11 @@ import debts.usecase.DebtorsListItemModel
 
 sealed class DebtorsIntention : MviIntention {
 
-    object Init : DebtorsIntention(), MviInitIntention
+    data class Init(
+        val contactPermission: String,
+        val requestCode: Int
+    ) : DebtorsIntention(), MviInitIntention
+
     data class OpenAddDebtDialog(
         val contactPermission: String,
         val requestCode: Int
@@ -33,11 +37,9 @@ sealed class DebtorsIntention : MviIntention {
         val borrowedTemplate: String,
         val lentTemplate: String
     ) : DebtorsIntention()
+
     data class OpenDetails(val debtorId: Long, @IdRes val rootId: Int) : DebtorsIntention()
-    data class SyncWithContacts(
-        val contactPermission: String,
-        val requestCode: Int
-    ) : DebtorsIntention()
+    object SyncWithContacts : DebtorsIntention()
 
     object OpenSettings : DebtorsIntention()
     data class ShareAllDebts(val titleText: String) : DebtorsIntention()
@@ -45,7 +47,11 @@ sealed class DebtorsIntention : MviIntention {
 
 sealed class DebtorsAction : MviAction {
 
-    object Init : DebtorsAction()
+    data class Init(
+        val contactPermission: String,
+        val requestCode: Int
+    ) : DebtorsAction()
+
     data class OpenAddDebtDialog(
         val contactPermission: String,
         val requestCode: Int
@@ -72,10 +78,7 @@ sealed class DebtorsAction : MviAction {
     ) : DebtorsAction()
 
     data class OpenDetails(val debtorId: Long, @IdRes val rootId: Int) : DebtorsAction()
-    data class SyncWithContacts(
-        val contactPermission: String,
-        val requestCode: Int
-    ) : DebtorsAction()
+    object SyncWithContacts : DebtorsAction()
 
     object OpenSettings : DebtorsAction()
     data class ShareAllDebts(val titleText: String) : DebtorsAction()
