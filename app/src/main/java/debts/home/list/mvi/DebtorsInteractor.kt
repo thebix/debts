@@ -22,18 +22,42 @@ class DebtorsInteractor(
     private val repository: DebtsRepository
 ) : MviInteractor<DebtorsAction, DebtorsResult> {
 
-    private val initProcessor = ObservableTransformer<DebtorsAction, DebtorsResult> { actions ->
-        actions.switchMap {
-            observeDebtorsListItemsUseCase
-                .execute()
+    private val initProcessor = ObservableTransformer<DebtorsAction.Init, DebtorsResult> { actions ->
+        actions.switchMap { action ->
+            Observable.merge(
+                observeDebtorsListItemsUseCase
+                    .execute()
+                    .switchMap { items ->
+                        Observable.fromCallable { DebtorsResult.ItemsResult(items) as DebtorsResult }
+                    },
+                checkContactsPermissionAndSyncWithContacts(action.contactPermission, action.requestCode)
+                    .toObservable()
+            )
                 .subscribeOn(Schedulers.io())
-                .switchMap { items ->
-                    Observable.fromCallable { DebtorsResult.ItemsResult(items) as DebtorsResult }
-                }
                 .doOnError { Timber.e(it) }
                 .onErrorReturnItem(DebtorsResult.Error)
         }
     }
+
+    private fun checkContactsPermissionAndSyncWithContacts(contactPermission: String, requestCode: Int) =
+        observeDebtorsListItemsUseCase.execute()
+            .take(1)
+            .singleElement()
+            .filter { items -> items.any { it.name.isEmpty() } }
+            .flatMap {
+                debtsNavigator.isPermissionGranted(contactPermission)
+                    .toMaybe()
+            }
+            .flatMapCompletable { isContactsAccessGranted ->
+                if (isContactsAccessGranted) {
+                    syncDebtorsWithContactsUseCase.execute()
+                } else {
+                    debtsNavigator.requestPermission(
+                        contactPermission,
+                        requestCode
+                    )
+                }
+            }
 
     private val openAddDebtDialogProcessor =
         ObservableTransformer<DebtorsAction.OpenAddDebtDialog, DebtorsResult> { actions ->
@@ -120,25 +144,13 @@ class DebtorsInteractor(
 
     private val syncWithContactsProcessor =
         ObservableTransformer<DebtorsAction.SyncWithContacts, DebtorsResult> { actions ->
-            actions.switchMap { action ->
-                debtsNavigator.isPermissionGranted(action.contactPermission)
-                    .map { isGranted -> action to isGranted }
-                    .toObservable()
-            }.flatMapCompletable { (action, isContactsAccessGranted) ->
-                if (isContactsAccessGranted) {
-                    syncDebtorsWithContactsUseCase
-                        .execute()
-                } else {
-                    debtsNavigator.requestPermission(
-                        action.contactPermission,
-                        action.requestCode
-                    )
-                }
+            actions.switchMap {
+                syncDebtorsWithContactsUseCase.execute()
+                    .subscribeOn(Schedulers.io())
+                    .toObservable<DebtorsResult>()
+                    .doOnError { error -> Timber.e(error) }
+                    .onErrorReturnItem(DebtorsResult.Error)
             }
-                .subscribeOn(Schedulers.io())
-                .toObservable<DebtorsResult>()
-                .doOnError { error -> Timber.e(error) }
-                .onErrorReturnItem(DebtorsResult.Error)
         }
 
     private val openSettingsProcessor =

@@ -19,7 +19,7 @@ class DebtorsViewModel(
 
     override fun actionFromIntention(intent: DebtorsIntention): DebtorsAction =
         when (intent) {
-            DebtorsIntention.Init -> DebtorsAction.Init
+            is DebtorsIntention.Init -> DebtorsAction.Init(intent.contactPermission, intent.requestCode)
             is DebtorsIntention.OpenAddDebtDialog -> DebtorsAction.OpenAddDebtDialog(
                 intent.contactPermission,
                 intent.requestCode
@@ -56,10 +56,7 @@ class DebtorsViewModel(
                 intent.debtorId,
                 intent.rootId
             )
-            is DebtorsIntention.SyncWithContacts -> DebtorsAction.SyncWithContacts(
-                intent.contactPermission,
-                intent.requestCode
-            )
+            DebtorsIntention.SyncWithContacts -> DebtorsAction.SyncWithContacts
             DebtorsIntention.OpenSettings -> DebtorsAction.OpenSettings
             is DebtorsIntention.ShareAllDebts -> DebtorsAction.ShareAllDebts(intent.titleText)
         }

@@ -292,12 +292,7 @@ class DebtorsFragment : BaseFragment() {
                 showAddDebtDialog()
             }
             READ_CONTACTS_SYNC_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                intentionSubject.onNext(
-                    DebtorsIntention.SyncWithContacts(
-                        Manifest.permission.READ_CONTACTS,
-                        READ_CONTACTS_SYNC_PERMISSION_CODE
-                    )
-                )
+                intentionSubject.onNext(DebtorsIntention.SyncWithContacts)
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -306,9 +301,8 @@ class DebtorsFragment : BaseFragment() {
     private fun intentions() =
         Observable.merge(
             listOf(
-                Observable.fromCallable { DebtorsIntention.Init },
                 Observable.fromCallable {
-                    DebtorsIntention.SyncWithContacts(
+                    DebtorsIntention.Init(
                         Manifest.permission.READ_CONTACTS,
                         READ_CONTACTS_SYNC_PERMISSION_CODE
                     )
