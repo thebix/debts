@@ -3,6 +3,7 @@ package debts
 import android.app.Application
 import com.crashlytics.android.Crashlytics
 import com.squareup.leakcanary.LeakCanary
+import debts.common.TimberCrashlyticsTree
 import debts.di.*
 import io.fabric.sdk.android.Fabric
 import net.thebix.debts.BuildConfig
@@ -23,7 +24,9 @@ class DebtsApp : Application() {
         LeakCanary.install(this)
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
+            Fabric.with(this, Crashlytics())
         } else {
+            Timber.plant(TimberCrashlyticsTree())
             Fabric.with(this, Crashlytics())
         }
         // start Koin!
