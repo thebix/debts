@@ -1,9 +1,11 @@
 package debts.usecase
 
+import debts.common.android.extensions.toFormattedCurrency
 import debts.repository.DebtsRepository
 import io.reactivex.Single
 import io.reactivex.functions.Function3
 import timber.log.Timber
+import kotlin.math.absoluteValue
 
 class GetShareDebtorContentUseCase(
     private val repository: DebtsRepository
@@ -20,14 +22,14 @@ class GetShareDebtorContentUseCase(
                 .singleOrError(),
             repository.getDebts(debtorId),
             repository.getCurrency(),
-            Function3() { debtor, debts, currency ->
+            Function3 { debtor, debts, currency ->
                 val amount = debts.sumByDouble { it.amount }
                 val isBorrowed = amount < 0
                 try {
                     return@Function3 String.format(
                         (if (isBorrowed) templateBorrowed else templateLent),
                         debtor.name,
-                        amount,
+                        amount.absoluteValue.toFormattedCurrency(),
                         currency
                     )
                 } catch (ex: Exception) {

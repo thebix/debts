@@ -87,13 +87,14 @@
 
                 <TextView
                     android:id="@+id/home_details_debt_amount"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:textAppearance="@style/Debts.Text.Large.Extra"
                     app:layout_constraintStart_toStartOf="@id/home_details_debt_total"
                     app:layout_constraintTop_toBottomOf="@id/home_details_debt_total"
-                    tools:text="150$" />
+                    tools:text="150$ 150$ 150$ 150$ 150$ 150$ 150$ 150$ 150$ 150$" />
 
                 <TextView
                     android:id="@+id/home_details_debt_change"
@@ -161,6 +162,6 @@
         tools:layout_marginStart="@dimen/margin_64dp"
         tools:paddingEnd="@dimen/padding_8dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:layout_marginTop="380dp" />
+        tools:layout_marginTop="430dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

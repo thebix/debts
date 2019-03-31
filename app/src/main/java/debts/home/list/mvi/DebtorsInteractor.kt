@@ -9,6 +9,8 @@ import io.reactivex.ObservableTransformer
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
+import java.text.NumberFormat
+import java.util.*
 
 class DebtorsInteractor(
     private val observeDebtorsListItemsUseCase: ObserveDebtorsListItemsUseCase,
@@ -25,6 +27,13 @@ class DebtorsInteractor(
     private val initProcessor = ObservableTransformer<DebtorsAction.Init, DebtorsResult> { actions ->
         actions.switchMap { action ->
             Observable.merge(
+                repository.isAppFirstStart()
+                    .filter { it }
+                    .flatMapCompletable {
+                        repository.setCurrency(NumberFormat.getCurrencyInstance(Locale.getDefault()).currency.symbol)
+                    }
+                    .andThen(repository.setAppFirstStart(false))
+                    .toObservable(),
                 observeDebtorsListItemsUseCase
                     .execute()
                     .switchMap { items ->

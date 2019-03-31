@@ -75,7 +75,7 @@ class DebtorItemLayout @JvmOverloads constructor(
                 amountView.text = resources.getString(
                     R.string.home_debtors_item_amount,
                     currency,
-                    amount.toDecimal()
+                    amount.toFormattedCurrency()
                 )
                 dateView.visible = lastDate > 0
                 dateView.text = resources.getString(

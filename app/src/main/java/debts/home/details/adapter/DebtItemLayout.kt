@@ -68,7 +68,7 @@ class DebtItemLayout @JvmOverloads constructor(
                 amountView.text = resources.getString(
                     R.string.home_details_debt_amount,
                     currency,
-                    amount.toDecimal().absoluteValue
+                    amount.absoluteValue.toFormattedCurrency()
                 )
                 dateView.text = Date(date).toSimpleDateTimeString()
                 commentView.visible = comment.isNotBlank()
