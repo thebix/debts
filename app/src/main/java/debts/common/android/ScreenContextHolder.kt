@@ -7,6 +7,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import debts.common.android.extensions.isPermissionGranted
 import debts.common.android.extensions.tryToFindActivity
+import net.thebix.debts.BuildConfig
 import java.lang.ref.WeakReference
 import net.thebix.debts.R
 import java.io.File
@@ -170,7 +171,7 @@ class FragmentScreenContext(
                 outputStream.close()
                 val uri = FileProvider.getUriForFile(
                     applicationContext,
-                    "net.thebix.debts.fileprovider",
+                    "${BuildConfig.APPLICATION_ID}.fileprovider",
                     file
                 )
                 val intentShareFile = Intent(Intent.ACTION_SEND)
