@@ -12,6 +12,7 @@ import debts.usecase.DebtorModel
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import java.text.NumberFormat
 import java.util.*
 
 class DebtsRepository(
@@ -23,6 +24,7 @@ class DebtsRepository(
     private companion object {
         const val INSERT_ID = 0L
         const val PREFS_IS_CONTACT_SYNCED = "PREFS_IS_CONTACT_SYNCED"
+        const val PREFS_IS_FIRST_START = "PREFS_IS_FIRST_START"
         const val PREFS_CURRENCY = "preference_main_settings_currency_custom"
     }
 
@@ -139,6 +141,12 @@ class DebtsRepository(
         Completable.fromCallable { preferences.putBoolean(PREFS_IS_CONTACT_SYNCED, isSynced) }
 
     fun getCurrency() = Single.fromCallable { preferences.getString(PREFS_CURRENCY, "") }
+    fun setCurrency(currency: String) =
+        Completable.fromCallable { preferences.putString(PREFS_CURRENCY, currency) }
+
+    fun isAppFirstStart() = Single.fromCallable { preferences.getBoolean(PREFS_IS_FIRST_START, true) }
+    fun setAppFirstStart(isAppFirstStart: Boolean = true) =
+        Completable.fromCallable { preferences.putBoolean(PREFS_IS_FIRST_START, isAppFirstStart) }
 
     // endregion
 }

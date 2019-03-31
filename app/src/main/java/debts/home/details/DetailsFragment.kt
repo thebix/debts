@@ -19,7 +19,7 @@ import debts.common.android.BaseFragment
 import debts.common.android.FragmentArgumentDelegate
 import debts.common.android.FragmentScreenContext
 import debts.common.android.ScreenContextHolder
-import debts.common.android.extensions.findViewById
+import debts.common.android.extensions.*
 import debts.home.details.adapter.DebtItemLayout
 import debts.home.details.adapter.DebtsAdapter
 import debts.home.details.mvi.DetailsIntention
@@ -30,13 +30,9 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
-import debts.common.android.extensions.getDrawableCompat
-import debts.common.android.extensions.showAlert
 import org.koin.android.viewmodel.ext.viewModel
 import timber.log.Timber
 import net.thebix.debts.R
-import debts.common.android.extensions.getColorCompat
-import debts.common.android.extensions.tryToGoBack
 import org.koin.android.ext.android.inject
 
 class DetailsFragment : BaseFragment() {
@@ -227,7 +223,7 @@ class DetailsFragment : BaseFragment() {
         with(state) {
             adapter.replaceAllItems(items)
             nameView?.text = name
-            amountView?.text = context?.getString(R.string.home_details_debt_amount, currency, amount)
+            amountView?.text = context?.getString(R.string.home_details_debt_amount, currency, amount.toFormattedCurrency())
             isBorrowed = amount < 0
             this@DetailsFragment.avatarUrl = avatarUrl
             if (avatarUrl.isNotBlank() && avatarView != null) {

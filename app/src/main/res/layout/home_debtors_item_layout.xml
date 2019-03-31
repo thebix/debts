@@ -25,35 +25,39 @@
         android:ellipsize="end"
         android:lines="1"
         android:textAppearance="@style/Debts.Text.Body.Header"
-        app:layout_constraintBottom_toTopOf="@id/home_debtors_item_amount"
+        app:layout_constraintBottom_toTopOf="@id/home_debtors_item_data_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/home_debtors_item_avatar"
         app:layout_constraintTop_toTopOf="@id/home_debtors_item_avatar"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="John Zorn John Zorn John Zorn John Zorn John Zorn John Zorn " />
 
-    <TextView
-        android:id="@+id/home_debtors_item_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:lines="1"
-        android:textAppearance="@style/Debts.Text.Body.Short"
-        app:layout_constraintBottom_toBottomOf="@id/home_debtors_item_avatar"
-        app:layout_constraintStart_toStartOf="@id/home_debtors_item_name"
-        app:layout_constraintTop_toBottomOf="@id/home_debtors_item_name"
-        tools:text="132.23 RUR" />
-
-    <TextView
-        android:id="@+id/home_debtors_item_date"
+    <LinearLayout
+        android:id="@+id/home_debtors_item_data_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_4dp"
-        android:ellipsize="end"
-        android:lines="1"
-        android:textAppearance="@style/Debts.Text.Body.Short.Alt"
-        app:layout_constraintBottom_toBottomOf="@id/home_debtors_item_amount"
+        app:layout_constraintBottom_toBottomOf="@id/home_debtors_item_avatar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/home_debtors_item_amount"
-        tools:text="14 November 2014 14 November 201414 November 201414 November 2014" />
+        app:layout_constraintStart_toStartOf="@id/home_debtors_item_name"
+        app:layout_constraintTop_toBottomOf="@id/home_debtors_item_name">
 
+        <TextView
+            android:id="@+id/home_debtors_item_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textAppearance="@style/Debts.Text.Body.Short"
+            tools:text="132.23 RUR" />
+
+        <TextView
+            android:id="@+id/home_debtors_item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_4dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textAppearance="@style/Debts.Text.Body.Short.Alt"
+            tools:text="14 November 2014 14 November 201414 November 201414 November 2014" />
+    </LinearLayout>
 </merge>

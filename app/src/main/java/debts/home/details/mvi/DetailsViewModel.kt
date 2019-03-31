@@ -1,11 +1,9 @@
 package debts.home.details.mvi
 
-import debts.common.android.extensions.toDecimal
+import debts.common.android.extensions.toFormattedCurrency
 import debts.common.android.mvi.MviViewModel
 import debts.common.android.mvi.OneShot
 import debts.home.details.adapter.toDebtsItemViewModel
-import debts.home.list.mvi.DebtorsAction
-import debts.home.list.mvi.DebtorsIntention
 import io.reactivex.functions.BiFunction
 
 class DetailsViewModel(
@@ -46,7 +44,7 @@ class DetailsViewModel(
                 is DetailsResult.Debtor ->
                     prevState.copy(
                         name = result.name,
-                        amount = result.amount.toDecimal(),
+                        amount = result.amount,
                         currency = result.currency,
                         avatarUrl = result.avatarUrl
                     )

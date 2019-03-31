@@ -37,8 +37,8 @@
     <string name="home_details_dialog_delete_message">All debtor data will be deleted</string>
     <string name="home_details_history_title">History</string>
     <string name="home_details_share_title">Share debt information with</string>
-    <string name="home_details_share_message_borrowed">Hey, %1$s borrowed me %2$s %3$s</string>
-    <string name="home_details_share_message_lent">Hey, I\'ve lent %2$s %3$s to %1$s</string>
+    <string name="home_details_share_message_borrowed">Hey, %1$s borrowed me %3$s%2$s</string>
+    <string name="home_details_share_message_lent">Hey, I\'ve lent %3$s%2$s to %1$s</string>
 
     <string name="home_details_menu_delete">Delete</string>
     <string name="home_details_menu_share">Share</string>
