@@ -48,7 +48,9 @@ class DetailsFragment : BaseFragment() {
 
     private val menuItemClickListener = object : DebtItemLayout.HistoryItemCallback {
         override fun onDebtRemove(debtId: Long) {
-            intentionSubject.onNext(DetailsIntention.RemoveDebt(debtId))
+            context?.showAlert(messageId = R.string.home_details_remove_debt_message) {
+                intentionSubject.onNext(DetailsIntention.RemoveDebt(debtId))
+            }
         }
     }
 

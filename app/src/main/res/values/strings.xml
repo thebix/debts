@@ -50,8 +50,8 @@
     <string name="home_details_clear_all_dialog_confirmation_title">Are you sure?</string>
     <string name="home_details_clear_all_dialog_confirmation_message">Clear debts history?</string>
     <string name="home_details_empty_debt_fields">Empty debt amount</string>
-
     <string name="home_details_debts_item_menu_remove">Remove debt</string>
+    <string name="home_details_remove_debt_message">Delete one debt?</string>
 
     <string name="settings_title">Settings</string>
 
