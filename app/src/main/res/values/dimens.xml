@@ -39,12 +39,4 @@
     <dimen name="text_size_14sp">14dp</dimen>
     <dimen name="text_size_18sp">18dp</dimen>
 
-    <!-- Legacy -->
-
-    <dimen name="StandartText">17sp</dimen>
-    <dimen name="ListSubItem">12sp</dimen>
-    <dimen name="AddDebtItem">28sp</dimen>
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-
 </resources>
