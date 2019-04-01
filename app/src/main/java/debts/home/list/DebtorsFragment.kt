@@ -21,7 +21,6 @@ import debts.common.android.extensions.showAlert
 import debts.common.android.FragmentScreenContext
 import debts.common.android.ScreenContextHolder
 import debts.common.android.ScreenContextHolder.Companion.FRAGMENT_DEBTORS
-import debts.home.details.mvi.DetailsResult
 import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtorsAdapter
 import debts.home.list.mvi.DebtorsIntention

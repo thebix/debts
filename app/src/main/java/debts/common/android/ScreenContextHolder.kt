@@ -1,7 +1,9 @@
 package debts.common.android
 
-import android.content.Context
 import android.content.Intent
+import android.os.Handler
+import android.os.Looper
+import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
@@ -11,7 +13,6 @@ import net.thebix.debts.BuildConfig
 import java.lang.ref.WeakReference
 import net.thebix.debts.R
 import java.io.File
-import java.io.FileInputStream
 import java.io.FileOutputStream
 
 interface ScreenContextHolder {
@@ -94,6 +95,12 @@ interface ScreenContext {
 
     // endregion
 
+    // region Notifications
+
+    fun showToast(text: String, duration: Int = Toast.LENGTH_SHORT)
+
+    // endregion
+
     fun dispose()
 }
 
@@ -101,6 +108,8 @@ class FragmentScreenContext(
     fragment: Fragment,
     private val fragmentRef: WeakReference<Fragment> = WeakReference(fragment)
 ) : ScreenContext {
+
+    private val handler = Handler(Looper.getMainLooper())
 
     // region Navigation
 
@@ -199,6 +208,21 @@ class FragmentScreenContext(
 
     override fun requestPermissions(permissions: Array<String>, requestCode: Int) {
         fragmentRef.get()?.requestPermissions(permissions, requestCode)
+    }
+
+    // endregion
+
+    // region Notifications
+
+    override fun showToast(text: String, duration: Int) {
+        fragmentRef.get()?.let { fragment ->
+            if (fragment.context != null && text.isNotBlank()) {
+                handler.post {
+                    Toast.makeText(fragment.context!!, text, duration)
+                        .show()
+                }
+            }
+        }
     }
 
     // endregion

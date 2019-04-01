@@ -1,6 +1,8 @@
 package debts.common.android
 
 import android.content.Context
+import android.widget.Toast
+import androidx.annotation.StringRes
 import debts.home.details.DetailsFragment
 import debts.preferences.PreferencesActivity
 import io.reactivex.Completable
@@ -76,6 +78,18 @@ class DebtsNavigator(
                 arrayOf(permission), requestCode
             )
         }
+
+    // endregion
+
+    // region Notifications
+
+    fun showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
+        screenContextHolder.get(name)?.showToast(text, duration)
+    }
+
+    fun showToast(@StringRes textId: Int, duration: Int = Toast.LENGTH_SHORT) {
+        showToast(applicationContext.getString(textId), duration)
+    }
 
     // endregion
 }
