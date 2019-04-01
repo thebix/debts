@@ -8,6 +8,7 @@ import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
+import net.thebix.debts.R
 
 class DetailsInteractor(
     private val debtsNavigator: DebtsNavigator,
@@ -66,7 +67,10 @@ class DetailsInteractor(
                             action.comment
                         )
                 }
-
+                .doOnComplete {
+                    // Tech debt: this resource id should be provided from Fragment trough intent/action
+                    debtsNavigator.showToast(R.string.home_debtors_toast_debt_added)
+                }
                 .subscribeOn(Schedulers.io())
                 .toObservable<DetailsResult>()
                 .doOnError { error -> Timber.e(error) }

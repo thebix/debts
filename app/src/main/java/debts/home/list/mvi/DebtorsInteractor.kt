@@ -11,6 +11,7 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import java.text.NumberFormat
 import java.util.*
+import net.thebix.debts.R
 
 class DebtorsInteractor(
     private val observeDebtorsListItemsUseCase: ObserveDebtorsListItemsUseCase,
@@ -106,6 +107,10 @@ class DebtorsInteractor(
                     .flatMapCompletable { currency ->
                         addDebtUseCase
                             .execute(null, it.contactId, it.name, it.amount, currency, it.comment)
+                    }
+                    .doOnComplete {
+                        // Tech debt: this resource id should be provided from Fragment trough intent/action
+                        debtsNavigator.showToast(R.string.home_debtors_toast_debt_added)
                     }
                     .subscribeOn(Schedulers.io())
                     .toObservable<DebtorsResult>()
