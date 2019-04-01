@@ -12,7 +12,7 @@
         android:id="@+id/home_details_debts_item_sign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/Debts.Text.Body.Header"
+        android:textAppearance="@style/Debts.Text.Body.Header.Highlight"
         app:layout_constraintEnd_toStartOf="@id/home_details_debts_item_amount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
