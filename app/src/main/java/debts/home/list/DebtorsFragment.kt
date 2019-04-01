@@ -60,7 +60,9 @@ class DebtorsFragment : BaseFragment() {
         }
 
         override fun onDebtorRemove(debtorId: Long) {
-            intentionSubject.onNext(DebtorsIntention.RemoveDebtor(debtorId))
+            context?.showAlert(messageId = R.string.home_details_dialog_delete_message) {
+                intentionSubject.onNext(DebtorsIntention.RemoveDebtor(debtorId))
+            }
         }
 
         override fun onDebtorShare(debtorId: Long) {
