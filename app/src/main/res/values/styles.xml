@@ -30,15 +30,15 @@
     </style>
 
     <style name="Debts.Text.Large.Title">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="Debts.Text.Large.Headline">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">26sp</item>
     </style>
 
     <style name="Debts.Text.Large.Extra">
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">32sp</item>
     </style>
 
     <!-- Large altered -->
@@ -54,19 +54,20 @@
     </style>
 
     <style name="Debts.Text.Body.Long">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
     <style name="Debts.Text.Body.Short">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="Debts.Text.Body.Header">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">17sp</item>
     </style>
 
+    <!-- // TODO: "sans-serif" is the same font as used by default for Debts.Text.Body.Header, this value should be changed to proper one -->
     <style name="Debts.Text.Body.Header.Highlight">
-        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <!-- Body altered -->

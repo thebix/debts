@@ -24,7 +24,7 @@
         android:layout_marginStart="@dimen/margin_16dp"
         android:ellipsize="end"
         android:lines="1"
-        android:textAppearance="@style/Debts.Text.Body.Header"
+        android:textAppearance="@style/Debts.Text.Body.Header.Highlight"
         app:layout_constraintBottom_toTopOf="@id/home_debtors_item_data_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/home_debtors_item_avatar"
