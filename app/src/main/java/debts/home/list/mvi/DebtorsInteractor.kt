@@ -22,6 +22,7 @@ class DebtorsInteractor(
     private val syncDebtorsWithContactsUseCase: SyncDebtorsWithContactsUseCase,
     private val getDebtsCsvContentUseCase: GetDebtsCsvContentUseCase,
     private val getShareDebtorContentUseCase: GetShareDebtorContentUseCase,
+    private val updateDbDebtsCurrencyUseCase: UpdateDbDebtsCurrencyUseCase,
     private val repository: DebtsRepository
 ) : MviInteractor<DebtorsAction, DebtorsResult> {
 
@@ -33,6 +34,7 @@ class DebtorsInteractor(
                     .flatMapCompletable {
                         repository.setCurrency(NumberFormat.getCurrencyInstance(Locale.getDefault()).currency.symbol)
                     }
+                    .andThen(updateDbDebtsCurrencyUseCase.execute())
                     .andThen(repository.setAppFirstStart(false))
                     .toObservable(),
                 observeDebtorsListItemsUseCase

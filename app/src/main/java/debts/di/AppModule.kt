@@ -115,6 +115,7 @@ val interactorModule = module {
             syncDebtorsWithContactsUseCase = get(),
             getDebtsCsvContentUseCase = get(),
             getShareDebtorContentUseCase = get(),
+            updateDbDebtsCurrencyUseCase = get(),
             repository = get()
         )
     }
