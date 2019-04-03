@@ -36,8 +36,6 @@ class AddDebtLayout @JvmOverloads constructor(
                 contact?.id,
                 nameView.text.trim().toString(),
                 amount,
-                // TODO: return proper value
-                "$",
                 commentView.text.trim().toString()
 
             )
@@ -116,7 +114,6 @@ class AddDebtLayout @JvmOverloads constructor(
         val contactId: Long?,
         val name: String,
         val amount: Double,
-        val currency: String,
         val comment: String
     )
 }
