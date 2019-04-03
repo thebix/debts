@@ -93,7 +93,6 @@ fun migration1To2() = object : Migration(1, 2) {
                 """
         )
 
-        // TODO: set default currency after implementing task "Implemented Settings screen" https://trello.com/c/ijYzPjO9/31-implemented-settings-screen
         database.execSQL(
             """
                     INSERT INTO
