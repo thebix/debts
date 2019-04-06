@@ -1,6 +1,5 @@
 package debts.home.details
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
@@ -25,7 +24,7 @@ import debts.home.details.adapter.DebtsAdapter
 import debts.home.details.mvi.DetailsIntention
 import debts.home.details.mvi.DetailsState
 import debts.home.details.mvi.DetailsViewModel
-import debts.home.list.AddDebtLayout
+import debts.home.AddDebtLayout
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -163,8 +162,8 @@ class DetailsFragment : BaseFragment() {
                     )
                     context?.showAlert(
                         customView = addDebtLayout,
-                        titleResId = R.string.home_debtors_dialog_add_debt,
-                        positiveButtonResId = R.string.home_debtors_dialog_confirm
+                        titleResId = R.string.home_add_debt_title,
+                        positiveButtonResId = R.string.home_add_debt_confirm
                     ) {
                         with(addDebtLayout.data) {
                             if (amount != 0.0) {
@@ -191,7 +190,6 @@ class DetailsFragment : BaseFragment() {
             clearView!!.clicks()
                 .subscribe {
                     context?.showAlert(
-                        titleResId = R.string.home_details_clear_all_dialog_confirmation_title,
                         messageId = R.string.home_details_clear_all_dialog_confirmation_message,
                         actionPositive = {
                             intentionSubject.onNext(DetailsIntention.ClearHistory(debtorId))

@@ -1,166 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="home_debtors_item_amount" translatable="false">%1$s%2$s</string>
-    <string name="home_debtors_item_date" translatable="false">- %1$s</string>
+    <string name="app_name">Debts</string>
 
-    <string name="default_positive_button">Ok</string>
+    <!-- Defaults -->
+
+    <string name="default_positive_button">OK</string>
     <string name="default_negative_button">Cancel</string>
     <string name="default_dialog_title">Are you sure?</string>
+
+    <!-- Debtors fragment -->
 
     <string name="home_debtors_empty_debt_fields">Empty debtor or debt amount</string>
     <string name="home_debtors_search_hint">Search</string>
     <string name="home_debtors_share_title">Share all debts as csv</string>
     <string name="home_debtors_toast_debt_added">Debt has been added</string>
-
     <string name="home_debtors_menu_search">Search</string>
     <string name="home_debtors_menu_settings">Settings</string>
     <string name="home_debtors_menu_sort">Sort</string>
     <string name="home_debtors_menu_sort_name">Name</string>
     <string name="home_debtors_menu_sort_amount">Amount</string>
-    <string name="home_debtors_item_menu_remove">Remove debtor</string>
+    <string name="home_debtors_item_amount" translatable="false">%1$s%2$s</string>
+    <string name="home_debtors_item_date" translatable="false">- %1$s</string>
+    <string name="home_debtors_item_menu_remove">Remove</string>
     <string name="home_debtors_item_menu_share">Share</string>
 
-    <string name="home_debtors_dialog_confirm">Confirm</string>
-    <string name="home_debtors_dialog_add_debt">Add Debt</string>
-    <string name="home_debtors_dialog_name">Name</string>
-    <string name="home_debtors_dialog_action">Action</string>
-    <string name="home_debtors_dialog_add">Add</string>
-    <string name="home_debtors_dialog_subtract">Subtract</string>
-    <string name="home_debtors_dialog_amount">Amount</string>
-    <string name="home_debtors_dialog_comment">Comment</string>
-    <string name="home_debtors_dialog_amount_error">Value is to long</string>
+    <!-- AddDebt dialog -->
+
+    <string name="home_add_debt_title">Add debt</string>
+    <string name="home_add_debt_name">Name</string>
+    <string name="home_add_debt_action">Action</string>
+    <string name="home_add_debt_add">Add</string>
+    <string name="home_add_debt_subtract">Subtract</string>
+    <string name="home_add_debt_amount">Amount</string>
+    <string name="home_add_debt_amount_error">Value is to long</string>
+    <string name="home_add_debt_comment">Comment</string>
+    <string name="home_add_debt_confirm">Confirm</string>
+
+    <!-- Details fragment -->
 
     <string name="home_details_debt_title">Debt</string>
     <string name="home_details_debt_total">Total</string>
-    <string name="home_details_debt_amount">%1$s%2$s</string>
+    <string name="home_details_debt_amount" translatable="false">%1$s%2$s</string>
     <string name="home_details_debt_change">Change</string>
     <string name="home_details_debt_clear">Clear</string>
-    <string name="home_details_dialog_delete_message">All debtor data will be deleted</string>
+    <string name="home_details_dialog_delete_message">Delete debtor and clear debts history?</string>
     <string name="home_details_history_title">History</string>
     <string name="home_details_share_title">Share debt information with</string>
     <string name="home_details_share_message_borrowed">Hey, %1$s borrowed me %3$s%2$s</string>
     <string name="home_details_share_message_lent">Hey, I\'ve lent %3$s%2$s to %1$s</string>
-
+    <string name="home_details_debts_item_sign_borrowed">Borrowed</string>
+    <string name="home_details_debts_item_sign_lent">Lent</string>
     <string name="home_details_menu_delete">Delete</string>
     <string name="home_details_menu_share">Share</string>
-
-    <string name="home_debtors_item_amount_borrowed">Borrowed</string>
-    <string name="home_details_debts_item_sign_lent">Lent</string>
-
-    <string name="home_details_clear_all_dialog_confirmation_title">Are you sure?</string>
     <string name="home_details_clear_all_dialog_confirmation_message">Clear debts history?</string>
     <string name="home_details_empty_debt_fields">Empty debt amount</string>
-    <string name="home_details_debts_item_menu_remove">Remove debt</string>
-    <string name="home_details_remove_debt_message">Delete one debt?</string>
+    <string name="home_details_debts_item_menu_remove">Remove</string>
+    <string name="home_details_remove_debt_message">Remove one debt?</string>
+
+    <!-- Preferences activity -->
 
     <string name="settings_title">Settings</string>
+
+    <!-- MainSettings fragment -->
 
     <string name="preference_main_settings_general_title">General</string>
     <string name="preference_main_settings_currency">Currency</string>
     <string name="preference_main_settings_currency_summary">Selected: %1$s</string>
     <string name="preference_main_settings_currency_custom">Custom currency</string>
     <string name="preference_main_settings_version">Version</string>
-    <string name="preference_main_settings_sync_title">Sync</string>
+    <string name="preference_main_settings_sync_title">Synchronization</string>
     <string name="preference_main_settings_sync_contacts">Sync with contacts</string>
     <string name="preference_main_settings_sync_contacts_summary">Update names and pictures</string>
     <string name="preference_main_settings_state_updating">Updating…</string>
     <string name="preference_main_settings_state_updated">Successfully updated</string>
     <string name="preference_main_settings_state_error">Error occurred</string>
-
-    <!-- Legacy -->
-
-    <!-- App strings -->
-    <string name="app_name">Debts</string>
-    <string name="title_activity_main">Debts</string>
-    <string name="title_activity_debitor">Debitor card</string>
-    <string name="title_debts_list_fragment_debitors">Debitors List</string>
-    <string name="title_debts_list_fragment_my_debts">My Debts</string>
-
-    <!-- Titles of sections -->
-    <string name="title_personal_data">PERSONAL DATA</string>
-    <string name="title_current_debt">CURRENT DEBT</string>
-    <string name="title_debits_history">DEBTS HISTORY</string>
-
-    <!-- Action Bar -->
-    <string name="menu_settings">Settings</string>
-    <string name="menu_add_new">Add debitor from contacts</string>
-    <string name="menu_add_new_no_contact">Add debitor not from contacts</string>
-    <string name="menu_remove_debitor">Delete debitor</string>
-    <string name="menu_remove_debitor_history">Clear debts history</string>
-    <string name="menu_delete_items">Delete items</string>
-    <string name="menu_delete_items_cancel">Cancel deletion</string>
-    <string name="menu_sort">Sort debitors</string>
-    <string name="menu_sort_alph">By name</string>
-    <string name="menu_sort_date">By date</string>
-    <string name="menu_sort_amount">By amount</string>
-    <string name="menu_sort_desc">desc</string>
-    <string name="menu_sort_reset">clear</string>
-
-    <!-- Messages to user (ordinary Toast) -->
-    <string name="message_all_debits_removed">All debits have been removed</string>
-    <string name="message_debit_removed">Debt has been removed</string>
-    <string name="message_debit_added">Debt has been added</string>
-    <string name="message_debitor_removed">Debitor has been removed</string>
-    <string name="message_debitor_history_removed">Debts history is clear</string>
-
-    <!-- Error messages (ordinary Toast) -->
-    <string name="err_contact_not_found">Contact has not been found</string>
-    <string name="err_debit_not_added">Debt has not been added</string>
-    <string name="err_id_not_valid">Not valid identity</string>
-    <string name="err_remove_fail">Remove fail</string>
-    <string name="err_value_to_long">Value is to long</string>
-    <string name="err_value_to_small">Value is to small</string>
-    <string name="err_cant_save_to_file">Can\'t be saved to file on SD</string>
-    <string name="err_crash_text">Application is crashed. Please, send mail to developer</string>
-    <string name="err_no_debitor_name">Can\'t be saved without debitor\'s name</string>
-
-    <!-- Button texts -->
-    <string name="button_ok">OK</string>
-    <string name="button_cancel">Cancel</string>
-
-    <!-- Content description (pop-up) -->
-    <string name="cont_descr_contact_picture">Contact picture</string>
-    <string name="cont_descr_add_debit">Add debt</string>
-    <string name="cont_descr_delete">Delete</string>
-    <string name="cont_descr_show_more_fields">Show more fields</string>
-    <string name="cont_descr_plus_debt">Positive debt</string>
-    <string name="cont_descr_minus_debt">Negative debt</string>
-
-    <!-- Modal windows -->
-    <string name="modal_text_are_you_sure">Are you sure?</string>
-    <string name="modal_text_delete_debitor">Delete debitor and clear debts history?</string>
-    <string name="modal_text_delete_debitor_history">Clear debts history?</string>
-    <string name="modal_text_delete_debt">Delete one debt?</string>
-
-    <!-- Text values, etc -->
-    <string name="text_result_sum">TOTAL</string>
-    <string name="text_plus_minus">+/—</string>
-    <string name="text_zero">0</string>
-    <string name="text_updated">Updated</string>
-    <string name="text_no_debitors">There is no debitors. Add someone.</string>
-    <string name="text_no_my_debts">There is no your debts. Add something.</string>
-    <string name="text_contact_not_found">WARNING: NOT FOUND</string>
-    <string name="text_i_gave_money">I lent</string>
-    <string name="text_i_took_money">I borrowed</string>
-    <string name="text_no_debts">No debts</string>
-
-    <!-- Tips for TextEdit -->
-    <string name="hint_debitor_name">Name</string>
-    <string name="hint_debitor_phone">Phone</string>
-    <string name="hint_debitor_email">Email</string>
-
-
-    <!-- NO TRANSLATION SECTION -->
-
-    <string name="LOG_TAG" translatable="false">DebitorsControllaLog</string>
-
-    <!-- Fake data (for layout, do not translate) -->
-    <string name="fake_contact_name" translatable="false">Contact Long Man Name</string>
-    <string name="fake_debit_date" translatable="false">"12/06/2012\n4:15 PM"</string>
-    <string name="fake_debitor" translatable="false">Long Man Contact Name</string>
-    <string name="fake_update_date" translatable="false">Updated 15.10.2012</string>
-    <string name="fake_debit_sum" translatable="false">238614.88</string>
-    <string name="fake_debit_direction" translatable="false">I gave money</string>
 
 </resources>

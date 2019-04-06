@@ -23,8 +23,8 @@
         android:lines="1"
         android:paddingStart="@dimen/margin_8dp"
         android:textAppearance="@style/Debts.Text.Large.Title"
-        app:layout_constraintBottom_toTopOf="@id/home_debtors_add_debt_radio"
-        app:layout_constraintTop_toBottomOf="@id/home_debtors_add_debt_name_layout"
+        app:layout_constraintBottom_toTopOf="@id/home_add_debt_radio"
+        app:layout_constraintTop_toBottomOf="@id/home_add_debt_name_layout"
         tools:ignore="RtlSymmetry"
         tools:text="John Zorn" />
 

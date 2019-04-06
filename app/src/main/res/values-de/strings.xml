@@ -1,84 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- App strings -->
     <string name="app_name">Schulden</string>
-    <string name="title_activity_main">Schulden</string>
-    <string name="title_activity_debitor">Schuldner</string>
-    <string name="title_debts_list_fragment_debitors">Schuldnerliste</string>
-    <string name="title_debts_list_fragment_my_debts">Meine Schulden</string>
-
-    <!-- Titles of sections -->
-    <string name="title_personal_data">PERSÖNLICHE ANGABEN</string>
-    <string name="title_current_debt">LAUFENDE SCHULD</string>
-    <string name="title_debits_history">SCHULDGESCHICHTE</string>
-
-    <!-- Action Bar -->
-    <string name="menu_settings">Einstellungen</string>
-    <string name="menu_add_new">Schuldner aus Kontakten hinzufügen</string>
-    <string name="menu_add_new_no_contact">Schuldner nicht aus Kontakten hinzufügen</string>
-    <string name="menu_remove_debitor">Schuldner löschen</string>
-    <string name="menu_remove_debitor_history">Schuldgeschichte löschen</string>
-    <string name="menu_delete_items">Element löschen</string>
-    <string name="menu_delete_items_cancel">Löschung abbrechen</string>
-    <string name="menu_sort">Schuldner sortieren nach</string>
-    <string name="menu_sort_alph">Name</string>
-    <string name="menu_sort_date">Datum</string>
-    <string name="menu_sort_amount">Anzahl</string>
-    <string name="menu_sort_desc">absteigend</string>
-    <string name="menu_sort_reset">löschen</string>
-
-    <!-- Messages to user (ordinary Toast) -->
-    <string name="message_all_debits_removed">Alle Schulden wurden gelöscht</string>
-    <string name="message_debit_removed">Schuld wurde gelöscht</string>
-    <string name="message_debit_added">Schuld wurde hinzugefügt</string>
-    <string name="message_debitor_removed">Schuldner wurde gelöscht</string>
-    <string name="message_debitor_history_removed">Schuldgeschichte wurde gelöscht</string>
-
-    <!-- Error messages (ordinary Toast) -->
-    <string name="err_contact_not_found">Kontakt wurde nicht gefunden</string>
-    <string name="err_debit_not_added">Schuld wurde nicht hinzugefügt</string>
-    <string name="err_id_not_valid">Falsch Id</string>
-    <string name="err_remove_fail">Fehler beim Löschen</string>
-    <string name="err_value_to_long">Zahlenwert ist zu lang</string>
-    <string name="err_value_to_small">Zahlenwert ist zu kurz</string>
-    <string name="err_cant_save_to_file">Es konnte nicht auf SD-Karte gespeichert werden</string>
-    <string name="err_crash_text">Die Anwendung ist abgestürzt. Schicken Sie bitte eine E-Mail an Entwickler</string>
-    <string name="err_no_debitor_name">Es konnte nicht ohne einen Name eines Schuldners gespeichert werden</string>
-
-    <!-- Button texts -->
-    <string name="button_ok">Fertig</string>
-    <string name="button_cancel">Abbrechen</string>
-
-    <!-- Content description (pop-up) -->
-    <string name="cont_descr_contact_picture">Kontaktbild</string>
-    <string name="cont_descr_add_debit">Schuld hinzufügen</string>
-    <string name="cont_descr_delete">Löschen</string>
-    <string name="cont_descr_show_more_fields">Mehr Felder anzeigen</string>
-    <string name="cont_descr_plus_debt">Positive Schuld</string>
-    <string name="cont_descr_minus_debt">Negative Schuld</string>
-
-    <!-- Modal windows -->
-    <string name="modal_text_are_you_sure">Sind Sie sicher?</string>
-    <string name="modal_text_delete_debitor">Löschen den Schuldner und die Schuldgeschichte?</string>
-    <string name="modal_text_delete_debitor_history">Löschen die Schuldgeschichte?</string>
-    <string name="modal_text_delete_debt">Löschen eine Schuld?</string>
-
-    <!-- Text values, etc -->
-    <string name="text_result_sum">TOTAL</string>
-    <string name="text_plus_minus">+/—</string>
-    <string name="text_zero">0</string>
-    <string name="text_updated">Aktualisiert</string>
-    <string name="text_no_debitors">Es gibt keine Schuldner. Fügen Sie jemanden hinzu.</string>
-    <string name="text_no_my_debts">Es gibt keine Schulden. Fügen Sie etwas hinzu.</string>
-    <string name="text_contact_not_found">WARNUNG: NICHT GEFUNDEN</string>
-    <string name="text_i_gave_money">Ich verlieh</string>
-    <string name="text_i_took_money">Ich entlieh</string>
-    <string name="text_no_debts">Keine Schulden</string>
-
-    <!-- Tips for TextEdit -->
-    <string name="hint_debitor_name">Name</string>
-    <string name="hint_debitor_phone">Telefon</string>
-    <string name="hint_debitor_email">E-Mail</string>
+    <string name="home_details_history_title">Schuldgeschichte</string>
+    <string name="home_debtors_menu_settings">Einstellungen</string>
+    <string name="home_debtors_menu_sort">Sortieren</string>
+    <string name="home_debtors_menu_sort_amount">Anzahl</string>
+    <string name="home_details_debt_clear">Löschen</string>
+    <string name="home_debtors_toast_debt_added">Schuld wurde hinzugefügt</string>
+    <string name="home_add_debt_amount_error">Zahlenwert ist zu lang</string>
+    <string name="default_positive_button">Fertig</string>
+    <string name="default_negative_button">Abbrechen</string>
+    <string name="home_add_debt_title">Schuld hinzufügen</string>
+    <string name="home_details_menu_delete">Löschen</string>
+    <string name="home_details_debt_title">Schuld</string>
+    <string name="default_dialog_title">Sind Sie sicher?</string>
+    <string name="home_details_dialog_delete_message">Löschen den Schuldner und die Schuldgeschichte?</string>
+    <string name="home_details_clear_all_dialog_confirmation_message">Löschen die Schuldgeschichte?</string>
+    <string name="home_details_remove_debt_message">Löschen eine Schuld?</string>
+    <string name="home_details_debt_total">Total</string>
+    <string name="home_details_debts_item_sign_lent">Verlieh</string>
+    <string name="home_details_debts_item_sign_borrowed">Entlieh</string>
+    <string name="home_add_debt_name">Name</string>
+    <string name="home_debtors_menu_sort_name">Name</string>
+    <string name="settings_title">Einstellungen</string>
+    <string name="home_debtors_item_menu_share">Teilen</string>
+    <string name="home_details_menu_share">Teilen</string>
+    <string name="home_debtors_menu_search">Suchen</string>
+    <string name="home_debtors_search_hint">Suchen</string>
+    <string name="preference_main_settings_general_title">Allgemeine</string>
 
 </resources>

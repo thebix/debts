@@ -1,4 +1,3 @@
 <resources>
-    <string name="app_name">DebtsDebug</string>
-    <string name="title_activity_main">Debts Debug</string>
+    <string name="app_name" translatable="false">DebtsDebug</string>
 </resources>

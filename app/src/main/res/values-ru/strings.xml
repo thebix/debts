@@ -1,87 +1,57 @@
 <resources>
 
-    <!-- Строки связанные со всем приложением -->
     <string name="app_name">Долги</string>
-    <string name="title_activity_main">Долги</string>
-    <string name="title_activity_debitor">Должник</string>
-    <string name="title_debts_list_fragment_debitors">Должники</string>
-    <string name="title_debts_list_fragment_my_debts">Мои долги</string>
-
-    <!-- Заголовки разделов -->
-    <string name="title_personal_data">КОНТАКТ</string>
-    <string name="title_current_debt">ТЕКУЩИЙ ДОЛГ</string>
-    <string name="title_debits_history">ИСТОРИЯ ДОЛГОВ</string>
-
-    <!-- Action Bar -->
-    <string name="menu_settings">Настройки</string>
-    <string name="menu_add_new">Добавить должника из контактов</string>
-    <string name="menu_add_new_no_contact">Добавить должника не из контактов</string>
-    <string name="menu_remove_debitor">Удалить должника</string>
-    <string name="menu_remove_debitor_history">Очистить историю долгов</string>
-    <string name="menu_delete_items">Удалить элементы</string>
-    <string name="menu_delete_items_cancel">Отменить удаление</string>
-    <string name="menu_sort">Сортировка</string>
-    <string name="menu_sort_alph">По имени</string>
-    <string name="menu_sort_date">По дате</string>
-    <string name="menu_sort_amount">По сумме</string>
-    <string name="menu_sort_desc">убыв.</string>
-    <string name="menu_sort_reset">очистить</string>
-
-    <!-- Сообщеня пользователю (обычно Toast) -->
-    <string name="message_all_debits_removed">Все долги удалены</string>
-    <string name="message_debit_removed">Долг удален</string>
-    <string name="message_debit_added">Долг добавлен</string>
-    <string name="message_debitor_removed">Должник удален</string>
-    <string name="message_debitor_history_removed">История долгов очищена</string>
-
-    <!-- Сообщения об ошибках (обычно Toast) -->
-    <string name="err_contact_not_found">Контакт не найден</string>
-    <string name="err_debit_not_added">Долг не добавлен</string>
-    <string name="err_id_not_valid">Неверный идентификатор</string>
-    <string name="err_remove_fail">Ошибка удаления</string>
-    <string name="err_value_to_long">Значение слишком большое</string>
-    <string name="err_value_to_small">Значение слишком маленькое</string>
-    <string name="err_cant_save_to_file">Не удается сохранить в файл на SD</string>
-    <string name="err_crash_text">Возникла ошибка. Пожалуйста, отправьте письмо разработчику</string>
-    <string name="err_no_debitor_name">Нельзя сохранить без имени должника</string>
-
-    <!-- Текст кнопок -->
-    <!--
-    <string name="add_new_debit">Add</string>
-	<string name="clear_all">Clear all</string>
-    -->
-    <string name="button_ok">OK</string>
-    <string name="button_cancel">Отмена</string>
-
-    <!-- Описание контента (всплывающее сообщение) -->
-    <string name="cont_descr_contact_picture">Картинка контакта</string>
-    <string name="cont_descr_add_debit">Добавить долг</string>
-    <string name="cont_descr_delete">Удалить</string>
-    <string name="cont_descr_show_more_fields">Показать дополнительные поля</string>
-    <string name="cont_descr_plus_debt">Даю в долг</string>
-    <string name="cont_descr_minus_debt">Беру в долг</string>
-
-    <!-- Модальные окна -->
-    <string name="modal_text_are_you_sure">Вы уверены?</string>
-    <string name="modal_text_delete_debitor">Удалить должника и его историю?</string>
-    <string name="modal_text_delete_debitor_history">Удалить историю долгов?</string>
-    <string name="modal_text_delete_debt">Удалить один долг?</string>
-
-    <!-- Текстовые значения и т.д. -->
-    <string name="text_result_sum">ВСЕГО</string>
-    <string name="text_plus_minus">+/—</string>
-    <string name="text_zero">0</string>
-    <string name="text_updated">Обновлено</string>
-    <string name="text_no_debitors">Нет должников. Добавьте кого-нибудь.</string>
-    <string name="text_no_my_debts">Нет долгов. Добавьте что-нибудь.</string>
-    <string name="text_contact_not_found">ВНИМНИЕ: НЕ НАЙДЕН</string>
-    <string name="text_i_gave_money">Я отдал</string>
-    <string name="text_i_took_money">Я получил</string>
-    <string name="text_no_debts">Нет долгов</string>
-
-    <!-- Подсказки в TextEdit -->
-    <string name="hint_debitor_name">Имя</string>
-    <string name="hint_debitor_phone">Телефон</string>
-    <string name="hint_debitor_email">Почта</string>
+    <string name="home_details_history_title">История</string>
+    <string name="home_debtors_menu_settings">Настройки</string>
+    <string name="home_debtors_menu_sort">Сортировка</string>
+    <string name="home_debtors_menu_sort_amount">Сумма</string>
+    <string name="home_details_debt_clear">Очистить</string>
+    <string name="home_debtors_toast_debt_added">Долг добавлен</string>
+    <string name="home_add_debt_amount_error">Значение слишком большое</string>
+    <string name="default_positive_button">OK</string>
+    <string name="default_negative_button">Отмена</string>
+    <string name="home_add_debt_title">Добавить долг</string>
+    <string name="home_details_menu_delete">Удалить</string>
+    <string name="home_details_debt_title">Долг</string>
+    <string name="default_dialog_title">Вы уверены?</string>
+    <string name="home_details_dialog_delete_message">Удалить должника и его историю?</string>
+    <string name="home_details_clear_all_dialog_confirmation_message">Удалить историю долгов?</string>
+    <string name="home_details_remove_debt_message">Удалить один долг?</string>
+    <string name="home_details_debt_total">Всего</string>
+    <string name="home_details_debts_item_sign_lent">Дал</string>
+    <string name="home_details_debts_item_sign_borrowed">Получил</string>
+    <string name="home_add_debt_name">Имя</string>
+    <string name="home_debtors_menu_sort_name">Имя</string>
+    <string name="settings_title">Настройки</string>
+    <string name="home_debtors_item_menu_share">Отправить</string>
+    <string name="home_details_menu_share">Отправить</string>
+    <string name="home_debtors_menu_search">Поиск</string>
+    <string name="home_debtors_search_hint">Поиск</string>
+    <string name="preference_main_settings_general_title">Общие</string>
+    <string name="home_debtors_empty_debt_fields">Пустой контакт или сумма</string>
+    <string name="home_debtors_share_title">Отправить все долги файлом csv</string>
+    <string name="home_debtors_item_menu_remove">Удалить</string>
+    <string name="home_add_debt_confirm">Подтвердить</string>
+    <string name="home_add_debt_action">Действие</string>
+    <string name="home_add_debt_add">Добавить</string>
+    <string name="home_add_debt_subtract">Вычесть</string>
+    <string name="home_add_debt_amount">Сумма</string>
+    <string name="home_add_debt_comment">Комментарий</string>
+    <string name="home_details_debt_change">Изменить</string>
+    <string name="home_details_share_title">Отправить долг контакта</string>
+    <string name="home_details_share_message_borrowed">Хей, %1$s дал мне в долг %3$s%2$s</string>
+    <string name="home_details_share_message_lent">Хей, %1$s получил от меня в долг %3$s%2$s</string>
+    <string name="home_details_empty_debt_fields">Пустая сумма долга</string>
+    <string name="home_details_debts_item_menu_remove">Удалить</string>
+    <string name="preference_main_settings_currency">Валюта</string>
+    <string name="preference_main_settings_currency_summary">Выбрано: %1$s</string>
+    <string name="preference_main_settings_currency_custom">Валюта вручную</string>
+    <string name="preference_main_settings_version">Версия</string>
+    <string name="preference_main_settings_sync_title">Синхронизация</string>
+    <string name="preference_main_settings_sync_contacts">Синхронизировать с контактами</string>
+    <string name="preference_main_settings_sync_contacts_summary">Обновить имена и картинки</string>
+    <string name="preference_main_settings_state_updating">Обновление…</string>
+    <string name="preference_main_settings_state_updated">Успешно обновлено</string>
+    <string name="preference_main_settings_state_error">Возникла ошибка</string>
 
 </resources>

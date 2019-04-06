@@ -1,88 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Строки связанные со всем приложением -->
     <string name="app_name">Dugovi</string>
-    <string name="title_activity_main">Dugovi</string>
-    <string name="title_activity_debitor">Dužnik</string>
-    <string name="title_debts_list_fragment_debitors">Dužnici</string>
-    <string name="title_debts_list_fragment_my_debts">Moji dugovi</string>
-
-    <!-- Заголовки разделов -->
-    <string name="title_personal_data">KONTAKT</string>
-    <string name="title_current_debt">TRENUTNI DUG</string>
-    <string name="title_debits_history">ISTORIJA DUGOVA</string>
-
-    <!-- Action Bar -->
-    <string name="menu_settings">Podešavanja</string>
-    <string name="menu_add_new">Dodati dužnika iz kontakt liste</string>
-    <string name="menu_add_new_no_contact">Dodati dužnika ne iz kontakt liste</string>
-    <string name="menu_remove_debitor">Izbrisati dužnika</string>
-    <string name="menu_remove_debitor_history">Obrisati istoriju dugova</string>
-    <string name="menu_delete_items">Izbrisati elemente</string>
-    <string name="menu_delete_items_cancel">Otkazati brisanje</string>
-    <string name="menu_sort">Sortiranje</string>
-    <string name="menu_sort_alph">Po imenu</string>
-    <string name="menu_sort_date">Po datumu</string>
-    <string name="menu_sort_amount">Po iznosu</string>
-    <string name="menu_sort_desc">opad.</string>
-    <string name="menu_sort_reset">obrisati</string>
-
-    <!-- Сообщеня пользователю (обычно Toast) -->
-    <string name="message_all_debits_removed">Svi dugovi su izbrisani</string>
-    <string name="message_debit_removed">Dug je izbrisan</string>
-    <string name="message_debit_added">Dug je dodat</string>
-    <string name="message_debitor_removed">Dužnik je izbrisan</string>
-    <string name="message_debitor_history_removed">Istorija dugova je obrisana</string>
-
-    <!-- Сообщения об ошибках (обычно Toast) -->
-    <string name="err_contact_not_found">Kontakt nije pronađen</string>
-    <string name="err_debit_not_added">Dug nije dodat</string>
-    <string name="err_id_not_valid">Neispravan identifikator</string>
-    <string name="err_remove_fail">Greška brisanja</string>
-    <string name="err_value_to_long">Vrednost je isuviše velika</string>
-    <string name="err_value_to_small">Vrednost je isuviše mala</string>
-    <string name="err_cant_save_to_file">Nemoguće sačuvati fajl na SD-kartu</string>
-    <string name="err_crash_text">Došlo je do greške. Molimo Vas, pošaljite mejl razvojnom programeru</string>
-    <string name="err_no_debitor_name">Ne može se sačuvati bez imena dužnika</string>
-
-    <!-- Текст кнопок -->
-    <!--
-    <string name="add_new_debit">Dodati</string>
-	<string name="clear_all">Obrisati sve</string>
-    -->
-    <string name="button_ok">OK</string>
-    <string name="button_cancel">Otkazati</string>
-
-    <!-- Описание контента (всплывающее сообщение) -->
-    <string name="cont_descr_contact_picture">Slika kontakta</string>
-    <string name="cont_descr_add_debit">Dodati dug</string>
-    <string name="cont_descr_delete">Izbrisati</string>
-    <string name="cont_descr_show_more_fields">Pokazati dodatna polja</string>
-    <string name="cont_descr_plus_debt">Dajem u dug</string>
-    <string name="cont_descr_minus_debt">Uzimam u dug</string>
-
-    <!-- Модальные окна -->
-    <string name="modal_text_are_you_sure">Da li ste sigurni?</string>
-    <string name="modal_text_delete_debitor">Izbrisati dužnika i njegovu istoriju?</string>
-    <string name="modal_text_delete_debitor_history">Izbrisati istoriju dugova?</string>
-    <string name="modal_text_delete_debt">Izbrisati jedan dug?</string>
-
-    <!-- Текстовые значения и т.д. -->
-    <string name="text_result_sum">UKUPNO</string>
-    <string name="text_plus_minus">+/—</string>
-    <string name="text_zero">0</string>
-    <string name="text_updated">Ažurirano</string>
-    <string name="text_no_debitors">Nema dužnika. Dodajte nekoga.</string>
-    <string name="text_no_my_debts">Nema dugova. Dodajte neki.</string>
-    <string name="text_contact_not_found">UPOZORENJE: NIJE NAĐEN</string>
-    <string name="text_i_gave_money">Vratio/la sam</string>
-    <string name="text_i_took_money">Dobio/la sam</string>
-    <string name="text_no_debts">Nema dugova</string>
-
-    <!-- Подсказки в TextEdit -->
-    <string name="hint_debitor_name">Ime</string>
-    <string name="hint_debitor_phone">Telefon</string>
-    <string name="hint_debitor_email">Mejl</string>
+    <string name="home_details_history_title">Istorija</string>
+    <string name="home_debtors_menu_settings">Podešavanja</string>
+    <string name="home_debtors_menu_sort">Sortiranje</string>
+    <string name="home_debtors_menu_sort_amount">Iznos</string>
+    <string name="home_details_debt_clear">Obrisati</string>
+    <string name="home_debtors_toast_debt_added">Dug je dodat</string>
+    <string name="home_add_debt_amount_error">Vrednost je isuviše velika</string>
+    <string name="default_positive_button">OK</string>
+    <string name="default_negative_button">Otkazati</string>
+    <string name="home_add_debt_title">Dodati dug</string>
+    <string name="home_details_menu_delete">Izbrisati</string>
+    <string name="home_details_debt_title">Dugova</string>
+    <string name="default_dialog_title">Da li ste sigurni?</string>
+    <string name="home_details_dialog_delete_message">Izbrisati dužnika i njegovu istoriju?</string>
+    <string name="home_details_clear_all_dialog_confirmation_message">Izbrisati istoriju dugova?</string>
+    <string name="home_details_remove_debt_message">Izbrisati jedan dug?</string>
+    <string name="home_details_debt_total">Ukupno</string>
+    <string name="home_details_debts_item_sign_lent">Vratio/la</string>
+    <string name="home_details_debts_item_sign_borrowed">Dobio/la sam</string>
+    <string name="home_add_debt_name">Ime</string>
+    <string name="home_debtors_menu_sort_name">Ime</string>
+    <string name="settings_title">Podešavanja</string>
+    <string name="home_debtors_item_menu_share">Dijeli</string>
+    <string name="home_details_menu_share">Dijeli</string>
+    <string name="home_debtors_menu_search">Pretraživanje</string>
+    <string name="home_debtors_search_hint">Pretraživanje</string>
+    <string name="preference_main_settings_general_title">Opće</string>
 
 </resources>
