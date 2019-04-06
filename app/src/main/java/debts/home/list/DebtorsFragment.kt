@@ -21,6 +21,7 @@ import debts.common.android.extensions.showAlert
 import debts.common.android.FragmentScreenContext
 import debts.common.android.ScreenContextHolder
 import debts.common.android.ScreenContextHolder.Companion.FRAGMENT_DEBTORS
+import debts.home.AddDebtLayout
 import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtorsAdapter
 import debts.home.list.mvi.DebtorsIntention
@@ -328,8 +329,8 @@ class DebtorsFragment : BaseFragment() {
         )
         context?.showAlert(
             customView = addDebtLayout,
-            titleResId = R.string.home_debtors_dialog_add_debt,
-            positiveButtonResId = R.string.home_debtors_dialog_confirm
+            titleResId = R.string.home_add_debt_title,
+            positiveButtonResId = R.string.home_add_debt_confirm
         ) {
             addDebtLayout?.data?.let { data ->
                 if (data.name.isNotBlank() && data.amount != 0.0) {

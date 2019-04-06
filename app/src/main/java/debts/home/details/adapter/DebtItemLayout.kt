@@ -63,7 +63,7 @@ class DebtItemLayout @JvmOverloads constructor(
             with(data) {
                 debtId = id
                 signView.text = context.getString(
-                    if (amount < 0) R.string.home_debtors_item_amount_borrowed else R.string.home_details_debts_item_sign_lent
+                    if (amount < 0) R.string.home_details_debts_item_sign_borrowed else R.string.home_details_debts_item_sign_lent
                 )
                 amountView.text = resources.getString(
                     R.string.home_details_debt_amount,

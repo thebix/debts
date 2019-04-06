@@ -1,4 +1,4 @@
-package debts.home.list
+package debts.home
 
 import android.content.Context
 import android.util.AttributeSet
@@ -39,7 +39,7 @@ class AddDebtLayout @JvmOverloads constructor(
 
     val data: Data
         get() {
-            val inverseAmount = radioAdd.checkedRadioButtonId == R.id.home_debtors_add_debt_radio_subtract
+            val inverseAmount = radioAdd.checkedRadioButtonId == R.id.home_add_debt_radio_subtract
             val amount = try {
                 if (amountView.text.length > AMOUNT_MAX_LENGTH)
                     0.0
@@ -67,7 +67,7 @@ class AddDebtLayout @JvmOverloads constructor(
     private lateinit var disposables: CompositeDisposable
 
     init {
-        selfInflate(R.layout.home_debtors_add_debt_layout)
+        selfInflate(R.layout.home_add_debt_layout)
         doInRuntime {
             applyLayoutParams()
             setPaddingTopResCompat(R.dimen.padding_20dp)
@@ -75,12 +75,12 @@ class AddDebtLayout @JvmOverloads constructor(
             setPaddingStartResCompat(R.dimen.padding_20dp)
             setPaddingEndResCompat(R.dimen.padding_20dp)
         }
-        avatarView = findViewById(R.id.home_debtors_add_debt_avatar)
-        nameView = findViewById(R.id.home_debtors_add_debt_name)
-        amountLayoutView = findViewById(R.id.home_debtors_add_debt_amount_layout)
-        amountView = findViewById(R.id.home_debtors_add_debt_amount)
-        radioAdd = findViewById(R.id.home_debtors_add_debt_radio)
-        commentView = findViewById(R.id.home_debtors_add_debt_comment)
+        avatarView = findViewById(R.id.home_add_debt_avatar)
+        nameView = findViewById(R.id.home_add_debt_name)
+        amountLayoutView = findViewById(R.id.home_add_debt_amount_layout)
+        amountView = findViewById(R.id.home_add_debt_amount)
+        radioAdd = findViewById(R.id.home_add_debt_radio)
+        commentView = findViewById(R.id.home_add_debt_comment)
     }
 
     override fun onAttachedToWindow() {
@@ -104,7 +104,7 @@ class AddDebtLayout @JvmOverloads constructor(
                 },
             amountView.textChanges()
                 .subscribe {
-                    amountLayoutView.error = if (it.length > AMOUNT_MAX_LENGTH) context.getString(R.string.home_debtors_dialog_amount_error) else ""
+                    amountLayoutView.error = if (it.length > AMOUNT_MAX_LENGTH) context.getString(R.string.home_add_debt_amount_error) else ""
                 }
         )
 
