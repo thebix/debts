@@ -86,6 +86,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_12dp"
         android:theme="@style/Debts.Theme.TextInput"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/UcbReport.EditText.OnboardingError"
         app:hintTextAppearance="@style/Debts.Theme.TextInput"
         app:layout_constraintBottom_toTopOf="@id/home_debtors_add_debt_comment_layout"
         app:layout_constraintEnd_toEndOf="parent"

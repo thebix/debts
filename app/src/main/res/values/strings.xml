@@ -29,6 +29,7 @@
     <string name="home_debtors_dialog_subtract">Subtract</string>
     <string name="home_debtors_dialog_amount">Amount</string>
     <string name="home_debtors_dialog_comment">Comment</string>
+    <string name="home_debtors_dialog_amount_error">Value is to long</string>
 
     <string name="home_details_debt_title">Debt</string>
     <string name="home_details_debt_total">Total</string>
