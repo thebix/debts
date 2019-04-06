@@ -19,6 +19,11 @@
         <item name="colorControlHighlight">@android:color/holo_orange_dark</item>
     </style>
 
+    <style name="UcbReport.EditText.OnboardingError" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/text_size_12sp</item>
+    </style>
+
     <!-- Text -->
 
     <style name="Debts.Text" />

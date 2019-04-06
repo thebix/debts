@@ -1,18 +1,26 @@
 package debts.home.list
 
 import android.content.Context
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import android.util.AttributeSet
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RadioGroup
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
+import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding3.widget.textChanges
-import debts.common.android.extensions.*
+import debts.common.android.extensions.applyLayoutParams
+import debts.common.android.extensions.doInRuntime
+import debts.common.android.extensions.selfInflate
+import debts.common.android.extensions.setPaddingBottomResCompat
+import debts.common.android.extensions.setPaddingEndResCompat
+import debts.common.android.extensions.setPaddingStartResCompat
+import debts.common.android.extensions.setPaddingTopResCompat
+import debts.common.android.extensions.showKeyboard
 import debts.home.list.adapter.ContactsAdapter
 import debts.home.list.adapter.ContactsItemViewModel
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 import net.thebix.debts.R
 
 class AddDebtLayout @JvmOverloads constructor(
@@ -24,11 +32,19 @@ class AddDebtLayout @JvmOverloads constructor(
     private val avatarUrl: String = ""
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
+    private companion object {
+
+        const val AMOUNT_MAX_LENGTH = 16
+    }
+
     val data: Data
         get() {
             val inverseAmount = radioAdd.checkedRadioButtonId == R.id.home_debtors_add_debt_radio_subtract
             val amount = try {
-                amountView.text.toString().toDouble() * if (inverseAmount) -1 else 1
+                if (amountView.text.length > AMOUNT_MAX_LENGTH)
+                    0.0
+                else
+                    amountView.text.toString().toDouble() * if (inverseAmount) -1 else 1
             } catch (ex: Throwable) {
                 0.0
             }
@@ -43,11 +59,12 @@ class AddDebtLayout @JvmOverloads constructor(
 
     private val avatarView: ImageView
     private val nameView: AppCompatAutoCompleteTextView
+    private val amountLayoutView: TextInputLayout
     private val amountView: EditText
     private val radioAdd: RadioGroup
     private val commentView: EditText
     private var contact: ContactsItemViewModel? = null
-    private lateinit var disposable: Disposable
+    private lateinit var disposables: CompositeDisposable
 
     init {
         selfInflate(R.layout.home_debtors_add_debt_layout)
@@ -60,6 +77,7 @@ class AddDebtLayout @JvmOverloads constructor(
         }
         avatarView = findViewById(R.id.home_debtors_add_debt_avatar)
         nameView = findViewById(R.id.home_debtors_add_debt_name)
+        amountLayoutView = findViewById(R.id.home_debtors_add_debt_amount_layout)
         amountView = findViewById(R.id.home_debtors_add_debt_amount)
         radioAdd = findViewById(R.id.home_debtors_add_debt_radio)
         commentView = findViewById(R.id.home_debtors_add_debt_comment)
@@ -77,13 +95,18 @@ class AddDebtLayout @JvmOverloads constructor(
             amountView.requestFocus()
         }
 
-        disposable =
+        disposables = CompositeDisposable(
             nameView.textChanges()
                 .filter { contact != null }
                 .subscribe {
                     contact = null
                     avatarView.setImageResource(R.drawable.ic_launcher)
+                },
+            amountView.textChanges()
+                .subscribe {
+                    amountLayoutView.error = if (it.length > AMOUNT_MAX_LENGTH) context.getString(R.string.home_debtors_dialog_amount_error) else ""
                 }
+        )
 
         if (name.isNotBlank()) {
             nameView.setText(name)
@@ -97,7 +120,7 @@ class AddDebtLayout @JvmOverloads constructor(
     }
 
     override fun onDetachedFromWindow() {
-        disposable.dispose()
+        disposables.dispose()
         super.onDetachedFromWindow()
     }
 

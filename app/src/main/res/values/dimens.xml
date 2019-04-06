@@ -36,6 +36,7 @@
 
     <dimen name="radius_4dp">4dp</dimen>
 
+    <dimen name="text_size_12sp">12dp</dimen>
     <dimen name="text_size_14sp">14dp</dimen>
     <dimen name="text_size_18sp">18dp</dimen>
 
