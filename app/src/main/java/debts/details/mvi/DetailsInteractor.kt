@@ -1,4 +1,4 @@
-package debts.home.details.mvi
+package debts.details.mvi
 
 import debts.common.android.DebtsNavigator
 import debts.common.android.mvi.MviInteractor

@@ -1,7 +1,12 @@
-package debts.home.details
+package debts.details
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.UiThread
@@ -18,21 +23,25 @@ import debts.common.android.BaseFragment
 import debts.common.android.FragmentArgumentDelegate
 import debts.common.android.FragmentScreenContext
 import debts.common.android.ScreenContextHolder
-import debts.common.android.extensions.*
-import debts.home.details.adapter.DebtItemLayout
-import debts.home.details.adapter.DebtsAdapter
-import debts.home.details.mvi.DetailsIntention
-import debts.home.details.mvi.DetailsState
-import debts.home.details.mvi.DetailsViewModel
+import debts.common.android.extensions.getColorCompat
+import debts.common.android.extensions.getDrawableCompat
+import debts.common.android.extensions.showAlert
+import debts.common.android.extensions.toFormattedCurrency
+import debts.common.android.extensions.tryToGoBack
 import debts.home.AddDebtLayout
+import debts.details.adapter.DebtItemLayout
+import debts.details.adapter.DebtsAdapter
+import debts.details.mvi.DetailsIntention
+import debts.details.mvi.DetailsState
+import debts.details.mvi.DetailsViewModel
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
-import org.koin.android.viewmodel.ext.viewModel
-import timber.log.Timber
 import net.thebix.debts.R
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.viewModel
+import timber.log.Timber
 
 class DetailsFragment : BaseFragment() {
 
@@ -47,7 +56,7 @@ class DetailsFragment : BaseFragment() {
 
     private val menuItemClickListener = object : DebtItemLayout.HistoryItemCallback {
         override fun onDebtRemove(debtId: Long) {
-            context?.showAlert(messageId = R.string.home_details_remove_debt_message) {
+            context?.showAlert(messageId = R.string.details_remove_debt_message) {
                 intentionSubject.onNext(DetailsIntention.RemoveDebt(debtId))
             }
         }
@@ -79,17 +88,17 @@ class DetailsFragment : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
-        inflater.inflate(R.layout.home_details_fragment, container, false)
+        inflater.inflate(R.layout.details_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbarView = findViewById(R.id.home_toolbar)
-        avatarView = findViewById(R.id.home_details_avatar)
-        nameView = findViewById(R.id.home_details_name)
-        amountView = findViewById(R.id.home_details_debt_amount)
-        changeView = findViewById(R.id.home_details_debt_change)
-        clearView = findViewById(R.id.home_details_debt_clear)
-        recyclerView = findViewById(R.id.home_details_history)
+        toolbarView = getView()?.findViewById(R.id.home_toolbar)
+        avatarView = getView()?.findViewById(R.id.details_avatar)
+        nameView = getView()?.findViewById(R.id.details_name)
+        amountView = getView()?.findViewById(R.id.details_debt_amount)
+        changeView = getView()?.findViewById(R.id.details_debt_change)
+        clearView = getView()?.findViewById(R.id.details_debt_clear)
+        recyclerView = getView()?.findViewById(R.id.details_history)
 
         setHasOptionsMenu(true)
         toolbarView?.title = ""
@@ -115,7 +124,7 @@ class DetailsFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.home_details_menu_delete -> {
-                context?.showAlert(messageId = R.string.home_details_dialog_delete_message) {
+                context?.showAlert(messageId = R.string.details_dialog_delete_message) {
                     intentionSubject.onNext(
                         DetailsIntention.RemoveDebtor(debtorId)
                     )
@@ -127,9 +136,9 @@ class DetailsFragment : BaseFragment() {
                 intentionSubject.onNext(
                     DetailsIntention.ShareDebtor(
                         debtorId,
-                        resources.getString(R.string.home_details_share_title),
-                        resources.getString(R.string.home_details_share_message_borrowed),
-                        resources.getString(R.string.home_details_share_message_lent)
+                        resources.getString(R.string.details_share_title),
+                        resources.getString(R.string.details_share_message_borrowed),
+                        resources.getString(R.string.details_share_message_lent)
                     )
                 )
 
@@ -178,7 +187,7 @@ class DetailsFragment : BaseFragment() {
                                 Snackbar
                                     .make(
                                         changeView!!,
-                                        R.string.home_details_empty_debt_fields,
+                                        R.string.details_empty_debt_fields,
                                         Snackbar.LENGTH_SHORT
                                     )
                                     .show()
@@ -190,7 +199,7 @@ class DetailsFragment : BaseFragment() {
             clearView!!.clicks()
                 .subscribe {
                     context?.showAlert(
-                        messageId = R.string.home_details_clear_all_dialog_confirmation_message,
+                        messageId = R.string.details_clear_all_dialog_confirmation_message,
                         actionPositive = {
                             intentionSubject.onNext(DetailsIntention.ClearHistory(debtorId))
                         }
@@ -223,7 +232,7 @@ class DetailsFragment : BaseFragment() {
         with(state) {
             adapter.replaceAllItems(items)
             nameView?.text = name
-            amountView?.text = context?.getString(R.string.home_details_debt_amount, currency, amount.toFormattedCurrency())
+            amountView?.text = context?.getString(R.string.details_debt_amount, currency, amount.toFormattedCurrency())
             isBorrowed = amount < 0
             this@DetailsFragment.avatarUrl = avatarUrl
             if (avatarUrl.isNotBlank() && avatarView != null) {

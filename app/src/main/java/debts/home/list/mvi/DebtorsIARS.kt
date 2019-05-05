@@ -12,7 +12,7 @@ sealed class DebtorsIntention : MviIntention {
     data class Init(
         val contactPermission: String,
         val requestCode: Int
-    ) : DebtorsIntention(), MviInitIntention
+    ) : DebtorsIntention()
 
     data class OpenAddDebtDialog(
         val contactPermission: String,
