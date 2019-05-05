@@ -1,4 +1,4 @@
-package debts.home.details.adapter
+package debts.details.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -29,7 +29,7 @@ class DebtItemLayout @JvmOverloads constructor(
     private var debtId: Long = 0
 
     init {
-        selfInflate(R.layout.home_details_debts_item_layout)
+        selfInflate(R.layout.details_debts_item_layout)
         doInRuntime {
             applyLayoutParams()
             setPaddingTopResCompat(R.dimen.padding_16dp)
@@ -38,10 +38,10 @@ class DebtItemLayout @JvmOverloads constructor(
             setPaddingEndResCompat(R.dimen.padding_8dp)
             setSelectableItemBackground()
         }
-        signView = findViewById(R.id.home_details_debts_item_sign)
-        amountView = findViewById(R.id.home_details_debts_item_amount)
-        dateView = findViewById(R.id.home_details_debts_item_date)
-        commentView = findViewById(R.id.home_details_debts_item_comment)
+        signView = findViewById(R.id.details_debts_item_sign)
+        amountView = findViewById(R.id.details_debts_item_amount)
+        dateView = findViewById(R.id.details_debts_item_date)
+        commentView = findViewById(R.id.details_debts_item_comment)
         this.setOnLongClickListener {
             this.showPopup(R.menu.home_details_debts_item_menu, object : PopupMenu.OnMenuItemClickListener {
                 override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
@@ -63,10 +63,10 @@ class DebtItemLayout @JvmOverloads constructor(
             with(data) {
                 debtId = id
                 signView.text = context.getString(
-                    if (amount < 0) R.string.home_details_debts_item_sign_borrowed else R.string.home_details_debts_item_sign_lent
+                    if (amount < 0) R.string.details_debts_item_sign_borrowed else R.string.details_debts_item_sign_lent
                 )
                 amountView.text = resources.getString(
-                    R.string.home_details_debt_amount,
+                    R.string.details_debt_amount,
                     currency,
                     amount.absoluteValue.toFormattedCurrency()
                 )

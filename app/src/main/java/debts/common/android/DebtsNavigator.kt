@@ -3,11 +3,10 @@ package debts.common.android
 import android.content.Context
 import android.widget.Toast
 import androidx.annotation.StringRes
-import debts.home.details.DetailsFragment
+import debts.details.DetailsActivity
 import debts.preferences.PreferencesActivity
 import io.reactivex.Completable
 import io.reactivex.Single
-import net.thebix.debts.R
 
 class DebtsNavigator(
     private val screenContextHolder: ScreenContextHolder,
@@ -19,10 +18,7 @@ class DebtsNavigator(
 
     fun openDetails(debtorId: Long): Completable =
         Completable.fromCallable {
-            screenContextHolder.get(name)?.replaceFragment(
-                R.id.home_root,
-                DetailsFragment.createInstance(debtorId)
-            )
+            screenContextHolder.get(name)?.openActivity(DetailsActivity.createIntent(applicationContext, debtorId))
         }
 
     fun openSettings(): Completable =

@@ -1,7 +1,7 @@
-package debts.home.details.mvi
+package debts.details.mvi
 
 import debts.common.android.mvi.*
-import debts.home.details.adapter.DebtsItemViewModel
+import debts.details.adapter.DebtsItemViewModel
 import debts.usecase.DebtItemModel
 
 sealed class DetailsIntention : MviIntention {

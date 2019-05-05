@@ -25,7 +25,7 @@
                 tools:ignore="RtlSymmetry">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/home_details_avatar"
+                    android:id="@+id/details_avatar"
                     android:layout_width="@dimen/width_40dp"
                     android:layout_height="@dimen/height_40dp"
                     android:layout_marginStart="@dimen/margin_16dp"
@@ -35,118 +35,118 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/home_details_name"
+                    android:id="@+id/details_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_8dp"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     android:textAppearance="@style/Debts.Text.Large.Headline"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/home_details_avatar"
-                    app:layout_constraintTop_toTopOf="@id/home_details_avatar"
+                    app:layout_constraintStart_toEndOf="@id/details_avatar"
+                    app:layout_constraintTop_toTopOf="@id/details_avatar"
                     tools:text="John Zorn John Zorn John Zorn John Zorn John Zorn John Zorn" />
 
                 <View
-                    android:id="@+id/home_details_name_divider"
+                    android:id="@+id/details_name_divider"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1dp"
                     android:layout_marginTop="@dimen/margin_20dp"
                     android:background="@color/debts_grey_light"
-                    app:layout_constraintTop_toBottomOf="@id/home_details_name" />
+                    app:layout_constraintTop_toBottomOf="@id/details_name" />
 
                 <View
-                    android:id="@+id/home_details_wallet"
+                    android:id="@+id/details_wallet"
                     android:layout_width="@dimen/width_20dp"
                     android:layout_height="@dimen/height_20dp"
                     android:layout_marginStart="@dimen/margin_16dp"
                     android:layout_marginTop="@dimen/margin_16dp"
                     android:background="@drawable/ic_wallet"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/home_details_name_divider" />
+                    app:layout_constraintTop_toBottomOf="@id/details_name_divider" />
 
                 <TextView
-                    android:id="@+id/home_details_debt_title"
+                    android:id="@+id/details_debt_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_64dp"
-                    android:text="@string/home_details_debt_title"
+                    android:text="@string/details_debt_title"
                     android:textAppearance="@style/Debts.Text.Large.Title.Alt"
-                    app:layout_constraintBottom_toBottomOf="@id/home_details_wallet"
+                    app:layout_constraintBottom_toBottomOf="@id/details_wallet"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/home_details_wallet" />
+                    app:layout_constraintTop_toTopOf="@id/details_wallet" />
 
                 <TextView
-                    android:id="@+id/home_details_debt_total"
+                    android:id="@+id/details_debt_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_16dp"
-                    android:text="@string/home_details_debt_total"
+                    android:text="@string/details_debt_total"
                     android:textAppearance="@style/Debts.Text.Large.Title"
-                    app:layout_constraintStart_toStartOf="@id/home_details_debt_title"
-                    app:layout_constraintTop_toBottomOf="@id/home_details_debt_title" />
+                    app:layout_constraintStart_toStartOf="@id/details_debt_title"
+                    app:layout_constraintTop_toBottomOf="@id/details_debt_title" />
 
                 <TextView
-                    android:id="@+id/home_details_debt_amount"
+                    android:id="@+id/details_debt_amount"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:textAppearance="@style/Debts.Text.Large.Extra"
-                    app:layout_constraintStart_toStartOf="@id/home_details_debt_total"
-                    app:layout_constraintTop_toBottomOf="@id/home_details_debt_total"
+                    app:layout_constraintStart_toStartOf="@id/details_debt_total"
+                    app:layout_constraintTop_toBottomOf="@id/details_debt_total"
                     tools:text="150$ 150$ 150$ 150$ 150$ 150$ 150$ 150$ 150$ 150$" />
 
                 <TextView
-                    android:id="@+id/home_details_debt_change"
+                    android:id="@+id/details_debt_change"
                     style="@style/Debts.Button.White"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_20dp"
                     android:background="@drawable/button_radius_4dp"
-                    android:text="@string/home_details_debt_change"
+                    android:text="@string/details_debt_change"
                     android:textAllCaps="true"
-                    app:layout_constraintStart_toStartOf="@id/home_details_debt_amount"
-                    app:layout_constraintTop_toBottomOf="@id/home_details_debt_amount" />
+                    app:layout_constraintStart_toStartOf="@id/details_debt_amount"
+                    app:layout_constraintTop_toBottomOf="@id/details_debt_amount" />
 
                 <TextView
-                    android:id="@+id/home_details_debt_clear"
+                    android:id="@+id/details_debt_clear"
                     style="@style/Debts.Button.Accent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_16dp"
-                    android:text="@string/home_details_debt_clear"
+                    android:text="@string/details_debt_clear"
                     android:textAllCaps="true"
-                    app:layout_constraintStart_toEndOf="@id/home_details_debt_change"
-                    app:layout_constraintTop_toTopOf="@id/home_details_debt_change" />
+                    app:layout_constraintStart_toEndOf="@id/details_debt_change"
+                    app:layout_constraintTop_toTopOf="@id/details_debt_change" />
 
                 <View
-                    android:id="@+id/home_details_debt_divider"
+                    android:id="@+id/details_debt_divider"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1dp"
                     android:layout_marginTop="@dimen/margin_20dp"
                     android:background="@color/debts_grey_light"
-                    app:layout_constraintTop_toBottomOf="@id/home_details_debt_change" />
+                    app:layout_constraintTop_toBottomOf="@id/details_debt_change" />
 
                 <View
-                    android:id="@+id/home_details_clock"
+                    android:id="@+id/details_clock"
                     android:layout_width="@dimen/width_20dp"
                     android:layout_height="@dimen/height_20dp"
                     android:layout_marginStart="@dimen/margin_16dp"
                     android:layout_marginTop="@dimen/margin_16dp"
                     android:background="@drawable/ic_clock"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/home_details_debt_divider" />
+                    app:layout_constraintTop_toBottomOf="@id/details_debt_divider" />
 
                 <TextView
-                    android:id="@+id/home_details_history_title"
+                    android:id="@+id/details_history_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_64dp"
-                    android:text="@string/home_details_history_title"
+                    android:text="@string/details_history_title"
                     android:textAppearance="@style/Debts.Text.Large.Title.Alt"
-                    app:layout_constraintBottom_toBottomOf="@id/home_details_clock"
+                    app:layout_constraintBottom_toBottomOf="@id/details_clock"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/home_details_clock"
+                    app:layout_constraintTop_toTopOf="@id/details_clock"
                     tools:ignore="RtlSymmetry" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -156,7 +156,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/home_details_history"
+        android:id="@+id/details_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_marginStart="@dimen/margin_64dp"

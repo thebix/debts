@@ -1,4 +1,4 @@
-package debts.home.details.adapter
+package debts.details.adapter
 
 import debts.usecase.DebtItemModel
 

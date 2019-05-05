@@ -1,9 +1,8 @@
-package debts.home.details.mvi
+package debts.details.mvi
 
-import debts.common.android.extensions.toFormattedCurrency
 import debts.common.android.mvi.MviViewModel
 import debts.common.android.mvi.OneShot
-import debts.home.details.adapter.toDebtsItemViewModel
+import debts.details.adapter.toDebtsItemViewModel
 import io.reactivex.functions.BiFunction
 
 class DetailsViewModel(

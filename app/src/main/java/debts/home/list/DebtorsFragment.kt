@@ -3,7 +3,12 @@ package debts.home.list
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.UiThread
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -14,13 +19,14 @@ import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
 import debts.common.android.BaseActivity
 import debts.common.android.BaseFragment
-import debts.common.android.extensions.findViewById
+import debts.common.android.FragmentArgumentDelegate
+import debts.common.android.FragmentScreenContext
+import debts.common.android.ScreenContextHolder
 import debts.common.android.extensions.getColorCompat
 import debts.common.android.extensions.getDrawableCompat
 import debts.common.android.extensions.showAlert
-import debts.common.android.FragmentScreenContext
-import debts.common.android.ScreenContextHolder
-import debts.common.android.ScreenContextHolder.Companion.FRAGMENT_DEBTORS
+import debts.di.getDebtorsDebtsNavigatorName
+import debts.di.getDebtorsViewModelName
 import debts.home.AddDebtLayout
 import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtorsAdapter
@@ -31,29 +37,31 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
-import org.koin.android.viewmodel.ext.viewModel
-import timber.log.Timber
-import org.koin.android.ext.android.inject
 import net.thebix.debts.R
+import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.getViewModel
+import timber.log.Timber
 
 class DebtorsFragment : BaseFragment() {
 
-    private companion object {
+    companion object {
 
-        const val KEY_RECYCLER_STATE = "KEY_RECYCLER_STATE"
-        const val READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE = 1
-        const val READ_CONTACTS_SYNC_PERMISSION_CODE = 2
+        private const val KEY_RECYCLER_STATE = "KEY_RECYCLER_STATE"
+        private const val READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE = 1
+        private const val READ_CONTACTS_SYNC_PERMISSION_CODE = 2
+
+        @JvmStatic
+        fun newInstance(page: Int) = DebtorsFragment()
+            .apply {
+                this.page = page
+            }
     }
-
-    private var toolbarView: Toolbar? = null
-    private var recyclerView: RecyclerView? = null
-    private var fabView: View? = null
 
     private val itemCallback = object : DebtorsAdapter.ItemClickCallback {
         override fun onItemClick(debtorId: Long) {
-            recyclerState =
-                recyclerView?.layoutManager?.onSaveInstanceState() as LinearLayoutManager.SavedState
-            recyclerView?.adapter = null
+//            recyclerState =
+//                recyclerView?.layoutManager?.onSaveInstanceState() as LinearLayoutManager.SavedState
+//            recyclerView?.adapter = null
             if (hasNameFilter) {
                 intentionSubject.onNext(DebtorsIntention.Filter())
             }
@@ -61,7 +69,7 @@ class DebtorsFragment : BaseFragment() {
         }
 
         override fun onDebtorRemove(debtorId: Long) {
-            context?.showAlert(messageId = R.string.home_details_dialog_delete_message) {
+            context?.showAlert(messageId = R.string.details_dialog_delete_message) {
                 intentionSubject.onNext(DebtorsIntention.RemoveDebtor(debtorId))
             }
         }
@@ -70,21 +78,26 @@ class DebtorsFragment : BaseFragment() {
             intentionSubject.onNext(
                 DebtorsIntention.ShareDebtor(
                     debtorId,
-                    resources.getString(R.string.home_details_share_title),
-                    resources.getString(R.string.home_details_share_message_borrowed),
-                    resources.getString(R.string.home_details_share_message_lent)
+                    resources.getString(R.string.details_share_title),
+                    resources.getString(R.string.details_share_message_borrowed),
+                    resources.getString(R.string.details_share_message_lent)
                 )
             )
         }
 
     }
     private val screenContextHolder: ScreenContextHolder by inject()
-    private val viewModel: DebtorsViewModel by viewModel()
     private val adapter = DebtorsAdapter(itemCallback)
     private val intentionSubject = PublishSubject.create<DebtorsIntention>()
 
+    private var toolbarView: Toolbar? = null
+    private var recyclerView: RecyclerView? = null
+    private var fabView: View? = null
+    private var page: Int by FragmentArgumentDelegate()
+
     private lateinit var disposables: CompositeDisposable
     private lateinit var menu: Menu
+    private lateinit var viewModel: DebtorsViewModel
     private var adapterDisposable: Disposable? = null
     private var isConfigurationChange: Boolean = false
     private var addDebtLayout: AddDebtLayout? = null
@@ -96,8 +109,8 @@ class DebtorsFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = getViewModel(getDebtorsViewModelName(page))
         isConfigurationChange = savedInstanceState != null
-
     }
 
     override fun onCreateView(
@@ -110,9 +123,9 @@ class DebtorsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbarView = findViewById(R.id.home_toolbar)
-        recyclerView = findViewById(R.id.home_debtors_recycler)
-        fabView = findViewById(R.id.home_debtors_fab)
+        toolbarView = getView()?.findViewById(R.id.home_toolbar)
+        recyclerView = getView()?.findViewById(R.id.home_debtors_recycler)
+        fabView = getView()?.findViewById(R.id.home_debtors_fab)
 
         setHasOptionsMenu(true)
         (activity as BaseActivity).setSupportActionBar(toolbarView)
@@ -138,7 +151,7 @@ class DebtorsFragment : BaseFragment() {
         super.onStart()
 
         screenContextHolder.set(
-            FRAGMENT_DEBTORS,
+            getDebtorsDebtsNavigatorName(page),
             FragmentScreenContext(this)
         )
         disposables = CompositeDisposable(
@@ -147,7 +160,6 @@ class DebtorsFragment : BaseFragment() {
             viewModel.processIntentions(intentions())
         )
     }
-
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putParcelable(
@@ -185,7 +197,7 @@ class DebtorsFragment : BaseFragment() {
     }
 
     override fun onStop() {
-        screenContextHolder.remove(FRAGMENT_DEBTORS)
+        screenContextHolder.remove(getDebtorsDebtsNavigatorName(page))
         disposables.dispose()
         adapterDisposable?.dispose()
         addDebtLayout = null
