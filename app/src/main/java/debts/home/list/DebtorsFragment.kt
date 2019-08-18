@@ -318,7 +318,13 @@ class DebtorsFragment : BaseFragment() {
                 Observable.fromCallable {
                     DebtorsIntention.Init(
                         Manifest.permission.READ_CONTACTS,
-                        READ_CONTACTS_SYNC_PERMISSION_CODE
+                        READ_CONTACTS_SYNC_PERMISSION_CODE,
+                        when (page) {
+                            TabTypes.All.page -> TabTypes.All
+                            TabTypes.Debtors.page -> TabTypes.Debtors
+                            TabTypes.Creditors.page -> TabTypes.Creditors
+                            else -> TabTypes.All
+                        }
                     )
                 },
                 intentionSubject,
@@ -333,6 +339,7 @@ class DebtorsFragment : BaseFragment() {
             )
         )
 
+    // TODO: move FAB and dialog logic to the MainActivity?
     private fun showAddDebtDialog() {
         if (context == null) return
         addDebtLayout = AddDebtLayout(

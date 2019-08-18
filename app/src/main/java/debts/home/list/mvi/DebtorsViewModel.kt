@@ -2,11 +2,13 @@ package debts.home.list.mvi
 
 import debts.common.android.mvi.MviViewModel
 import debts.common.android.mvi.OneShot
+import debts.home.list.TabTypes
 import debts.home.list.adapter.DebtorsItemViewModel
 import debts.home.list.adapter.toContactsItemViewModel
 import debts.home.list.adapter.toDebtorsItemViewModel
 import debts.usecase.DebtorsListItemModel
 import io.reactivex.functions.BiFunction
+import kotlin.math.absoluteValue
 
 class DebtorsViewModel(
     interactor: DebtorsInteractor
@@ -19,7 +21,7 @@ class DebtorsViewModel(
 
     override fun actionFromIntention(intent: DebtorsIntention): DebtorsAction =
         when (intent) {
-            is DebtorsIntention.Init -> DebtorsAction.Init(intent.contactPermission, intent.requestCode)
+            is DebtorsIntention.Init -> DebtorsAction.Init(intent.contactPermission, intent.requestCode, intent.tabType)
             is DebtorsIntention.OpenAddDebtDialog -> DebtorsAction.OpenAddDebtDialog(
                 intent.contactPermission,
                 intent.requestCode
@@ -70,7 +72,8 @@ class DebtorsViewModel(
                         filteredItems = filterSortAndMapDebtors(
                             result.items,
                             prevState.nameFilter,
-                            prevState.sortType
+                            prevState.sortType,
+                            result.tabType == TabTypes.Creditors
                         )
                     )
                 }
@@ -107,7 +110,8 @@ class DebtorsViewModel(
     private fun filterSortAndMapDebtors(
         items: List<DebtorsListItemModel>,
         name: String,
-        sortType: DebtorsState.SortType
+        sortType: DebtorsState.SortType,
+        invertAmounts: Boolean = false
     ): List<DebtorsItemViewModel> {
         val filtered = if (name.isNotBlank())
             items.filter {
@@ -119,12 +123,21 @@ class DebtorsViewModel(
         else
             items
 
+        val invertedAmountForCreditors = if (invertAmounts) {
+            filtered.map { item ->
+                item.copy(
+                    amount = item.amount.absoluteValue
+                )
+            }
+        } else
+            filtered
+
         return when (sortType) {
-            DebtorsState.SortType.AMOUNT_DESC -> filtered.sortedByDescending { it.amount }
-            DebtorsState.SortType.AMOUNT_ASC -> filtered.sortedBy { it.amount }
-            DebtorsState.SortType.NAME_DESC -> filtered.sortedByDescending { it.name }
-            DebtorsState.SortType.NAME_ASC -> filtered.sortedBy { it.name }
-            else -> filtered
+            DebtorsState.SortType.AMOUNT_DESC -> invertedAmountForCreditors.sortedByDescending { it.amount }
+            DebtorsState.SortType.AMOUNT_ASC -> invertedAmountForCreditors.sortedBy { it.amount }
+            DebtorsState.SortType.NAME_DESC -> invertedAmountForCreditors.sortedByDescending { it.name }
+            DebtorsState.SortType.NAME_ASC -> invertedAmountForCreditors.sortedBy { it.name }
+            else -> invertedAmountForCreditors
         }.map { it.toDebtorsItemViewModel() }
     }
 
