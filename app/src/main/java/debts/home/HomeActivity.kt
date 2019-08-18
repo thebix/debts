@@ -19,7 +19,10 @@ class HomeActivity : BaseActivity() {
             this.getString(R.string.home_pager_tab_debtors),
             this.getString(R.string.home_pager_tab_creditors)
         )
-        pager.adapter = DebtsPagerAdapter(supportFragmentManager, tabsTitles)
+        pager.apply {
+            adapter = DebtsPagerAdapter(supportFragmentManager, tabsTitles)
+            offscreenPageLimit = 2
+        }
         val tabs = findViewById<TabLayout>(R.id.home_pager_tabs)
         tabs.setupWithViewPager(pager)
     }
