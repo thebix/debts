@@ -1,5 +1,6 @@
 package debts.usecase
 
+import debts.home.list.TabTypes
 import debts.repository.DebtsRepository
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
@@ -8,7 +9,7 @@ class ObserveDebtorsListItemsUseCase(
     private val repository: DebtsRepository
 ) {
 
-    fun execute(): Observable<List<DebtorsListItemModel>> {
+    fun execute(tabType: TabTypes): Observable<List<DebtorsListItemModel>> {
         return Observable
             .combineLatest(
                 repository.observeDebtors(),
@@ -28,6 +29,11 @@ class ObserveDebtorsListItemsUseCase(
                             debtor.avatarUrl
                         )
                     }
+                        .filter { debtor ->
+                            tabType == TabTypes.All ||
+                                    (tabType == TabTypes.Debtors && debtor.amount >= 0) ||
+                                    (tabType == TabTypes.Creditors && debtor.amount < 0)
+                        }
                 }
             )
     }

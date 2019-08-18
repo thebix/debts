@@ -1,7 +1,13 @@
 package debts.home.list.mvi
 
 import androidx.annotation.IdRes
-import debts.common.android.mvi.*
+import debts.common.android.mvi.MviAction
+import debts.common.android.mvi.MviIntention
+import debts.common.android.mvi.MviResult
+import debts.common.android.mvi.MviState
+import debts.common.android.mvi.OneShot
+import debts.common.android.mvi.ViewStateWithId
+import debts.home.list.TabTypes
 import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtorsItemViewModel
 import debts.usecase.ContactsItemModel
@@ -11,7 +17,8 @@ sealed class DebtorsIntention : MviIntention {
 
     data class Init(
         val contactPermission: String,
-        val requestCode: Int
+        val requestCode: Int,
+        val tabType: TabTypes
     ) : DebtorsIntention()
 
     data class OpenAddDebtDialog(
@@ -49,7 +56,8 @@ sealed class DebtorsAction : MviAction {
 
     data class Init(
         val contactPermission: String,
-        val requestCode: Int
+        val requestCode: Int,
+        val tabType: TabTypes
     ) : DebtorsAction()
 
     data class OpenAddDebtDialog(
@@ -87,7 +95,8 @@ sealed class DebtorsAction : MviAction {
 sealed class DebtorsResult : MviResult {
 
     data class ItemsResult(
-        val items: List<DebtorsListItemModel> = emptyList()
+        val items: List<DebtorsListItemModel> = emptyList(),
+        val tabType: TabTypes = TabTypes.All
     ) : DebtorsResult()
 
     object Error : DebtorsResult()

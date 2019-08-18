@@ -2,16 +2,24 @@ package debts.home.list.mvi
 
 import debts.common.android.DebtsNavigator
 import debts.common.android.mvi.MviInteractor
+import debts.home.list.TabTypes
 import debts.repository.DebtsRepository
-import debts.usecase.*
+import debts.usecase.AddDebtUseCase
+import debts.usecase.GetContactsUseCase
+import debts.usecase.GetDebtsCsvContentUseCase
+import debts.usecase.GetShareDebtorContentUseCase
+import debts.usecase.ObserveDebtorsListItemsUseCase
+import debts.usecase.RemoveDebtorUseCase
+import debts.usecase.SyncDebtorsWithContactsUseCase
+import debts.usecase.UpdateDbDebtsCurrencyUseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import net.thebix.debts.R
 import timber.log.Timber
 import java.text.NumberFormat
-import java.util.*
-import net.thebix.debts.R
+import java.util.Locale
 
 class DebtorsInteractor(
     private val observeDebtorsListItemsUseCase: ObserveDebtorsListItemsUseCase,
@@ -38,9 +46,9 @@ class DebtorsInteractor(
                     .andThen(repository.setAppFirstStart(false))
                     .toObservable(),
                 observeDebtorsListItemsUseCase
-                    .execute()
+                    .execute(action.tabType)
                     .switchMap { items ->
-                        Observable.fromCallable { DebtorsResult.ItemsResult(items) as DebtorsResult }
+                        Observable.fromCallable { DebtorsResult.ItemsResult(items, action.tabType) as DebtorsResult }
                     },
                 checkContactsPermissionAndSyncWithContacts(action.contactPermission, action.requestCode)
                     .toObservable()
@@ -52,7 +60,7 @@ class DebtorsInteractor(
     }
 
     private fun checkContactsPermissionAndSyncWithContacts(contactPermission: String, requestCode: Int) =
-        observeDebtorsListItemsUseCase.execute()
+        observeDebtorsListItemsUseCase.execute(TabTypes.All)
             .take(1)
             .singleElement()
             .filter { items -> items.any { it.name.isEmpty() } }
