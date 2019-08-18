@@ -1,5 +1,6 @@
 package debts.home.list.adapter
 
+import androidx.annotation.StringRes
 import debts.usecase.ContactsItemModel
 import debts.usecase.DebtorsListItemModel
 
@@ -13,6 +14,9 @@ sealed class DebtorsItemViewModel(open val id: Long) {
         val lastDate: Long,
         val avatarUrl: String
     ) : DebtorsItemViewModel(id)
+
+    // INFO: title must be unique for adapter
+    data class TitleItem(@StringRes val titleId: Int) : DebtorsItemViewModel(titleId.toLong())
 
 }
 

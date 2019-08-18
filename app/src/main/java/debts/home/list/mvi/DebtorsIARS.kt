@@ -118,7 +118,8 @@ data class DebtorsState(
     val showAddDebtDialog: OneShot<Boolean> = OneShot.empty(),
     val contacts: List<ContactsItemViewModel> = emptyList(),
     val nameFilter: String = "",
-    val sortType: SortType = SortType.NOTHING
+    val sortType: SortType = SortType.NOTHING,
+    val headerIndexes: List<Int> = emptyList()
 ) : MviState, ViewStateWithId() {
 
     enum class SortType {

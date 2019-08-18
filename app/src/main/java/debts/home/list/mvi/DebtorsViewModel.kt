@@ -8,6 +8,7 @@ import debts.home.list.adapter.toContactsItemViewModel
 import debts.home.list.adapter.toDebtorsItemViewModel
 import debts.usecase.DebtorsListItemModel
 import io.reactivex.functions.BiFunction
+import net.thebix.debts.R
 import kotlin.math.absoluteValue
 
 class DebtorsViewModel(
@@ -69,11 +70,11 @@ class DebtorsViewModel(
                 is DebtorsResult.ItemsResult -> {
                     prevState.copy(
                         items = result.items,
-                        filteredItems = filterSortAndMapDebtors(
+                        filteredItems = getDebtorsWithAllFiltersApplied(
                             result.items,
                             prevState.nameFilter,
                             prevState.sortType,
-                            result.tabType == TabTypes.Creditors
+                            result.tabType == TabTypes.All
                         )
                     )
                 }
@@ -87,7 +88,7 @@ class DebtorsViewModel(
                 is DebtorsResult.Filter ->
                     prevState.copy(
                         nameFilter = result.name,
-                        filteredItems = filterSortAndMapDebtors(
+                        filteredItems = getDebtorsWithAllFiltersApplied(
                             prevState.items,
                             result.name,
                             prevState.sortType
@@ -97,7 +98,7 @@ class DebtorsViewModel(
                     sortType = result.sortType
                     prevState.copy(
                         sortType = result.sortType,
-                        filteredItems = filterSortAndMapDebtors(
+                        filteredItems = getDebtorsWithAllFiltersApplied(
                             prevState.items,
                             prevState.nameFilter,
                             result.sortType
@@ -107,13 +108,47 @@ class DebtorsViewModel(
             }
         }
 
-    private fun filterSortAndMapDebtors(
+    private fun getDebtorsWithAllFiltersApplied(
         items: List<DebtorsListItemModel>,
         name: String,
         sortType: DebtorsState.SortType,
-        invertAmounts: Boolean = false
+        showTitles: Boolean = false
     ): List<DebtorsItemViewModel> {
-        val filtered = if (name.isNotBlank())
+        val filtered = getFiltered(items, name)
+        @Suppress("UnnecessaryVariable")
+        val filteredAndWithAbsAmountsAndSortedAndTitled: List<DebtorsItemViewModel> = if (showTitles) {
+            val debtors = filtered.filter { it.amount >= 0 }
+            val creditors = filtered.filter { it.amount < 0 }
+            return if (debtors.isNotEmpty()) {
+                listOf(DebtorsItemViewModel.TitleItem(R.string.home_pager_tab_debtors))
+            } else {
+                emptyList()
+            }
+                .plus(
+                    getWithAbsAmountsAndSorted(debtors, sortType).map { item -> item.toDebtorsItemViewModel() }
+                )
+                .plus(
+                    if (creditors.isNotEmpty()) {
+                        listOf(DebtorsItemViewModel.TitleItem(R.string.home_pager_tab_creditors))
+                    } else {
+                        emptyList()
+                    }
+                )
+                .plus(
+                    getWithAbsAmountsAndSorted(creditors, sortType).map { item -> item.toDebtorsItemViewModel() }
+                )
+        } else {
+            getWithAbsAmountsAndSorted(items, sortType).map { item -> item.toDebtorsItemViewModel() }
+        }
+
+        return filteredAndWithAbsAmountsAndSortedAndTitled
+    }
+
+    private fun getFiltered(
+        items: List<DebtorsListItemModel>,
+        name: String
+    ): List<DebtorsListItemModel> =
+        if (name.isNotBlank())
             items.filter {
                 it.name.contains(
                     name,
@@ -123,22 +158,23 @@ class DebtorsViewModel(
         else
             items
 
-        val invertedAmountForCreditors = if (invertAmounts) {
-            filtered.map { item ->
+    private fun getWithAbsAmountsAndSorted(
+        items: List<DebtorsListItemModel>,
+        sortType: DebtorsState.SortType
+    ): List<DebtorsListItemModel> {
+        val absoluteAmounts =
+            items.map { item ->
                 item.copy(
                     amount = item.amount.absoluteValue
                 )
             }
-        } else
-            filtered
 
         return when (sortType) {
-            DebtorsState.SortType.AMOUNT_DESC -> invertedAmountForCreditors.sortedByDescending { it.amount }
-            DebtorsState.SortType.AMOUNT_ASC -> invertedAmountForCreditors.sortedBy { it.amount }
-            DebtorsState.SortType.NAME_DESC -> invertedAmountForCreditors.sortedByDescending { it.name }
-            DebtorsState.SortType.NAME_ASC -> invertedAmountForCreditors.sortedBy { it.name }
-            else -> invertedAmountForCreditors
-        }.map { it.toDebtorsItemViewModel() }
+            DebtorsState.SortType.AMOUNT_DESC -> absoluteAmounts.sortedByDescending { it.amount }
+            DebtorsState.SortType.AMOUNT_ASC -> absoluteAmounts.sortedBy { it.amount }
+            DebtorsState.SortType.NAME_DESC -> absoluteAmounts.sortedByDescending { it.name }
+            DebtorsState.SortType.NAME_ASC -> absoluteAmounts.sortedBy { it.name }
+            else -> absoluteAmounts
+        }
     }
-
 }

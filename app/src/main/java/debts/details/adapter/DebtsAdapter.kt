@@ -24,7 +24,7 @@ class DebtsAdapter(
         })
     }
 
-    override fun getItemViewType(position: Int) = when (items[0]) {
+    override fun getItemViewType(position: Int) = when (items[position]) {
         is DebtsItemViewModel.DebtItemViewModel -> TYPE_DEBT
     }
 
