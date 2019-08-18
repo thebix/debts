@@ -30,6 +30,8 @@ import debts.di.getDebtorsViewModelName
 import debts.home.AddDebtLayout
 import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtorsAdapter
+import debts.home.list.adapter.DebtorsItemViewModel
+import debts.home.list.adapter.HeaderItemDecoration
 import debts.home.list.mvi.DebtorsIntention
 import debts.home.list.mvi.DebtorsState
 import debts.home.list.mvi.DebtorsViewModel
@@ -87,7 +89,7 @@ class DebtorsFragment : BaseFragment() {
 
     }
     private val screenContextHolder: ScreenContextHolder by inject()
-    private val adapter = DebtorsAdapter(itemCallback)
+    private val adapter: DebtorsAdapter = DebtorsAdapter(itemCallback)
     private val intentionSubject = PublishSubject.create<DebtorsIntention>()
 
     private var toolbarView: Toolbar? = null
@@ -106,6 +108,7 @@ class DebtorsFragment : BaseFragment() {
     private var contacts: List<ContactsItemViewModel> = emptyList()
     private var dontShowAddDebtDialog: Boolean = true
     private var hasNameFilter = false
+    private var headersIndexes = emptyList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,7 +120,7 @@ class DebtorsFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) =
+    ): View =
         inflater.inflate(R.layout.home_debtors_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -144,6 +147,12 @@ class DebtorsFragment : BaseFragment() {
                     setDrawable(context.applicationContext.getDrawableCompat(R.drawable.list_divider_start_66dp))
                 }
             )
+            layoutManager = LinearLayoutManager(context)
+            if (page == TabTypes.All.page) {
+                recyclerView?.addItemDecoration(HeaderItemDecoration(recyclerView!!) { itemIndex: Int ->
+                    headersIndexes.contains(itemIndex)
+                })
+            }
         }
     }
 
@@ -258,6 +267,7 @@ class DebtorsFragment : BaseFragment() {
                 adapter.replaceAllItems(filteredItems)
                 isConfigurationChange = false
             } else {
+                headersIndexes = getHeaderIndexes(filteredItems)
                 adapterDisposable = adapter.setItems(filteredItems)
                     .subscribe()
             }
@@ -338,6 +348,17 @@ class DebtorsFragment : BaseFragment() {
                     }
             )
         )
+
+    // TODO: this calculation should be done on another layer. move to presenter
+    private fun getHeaderIndexes(items: List<DebtorsItemViewModel>): List<Int> {
+        val list = mutableListOf<Int>()
+        items.forEachIndexed { index, itemViewModel ->
+            if (itemViewModel is DebtorsItemViewModel.TitleItem) {
+                list.add(index)
+            }
+        }
+        return list
+    }
 
     // TODO: move FAB and dialog logic to the MainActivity?
     private fun showAddDebtDialog() {
