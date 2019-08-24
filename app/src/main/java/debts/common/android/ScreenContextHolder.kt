@@ -5,20 +5,22 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
 import androidx.annotation.IdRes
+import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import debts.common.android.extensions.isPermissionGranted
 import debts.common.android.extensions.tryToFindActivity
 import net.thebix.debts.BuildConfig
-import java.lang.ref.WeakReference
 import net.thebix.debts.R
 import java.io.File
 import java.io.FileOutputStream
+import java.lang.ref.WeakReference
 
 interface ScreenContextHolder {
 
     companion object {
 
+        const val ACTIVITY_HOME = "ACTIVITY_HOME"
         const val FRAGMENT_DEBTORS = "FRAGMENT_DEBTORS"
         const val FRAGMENT_DETAILS = "FRAGMENT_DETAILS"
         const val FRAGMENT_MAIN_PREFERENCES = "FRAGMENT_MAIN_PREFERENCES"
@@ -120,7 +122,7 @@ class FragmentScreenContext(
         animation: ScreenContext.NavAnimation
     ) {
         fragmentRef.get()?.context?.tryToFindActivity()?.let { activity ->
-            (activity as BaseActivity).replaceFragment(fragment, rootId, addToBackStack, animation.value)
+            replaceFragment(rootId, fragment, addToBackStack, animation, activity as BaseActivity)
         }
     }
 
@@ -131,7 +133,7 @@ class FragmentScreenContext(
         animation: ScreenContext.NavAnimation
     ) {
         fragmentRef.get()?.context?.tryToFindActivity()?.let { activity ->
-            (activity as BaseActivity).addFragment(fragment, rootId, addToBackStack, animation.value)
+            addFragment(rootId, fragment, addToBackStack, animation, activity as BaseActivity)
         }
     }
 
@@ -144,17 +146,8 @@ class FragmentScreenContext(
         message: String
     ) {
         fragmentRef.get()?.let { fragment ->
-            (fragment.context?.tryToFindActivity())?.packageManager?.let { packageManager ->
-                val sendIntent = Intent(Intent.ACTION_SEND)
-                    .apply {
-                        action = Intent.ACTION_SEND
-                        putExtra(Intent.EXTRA_TEXT, message)
-                        type = "text/plain"
-                    }
-                val chooser: Intent = Intent.createChooser(sendIntent, chooserTitle)
-                if (sendIntent.resolveActivity(packageManager) != null) {
-                    fragment.startActivity(chooser)
-                }
+            (fragment.context?.tryToFindActivity())?.let { activity ->
+                sendExplicit(chooserTitle, message, activity as BaseActivity)
             }
         }
     }
@@ -166,34 +159,14 @@ class FragmentScreenContext(
         fileMimeType: String
     ) {
         fragmentRef.get()?.let { fragment ->
-            (fragment.context?.tryToFindActivity())?.packageManager?.let { packageManager ->
-
-                val applicationContext = fragment.context!!.applicationContext
-                val folder = applicationContext.cacheDir.absolutePath + File.separator + "share"
-                val subFolder = File(folder)
-                if (!subFolder.exists()) {
-                    subFolder.mkdirs()
-                }
-                val file = File(subFolder, fileName)
-                val outputStream = FileOutputStream(file)
-                outputStream.write(fileContent.toByteArray())
-                outputStream.close()
-                val uri = FileProvider.getUriForFile(
-                    applicationContext,
-                    "${BuildConfig.APPLICATION_ID}.fileprovider",
-                    file
+            (fragment.context?.tryToFindActivity())?.let { activity ->
+                sendExplicitFile(
+                    chooserTitle,
+                    fileName,
+                    fileContent,
+                    fileMimeType,
+                    activity as BaseActivity
                 )
-                val intentShareFile = Intent(Intent.ACTION_SEND)
-                intentShareFile.type = fileMimeType
-                intentShareFile.putExtra(Intent.EXTRA_STREAM, uri)
-                val chooser = Intent.createChooser(
-                    intentShareFile,
-                    chooserTitle
-                )
-                chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                if (intentShareFile.resolveActivity(packageManager) != null) {
-                    fragment.startActivity(chooser)
-                }
             }
         }
     }
@@ -233,77 +206,182 @@ class FragmentScreenContext(
     }
 }
 
-// region ActivityScreenContext. Uncomment and update when ActivityContext is needed
+class ActivityScreenContext(
+    activity: BaseActivity,
+    private val activityRef: WeakReference<BaseActivity> = WeakReference(activity)
+) : ScreenContext {
 
-//class ActivityScreenContext(
-//    activity: BaseActivity,
-//    private val activityRef: WeakReference<BaseActivity> = WeakReference(activity)
-//) : ScreenContext {
-//
-//    constructor(fragment: BaseFragment) : this(fragment.context?.tryToFindActivity() as BaseActivity)
-//
-//    override fun replaceFragment(
-//        rootId: Int,
-//        fragment: Fragment,
-//        addToBackStack: Boolean,
-//        animation: ScreenContext.NavAnimation
-//    ) {
-//        activityRef.get()?.replaceFragment(
-//            fragment = fragment,
-//            rootId = rootId,
-//            addToBackStack = addToBackStack,
-//            animations = animation.value
-//        )
-//    }
-//
-//    override fun addFragment(
-//        rootId: Int,
-//        fragment: Fragment,
-//        addToBackStack: Boolean,
-//        animation: ScreenContext.NavAnimation
-//    ) {
-//        activityRef.get()?.addFragment(
-//            fragment = fragment,
-//            rootId = rootId,
-//            addToBackStack = addToBackStack,
-//            animations = animation.value
-//        )
-//    }
-//
-//    override fun sendExplicit(
-//        chooserTitleId: Int,
-//        message: String
-//    ) {
-//        activityRef.get()?.let { activity ->
-//            val sendIntent = Intent(Intent.ACTION_SEND)
-//                .apply {
-//                    action = Intent.ACTION_SEND
-//                    putExtra(Intent.EXTRA_TEXT, message)
-//                    type = "text/plain"
-//                }
-//
-//            val title: String = activity.getString(chooserTitleId)
-//            val chooser: Intent = Intent.createChooser(sendIntent, title)
-//            if (sendIntent.resolveActivity(activity.packageManager) != null) {
-//                activity.startActivity(chooser)
-//            }
-//        }
-//    }
-//
-//    override fun isPermissionGranted(permission: String): Boolean {
-//        return activityRef.get()?.isPermissionGranted(permission) ?: false
-//    }
-//
-//    override fun requestPermissions(permissions: Array<String>, requestCode: Int) {
-//        activityRef.get()?.let { activity ->
-//            ActivityCompat.requestPermissions(activity, permissions, requestCode)
-//        }
-//    }
-//
-//    override fun dispose() {
-//        // TODO: I'm not sure it's necessary
-//        activityRef.clear()
-//    }
-//}
+    private val handler = Handler(Looper.getMainLooper())
+
+    // region Navigation
+
+    override fun replaceFragment(
+        rootId: Int,
+        fragment: Fragment,
+        addToBackStack: Boolean,
+        animation: ScreenContext.NavAnimation
+    ) {
+        activityRef.get()?.let { activity ->
+            replaceFragment(rootId, fragment, addToBackStack, animation, activity)
+        }
+    }
+
+    override fun addFragment(
+        rootId: Int,
+        fragment: Fragment,
+        addToBackStack: Boolean,
+        animation: ScreenContext.NavAnimation
+    ) {
+        activityRef.get()?.let { activity ->
+            addFragment(rootId, fragment, addToBackStack, animation, activity)
+        }
+    }
+
+    override fun openActivity(intent: Intent) {
+        activityRef.get()?.startActivity(intent)
+    }
+
+    override fun sendExplicit(
+        chooserTitle: String,
+        message: String
+    ) {
+        activityRef.get()?.let { activity ->
+            sendExplicit(chooserTitle, message, activity)
+        }
+    }
+
+    override fun sendExplicitFile(
+        chooserTitle: String,
+        fileName: String,
+        fileContent: String,
+        fileMimeType: String
+    ) {
+        activityRef.get()?.let { activity ->
+            sendExplicitFile(
+                chooserTitle,
+                fileName,
+                fileContent,
+                fileMimeType,
+                activity
+            )
+        }
+    }
+
+    // endregion
+
+    // region Permissions
+
+    override fun isPermissionGranted(permission: String): Boolean {
+        return activityRef.get()?.isPermissionGranted(permission) ?: false
+    }
+
+    override fun requestPermissions(permissions: Array<String>, requestCode: Int) {
+        activityRef.get()?.let { activity ->
+            ActivityCompat.requestPermissions(activity, permissions, requestCode)
+        }
+    }
+
+    // endregion
+
+    // region Notifications
+
+    override fun showToast(text: String, duration: Int) {
+        activityRef.get()?.let { activity ->
+            if (text.isNotBlank()) {
+                handler.post {
+                    Toast.makeText(activity.applicationContext, text, duration)
+                        .show()
+                }
+            }
+        }
+    }
+
+    // endregion
+
+    override fun dispose() {
+        // TODO: I'm not sure it's necessary
+        activityRef.clear()
+    }
+}
+
+// region Common functions
+
+private fun sendExplicit(
+    chooserTitle: String,
+    message: String,
+    activity: BaseActivity
+) {
+    activity.packageManager?.let { packageManager ->
+        val sendIntent = Intent(Intent.ACTION_SEND)
+            .apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, message)
+                type = "text/plain"
+            }
+        val chooser: Intent = Intent.createChooser(sendIntent, chooserTitle)
+        if (sendIntent.resolveActivity(packageManager) != null) {
+            activity.startActivity(chooser)
+        }
+    }
+}
+
+private fun sendExplicitFile(
+    chooserTitle: String,
+    fileName: String,
+    fileContent: String,
+    fileMimeType: String,
+    activity: BaseActivity
+) {
+    activity.packageManager?.let { packageManager ->
+
+        val applicationContext = activity.applicationContext
+        val folder = applicationContext.cacheDir.absolutePath + File.separator + "share"
+        val subFolder = File(folder)
+        if (!subFolder.exists()) {
+            subFolder.mkdirs()
+        }
+        val file = File(subFolder, fileName)
+        val outputStream = FileOutputStream(file)
+        outputStream.write(fileContent.toByteArray())
+        outputStream.close()
+        val uri = FileProvider.getUriForFile(
+            applicationContext,
+            "${BuildConfig.APPLICATION_ID}.fileprovider",
+            file
+        )
+        val intentShareFile = Intent(Intent.ACTION_SEND)
+        intentShareFile.type = fileMimeType
+        intentShareFile.putExtra(Intent.EXTRA_STREAM, uri)
+        val chooser = Intent.createChooser(
+            intentShareFile,
+            chooserTitle
+        )
+        chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        if (intentShareFile.resolveActivity(packageManager) != null) {
+            activity.startActivity(chooser)
+        }
+    }
+}
+
+private fun replaceFragment(
+    rootId: Int,
+    fragment: Fragment,
+    addToBackStack: Boolean,
+    animation: ScreenContext.NavAnimation,
+    activity: BaseActivity
+) {
+    activity.replaceFragment(fragment, rootId, addToBackStack, animation.value)
+
+}
+
+private fun addFragment(
+    rootId: Int,
+    fragment: Fragment,
+    addToBackStack: Boolean,
+    animation: ScreenContext.NavAnimation,
+    activity: BaseActivity
+) {
+    activity.addFragment(fragment, rootId, addToBackStack, animation.value)
+}
 
 // endregion
