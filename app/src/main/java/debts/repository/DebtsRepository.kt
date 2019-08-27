@@ -12,8 +12,7 @@ import debts.usecase.DebtorModel
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import java.text.NumberFormat
-import java.util.*
+import java.util.Date
 
 class DebtsRepository(
     private val contentResolver: ContentResolver,
@@ -26,6 +25,8 @@ class DebtsRepository(
         const val PREFS_IS_CONTACT_SYNCED = "PREFS_IS_CONTACT_SYNCED"
         const val PREFS_IS_FIRST_START = "PREFS_IS_FIRST_START"
         const val PREFS_CURRENCY = "preference_main_settings_currency_custom"
+        const val PREFS_SORT_KEY = "PREFS_SORT_KEY"
+        const val PREFS_FILTER_KEY = "PREFS_FILTER_KEY"
     }
 
     fun observeDebtors(): Observable<List<DebtorModel>> = dao.observeDebtors()
@@ -147,6 +148,18 @@ class DebtsRepository(
     fun isAppFirstStart() = Single.fromCallable { preferences.getBoolean(PREFS_IS_FIRST_START, true) }
     fun setAppFirstStart(isAppFirstStart: Boolean = true) =
         Completable.fromCallable { preferences.putBoolean(PREFS_IS_FIRST_START, isAppFirstStart) }
+
+    fun observeSortType(): Observable<SortType> = preferences.observeString(PREFS_SORT_KEY, SortType.NOTHING.name)
+        .map { SortType.valueOf(it) }
+
+    fun setSortType(sortType: SortType) {
+        preferences.putString(PREFS_SORT_KEY, sortType.name)
+    }
+
+    fun observeDebtorsFilter(): Observable<String> = preferences.observeString(PREFS_FILTER_KEY, "")
+    fun setDebtorsFilter(name: String) {
+        preferences.putString(PREFS_FILTER_KEY, name)
+    }
 
     // endregion
 }

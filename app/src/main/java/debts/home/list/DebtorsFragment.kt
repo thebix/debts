@@ -4,25 +4,18 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.UiThread
-import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
-import debts.common.android.BaseActivity
 import debts.common.android.BaseFragment
 import debts.common.android.FragmentArgumentDelegate
 import debts.common.android.FragmentScreenContext
 import debts.common.android.ScreenContextHolder
-import debts.common.android.extensions.getColorCompat
 import debts.common.android.extensions.getDrawableCompat
 import debts.common.android.extensions.showAlert
 import debts.di.getDebtorsDebtsNavigatorName
@@ -64,9 +57,6 @@ class DebtorsFragment : BaseFragment() {
 //            recyclerState =
 //                recyclerView?.layoutManager?.onSaveInstanceState() as LinearLayoutManager.SavedState
 //            recyclerView?.adapter = null
-            if (hasNameFilter) {
-                intentionSubject.onNext(DebtorsIntention.Filter())
-            }
             intentionSubject.onNext(DebtorsIntention.OpenDetails(debtorId, R.id.home_root))
         }
 
@@ -92,22 +82,18 @@ class DebtorsFragment : BaseFragment() {
     private val adapter: DebtorsAdapter = DebtorsAdapter(itemCallback)
     private val intentionSubject = PublishSubject.create<DebtorsIntention>()
 
-    private var toolbarView: Toolbar? = null
     private var recyclerView: RecyclerView? = null
     private var fabView: View? = null
     private var page: Int by FragmentArgumentDelegate()
 
     private lateinit var disposables: CompositeDisposable
-    private lateinit var menu: Menu
     private lateinit var viewModel: DebtorsViewModel
     private var adapterDisposable: Disposable? = null
     private var isConfigurationChange: Boolean = false
     private var addDebtLayout: AddDebtLayout? = null
     private var recyclerState: LinearLayoutManager.SavedState? = null
-    private var sortType: DebtorsState.SortType = DebtorsState.SortType.NOTHING
     private var contacts: List<ContactsItemViewModel> = emptyList()
     private var dontShowAddDebtDialog: Boolean = true
-    private var hasNameFilter = false
     private var headersIndexes = emptyList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -126,15 +112,8 @@ class DebtorsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbarView = getView()?.findViewById(R.id.home_toolbar)
         recyclerView = getView()?.findViewById(R.id.home_debtors_recycler)
         fabView = getView()?.findViewById(R.id.home_debtors_fab)
-
-        setHasOptionsMenu(true)
-        (activity as BaseActivity).setSupportActionBar(toolbarView)
-        (activity as BaseActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        toolbarView?.title = getString(R.string.app_name)
-        toolbarView?.setBackgroundColor(context?.getColorCompat(R.color.colorPrimary) ?: 0)
 
         recyclerView?.apply {
             adapter = this@DebtorsFragment.adapter
@@ -201,7 +180,6 @@ class DebtorsFragment : BaseFragment() {
     override fun onDestroyView() {
         recyclerView = null
         fabView = null
-        toolbarView = null
         super.onDestroyView()
     }
 
@@ -213,81 +191,19 @@ class DebtorsFragment : BaseFragment() {
         super.onStop()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        activity?.menuInflater?.inflate(R.menu.home_debtors_menu, menu)
-        this.menu = menu
-        val menuSearch = menu.findItem(R.id.home_debtors_menu_search)
-        val searchView = menuSearch.actionView as SearchView
-        searchView.queryHint = context?.getString(R.string.home_debtors_search_hint) ?: ""
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                intentionSubject.onNext(DebtorsIntention.Filter(newText))
-                return true
-            }
-        })
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.home_debtors_menu_sort_name -> {
-                intentionSubject.onNext(DebtorsIntention.ToggleSortByName)
-                return true
-            }
-            R.id.home_debtors_menu_sort_amount -> {
-                intentionSubject.onNext(DebtorsIntention.ToggleSortByAmount)
-                return true
-            }
-            R.id.home_debtors_menu_settings -> {
-                intentionSubject.onNext(DebtorsIntention.OpenSettings)
-                return true
-            }
-            R.id.home_debtors_menu_share -> {
-                intentionSubject.onNext(
-                    DebtorsIntention.ShareAllDebts(
-                        context?.getString(R.string.home_debtors_share_title) ?: ""
-                    )
-                )
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     @UiThread
     private fun render(state: DebtorsState) {
         Timber.d("State is: $state")
         with(state) {
             adapterDisposable?.dispose()
             if (isConfigurationChange) {
-                adapter.replaceAllItems(filteredItems)
+                adapter.replaceAllItems(items)
                 isConfigurationChange = false
             } else {
-                headersIndexes = getHeaderIndexes(filteredItems)
-                adapterDisposable = adapter.setItems(filteredItems)
+                headersIndexes = getHeaderIndexes(items)
+                adapterDisposable = adapter.setItems(items)
                     .subscribe()
             }
-            if (this@DebtorsFragment.sortType != sortType) {
-                this@DebtorsFragment.sortType = sortType
-                val sortName = menu.findItem(R.id.home_debtors_menu_sort_name)
-                val sortAmount = menu.findItem(R.id.home_debtors_menu_sort_amount)
-                sortAmount.setIcon(R.drawable.ic_arrow_drop_down)
-                sortName.setIcon(R.drawable.ic_arrow_drop_down)
-                when (sortType) {
-                    DebtorsState.SortType.AMOUNT_DESC -> sortAmount.setIcon(R.drawable.ic_clear)
-                    DebtorsState.SortType.AMOUNT_ASC -> sortAmount.setIcon(R.drawable.ic_arrow_drop_up)
-                    DebtorsState.SortType.NAME_DESC -> sortName.setIcon(R.drawable.ic_clear)
-                    DebtorsState.SortType.NAME_ASC -> sortName.setIcon(R.drawable.ic_arrow_drop_up)
-                    else -> {
-                        // no-op
-                    }
-                }
-            }
-            hasNameFilter = nameFilter.isNotBlank()
             this@DebtorsFragment.contacts = contacts
             showAddDebtDialog.get(this)?.let {
                 if (dontShowAddDebtDialog.not()) {
@@ -349,7 +265,7 @@ class DebtorsFragment : BaseFragment() {
             )
         )
 
-    // TODO: this calculation should be done on another layer. move to presenter
+    // TODO: this calculation should be done on another layer. move to interactor/presenter
     private fun getHeaderIndexes(items: List<DebtorsItemViewModel>): List<Int> {
         val list = mutableListOf<Int>()
         items.forEachIndexed { index, itemViewModel ->
@@ -360,7 +276,7 @@ class DebtorsFragment : BaseFragment() {
         return list
     }
 
-    // TODO: move FAB and dialog logic to the MainActivity?
+    // TODO: move FAB and dialog logic to the HomeActivity
     private fun showAddDebtDialog() {
         if (context == null) return
         addDebtLayout = AddDebtLayout(
