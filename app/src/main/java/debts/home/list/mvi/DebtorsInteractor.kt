@@ -4,7 +4,9 @@ import debts.common.android.DebtsNavigator
 import debts.common.android.mvi.MviInteractor
 import debts.home.list.TabTypes
 import debts.repository.DebtsRepository
+import debts.repository.SortType
 import debts.usecase.AddDebtUseCase
+import debts.usecase.DebtorsListItemModel
 import debts.usecase.GetContactsUseCase
 import debts.usecase.GetDebtsCsvContentUseCase
 import debts.usecase.GetShareDebtorContentUseCase
@@ -15,11 +17,13 @@ import debts.usecase.UpdateDbDebtsCurrencyUseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.Single
+import io.reactivex.functions.Function3
 import io.reactivex.schedulers.Schedulers
 import net.thebix.debts.R
 import timber.log.Timber
 import java.text.NumberFormat
 import java.util.Locale
+import kotlin.math.absoluteValue
 
 class DebtorsInteractor(
     private val observeDebtorsListItemsUseCase: ObserveDebtorsListItemsUseCase,
@@ -45,8 +49,15 @@ class DebtorsInteractor(
                     .andThen(updateDbDebtsCurrencyUseCase.execute())
                     .andThen(repository.setAppFirstStart(false))
                     .toObservable(),
-                observeDebtorsListItemsUseCase
-                    .execute(action.tabType)
+                Observable.combineLatest<List<DebtorsListItemModel.Debtor>, SortType, String, List<DebtorsListItemModel>>(
+                    observeDebtorsListItemsUseCase
+                        .execute(action.tabType),
+                    repository.observeSortType(),
+                    repository.observeDebtorsFilter(),
+                    Function3 { debtors, sortType, nameFilter ->
+                        getDebtorsWithAllFiltersApplied(debtors, nameFilter, sortType, action.tabType == TabTypes.All)
+                    }
+                )
                     .switchMap { items ->
                         Observable.fromCallable { DebtorsResult.ItemsResult(items, action.tabType) as DebtorsResult }
                     },
@@ -126,13 +137,6 @@ class DebtorsInteractor(
                     .toObservable<DebtorsResult>()
                     .doOnError { error -> Timber.e(error) }
                     .onErrorReturnItem(DebtorsResult.Error)
-            }
-        }
-
-    private val filterProcessor =
-        ObservableTransformer<DebtorsAction.Filter, DebtorsResult> { actions ->
-            actions.switchMap {
-                Observable.fromCallable { DebtorsResult.Filter(it.name.toLowerCase().trim()) }
             }
         }
 
@@ -224,6 +228,80 @@ class DebtorsInteractor(
             }
         }
 
+    // region Filtering and Sorting debtors
+
+    private fun getDebtorsWithAllFiltersApplied(
+        items: List<DebtorsListItemModel.Debtor>,
+        name: String,
+        sortType: SortType,
+        showTitles: Boolean
+    ): List<DebtorsListItemModel> {
+        val filtered = getFiltered(items, name)
+        @Suppress("UnnecessaryVariable")
+        val filteredAndWithAbsAmountsAndSortedAndTitled: List<DebtorsListItemModel> = if (showTitles) {
+            val debtors = filtered.filter { it.amount >= 0 }
+            val creditors = filtered.filter { it.amount < 0 }
+            return if (debtors.isNotEmpty()) {
+                listOf(DebtorsListItemModel.Title(R.string.home_pager_tab_debtors))
+            } else {
+                emptyList()
+            }
+                .plus(
+                    getWithAbsAmountsAndSorted(debtors, sortType)
+                )
+                .plus(
+                    if (creditors.isNotEmpty()) {
+                        listOf(DebtorsListItemModel.Title(R.string.home_pager_tab_creditors))
+                    } else {
+                        emptyList()
+                    }
+                )
+                .plus(
+                    getWithAbsAmountsAndSorted(creditors, sortType)
+                )
+        } else {
+            getWithAbsAmountsAndSorted(filtered, sortType)
+        }
+
+        return filteredAndWithAbsAmountsAndSortedAndTitled
+    }
+
+    private fun getFiltered(
+        items: List<DebtorsListItemModel.Debtor>,
+        name: String
+    ): List<DebtorsListItemModel.Debtor> =
+        if (name.isNotBlank())
+            items.filter {
+                it.name.contains(
+                    name,
+                    true
+                )
+            }
+        else
+            items
+
+    private fun getWithAbsAmountsAndSorted(
+        items: List<DebtorsListItemModel.Debtor>,
+        sortType: SortType
+    ): List<DebtorsListItemModel.Debtor> {
+        val absoluteAmounts =
+            items.map { item ->
+                item.copy(
+                    amount = item.amount.absoluteValue
+                )
+            }
+
+        return when (sortType) {
+            SortType.AMOUNT_DESC -> absoluteAmounts.sortedByDescending { it.amount }
+            SortType.AMOUNT_ASC -> absoluteAmounts.sortedBy { it.amount }
+            SortType.NAME_DESC -> absoluteAmounts.sortedByDescending { it.name }
+            SortType.NAME_ASC -> absoluteAmounts.sortedBy { it.name }
+            else -> absoluteAmounts
+        }
+    }
+
+    // endregion
+
     override fun actionProcessor(): ObservableTransformer<in DebtorsAction, out DebtorsResult> =
         ObservableTransformer { actions ->
             actions.publish { action ->
@@ -235,8 +313,6 @@ class DebtorsInteractor(
                             .compose(openAddDebtDialogProcessor),
                         action.ofType(DebtorsAction.AddDebt::class.java)
                             .compose(addDebtProcessor),
-                        action.ofType(DebtorsAction.Filter::class.java)
-                            .compose(filterProcessor),
                         action.ofType(DebtorsAction.SortBy::class.java)
                             .compose(sortProcessor),
                         action.ofType(DebtorsAction.RemoveDebtor::class.java)

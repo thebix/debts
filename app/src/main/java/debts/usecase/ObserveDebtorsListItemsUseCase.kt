@@ -9,7 +9,7 @@ class ObserveDebtorsListItemsUseCase(
     private val repository: DebtsRepository
 ) {
 
-    fun execute(tabType: TabTypes): Observable<List<DebtorsListItemModel>> {
+    fun execute(tabType: TabTypes): Observable<List<DebtorsListItemModel.Debtor>> {
         return Observable
             .combineLatest(
                 repository.observeDebtors(),
@@ -20,7 +20,7 @@ class ObserveDebtorsListItemsUseCase(
                         val amount = debtorDebts.sumByDouble { it.amount }
                         val lastDebt = debts.sortedByDescending { it.date }
                             .firstOrNull { it.debtorId == debtor.id }
-                        DebtorsListItemModel(
+                        DebtorsListItemModel.Debtor(
                             debtor.id,
                             debtor.name,
                             amount,

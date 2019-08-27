@@ -10,6 +10,7 @@ import debts.common.android.mvi.ViewStateWithId
 import debts.home.list.TabTypes
 import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtorsItemViewModel
+import debts.repository.SortType
 import debts.usecase.ContactsItemModel
 import debts.usecase.DebtorsListItemModel
 
@@ -34,7 +35,6 @@ sealed class DebtorsIntention : MviIntention {
 
     ) : DebtorsIntention()
 
-    data class Filter(val name: String = "") : DebtorsIntention()
     object ToggleSortByName : DebtorsIntention()
     object ToggleSortByAmount : DebtorsIntention()
     data class RemoveDebtor(val debtorId: Long) : DebtorsIntention()
@@ -72,9 +72,8 @@ sealed class DebtorsAction : MviAction {
         val comment: String
     ) : DebtorsAction()
 
-    data class Filter(val name: String = "") : DebtorsAction()
     data class SortBy(
-        val sortType: DebtorsState.SortType = DebtorsState.SortType.NOTHING
+        val sortType: SortType = SortType.NOTHING
     ) : DebtorsAction()
 
     data class RemoveDebtor(val debtorId: Long) : DebtorsAction()
@@ -104,29 +103,17 @@ sealed class DebtorsResult : MviResult {
         val items: List<ContactsItemModel> = emptyList()
     ) : DebtorsResult()
 
-    data class Filter(val name: String) : DebtorsResult()
-
     data class SortBy(
-        val sortType: DebtorsState.SortType = DebtorsState.SortType.NOTHING
+        val sortType: SortType = SortType.NOTHING
     ) : DebtorsResult()
 }
 
 data class DebtorsState(
-    val items: List<DebtorsListItemModel> = emptyList(),
-    val filteredItems: List<DebtorsItemViewModel> = emptyList(),
+    val items: List<DebtorsItemViewModel> = emptyList(),
     val isError: OneShot<Boolean> = OneShot.empty(),
     val showAddDebtDialog: OneShot<Boolean> = OneShot.empty(),
     val contacts: List<ContactsItemViewModel> = emptyList(),
     val nameFilter: String = "",
     val sortType: SortType = SortType.NOTHING,
     val headerIndexes: List<Int> = emptyList()
-) : MviState, ViewStateWithId() {
-
-    enum class SortType {
-        NOTHING,
-        AMOUNT_DESC,
-        AMOUNT_ASC,
-        NAME_DESC,
-        NAME_ASC
-    }
-}
+) : MviState, ViewStateWithId()

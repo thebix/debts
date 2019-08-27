@@ -25,8 +25,8 @@ data class ContactsItemViewModel(val id: Long, val name: String, val avatarUrl: 
 // region Mapping
 ////////////////////////////////////////////////////////////////
 
-fun DebtorsListItemModel.toDebtorsItemViewModel() =
-    DebtorsItemViewModel.DebtorItemViewModel(
+fun DebtorsListItemModel.toDebtorsItemViewModel() = when (this) {
+    is DebtorsListItemModel.Debtor -> DebtorsItemViewModel.DebtorItemViewModel(
         id,
         name,
         amount,
@@ -34,6 +34,8 @@ fun DebtorsListItemModel.toDebtorsItemViewModel() =
         lastDate,
         avatarUrl
     )
+    is DebtorsListItemModel.Title -> DebtorsItemViewModel.TitleItem(id.toInt())
+}
 
 fun ContactsItemModel.toContactsItemViewModel() =
     ContactsItemViewModel(
