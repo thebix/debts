@@ -94,8 +94,7 @@ class DebtorsInteractor(
         showTitles: Boolean
     ): List<DebtorsListItemModel> {
         val filtered = getFiltered(items, name)
-        @Suppress("UnnecessaryVariable")
-        val filteredAndWithAbsAmountsAndSortedAndTitled: List<DebtorsListItemModel> = if (showTitles) {
+        return if (showTitles) {
             val debtors = filtered.filter { it.amount >= 0 }
             val creditors = filtered.filter { it.amount < 0 }
             return if (debtors.isNotEmpty()) {
@@ -119,8 +118,6 @@ class DebtorsInteractor(
         } else {
             getWithAbsAmountsAndSorted(filtered, sortType)
         }
-
-        return filteredAndWithAbsAmountsAndSortedAndTitled
     }
 
     private fun getFiltered(

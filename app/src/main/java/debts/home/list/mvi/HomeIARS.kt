@@ -90,5 +90,4 @@ data class HomeState(
     val isError: OneShot<Boolean> = OneShot.empty(),
     val contacts: List<ContactsItemViewModel> = emptyList(),
     val showAddDebtDialog: OneShot<Boolean> = OneShot.empty()
-) : MviState, ViewStateWithId() {
-}
+) : MviState, ViewStateWithId()

@@ -178,7 +178,7 @@ class HomeInteractor(
                             .execute(null, it.contactId, it.name, it.amount, currency, it.comment)
                     }
                     .doOnComplete {
-                        // TODO: this resource id should be provided from Fragment trough intent/action
+                        // TODO: this resource id should be provided from Fragment through intent/action
                         debtsNavigator.showToast(R.string.home_debtors_toast_debt_added)
                     }
                     .subscribeOn(Schedulers.io())
