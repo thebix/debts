@@ -1,6 +1,12 @@
 package debts.details.mvi
 
-import debts.common.android.mvi.*
+import debts.common.android.mvi.MviAction
+import debts.common.android.mvi.MviInitIntention
+import debts.common.android.mvi.MviIntention
+import debts.common.android.mvi.MviResult
+import debts.common.android.mvi.MviState
+import debts.common.android.mvi.OneShot
+import debts.common.android.mvi.ViewStateWithId
 import debts.details.adapter.DebtsItemViewModel
 import debts.usecase.DebtItemModel
 
@@ -12,7 +18,7 @@ sealed class DetailsIntention : MviIntention {
         val amount: Double,
         val comment: String
 
-    ) : DetailsIntention()
+    ) : DetailsIntention(), MviInitIntention
 
     data class RemoveDebt(val id: Long) : DetailsIntention()
     data class ClearHistory(val id: Long) : DetailsIntention()

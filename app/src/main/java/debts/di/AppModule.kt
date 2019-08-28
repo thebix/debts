@@ -131,14 +131,9 @@ val interactorModule = module {
         single(getDebtorsInteractorName(page)) {
             DebtorsInteractor(
                 observeDebtorsListItemsUseCase = get(),
-                getContactsUseCase = get(),
-                addDebtUseCase = get(),
                 removeDebtorUseCase = get(),
                 debtsNavigator = get(getDebtorsDebtsNavigatorName(page)),
-                syncDebtorsWithContactsUseCase = get(),
-                getDebtsCsvContentUseCase = get(),
                 getShareDebtorContentUseCase = get(),
-                updateDbDebtsCurrencyUseCase = get(),
                 repository = get()
             )
         }
@@ -165,10 +160,13 @@ val interactorModule = module {
     }
     factory {
         HomeInteractor(
-//            getContactsUseCase = get(),
-//            addDebtUseCase = get(),
+            getContactsUseCase = get(),
+            addDebtUseCase = get(),
             debtsNavigator = get(ScreenContextHolder.ACTIVITY_HOME),
             getDebtsCsvContentUseCase = get(),
+            observeDebtorsListItemsUseCase = get(),
+            syncDebtorsWithContactsUseCase = get(),
+            updateDbDebtsCurrencyUseCase = get(),
             repository = get()
         )
     }
