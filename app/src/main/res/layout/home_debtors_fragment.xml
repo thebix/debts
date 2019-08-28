@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/debts_white">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_debtors_recycler"
         android:layout_width="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:ignore="RtlSymmetry" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/home_debtors_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="@dimen/margin_20dp"
-        android:src="@drawable/ic_add" />
 
 </FrameLayout>

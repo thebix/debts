@@ -12,6 +12,8 @@ import debts.details.mvi.DetailsInteractor
 import debts.details.mvi.DetailsViewModel
 import debts.home.list.mvi.DebtorsInteractor
 import debts.home.list.mvi.DebtorsViewModel
+import debts.home.list.mvi.HomeInteractor
+import debts.home.list.mvi.HomeViewModel
 import debts.preferences.main.mvi.MainSettingsInteractor
 import debts.preferences.main.mvi.MainSettingsViewModel
 import debts.repository.DebtsRepository
@@ -109,6 +111,13 @@ val interactorModule = module {
             name = ScreenContextHolder.FRAGMENT_DETAILS
         )
     }
+    single(name = ScreenContextHolder.ACTIVITY_HOME) {
+        DebtsNavigator(
+            screenContextHolder = get(),
+            applicationContext = androidContext(),
+            name = ScreenContextHolder.ACTIVITY_HOME
+        )
+    }
     for (page in 0..2) {
         // TODO: factory?
         single(name = getDebtorsDebtsNavigatorName(page)) {
@@ -122,14 +131,9 @@ val interactorModule = module {
         single(getDebtorsInteractorName(page)) {
             DebtorsInteractor(
                 observeDebtorsListItemsUseCase = get(),
-                getContactsUseCase = get(),
-                addDebtUseCase = get(),
                 removeDebtorUseCase = get(),
                 debtsNavigator = get(getDebtorsDebtsNavigatorName(page)),
-                syncDebtorsWithContactsUseCase = get(),
-                getDebtsCsvContentUseCase = get(),
                 getShareDebtorContentUseCase = get(),
-                updateDbDebtsCurrencyUseCase = get(),
                 repository = get()
             )
         }
@@ -154,6 +158,18 @@ val interactorModule = module {
             syncDebtorsWithContactsUseCase = get()
         )
     }
+    factory {
+        HomeInteractor(
+            getContactsUseCase = get(),
+            addDebtUseCase = get(),
+            debtsNavigator = get(ScreenContextHolder.ACTIVITY_HOME),
+            getDebtsCsvContentUseCase = get(),
+            observeDebtorsListItemsUseCase = get(),
+            syncDebtorsWithContactsUseCase = get(),
+            updateDbDebtsCurrencyUseCase = get(),
+            repository = get()
+        )
+    }
 }
 
 val viewModelModule = module {
@@ -162,4 +178,5 @@ val viewModelModule = module {
     }
     viewModel { DetailsViewModel(interactor = get()) }
     viewModel { MainSettingsViewModel(interactor = get()) }
+    viewModel { HomeViewModel(interactor = get()) }
 }

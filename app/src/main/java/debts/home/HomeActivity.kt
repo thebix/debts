@@ -1,13 +1,57 @@
 package debts.home
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import androidx.annotation.UiThread
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
+import com.jakewharton.rxbinding3.view.clicks
+import debts.common.android.ActivityScreenContext
 import debts.common.android.BaseActivity
+import debts.common.android.ScreenContextHolder
+import debts.common.android.extensions.getColorCompat
+import debts.common.android.extensions.showAlert
+import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtsPagerAdapter
+import debts.home.list.mvi.HomeIntention
+import debts.home.list.mvi.HomeState
+import debts.home.list.mvi.HomeViewModel
+import debts.repository.SortType
+import io.reactivex.Observable
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.PublishSubject
 import net.thebix.debts.R
+import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.viewModel
+import timber.log.Timber
 
 class HomeActivity : BaseActivity() {
+
+    private companion object {
+
+        const val READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE = 1
+        const val READ_CONTACTS_SYNC_PERMISSION_CODE = 2
+    }
+
+    private val intentionSubject = PublishSubject.create<HomeIntention>()
+    private val screenContextHolder: ScreenContextHolder by inject()
+    private val viewModel: HomeViewModel by viewModel()
+
+    private var fabView: View? = null
+    private lateinit var menu: Menu
+    private lateinit var disposables: CompositeDisposable
+    private var addDebtLayout: AddDebtLayout? = null
+    private var contacts: List<ContactsItemViewModel> = emptyList()
+    private var dontShowAddDebtDialog: Boolean = true
+
+    private var sortType: SortType = SortType.NOTHING
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,13 +63,204 @@ class HomeActivity : BaseActivity() {
             this.getString(R.string.home_pager_tab_debtors),
             this.getString(R.string.home_pager_tab_creditors)
         )
-        pager.adapter = DebtsPagerAdapter(supportFragmentManager, tabsTitles)
+        pager.apply {
+            adapter = DebtsPagerAdapter(supportFragmentManager, tabsTitles)
+            offscreenPageLimit = 2
+        }
         val tabs = findViewById<TabLayout>(R.id.home_pager_tabs)
         tabs.setupWithViewPager(pager)
+
+        val toolbarView: Toolbar = findViewById(R.id.home_toolbar)
+        setSupportActionBar(toolbarView)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        toolbarView.title = getString(R.string.app_name)
+        toolbarView.setBackgroundColor(applicationContext.getColorCompat(R.color.colorPrimary) ?: 0)
+
+        fabView = findViewById(R.id.home_fab)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.home_debtors_menu, menu)
+        this.menu = menu
+        val menuSearch = menu.findItem(R.id.home_debtors_menu_search)
+        val searchView = menuSearch.actionView as SearchView
+        searchView.queryHint = applicationContext.getString(R.string.home_debtors_search_hint) ?: ""
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                intentionSubject.onNext(HomeIntention.Filter(newText))
+                return true
+            }
+        })
+        intentionSubject.onNext(HomeIntention.InitMenu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        screenContextHolder.set(
+            ScreenContextHolder.ACTIVITY_HOME,
+            ActivityScreenContext(this)
+        )
+        disposables = CompositeDisposable(
+            viewModel.states()
+                .subscribe(::render),
+            viewModel.processIntentions(intentions())
+        )
+    }
+
+    override fun onStop() {
+        screenContextHolder.remove(ScreenContextHolder.ACTIVITY_HOME)
+        disposables.dispose()
+        addDebtLayout = null
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        fabView = null
+        super.onDestroy()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.home_debtors_menu_sort_name -> {
+                intentionSubject.onNext(HomeIntention.ToggleSortByName)
+                return true
+            }
+            R.id.home_debtors_menu_sort_amount -> {
+                intentionSubject.onNext(HomeIntention.ToggleSortByAmount)
+                return true
+            }
+            R.id.home_debtors_menu_settings -> {
+                intentionSubject.onNext(HomeIntention.OpenSettings)
+                return true
+            }
+            R.id.home_debtors_menu_share -> {
+                intentionSubject.onNext(
+                    HomeIntention.ShareAllDebts(
+                        applicationContext?.getString(R.string.home_debtors_share_title) ?: ""
+                    )
+                )
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    @UiThread
+    private fun render(state: HomeState) {
+        Timber.d("State is: $state")
+        with(state) {
+            if (this@HomeActivity.sortType != sortType) {
+                this@HomeActivity.sortType = sortType
+                val sortName = menu.findItem(R.id.home_debtors_menu_sort_name)
+                val sortAmount = menu.findItem(R.id.home_debtors_menu_sort_amount)
+                sortAmount.setIcon(R.drawable.ic_arrow_drop_down)
+                sortName.setIcon(R.drawable.ic_arrow_drop_down)
+                when (sortType) {
+                    SortType.AMOUNT_DESC -> sortAmount.setIcon(R.drawable.ic_clear)
+                    SortType.AMOUNT_ASC -> sortAmount.setIcon(R.drawable.ic_arrow_drop_up)
+                    SortType.NAME_DESC -> sortName.setIcon(R.drawable.ic_clear)
+                    SortType.NAME_ASC -> sortName.setIcon(R.drawable.ic_arrow_drop_up)
+                    else -> {
+                        // no-op
+                    }
+                }
+            }
+            this@HomeActivity.contacts = contacts
+            showAddDebtDialog.get(this)?.let {
+                if (dontShowAddDebtDialog.not()) {
+                    dontShowAddDebtDialog = true
+                    showAddDebtDialog()
+                }
+            }
+        }
+    }
+
+    private fun intentions() =
+        Observable.merge(
+            listOf(
+                Observable.fromCallable {
+                    HomeIntention.Init(
+                        Manifest.permission.READ_CONTACTS,
+                        READ_CONTACTS_SYNC_PERMISSION_CODE
+                    )
+                },
+                intentionSubject,
+                (fabView?.clicks() ?: Observable.empty<HomeIntention>())
+                    .doOnNext { dontShowAddDebtDialog = false }
+                    .map {
+                        HomeIntention.OpenAddDebtDialog(
+                            Manifest.permission.READ_CONTACTS,
+                            HomeActivity.READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE
+                        )
+                    }
+            )
+        )
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            HomeActivity.READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                intentionSubject
+                    .onNext(
+                        HomeIntention.OpenAddDebtDialog(
+                            Manifest.permission.READ_CONTACTS,
+                            HomeActivity.READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE
+                        )
+                    )
+            } else {
+                showAddDebtDialog()
+            }
+            HomeActivity.READ_CONTACTS_SYNC_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                intentionSubject.onNext(HomeIntention.SyncWithContacts)
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    private fun showAddDebtDialog() {
+        addDebtLayout = AddDebtLayout(
+            this,
+            contacts = contacts
+        )
+        this.showAlert(
+            customView = addDebtLayout,
+            titleResId = R.string.home_add_debt_title,
+            positiveButtonResId = R.string.home_add_debt_confirm
+        ) {
+            addDebtLayout?.data?.let { data ->
+                if (data.name.isNotBlank() && data.amount != 0.0) {
+                    intentionSubject.onNext(
+                        HomeIntention.AddDebt(
+                            data.contactId,
+                            data.name,
+                            data.amount,
+                            data.comment
+                        )
+                    )
+                } else if (fabView != null) {
+                    Snackbar
+                        .make(
+                            fabView!!,
+                            R.string.home_debtors_empty_debt_fields,
+                            Snackbar.LENGTH_SHORT
+                        )
+                        .show()
+                }
+            }
+        }
     }
 }

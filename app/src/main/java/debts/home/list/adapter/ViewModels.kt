@@ -1,5 +1,6 @@
 package debts.home.list.adapter
 
+import androidx.annotation.StringRes
 import debts.usecase.ContactsItemModel
 import debts.usecase.DebtorsListItemModel
 
@@ -14,6 +15,9 @@ sealed class DebtorsItemViewModel(open val id: Long) {
         val avatarUrl: String
     ) : DebtorsItemViewModel(id)
 
+    // INFO: title must be unique for adapter
+    data class TitleItem(@StringRes val titleId: Int) : DebtorsItemViewModel(titleId.toLong())
+
 }
 
 data class ContactsItemViewModel(val id: Long, val name: String, val avatarUrl: String)
@@ -21,8 +25,8 @@ data class ContactsItemViewModel(val id: Long, val name: String, val avatarUrl: 
 // region Mapping
 ////////////////////////////////////////////////////////////////
 
-fun DebtorsListItemModel.toDebtorsItemViewModel() =
-    DebtorsItemViewModel.DebtorItemViewModel(
+fun DebtorsListItemModel.toDebtorsItemViewModel() = when (this) {
+    is DebtorsListItemModel.Debtor -> DebtorsItemViewModel.DebtorItemViewModel(
         id,
         name,
         amount,
@@ -30,6 +34,8 @@ fun DebtorsListItemModel.toDebtorsItemViewModel() =
         lastDate,
         avatarUrl
     )
+    is DebtorsListItemModel.Title -> DebtorsItemViewModel.TitleItem(id.toInt())
+}
 
 fun ContactsItemModel.toContactsItemViewModel() =
     ContactsItemViewModel(
