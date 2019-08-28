@@ -2,91 +2,54 @@ package debts.home.list.mvi
 
 import debts.common.android.DebtsNavigator
 import debts.common.android.mvi.MviInteractor
+import debts.home.list.TabTypes
 import debts.repository.DebtsRepository
+import debts.usecase.AddDebtUseCase
+import debts.usecase.GetContactsUseCase
 import debts.usecase.GetDebtsCsvContentUseCase
+import debts.usecase.ObserveDebtorsListItemsUseCase
+import debts.usecase.SyncDebtorsWithContactsUseCase
+import debts.usecase.UpdateDbDebtsCurrencyUseCase
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import net.thebix.debts.R
 import timber.log.Timber
+import java.text.NumberFormat
+import java.util.Locale
 
 class HomeInteractor(
-//    private val getContactsUseCase: GetContactsUseCase,
-//    private val addDebtUseCase: AddDebtUseCase,
+    private val getContactsUseCase: GetContactsUseCase,
+    private val addDebtUseCase: AddDebtUseCase,
     private val debtsNavigator: DebtsNavigator,
     private val getDebtsCsvContentUseCase: GetDebtsCsvContentUseCase,
+    private val observeDebtorsListItemsUseCase: ObserveDebtorsListItemsUseCase,
+    private val syncDebtorsWithContactsUseCase: SyncDebtorsWithContactsUseCase,
+    private val updateDbDebtsCurrencyUseCase: UpdateDbDebtsCurrencyUseCase,
     private val repository: DebtsRepository
 ) : MviInteractor<HomeAction, HomeResult> {
 
-//    private fun checkContactsPermissionAndSyncWithContacts(contactPermission: String, requestCode: Int) =
-//        observeDebtorsListItemsUseCase.execute(TabTypes.All)
-//            .take(1)
-//            .singleElement()
-//            .filter { items -> items.any { it.name.isEmpty() } }
-//            .flatMap {
-//                debtsNavigator.isPermissionGranted(contactPermission)
-//                    .toMaybe()
-//            }
-//            .flatMapCompletable { isContactsAccessGranted ->
-//                if (isContactsAccessGranted) {
-//                    syncDebtorsWithContactsUseCase.execute()
-//                } else {
-//                    debtsNavigator.requestPermission(
-//                        contactPermission,
-//                        requestCode
-//                    )
-//                }
-//            }
-
-//    private val openAddDebtDialogProcessor =
-//        ObservableTransformer<HomeAction.OpenAddDebtDialog, HomeResult> { actions ->
-//            actions.switchMap { action ->
-//                debtsNavigator.isPermissionGranted(action.contactPermission)
-//                    .map { isGranted -> action to isGranted }
-//                    .toObservable()
-//            }
-//                .subscribeOn(Schedulers.io())
-//                .flatMap { (action, isContactsAccessGranted) ->
-//                    if (isContactsAccessGranted) {
-//                        getContactsResult()
-//                    } else {
-//                        debtsNavigator.requestPermission(
-//                            action.contactPermission,
-//                            action.requestCode
-//                        )
-//                            .toObservable<HomeResult>()
-//                    }
-//                }
-//                .subscribeOn(Schedulers.io())
-//                .doOnError { Timber.e(it) }
-//                .onErrorReturnItem(HomeResult.ShowAddDebtDialog(emptyList()))
-//        }
-
-//    private fun getContactsResult() = getContactsUseCase
-//        .execute()
-//        .flatMap { items ->
-//            Single.fromCallable { HomeResult.ShowAddDebtDialog(items) as HomeResult }
-//        }
-//        .toObservable()
-
-//    private val addDebtProcessor =
-//        ObservableTransformer<HomeAction.AddDebt, HomeResult> { actions ->
-//            actions.switchMap {
-//                repository.getCurrency()
-//                    .flatMapCompletable { currency ->
-//                        addDebtUseCase
-//                            .execute(null, it.contactId, it.name, it.amount, currency, it.comment)
-//                    }
-//                    .doOnComplete {
-//                        // Tech debt: this resource id should be provided from Fragment trough intent/action
-//                        debtsNavigator.showToast(R.string.home_debtors_toast_debt_added)
-//                    }
-//                    .subscribeOn(Schedulers.io())
-//                    .toObservable<HomeResult>()
-//                    .doOnError { error -> Timber.e(error) }
-//                    .onErrorReturnItem(HomeResult.Error)
-//            }
-//        }
+    private val initProcessor = ObservableTransformer<HomeAction.Init, HomeResult> { actions ->
+        actions.switchMap { action ->
+            Observable.merge(
+                repository.isAppFirstStart()
+                    .filter { it }
+                    .flatMapCompletable {
+                        repository.setCurrency(NumberFormat.getCurrencyInstance(Locale.getDefault()).currency.symbol)
+                    }
+                    .andThen(updateDbDebtsCurrencyUseCase.execute())
+                    .andThen(repository.setAppFirstStart(false))
+                    .toObservable<HomeResult>(),
+                checkContactsPermissionAndSyncWithContacts(action.contactPermission, action.requestCode)
+                    .toObservable()
+            )
+                .subscribeOn(Schedulers.io())
+                .doOnError { Timber.e(it) }
+                .onErrorReturnItem(HomeResult.Error)
+        }
+    }
 
     private val initMenuProcessor =
         ObservableTransformer<HomeAction.InitMenu, HomeResult> { actions ->
@@ -155,17 +118,89 @@ class HomeInteractor(
             }
         }
 
+    private fun checkContactsPermissionAndSyncWithContacts(contactPermission: String, requestCode: Int) =
+        observeDebtorsListItemsUseCase.execute(TabTypes.All)
+            .take(1)
+            .singleElement()
+            .filter { items -> items.any { it.name.isEmpty() } }
+            .flatMap {
+                debtsNavigator.isPermissionGranted(contactPermission)
+                    .toMaybe()
+            }
+            .flatMapCompletable { isContactsAccessGranted ->
+                if (isContactsAccessGranted) {
+                    syncDebtorsWithContactsUseCase.execute()
+                } else {
+                    debtsNavigator.requestPermission(
+                        contactPermission,
+                        requestCode
+                    )
+                }
+            }
+
+    private val openAddDebtDialogProcessor =
+        ObservableTransformer<HomeAction.OpenAddDebtDialog, HomeResult> { actions ->
+            actions.switchMap { action ->
+                debtsNavigator.isPermissionGranted(action.contactPermission)
+                    .map { isGranted -> action to isGranted }
+                    .toObservable()
+            }
+                .subscribeOn(Schedulers.io())
+                .flatMap { (action, isContactsAccessGranted) ->
+                    if (isContactsAccessGranted) {
+                        getContactsResult()
+                    } else {
+                        debtsNavigator.requestPermission(
+                            action.contactPermission,
+                            action.requestCode
+                        )
+                            .toObservable<HomeResult>()
+                    }
+                }
+                .subscribeOn(Schedulers.io())
+                .doOnError { Timber.e(it) }
+                .onErrorReturnItem(HomeResult.ShowAddDebtDialog(emptyList()))
+        }
+
+    private fun getContactsResult() = getContactsUseCase
+        .execute()
+        .flatMap { items ->
+            Single.fromCallable { HomeResult.ShowAddDebtDialog(items) as HomeResult }
+        }
+        .toObservable()
+
+    private val addDebtProcessor =
+        ObservableTransformer<HomeAction.AddDebt, HomeResult> { actions ->
+            actions.switchMap {
+                repository.getCurrency()
+                    .flatMapCompletable { currency ->
+                        addDebtUseCase
+                            .execute(null, it.contactId, it.name, it.amount, currency, it.comment)
+                    }
+                    .doOnComplete {
+                        // TODO: this resource id should be provided from Fragment trough intent/action
+                        debtsNavigator.showToast(R.string.home_debtors_toast_debt_added)
+                    }
+                    .subscribeOn(Schedulers.io())
+                    .toObservable<HomeResult>()
+                    .doOnError { error -> Timber.e(error) }
+                    .onErrorReturnItem(HomeResult.Error)
+            }
+        }
+
     override fun actionProcessor(): ObservableTransformer<in HomeAction, out HomeResult> =
         ObservableTransformer { actions ->
             actions.publish { action ->
                 Observable.merge(
                     listOf(
+                        action.ofType(HomeAction.Init::class.java)
+                            .compose(initProcessor),
                         action.ofType(HomeAction.InitMenu::class.java)
                             .compose(initMenuProcessor),
-//                        action.ofType(HomeAction.OpenAddDebtDialog::class.java)
-//                            .compose(openAddDebtDialogProcessor),
-//                        action.ofType(HomeAction.AddDebt::class.java)
-//                            .compose(addDebtProcessor),
+                        action.ofType(HomeAction.OpenAddDebtDialog::class.java)
+                            .compose(openAddDebtDialogProcessor),
+                        action.ofType(HomeAction.AddDebt::class.java)
+                            .compose(addDebtProcessor),
                         action.ofType(HomeAction.Filter::class.java)
                             .compose(filterProcessor),
                         action.ofType(HomeAction.SortBy::class.java)

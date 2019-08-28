@@ -2,6 +2,7 @@ package debts.home.list.mvi
 
 import debts.common.android.mvi.MviViewModel
 import debts.common.android.mvi.OneShot
+import debts.home.list.adapter.toContactsItemViewModel
 import debts.repository.SortType
 import io.reactivex.functions.BiFunction
 
@@ -16,7 +17,7 @@ class HomeViewModel(
 
     override fun actionFromIntention(intent: HomeIntention): HomeAction =
         when (intent) {
-            HomeIntention.Init -> HomeAction.Init
+            is HomeIntention.Init -> HomeAction.Init(intent.contactPermission, intent.requestCode)
             HomeIntention.InitMenu -> HomeAction.InitMenu
             is HomeIntention.Filter -> HomeAction.Filter(intent.name)
             HomeIntention.ToggleSortByAmount -> HomeAction.SortBy(
@@ -35,12 +36,17 @@ class HomeViewModel(
             )
             HomeIntention.OpenSettings -> HomeAction.OpenSettings
             is HomeIntention.ShareAllDebts -> HomeAction.ShareAllDebts(intent.titleText)
-//            is HomeIntention.AddDebt -> HomeAction.AddDebt(
-//                intent.contactId,
-//                intent.name,
-//                intent.amount,
-//                intent.comment
-//            )
+            is HomeIntention.AddDebt -> HomeAction.AddDebt(
+                intent.contactId,
+                intent.name,
+                intent.amount,
+                intent.comment
+            )
+            is HomeIntention.OpenAddDebtDialog -> HomeAction.OpenAddDebtDialog(
+                intent.contactPermission,
+                intent.requestCode
+            )
+            HomeIntention.SyncWithContacts -> HomeAction.SyncWithContacts
         }
 
     override val reducer: BiFunction<HomeState, HomeResult, HomeState>
@@ -54,11 +60,11 @@ class HomeViewModel(
                         sortType = result.sortType
                     )
                 }
-//                is HomeResult.ShowAddDebtDialog ->
-//                    prevState.copy(
-//                        contacts = result.items.map { it.toContactsItemViewModel() },
-//                        showAddDebtDialog = OneShot(true)
-//                    )
+                is HomeResult.ShowAddDebtDialog ->
+                    prevState.copy(
+                        contacts = result.items.map { it.toContactsItemViewModel() },
+                        showAddDebtDialog = OneShot(true)
+                    )
             }
         }
 }

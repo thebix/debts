@@ -1,7 +1,5 @@
 package debts.home.list
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +8,6 @@ import androidx.annotation.UiThread
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
-import com.jakewharton.rxbinding3.view.clicks
 import debts.common.android.BaseFragment
 import debts.common.android.FragmentArgumentDelegate
 import debts.common.android.FragmentScreenContext
@@ -20,8 +16,6 @@ import debts.common.android.extensions.getDrawableCompat
 import debts.common.android.extensions.showAlert
 import debts.di.getDebtorsDebtsNavigatorName
 import debts.di.getDebtorsViewModelName
-import debts.home.AddDebtLayout
-import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtorsAdapter
 import debts.home.list.adapter.DebtorsItemViewModel
 import debts.home.list.adapter.HeaderItemDecoration
@@ -42,8 +36,6 @@ class DebtorsFragment : BaseFragment() {
     companion object {
 
         private const val KEY_RECYCLER_STATE = "KEY_RECYCLER_STATE"
-        private const val READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE = 1
-        private const val READ_CONTACTS_SYNC_PERMISSION_CODE = 2
 
         @JvmStatic
         fun newInstance(page: Int) = DebtorsFragment()
@@ -83,17 +75,13 @@ class DebtorsFragment : BaseFragment() {
     private val intentionSubject = PublishSubject.create<DebtorsIntention>()
 
     private var recyclerView: RecyclerView? = null
-    private var fabView: View? = null
     private var page: Int by FragmentArgumentDelegate()
 
     private lateinit var disposables: CompositeDisposable
     private lateinit var viewModel: DebtorsViewModel
     private var adapterDisposable: Disposable? = null
     private var isConfigurationChange: Boolean = false
-    private var addDebtLayout: AddDebtLayout? = null
     private var recyclerState: LinearLayoutManager.SavedState? = null
-    private var contacts: List<ContactsItemViewModel> = emptyList()
-    private var dontShowAddDebtDialog: Boolean = true
     private var headersIndexes = emptyList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,7 +101,6 @@ class DebtorsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = getView()?.findViewById(R.id.home_debtors_recycler)
-        fabView = getView()?.findViewById(R.id.home_debtors_fab)
 
         recyclerView?.apply {
             adapter = this@DebtorsFragment.adapter
@@ -179,7 +166,6 @@ class DebtorsFragment : BaseFragment() {
 
     override fun onDestroyView() {
         recyclerView = null
-        fabView = null
         super.onDestroyView()
     }
 
@@ -187,7 +173,6 @@ class DebtorsFragment : BaseFragment() {
         screenContextHolder.remove(getDebtorsDebtsNavigatorName(page))
         disposables.dispose()
         adapterDisposable?.dispose()
-        addDebtLayout = null
         super.onStop()
     }
 
@@ -204,38 +189,7 @@ class DebtorsFragment : BaseFragment() {
                 adapterDisposable = adapter.setItems(items)
                     .subscribe()
             }
-            this@DebtorsFragment.contacts = contacts
-            showAddDebtDialog.get(this)?.let {
-                if (dontShowAddDebtDialog.not()) {
-                    dontShowAddDebtDialog = true
-                    showAddDebtDialog()
-                }
-            }
         }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                intentionSubject
-                    .onNext(
-                        DebtorsIntention.OpenAddDebtDialog(
-                            Manifest.permission.READ_CONTACTS,
-                            READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE
-                        )
-                    )
-            } else {
-                showAddDebtDialog()
-            }
-            READ_CONTACTS_SYNC_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                intentionSubject.onNext(DebtorsIntention.SyncWithContacts)
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     private fun intentions() =
@@ -243,8 +197,6 @@ class DebtorsFragment : BaseFragment() {
             listOf(
                 Observable.fromCallable {
                     DebtorsIntention.Init(
-                        Manifest.permission.READ_CONTACTS,
-                        READ_CONTACTS_SYNC_PERMISSION_CODE,
                         when (page) {
                             TabTypes.All.page -> TabTypes.All
                             TabTypes.Debtors.page -> TabTypes.Debtors
@@ -253,15 +205,7 @@ class DebtorsFragment : BaseFragment() {
                         }
                     )
                 },
-                intentionSubject,
-                (fabView?.clicks() ?: Observable.empty<DebtorsIntention>())
-                    .doOnNext { dontShowAddDebtDialog = false }
-                    .map {
-                        DebtorsIntention.OpenAddDebtDialog(
-                            Manifest.permission.READ_CONTACTS,
-                            READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE
-                        )
-                    }
+                intentionSubject
             )
         )
 
@@ -274,40 +218,5 @@ class DebtorsFragment : BaseFragment() {
             }
         }
         return list
-    }
-
-    // TODO: move FAB and dialog logic to the HomeActivity
-    private fun showAddDebtDialog() {
-        if (context == null) return
-        addDebtLayout = AddDebtLayout(
-            context!!,
-            contacts = contacts
-        )
-        context?.showAlert(
-            customView = addDebtLayout,
-            titleResId = R.string.home_add_debt_title,
-            positiveButtonResId = R.string.home_add_debt_confirm
-        ) {
-            addDebtLayout?.data?.let { data ->
-                if (data.name.isNotBlank() && data.amount != 0.0) {
-                    intentionSubject.onNext(
-                        DebtorsIntention.AddDebt(
-                            data.contactId,
-                            data.name,
-                            data.amount,
-                            data.comment
-                        )
-                    )
-                } else if (fabView != null) {
-                    Snackbar
-                        .make(
-                            fabView!!,
-                            R.string.home_debtors_empty_debt_fields,
-                            Snackbar.LENGTH_SHORT
-                        )
-                        .show()
-                }
-            }
-        }
     }
 }

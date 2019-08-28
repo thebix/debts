@@ -1,17 +1,24 @@
 package debts.home
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.annotation.UiThread
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
+import com.jakewharton.rxbinding3.view.clicks
 import debts.common.android.ActivityScreenContext
 import debts.common.android.BaseActivity
 import debts.common.android.ScreenContextHolder
 import debts.common.android.extensions.getColorCompat
+import debts.common.android.extensions.showAlert
+import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtsPagerAdapter
 import debts.home.list.mvi.HomeIntention
 import debts.home.list.mvi.HomeState
@@ -27,12 +34,22 @@ import timber.log.Timber
 
 class HomeActivity : BaseActivity() {
 
+    private companion object {
+
+        const val READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE = 1
+        const val READ_CONTACTS_SYNC_PERMISSION_CODE = 2
+    }
+
     private val intentionSubject = PublishSubject.create<HomeIntention>()
     private val screenContextHolder: ScreenContextHolder by inject()
     private val viewModel: HomeViewModel by viewModel()
 
+    private var fabView: View? = null
     private lateinit var menu: Menu
     private lateinit var disposables: CompositeDisposable
+    private var addDebtLayout: AddDebtLayout? = null
+    private var contacts: List<ContactsItemViewModel> = emptyList()
+    private var dontShowAddDebtDialog: Boolean = true
 
     private var sortType: SortType = SortType.NOTHING
 
@@ -58,6 +75,8 @@ class HomeActivity : BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         toolbarView.title = getString(R.string.app_name)
         toolbarView.setBackgroundColor(applicationContext.getColorCompat(R.color.colorPrimary) ?: 0)
+
+        fabView = findViewById(R.id.home_fab)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -97,8 +116,13 @@ class HomeActivity : BaseActivity() {
     override fun onStop() {
         screenContextHolder.remove(ScreenContextHolder.ACTIVITY_HOME)
         disposables.dispose()
-//        addDebtLayout = null
+        addDebtLayout = null
         super.onStop()
+    }
+
+    override fun onDestroy() {
+        fabView = null
+        super.onDestroy()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -152,6 +176,13 @@ class HomeActivity : BaseActivity() {
                     }
                 }
             }
+            this@HomeActivity.contacts = contacts
+            showAddDebtDialog.get(this)?.let {
+                if (dontShowAddDebtDialog.not()) {
+                    dontShowAddDebtDialog = true
+                    showAddDebtDialog()
+                }
+            }
         }
     }
 
@@ -159,27 +190,77 @@ class HomeActivity : BaseActivity() {
         Observable.merge(
             listOf(
                 Observable.fromCallable {
-                    HomeIntention.Init
-//                    DebtorsIntention.Init(
-//                        Manifest.permission.READ_CONTACTS,
-//                        DebtorsFragment.READ_CONTACTS_SYNC_PERMISSION_CODE,
-//                        when (page) {
-//                            TabTypes.All.page -> TabTypes.All
-//                            TabTypes.Debtors.page -> TabTypes.Debtors
-//                            TabTypes.Creditors.page -> TabTypes.Creditors
-//                            else -> TabTypes.All
-//                        }
-//                    )
+                    HomeIntention.Init(
+                        Manifest.permission.READ_CONTACTS,
+                        READ_CONTACTS_SYNC_PERMISSION_CODE
+                    )
                 },
-                intentionSubject
-//                (fabView?.clicks() ?: Observable.empty<DebtorsIntention>())
-//                    .doOnNext { dontShowAddDebtDialog = false }
-//                    .map {
-//                        DebtorsIntention.OpenAddDebtDialog(
-//                            Manifest.permission.READ_CONTACTS,
-//                            DebtorsFragment.READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE
-//                        )
-//                    }
+                intentionSubject,
+                (fabView?.clicks() ?: Observable.empty<HomeIntention>())
+                    .doOnNext { dontShowAddDebtDialog = false }
+                    .map {
+                        HomeIntention.OpenAddDebtDialog(
+                            Manifest.permission.READ_CONTACTS,
+                            HomeActivity.READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE
+                        )
+                    }
             )
         )
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            HomeActivity.READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                intentionSubject
+                    .onNext(
+                        HomeIntention.OpenAddDebtDialog(
+                            Manifest.permission.READ_CONTACTS,
+                            HomeActivity.READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE
+                        )
+                    )
+            } else {
+                showAddDebtDialog()
+            }
+            HomeActivity.READ_CONTACTS_SYNC_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                intentionSubject.onNext(HomeIntention.SyncWithContacts)
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    private fun showAddDebtDialog() {
+        addDebtLayout = AddDebtLayout(
+            this,
+            contacts = contacts
+        )
+        this.showAlert(
+            customView = addDebtLayout,
+            titleResId = R.string.home_add_debt_title,
+            positiveButtonResId = R.string.home_add_debt_confirm
+        ) {
+            addDebtLayout?.data?.let { data ->
+                if (data.name.isNotBlank() && data.amount != 0.0) {
+                    intentionSubject.onNext(
+                        HomeIntention.AddDebt(
+                            data.contactId,
+                            data.name,
+                            data.amount,
+                            data.comment
+                        )
+                    )
+                } else if (fabView != null) {
+                    Snackbar
+                        .make(
+                            fabView!!,
+                            R.string.home_debtors_empty_debt_fields,
+                            Snackbar.LENGTH_SHORT
+                        )
+                        .show()
+                }
+            }
+        }
+    }
 }

@@ -1,16 +1,23 @@
 package debts.home.list.mvi
 
 import debts.common.android.mvi.MviAction
+import debts.common.android.mvi.MviInitIntention
 import debts.common.android.mvi.MviIntention
 import debts.common.android.mvi.MviResult
 import debts.common.android.mvi.MviState
 import debts.common.android.mvi.OneShot
 import debts.common.android.mvi.ViewStateWithId
+import debts.home.list.adapter.ContactsItemViewModel
 import debts.repository.SortType
+import debts.usecase.ContactsItemModel
 
 sealed class HomeIntention : MviIntention {
 
-    object Init : HomeIntention()
+    data class Init(
+        val contactPermission: String,
+        val requestCode: Int
+    ) : HomeIntention(), MviInitIntention
+
     object InitMenu : HomeIntention()
     data class Filter(val name: String = "") : HomeIntention()
     object ToggleSortByName : HomeIntention()
@@ -19,24 +26,29 @@ sealed class HomeIntention : MviIntention {
     object OpenSettings : HomeIntention()
     data class ShareAllDebts(val titleText: String) : HomeIntention()
 
-//    data class OpenAddDebtDialog(
-//        val contactPermission: String,
-//        val requestCode: Int
-//    ) : HomeIntention()
-//
-//    data class AddDebt(
-//        val contactId: Long?,
-//        val name: String,
-//        val amount: Double,
-//        val comment: String
-//
-//    ) : HomeIntention()
+    data class OpenAddDebtDialog(
+        val contactPermission: String,
+        val requestCode: Int
+    ) : HomeIntention()
 
+    data class AddDebt(
+        val contactId: Long?,
+        val name: String,
+        val amount: Double,
+        val comment: String
+
+    ) : HomeIntention()
+
+    object SyncWithContacts : HomeIntention()
 }
 
 sealed class HomeAction : MviAction {
 
-    object Init : HomeAction()
+    data class Init(
+        val contactPermission: String,
+        val requestCode: Int
+    ) : HomeAction()
+
     object InitMenu : HomeAction()
     data class Filter(val name: String = "") : HomeAction()
     data class SortBy(
@@ -46,16 +58,19 @@ sealed class HomeAction : MviAction {
     object OpenSettings : HomeAction()
     data class ShareAllDebts(val titleText: String) : HomeAction()
 
-//    data class OpenAddDebtDialog(
-//        val contactPermission: String,
-//        val requestCode: Int
-//    ) : HomeAction()
-//    data class AddDebt(
-//        val contactId: Long?,
-//        val name: String,
-//        val amount: Double,
-//        val comment: String
-//    ) : HomeAction()
+    data class OpenAddDebtDialog(
+        val contactPermission: String,
+        val requestCode: Int
+    ) : HomeAction()
+
+    data class AddDebt(
+        val contactId: Long?,
+        val name: String,
+        val amount: Double,
+        val comment: String
+    ) : HomeAction()
+
+    object SyncWithContacts : HomeAction()
 }
 
 sealed class HomeResult : MviResult {
@@ -65,15 +80,15 @@ sealed class HomeResult : MviResult {
         val sortType: SortType = SortType.NOTHING
     ) : HomeResult()
 
-//    data class ShowAddDebtDialog(
-//        val items: List<ContactsItemModel> = emptyList()
-//    ) : HomeResult()
+    data class ShowAddDebtDialog(
+        val items: List<ContactsItemModel> = emptyList()
+    ) : HomeResult()
 }
 
 data class HomeState(
     val sortType: SortType = SortType.NOTHING,
-    val isError: OneShot<Boolean> = OneShot.empty()
-//    val contacts: List<ContactsItemViewModel> = emptyList(),
-//    val showAddDebtDialog: OneShot<Boolean> = OneShot.empty()
+    val isError: OneShot<Boolean> = OneShot.empty(),
+    val contacts: List<ContactsItemViewModel> = emptyList(),
+    val showAddDebtDialog: OneShot<Boolean> = OneShot.empty()
 ) : MviState, ViewStateWithId() {
 }
