@@ -2,18 +2,28 @@ package debts.home.list.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import androidx.constraintlayout.widget.ConstraintLayout
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import debts.common.android.adapters.ItemRenderer
-import debts.common.android.extensions.*
-import java.util.*
+import debts.common.android.extensions.applyLayoutParams
+import debts.common.android.extensions.doInRuntime
+import debts.common.android.extensions.selfInflate
+import debts.common.android.extensions.setPaddingBottomResCompat
+import debts.common.android.extensions.setPaddingStartResCompat
+import debts.common.android.extensions.setPaddingTopResCompat
+import debts.common.android.extensions.setSelectableItemBackground
+import debts.common.android.extensions.showPopup
+import debts.common.android.extensions.toFormattedCurrency
+import debts.common.android.extensions.toSimpleDateString
+import debts.common.android.extensions.visible
 import net.thebix.debts.R
+import java.util.Date
 
 @SuppressLint("ViewConstructor")
 class DebtorItemLayout @JvmOverloads constructor(
@@ -22,7 +32,7 @@ class DebtorItemLayout @JvmOverloads constructor(
     defStyleAttr: Int = 0,
     private val itemClickCallback: DebtorsAdapter.ItemClickCallback
 ) : ConstraintLayout(context, attrs, defStyleAttr),
-    ItemRenderer<DebtorsItemViewModel> {
+    ItemRenderer<DebtorsItemViewModel.DebtorItemViewModel> {
 
     private val avatarView: ImageView
     private val nameView: TextView
@@ -67,32 +77,30 @@ class DebtorItemLayout @JvmOverloads constructor(
         }
     }
 
-    override fun render(data: DebtorsItemViewModel) {
-        if (data is DebtorsItemViewModel.DebtorItemViewModel) {
-            with(data) {
-                debtorId = id
-                nameView.text = name
-                amountView.text = resources.getString(
-                    R.string.home_debtors_item_amount,
-                    currency,
-                    amount.toFormattedCurrency()
-                )
-                dateView.visible = lastDate > 0
-                dateView.text = resources.getString(
-                    R.string.home_debtors_item_date,
-                    Date(lastDate).toSimpleDateString()
-                )
-                if (avatarUrl.isNotBlank()) {
-                    Glide.with(avatarView)
-                        .load(avatarUrl)
-                        .placeholder(R.drawable.ic_launcher)
-                        .error(R.drawable.ic_launcher)
-                        .fallback(R.drawable.ic_launcher)
-                        .apply(RequestOptions.circleCropTransform())
-                        .into(avatarView)
-                } else {
-                    avatarView.setImageResource(R.drawable.ic_launcher)
-                }
+    override fun render(data: DebtorsItemViewModel.DebtorItemViewModel) {
+        with(data) {
+            debtorId = id
+            nameView.text = name
+            amountView.text = resources.getString(
+                R.string.home_debtors_item_amount,
+                currency,
+                amount.toFormattedCurrency()
+            )
+            dateView.visible = lastDate > 0
+            dateView.text = resources.getString(
+                R.string.home_debtors_item_date,
+                Date(lastDate).toSimpleDateString()
+            )
+            if (avatarUrl.isNotBlank()) {
+                Glide.with(avatarView)
+                    .load(avatarUrl)
+                    .placeholder(R.drawable.ic_launcher)
+                    .error(R.drawable.ic_launcher)
+                    .fallback(R.drawable.ic_launcher)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(avatarView)
+            } else {
+                avatarView.setImageResource(R.drawable.ic_launcher)
             }
         }
     }

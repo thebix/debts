@@ -1,4 +1,4 @@
-package debts.home.details.mvi
+package debts.details.mvi
 
 import debts.common.android.DebtsNavigator
 import debts.common.android.mvi.MviInteractor
@@ -68,7 +68,7 @@ class DetailsInteractor(
                         )
                 }
                 .doOnComplete {
-                    // Tech debt: this resource id should be provided from Fragment trough intent/action
+                    // TODO: this resource id should be provided from Fragment through intent/action
                     debtsNavigator.showToast(R.string.home_debtors_toast_debt_added)
                 }
                 .subscribeOn(Schedulers.io())

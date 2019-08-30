@@ -1,25 +1,43 @@
 package debts.di
 
 import androidx.room.Room
+import debts.common.android.DebtsNavigator
 import debts.common.android.ScreenContextHolder
 import debts.common.android.ScreenContextHolderImpl
 import debts.common.android.prefs.AndroidPreferences
 import debts.common.android.prefs.Preferences
 import debts.db.DebtsDatabase
 import debts.db.migrations.migration1To2
-import debts.home.details.mvi.DetailsInteractor
-import debts.home.details.mvi.DetailsViewModel
-import debts.common.android.DebtsNavigator
+import debts.details.mvi.DetailsInteractor
+import debts.details.mvi.DetailsViewModel
 import debts.home.list.mvi.DebtorsInteractor
 import debts.home.list.mvi.DebtorsViewModel
+import debts.home.list.mvi.HomeInteractor
+import debts.home.list.mvi.HomeViewModel
 import debts.preferences.main.mvi.MainSettingsInteractor
 import debts.preferences.main.mvi.MainSettingsViewModel
 import debts.repository.DebtsRepository
-import debts.usecase.*
+import debts.usecase.AddDebtUseCase
+import debts.usecase.ClearHistoryUseCase
+import debts.usecase.CreateDebtorUseCase
+import debts.usecase.GetContactsUseCase
+import debts.usecase.GetDebtsCsvContentUseCase
+import debts.usecase.GetShareDebtorContentUseCase
+import debts.usecase.ObserveDebtorUseCase
+import debts.usecase.ObserveDebtorsListItemsUseCase
+import debts.usecase.ObserveDebtsUseCase
+import debts.usecase.RemoveDebtUseCase
+import debts.usecase.RemoveDebtorUseCase
+import debts.usecase.SyncDebtorsWithContactsUseCase
+import debts.usecase.UpdateDbDebtsCurrencyUseCase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+
+fun getDebtorsDebtsNavigatorName(page: Int) = "${ScreenContextHolder.FRAGMENT_DEBTORS}$page"
+fun getDebtorsInteractorName(page: Int) = "DebtorsInteractor_$page"
+fun getDebtorsViewModelName(page: Int) = "DebtorsViewModel_$page"
 
 val appModule = module {
     single {
@@ -79,16 +97,6 @@ val useCasesModule = module {
 }
 
 val interactorModule = module {
-
-    // TODO: scope this navigator to the Debtors screen
-    single(name = ScreenContextHolder.FRAGMENT_DEBTORS) {
-        DebtsNavigator(
-            screenContextHolder = get(),
-            applicationContext = androidContext(),
-            name = ScreenContextHolder.FRAGMENT_DEBTORS
-        )
-    }
-
     single(name = ScreenContextHolder.FRAGMENT_MAIN_PREFERENCES) {
         DebtsNavigator(
             screenContextHolder = get(),
@@ -96,7 +104,6 @@ val interactorModule = module {
             name = ScreenContextHolder.FRAGMENT_MAIN_PREFERENCES
         )
     }
-
     single(name = ScreenContextHolder.FRAGMENT_DETAILS) {
         DebtsNavigator(
             screenContextHolder = get(),
@@ -104,20 +111,32 @@ val interactorModule = module {
             name = ScreenContextHolder.FRAGMENT_DETAILS
         )
     }
-
-    factory {
-        DebtorsInteractor(
-            observeDebtorsListItemsUseCase = get(),
-            getContactsUseCase = get(),
-            addDebtUseCase = get(),
-            removeDebtorUseCase = get(),
-            debtsNavigator = get(ScreenContextHolder.FRAGMENT_DEBTORS),
-            syncDebtorsWithContactsUseCase = get(),
-            getDebtsCsvContentUseCase = get(),
-            getShareDebtorContentUseCase = get(),
-            updateDbDebtsCurrencyUseCase = get(),
-            repository = get()
+    single(name = ScreenContextHolder.ACTIVITY_HOME) {
+        DebtsNavigator(
+            screenContextHolder = get(),
+            applicationContext = androidContext(),
+            name = ScreenContextHolder.ACTIVITY_HOME
         )
+    }
+    for (page in 0..2) {
+        // TODO: factory?
+        single(name = getDebtorsDebtsNavigatorName(page)) {
+            DebtsNavigator(
+                screenContextHolder = get(),
+                applicationContext = androidContext(),
+                name = getDebtorsDebtsNavigatorName(page)
+            )
+        }
+        // TODO: factory?
+        single(getDebtorsInteractorName(page)) {
+            DebtorsInteractor(
+                observeDebtorsListItemsUseCase = get(),
+                removeDebtorUseCase = get(),
+                debtsNavigator = get(getDebtorsDebtsNavigatorName(page)),
+                getShareDebtorContentUseCase = get(),
+                repository = get()
+            )
+        }
     }
     factory {
         DetailsInteractor(
@@ -139,10 +158,25 @@ val interactorModule = module {
             syncDebtorsWithContactsUseCase = get()
         )
     }
+    factory {
+        HomeInteractor(
+            getContactsUseCase = get(),
+            addDebtUseCase = get(),
+            debtsNavigator = get(ScreenContextHolder.ACTIVITY_HOME),
+            getDebtsCsvContentUseCase = get(),
+            observeDebtorsListItemsUseCase = get(),
+            syncDebtorsWithContactsUseCase = get(),
+            updateDbDebtsCurrencyUseCase = get(),
+            repository = get()
+        )
+    }
 }
 
 val viewModelModule = module {
-    viewModel { DebtorsViewModel(interactor = get()) }
+    for (page in 0..2) {
+        viewModel(getDebtorsViewModelName(page)) { DebtorsViewModel(interactor = get(getDebtorsInteractorName(page))) }
+    }
     viewModel { DetailsViewModel(interactor = get()) }
     viewModel { MainSettingsViewModel(interactor = get()) }
+    viewModel { HomeViewModel(interactor = get()) }
 }

@@ -1,4 +1,4 @@
-package debts.home.details.adapter
+package debts.details.adapter
 
 import debts.common.android.adapters.DelegatedAdapter
 import debts.common.android.adapters.TypedAdapterDelegate
@@ -24,7 +24,7 @@ class DebtsAdapter(
         })
     }
 
-    override fun getItemViewType(position: Int) = when (items[0]) {
+    override fun getItemViewType(position: Int) = when (items[position]) {
         is DebtsItemViewModel.DebtItemViewModel -> TYPE_DEBT
     }
 

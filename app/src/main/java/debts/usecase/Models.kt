@@ -1,5 +1,7 @@
 package debts.usecase
 
+import androidx.annotation.StringRes
+
 // region Repo return models
 ////////////////////////////////////////////////////////////////
 
@@ -27,14 +29,18 @@ data class ContactsItemModel(val id: Long, val name: String, val avatarUrl: Stri
 ////////////////////////////////////////////////////////////////
 
 // TODO: rename to DebtorsItemModel
-data class DebtorsListItemModel(
-    val id: Long,
-    val name: String,
-    val amount: Double,
-    val currency: String,
-    val lastDate: Long,
-    val avatarUrl: String
-)
+sealed class DebtorsListItemModel(open val id: Long) {
+    data class Debtor(
+        override val id: Long,
+        val name: String,
+        val amount: Double,
+        val currency: String,
+        val lastDate: Long,
+        val avatarUrl: String
+    ) : DebtorsListItemModel(id)
+
+    data class Title(@StringRes val titleId: Int) : DebtorsListItemModel(titleId.toLong())
+}
 
 data class DebtItemModel(
     val id: Long,

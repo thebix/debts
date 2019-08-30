@@ -9,6 +9,11 @@
     <string name="default_negative_button">Cancel</string>
     <string name="default_dialog_title">Are you sure?</string>
 
+    <!-- Home activity -->
+    <string name="home_pager_tab_all">All</string>
+    <string name="home_pager_tab_debtors">Debtors</string>
+    <string name="home_pager_tab_creditors">Creditors</string>
+
     <!-- Debtors fragment -->
 
     <string name="home_debtors_empty_debt_fields">Empty debtor or debt amount</string>
@@ -39,24 +44,24 @@
 
     <!-- Details fragment -->
 
-    <string name="home_details_debt_title">Debt</string>
-    <string name="home_details_debt_total">Total</string>
-    <string name="home_details_debt_amount" translatable="false">%1$s%2$s</string>
-    <string name="home_details_debt_change">Change</string>
-    <string name="home_details_debt_clear">Clear</string>
-    <string name="home_details_dialog_delete_message">Delete debtor and clear debts history?</string>
-    <string name="home_details_history_title">History</string>
-    <string name="home_details_share_title">Share debt information with</string>
-    <string name="home_details_share_message_borrowed">Hey, %1$s borrowed me %3$s%2$s</string>
-    <string name="home_details_share_message_lent">Hey, I\'ve lent %3$s%2$s to %1$s</string>
-    <string name="home_details_debts_item_sign_borrowed">Borrowed</string>
-    <string name="home_details_debts_item_sign_lent">Lent</string>
-    <string name="home_details_menu_delete">Delete</string>
-    <string name="home_details_menu_share">Share</string>
-    <string name="home_details_clear_all_dialog_confirmation_message">Clear debts history?</string>
-    <string name="home_details_empty_debt_fields">Empty debt amount</string>
-    <string name="home_details_debts_item_menu_remove">Remove</string>
-    <string name="home_details_remove_debt_message">Remove one debt?</string>
+    <string name="details_debt_title">Debt</string>
+    <string name="details_debt_total">Total</string>
+    <string name="details_debt_amount" translatable="false">%1$s%2$s</string>
+    <string name="details_debt_change">Change</string>
+    <string name="details_debt_clear">Clear</string>
+    <string name="details_dialog_delete_message">Delete debtor and clear debts history?</string>
+    <string name="details_history_title">History</string>
+    <string name="details_share_title">Share debt information with</string>
+    <string name="details_share_message_borrowed">Hey, %1$s borrowed me %3$s%2$s</string>
+    <string name="details_share_message_lent">Hey, I\'ve lent %3$s%2$s to %1$s</string>
+    <string name="details_debts_item_sign_borrowed">Borrowed</string>
+    <string name="details_debts_item_sign_lent">Lent</string>
+    <string name="details_menu_delete">Delete</string>
+    <string name="details_menu_share">Share</string>
+    <string name="details_clear_all_dialog_confirmation_message">Clear debts history?</string>
+    <string name="details_empty_debt_fields">Empty debt amount</string>
+    <string name="details_debts_item_menu_remove">Remove</string>
+    <string name="details_remove_debt_message">Remove one debt?</string>
 
     <!-- Preferences activity -->
 
