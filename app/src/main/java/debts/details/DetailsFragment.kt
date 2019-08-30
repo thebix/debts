@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.UiThread
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,22 +19,20 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
-import debts.common.android.BaseActivity
 import debts.common.android.BaseFragment
 import debts.common.android.FragmentArgumentDelegate
 import debts.common.android.FragmentScreenContext
 import debts.common.android.ScreenContextHolder
-import debts.common.android.extensions.getColorCompat
 import debts.common.android.extensions.getDrawableCompat
 import debts.common.android.extensions.showAlert
 import debts.common.android.extensions.toFormattedCurrency
 import debts.common.android.extensions.tryToGoBack
-import debts.home.AddDebtLayout
 import debts.details.adapter.DebtItemLayout
 import debts.details.adapter.DebtsAdapter
 import debts.details.mvi.DetailsIntention
 import debts.details.mvi.DetailsState
 import debts.details.mvi.DetailsViewModel
+import debts.home.AddDebtLayout
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -82,17 +81,12 @@ class DetailsFragment : BaseFragment() {
     private var avatarUrl: String = ""
     private var isBorrowed: Boolean = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        (activity as BaseActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
         inflater.inflate(R.layout.details_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbarView = getView()?.findViewById(R.id.home_toolbar)
+        toolbarView = getView()?.findViewById(R.id.details_toolbar)
         avatarView = getView()?.findViewById(R.id.details_avatar)
         nameView = getView()?.findViewById(R.id.details_name)
         amountView = getView()?.findViewById(R.id.details_debt_amount)
@@ -100,9 +94,10 @@ class DetailsFragment : BaseFragment() {
         clearView = getView()?.findViewById(R.id.details_debt_clear)
         recyclerView = getView()?.findViewById(R.id.details_history)
 
-        setHasOptionsMenu(true)
         toolbarView?.title = ""
-        toolbarView?.setBackgroundColor(context?.getColorCompat(R.color.debts_white) ?: 0)
+        (activity as AppCompatActivity).setSupportActionBar(toolbarView)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setHasOptionsMenu(true)
 
         recyclerView?.apply {
             adapter = this@DetailsFragment.adapter
@@ -117,12 +112,15 @@ class DetailsFragment : BaseFragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        activity?.menuInflater?.inflate(R.menu.home_details_menu, menu)
+        inflater.inflate(R.menu.home_details_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            android.R.id.home -> {
+                activity?.onBackPressed()
+            }
             R.id.home_details_menu_delete -> {
                 context?.showAlert(messageId = R.string.details_dialog_delete_message) {
                     intentionSubject.onNext(
