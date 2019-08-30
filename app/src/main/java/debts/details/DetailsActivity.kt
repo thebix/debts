@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import debts.common.android.BaseActivity
+import debts.common.exeptions.NotExistsException
 import net.thebix.debts.R
 
 class DetailsActivity : BaseActivity() {
@@ -24,7 +25,7 @@ class DetailsActivity : BaseActivity() {
         setContentView(R.layout.details_activity)
 
         if (savedInstanceState == null) {
-            val debtorId = intent?.extras?.getLong(KEY_DEBTOR_ID) ?: 0L
+            val debtorId = intent?.extras?.getLong(KEY_DEBTOR_ID) ?: throw NotExistsException
             replaceFragment(DetailsFragment.createInstance(debtorId), R.id.details_root, false)
         }
     }

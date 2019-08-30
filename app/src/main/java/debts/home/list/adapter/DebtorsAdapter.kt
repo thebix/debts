@@ -51,7 +51,6 @@ class DebtorsAdapter(
                 override fun render(data: DebtorsItemViewModel.TitleItem) {
                     this.text = resources.getString(data.titleId)
                 }
-
             }
             ViewHolderRenderer(layout)
         })
