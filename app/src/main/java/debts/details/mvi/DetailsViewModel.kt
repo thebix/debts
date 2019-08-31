@@ -4,6 +4,7 @@ import debts.common.android.mvi.MviViewModel
 import debts.common.android.mvi.OneShot
 import debts.details.adapter.toDebtsItemViewModel
 import io.reactivex.functions.BiFunction
+import kotlin.math.absoluteValue
 
 class DetailsViewModel(
     interactor: DetailsInteractor
@@ -43,7 +44,7 @@ class DetailsViewModel(
                 is DetailsResult.Debtor ->
                     prevState.copy(
                         name = result.name,
-                        amount = result.amount,
+                        amount = result.amount.absoluteValue,
                         currency = result.currency,
                         avatarUrl = result.avatarUrl
                     )
