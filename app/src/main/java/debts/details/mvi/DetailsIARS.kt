@@ -17,17 +17,16 @@ sealed class DetailsIntention : MviIntention {
         val debtorId: Long,
         val amount: Double,
         val comment: String
-
-    ) : DetailsIntention(), MviInitIntention
+    ) : DetailsIntention()
 
     data class RemoveDebt(val id: Long) : DetailsIntention()
     data class ClearHistory(val id: Long) : DetailsIntention()
     data class RemoveDebtor(val debtorId: Long) : DetailsIntention()
     data class ShareDebtor(
-            val debtorId: Long,
-            val titleText: String,
-            val borrowedTemplate: String,
-            val lentTemplate: String
+        val debtorId: Long,
+        val titleText: String,
+        val borrowedTemplate: String,
+        val lentTemplate: String
     ) : DetailsIntention()
 }
 
@@ -45,10 +44,10 @@ sealed class DetailsAction : MviAction {
     data class ClearHistory(val id: Long) : DetailsAction()
     data class RemoveDebtor(val debtorId: Long) : DetailsAction()
     data class ShareDebtor(
-            val debtorId: Long,
-            val titleText: String,
-            val borrowedTemplate: String,
-            val lentTemplate: String
+        val debtorId: Long,
+        val titleText: String,
+        val borrowedTemplate: String,
+        val lentTemplate: String
     ) : DetailsAction()
 }
 
