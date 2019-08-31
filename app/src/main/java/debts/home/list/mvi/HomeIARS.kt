@@ -18,7 +18,7 @@ sealed class HomeIntention : MviIntention {
         val requestCode: Int
     ) : HomeIntention(), MviInitIntention
 
-    object InitMenu : HomeIntention()
+    object InitMenu : HomeIntention(), MviInitIntention
     data class Filter(val name: String = "") : HomeIntention()
     object ToggleSortByName : HomeIntention()
     object ToggleSortByAmount : HomeIntention()
