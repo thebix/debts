@@ -10,8 +10,6 @@ class HomeViewModel(
     interactor: HomeInteractor
 ) : MviViewModel<HomeIntention, HomeAction, HomeResult, HomeState>(interactor) {
 
-    private var sortType: SortType = SortType.NOTHING
-
     override val defaultState: HomeState
         get() = HomeState()
 
@@ -20,15 +18,15 @@ class HomeViewModel(
             is HomeIntention.Init -> HomeAction.Init(intent.contactPermission, intent.requestCode)
             HomeIntention.InitMenu -> HomeAction.InitMenu
             is HomeIntention.Filter -> HomeAction.Filter(intent.name)
-            HomeIntention.ToggleSortByAmount -> HomeAction.SortBy(
-                when (sortType) {
+            is HomeIntention.ToggleSortByAmount -> HomeAction.SortBy(
+                when (intent.currentSortType) {
                     SortType.AMOUNT_ASC -> SortType.AMOUNT_DESC
                     SortType.AMOUNT_DESC -> SortType.NOTHING
                     else -> SortType.AMOUNT_ASC
                 }
             )
-            HomeIntention.ToggleSortByName -> HomeAction.SortBy(
-                when (sortType) {
+            is HomeIntention.ToggleSortByName -> HomeAction.SortBy(
+                when (intent.currentSortType) {
                     SortType.NAME_ASC -> SortType.NAME_DESC
                     SortType.NAME_DESC -> SortType.NOTHING
                     else -> SortType.NAME_ASC
@@ -55,9 +53,8 @@ class HomeViewModel(
                 HomeResult.Error ->
                     prevState.copy(isError = OneShot(true))
                 is HomeResult.SortBy -> {
-                    sortType = result.sortType
                     prevState.copy(
-                        sortType = result.sortType
+                        sortType = OneShot(result.sortType)
                     )
                 }
                 is HomeResult.ShowAddDebtDialog ->

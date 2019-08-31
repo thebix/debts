@@ -56,7 +56,6 @@ class HomeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
-
         val pager = findViewById<ViewPager>(R.id.home_pager)
         val tabsTitles = listOf<String>(
             this.getString(R.string.home_pager_tab_all),
@@ -74,7 +73,7 @@ class HomeActivity : BaseActivity() {
         setSupportActionBar(toolbarView)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         toolbarView.title = getString(R.string.app_name)
-        toolbarView.setBackgroundColor(applicationContext.getColorCompat(R.color.colorPrimary) ?: 0)
+        toolbarView.setBackgroundColor(applicationContext.getColorCompat(R.color.colorPrimary))
 
         fabView = findViewById(R.id.home_fab)
     }
@@ -128,11 +127,11 @@ class HomeActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.home_debtors_menu_sort_name -> {
-                intentionSubject.onNext(HomeIntention.ToggleSortByName)
+                intentionSubject.onNext(HomeIntention.ToggleSortByName(sortType))
                 return true
             }
             R.id.home_debtors_menu_sort_amount -> {
-                intentionSubject.onNext(HomeIntention.ToggleSortByAmount)
+                intentionSubject.onNext(HomeIntention.ToggleSortByAmount(sortType))
                 return true
             }
             R.id.home_debtors_menu_settings -> {
@@ -160,19 +159,21 @@ class HomeActivity : BaseActivity() {
     private fun render(state: HomeState) {
         Timber.d("State is: $state")
         with(state) {
-            if (this@HomeActivity.sortType != sortType) {
-                this@HomeActivity.sortType = sortType
-                val sortName = menu.findItem(R.id.home_debtors_menu_sort_name)
-                val sortAmount = menu.findItem(R.id.home_debtors_menu_sort_amount)
-                sortAmount.setIcon(R.drawable.ic_arrow_drop_down)
-                sortName.setIcon(R.drawable.ic_arrow_drop_down)
-                when (sortType) {
-                    SortType.AMOUNT_DESC -> sortAmount.setIcon(R.drawable.ic_clear)
-                    SortType.AMOUNT_ASC -> sortAmount.setIcon(R.drawable.ic_arrow_drop_up)
-                    SortType.NAME_DESC -> sortName.setIcon(R.drawable.ic_clear)
-                    SortType.NAME_ASC -> sortName.setIcon(R.drawable.ic_arrow_drop_up)
-                    else -> {
-                        // no-op
+            if (::menu.isInitialized) {
+                sortType.get(this)?.let { sortType ->
+                    this@HomeActivity.sortType = sortType
+                    val sortName = menu.findItem(R.id.home_debtors_menu_sort_name)
+                    val sortAmount = menu.findItem(R.id.home_debtors_menu_sort_amount)
+                    sortAmount.setIcon(R.drawable.ic_arrow_drop_down)
+                    sortName.setIcon(R.drawable.ic_arrow_drop_down)
+                    when (sortType) {
+                        SortType.AMOUNT_DESC -> sortAmount.setIcon(R.drawable.ic_clear)
+                        SortType.AMOUNT_ASC -> sortAmount.setIcon(R.drawable.ic_arrow_drop_up)
+                        SortType.NAME_DESC -> sortName.setIcon(R.drawable.ic_clear)
+                        SortType.NAME_ASC -> sortName.setIcon(R.drawable.ic_arrow_drop_up)
+                        else -> {
+                            // no-op
+                        }
                     }
                 }
             }

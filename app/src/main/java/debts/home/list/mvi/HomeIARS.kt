@@ -18,10 +18,10 @@ sealed class HomeIntention : MviIntention {
         val requestCode: Int
     ) : HomeIntention(), MviInitIntention
 
-    object InitMenu : HomeIntention(), MviInitIntention
+    object InitMenu : HomeIntention()
     data class Filter(val name: String = "") : HomeIntention()
-    object ToggleSortByName : HomeIntention()
-    object ToggleSortByAmount : HomeIntention()
+    data class ToggleSortByName(val currentSortType: SortType) : HomeIntention()
+    data class ToggleSortByAmount(val currentSortType: SortType) : HomeIntention()
 
     object OpenSettings : HomeIntention()
     data class ShareAllDebts(val titleText: String) : HomeIntention()
@@ -86,7 +86,7 @@ sealed class HomeResult : MviResult {
 }
 
 data class HomeState(
-    val sortType: SortType = SortType.NOTHING,
+    val sortType: OneShot<SortType> = OneShot.empty(),
     val isError: OneShot<Boolean> = OneShot.empty(),
     val contacts: List<ContactsItemViewModel> = emptyList(),
     val showAddDebtDialog: OneShot<Boolean> = OneShot.empty()
