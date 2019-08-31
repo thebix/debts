@@ -3,7 +3,7 @@ package debts.usecase
 import debts.home.list.TabTypes
 import debts.repository.DebtsRepository
 import io.reactivex.Observable
-import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 
 class ObserveDebtorsListItemsUseCase(
     private val repository: DebtsRepository
@@ -14,8 +14,9 @@ class ObserveDebtorsListItemsUseCase(
             .combineLatest(
                 repository.observeDebtors(),
                 repository.observeDebts(),
-                BiFunction { debtors, debts ->
-                    return@BiFunction debtors.map { debtor ->
+                repository.getCurrency().toObservable(),
+                Function3 { debtors, debts, defaultCurrency ->
+                    return@Function3 debtors.map { debtor ->
                         val debtorDebts = debts.filter { it.debtorId == debtor.id }
                         val amount = debtorDebts.sumByDouble { it.amount }
                         val lastDebt = debts.sortedByDescending { it.date }
@@ -24,7 +25,7 @@ class ObserveDebtorsListItemsUseCase(
                             debtor.id,
                             debtor.name,
                             amount,
-                            lastDebt?.currency ?: "",
+                            lastDebt?.currency ?: defaultCurrency,
                             lastDebt?.date ?: 0,
                             debtor.avatarUrl
                         )
