@@ -29,4 +29,9 @@ class DetailsActivity : BaseActivity() {
             replaceFragment(DetailsFragment.createInstance(debtorId), R.id.details_root, false)
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        this.overridePendingTransition(0, R.anim.fade_out_activity)
+    }
 }
