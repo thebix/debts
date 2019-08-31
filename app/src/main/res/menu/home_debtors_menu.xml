@@ -7,13 +7,13 @@
         android:icon="@drawable/ic_search"
         android:title="@string/home_debtors_menu_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView" />
+        app:showAsAction="always|collapseActionView" />
 
     <item
         android:id="@+id/home_debtors_menu_sort"
         android:icon="@drawable/ic_sort"
         android:title="@string/home_debtors_menu_sort"
-        app:showAsAction="ifRoom">
+        app:showAsAction="always">
         <menu>
             <item
                 android:id="@+id/home_debtors_menu_sort_name"
