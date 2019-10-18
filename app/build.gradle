@@ -56,7 +56,9 @@ android {
 }
 
 dependencies {
+    implementation libs.androidxAppCompat
     implementation libs.androidxConstraintLayout
+    implementation libs.androidxCore
     implementation libs.androidxDesign
     kapt libs.androidxLifecycleCompiler
     implementation libs.androidxPreference
