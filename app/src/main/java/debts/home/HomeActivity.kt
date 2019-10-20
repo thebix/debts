@@ -29,7 +29,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import net.thebix.debts.R
 import org.koin.android.ext.android.inject
-import org.koin.android.viewmodel.ext.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class HomeActivity : BaseActivity() {

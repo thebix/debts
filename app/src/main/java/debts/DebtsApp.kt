@@ -4,11 +4,7 @@ import android.app.Application
 import com.crashlytics.android.Crashlytics
 import com.squareup.leakcanary.LeakCanary
 import debts.common.TimberCrashlyticsTree
-import debts.di.appModule
-import debts.di.interactorModule
-import debts.di.repositoriesModule
-import debts.di.useCasesModule
-import debts.di.viewModelModule
+import debts.di.*
 import io.fabric.sdk.android.Fabric
 import net.thebix.debts.BuildConfig
 import org.koin.android.ext.koin.androidContext
@@ -36,11 +32,13 @@ class DebtsApp : Application() {
             androidLogger()
             androidContext(this@DebtsApp)
             modules(
-                appModule,
-                repositoriesModule,
-                useCasesModule,
-                interactorModule,
-                viewModelModule
+                listOf(
+                    appModule,
+                    repositoriesModule,
+                    useCasesModule,
+                    interactorModule,
+                    viewModelModule
+                )
             )
         }
     }

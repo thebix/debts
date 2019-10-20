@@ -17,22 +17,11 @@ import debts.home.list.mvi.HomeViewModel
 import debts.preferences.main.mvi.MainSettingsInteractor
 import debts.preferences.main.mvi.MainSettingsViewModel
 import debts.repository.DebtsRepository
-import debts.usecase.AddDebtUseCase
-import debts.usecase.ClearHistoryUseCase
-import debts.usecase.CreateDebtorUseCase
-import debts.usecase.GetContactsUseCase
-import debts.usecase.GetDebtsCsvContentUseCase
-import debts.usecase.GetShareDebtorContentUseCase
-import debts.usecase.ObserveDebtorUseCase
-import debts.usecase.ObserveDebtorsListItemsUseCase
-import debts.usecase.ObserveDebtsUseCase
-import debts.usecase.RemoveDebtUseCase
-import debts.usecase.RemoveDebtorUseCase
-import debts.usecase.SyncDebtorsWithContactsUseCase
-import debts.usecase.UpdateDbDebtsCurrencyUseCase
+import debts.usecase.*
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
-import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.StringQualifier
 import org.koin.dsl.module
 
 fun getDebtorsDebtsNavigatorName(page: Int) = "${ScreenContextHolder.FRAGMENT_DEBTORS}$page"
@@ -97,21 +86,21 @@ val useCasesModule = module {
 }
 
 val interactorModule = module {
-    single(name = ScreenContextHolder.FRAGMENT_MAIN_PREFERENCES) {
+    single(qualifier = StringQualifier(ScreenContextHolder.FRAGMENT_MAIN_PREFERENCES)) {
         DebtsNavigator(
             screenContextHolder = get(),
             applicationContext = androidContext(),
             name = ScreenContextHolder.FRAGMENT_MAIN_PREFERENCES
         )
     }
-    single(name = ScreenContextHolder.FRAGMENT_DETAILS) {
+    single(qualifier = StringQualifier(ScreenContextHolder.FRAGMENT_DETAILS)) {
         DebtsNavigator(
             screenContextHolder = get(),
             applicationContext = androidContext(),
             name = ScreenContextHolder.FRAGMENT_DETAILS
         )
     }
-    single(name = ScreenContextHolder.ACTIVITY_HOME) {
+    single(qualifier = StringQualifier(ScreenContextHolder.ACTIVITY_HOME)) {
         DebtsNavigator(
             screenContextHolder = get(),
             applicationContext = androidContext(),
@@ -120,7 +109,7 @@ val interactorModule = module {
     }
     for (page in 0..2) {
         // TODO: factory?
-        single(name = getDebtorsDebtsNavigatorName(page)) {
+        single(qualifier = StringQualifier(getDebtorsDebtsNavigatorName(page))) {
             DebtsNavigator(
                 screenContextHolder = get(),
                 applicationContext = androidContext(),
@@ -128,11 +117,11 @@ val interactorModule = module {
             )
         }
         // TODO: factory?
-        single(getDebtorsInteractorName(page)) {
+        single(qualifier = StringQualifier(getDebtorsInteractorName(page))) {
             DebtorsInteractor(
                 observeDebtorsListItemsUseCase = get(),
                 removeDebtorUseCase = get(),
-                debtsNavigator = get(getDebtorsDebtsNavigatorName(page)),
+                debtsNavigator = get(qualifier = StringQualifier(getDebtorsDebtsNavigatorName(page))),
                 getShareDebtorContentUseCase = get(),
                 repository = get()
             )
@@ -140,7 +129,7 @@ val interactorModule = module {
     }
     factory {
         DetailsInteractor(
-            debtsNavigator = get(ScreenContextHolder.FRAGMENT_DETAILS),
+            debtsNavigator = get(qualifier = StringQualifier(ScreenContextHolder.FRAGMENT_DETAILS)),
             clearHistoryUseCase = get(),
             addDebtUseCase = get(),
             observeDebtorUseCase = get(),
@@ -153,7 +142,7 @@ val interactorModule = module {
     }
     factory {
         MainSettingsInteractor(
-            debtsNavigator = get(ScreenContextHolder.FRAGMENT_MAIN_PREFERENCES),
+            debtsNavigator = get(qualifier = StringQualifier(ScreenContextHolder.FRAGMENT_MAIN_PREFERENCES)),
             updateDbDebtsCurrencyUseCase = get(),
             syncDebtorsWithContactsUseCase = get()
         )
@@ -162,7 +151,7 @@ val interactorModule = module {
         HomeInteractor(
             getContactsUseCase = get(),
             addDebtUseCase = get(),
-            debtsNavigator = get(ScreenContextHolder.ACTIVITY_HOME),
+            debtsNavigator = get(qualifier = StringQualifier(ScreenContextHolder.ACTIVITY_HOME)),
             getDebtsCsvContentUseCase = get(),
             observeDebtorsListItemsUseCase = get(),
             syncDebtorsWithContactsUseCase = get(),
@@ -174,7 +163,13 @@ val interactorModule = module {
 
 val viewModelModule = module {
     for (page in 0..2) {
-        viewModel(getDebtorsViewModelName(page)) { DebtorsViewModel(interactor = get(getDebtorsInteractorName(page))) }
+        viewModel(qualifier = StringQualifier(getDebtorsViewModelName(page))) {
+            DebtorsViewModel(
+                interactor = get(
+                    qualifier = StringQualifier(getDebtorsInteractorName(page))
+                )
+            )
+        }
     }
     viewModel { DetailsViewModel(interactor = get()) }
     viewModel { MainSettingsViewModel(interactor = get()) }

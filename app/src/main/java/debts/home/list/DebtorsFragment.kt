@@ -28,7 +28,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import net.thebix.debts.R
 import org.koin.android.ext.android.inject
-import org.koin.android.viewmodel.ext.getViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.core.qualifier.StringQualifier
 import timber.log.Timber
 
 class DebtorsFragment : BaseFragment() {
@@ -86,7 +87,7 @@ class DebtorsFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = getViewModel(getDebtorsViewModelName(page))
+        viewModel = getViewModel(StringQualifier(getDebtorsViewModelName(page)))
         isConfigurationChange = savedInstanceState != null
     }
 

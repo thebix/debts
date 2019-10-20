@@ -6,7 +6,7 @@ ext.androidConfig = [
 ]
 ext.versions = [
         glide        : "4.9.0",
-        koin         : "2.0.0-beta-1",
+        koin         : "2.0.1",
         leakCanary   : '1.6.3',
         room         : "2.1.0-alpha05"
 ]
@@ -23,8 +23,8 @@ ext.libs = [
         glide                    : "com.github.bumptech.glide:glide:$versions.glide",
         glideCompiler            : "com.github.bumptech.glide:compiler:$versions.glide",
         koin                     : "org.koin:koin-android:$versions.koin",
-        koinScope                : "org.koin:koin-android-scope:$versions.koin",
-        koinViewModel            : "org.koin:koin-android-viewmodel:$versions.koin",
+        koinScope                : "org.koin:koin-androidx-scope:$versions.koin",
+        koinViewModel            : "org.koin:koin-androidx-viewmodel:$versions.koin",
         koptional                : "com.gojuno.koptional:koptional:1.6.0",
         kotlin                   : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
         leakCanary               : "com.squareup.leakcanary:leakcanary-android:$versions.leakCanary",
