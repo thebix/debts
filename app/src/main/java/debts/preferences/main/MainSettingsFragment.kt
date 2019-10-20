@@ -68,12 +68,12 @@ class MainSettingsFragment : PreferenceFragmentCompat() {
         (activity as BaseActivity).setSupportActionBar(toolbarView)
         (activity as BaseActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        currencyListPref = preferenceScreen.findPreference("preference_main_settings_currency") as ListPreference
+        currencyListPref = preferenceScreen.findPreference("preference_main_settings_currency")
         currencyCustomPref =
-            preferenceScreen.findPreference("preference_main_settings_currency_custom") as EditTextPreference
-        syncContactsPref = preferenceScreen.findPreference("preference_main_settings_sync_contacts") as Preference
+            preferenceScreen.findPreference("preference_main_settings_currency_custom")
+        syncContactsPref = preferenceScreen.findPreference("preference_main_settings_sync_contacts")
 
-        (preferenceScreen.findPreference("preference_main_settings_version") as Preference).summary =
+        preferenceScreen.findPreference<Preference>("preference_main_settings_version")?.summary =
             "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
 
         currencyCustomPref?.isVisible = currencyListPref?.value == "Custom"
