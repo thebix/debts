@@ -11,7 +11,7 @@ ext.versions = [
 ]
 ext.libs = [
         androidxAppCompat        : "androidx.appcompat:appcompat:1.1.0",
-        androidxConstraintLayout : "androidx.constraintlayout:constraintlayout:2.0.0-alpha3",
+        androidxConstraintLayout : "androidx.constraintlayout:constraintlayout:2.0.0-beta2",
         androidxCore             : "androidx.core:core-ktx:1.1.0",
         androidxDesign           : "com.google.android.material:material:1.1.0-alpha04",
         androidxLifecycleCompiler: "androidx.lifecycle:lifecycle-compiler:2.1.0-alpha03",
