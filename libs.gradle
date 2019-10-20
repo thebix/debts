@@ -17,7 +17,7 @@ ext.libs = [
         androidxLifecycleCompiler: "androidx.lifecycle:lifecycle-compiler:2.1.0",
         androidxPreference       : "androidx.preference:preference-ktx:1.1.0",
         circleimageview          : "de.hdodenhof:circleimageview:3.0.1",
-        crashlytics              : "com.crashlytics.sdk.android:crashlytics:2.9.9",
+        crashlytics              : "com.crashlytics.sdk.android:crashlytics:2.10.1",
         firebaseCore             : "com.google.firebase:firebase-core:16.0.8",
         glide                    : "com.github.bumptech.glide:glide:$versions.glide",
         glideCompiler            : "com.github.bumptech.glide:compiler:$versions.glide",
