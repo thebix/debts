@@ -73,8 +73,6 @@ dependencies {
     implementation libs.koptional
     implementation libs.kotlin
     debugImplementation libs.leakCanary
-    releaseImplementation libs.leakCanaryNoOp
-    debugImplementation libs.leakCanarySupportFragment
     implementation libs.room
     kapt libs.roomCompiler
     implementation libs.roomRxJava
