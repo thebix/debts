@@ -5,19 +5,12 @@ import android.util.AttributeSet
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RadioGroup
+import android.widget.ScrollView
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding3.widget.textChanges
-import debts.common.android.extensions.applyLayoutParams
-import debts.common.android.extensions.doInRuntime
-import debts.common.android.extensions.selfInflate
-import debts.common.android.extensions.setPaddingBottomResCompat
-import debts.common.android.extensions.setPaddingEndResCompat
-import debts.common.android.extensions.setPaddingStartResCompat
-import debts.common.android.extensions.setPaddingTopResCompat
-import debts.common.android.extensions.showKeyboard
+import debts.common.android.extensions.*
 import debts.home.list.adapter.ContactsAdapter
 import debts.home.list.adapter.ContactsItemViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -30,7 +23,7 @@ class AddDebtLayout @JvmOverloads constructor(
     private val contacts: List<ContactsItemViewModel> = emptyList(),
     private val name: String = "",
     private val avatarUrl: String = ""
-) : ConstraintLayout(context, attrs, defStyleAttr) {
+) : ScrollView(context, attrs, defStyleAttr) {
 
     private companion object {
 
