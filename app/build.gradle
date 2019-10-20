@@ -14,7 +14,6 @@ android {
         }
     }
     compileSdkVersion androidConfig.compileSdkVersion
-    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId 'net.thebix.debts'
         minSdkVersion androidConfig.minSdkVersion
