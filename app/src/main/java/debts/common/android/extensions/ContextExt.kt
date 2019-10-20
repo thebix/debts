@@ -12,8 +12,8 @@ import android.view.View
 import androidx.annotation.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
-import timber.log.Timber
 import net.thebix.debts.R
+import timber.log.Timber
 
 // region Resources
 ///////////////////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@ fun Context.isPermissionGranted(permission: String): Boolean {
         // issue discussions:
         //    https://github.com/permissions-dispatcher/PermissionsDispatcher/issues/107
         //    https://github.com/Karumi/Dexter/issues/86
-        Timber.e("Unexpected exception occurred while checking $permission permission.")
+        Timber.e(UnknownError("Unexpected exception occurred while checking $permission permission."))
         PackageManager.PERMISSION_DENIED
     }
     return permissionResult == PackageManager.PERMISSION_GRANTED
