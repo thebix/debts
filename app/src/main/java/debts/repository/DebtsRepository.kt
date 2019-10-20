@@ -49,34 +49,37 @@ class DebtsRepository(
             .take(1)
             .single(emptyList())
 
-    @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     fun getContacts(): Single<List<ContactsItemModel>> =
         Single.fromCallable {
             val items = mutableListOf<ContactsItemModel>()
-            val cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null)
-            if (cursor?.count ?: 0 > 0) {
-                while (cursor.moveToNext()) {
-                    val id = cursor.getLong(
-                        cursor.getColumnIndex(ContactsContract.Contacts._ID)
-                    )
-                    val name = cursor.getString(
-                        cursor.getColumnIndex(
-                            ContactsContract.Contacts.DISPLAY_NAME
+            val cursor =
+                contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null)
+            cursor?.let {
+                if (cursor.count > 0) {
+                    while (cursor.moveToNext()) {
+                        val id = cursor.getLong(
+                            cursor.getColumnIndex(ContactsContract.Contacts._ID)
                         )
-                    )
-                    val avatar = cursor.getString(
-                        cursor.getColumnIndex(
-                            ContactsContract.Contacts.PHOTO_URI
+                        val name = cursor.getString(
+                            cursor.getColumnIndex(
+                                ContactsContract.Contacts.DISPLAY_NAME
+                            )
                         )
-                    )
-                    items.add(
-                        ContactsItemModel(
-                            id, name ?: "", avatar ?: ""
+                        val avatar = cursor.getString(
+                            cursor.getColumnIndex(
+                                ContactsContract.Contacts.PHOTO_URI
+                            )
                         )
-                    )
+                        items.add(
+                            ContactsItemModel(
+                                id, name ?: "", avatar ?: ""
+                            )
+                        )
+                    }
                 }
             }
-            cursor.close()
+
+            cursor?.close()
 
             items
         }
