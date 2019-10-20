@@ -14,7 +14,7 @@ ext.libs = [
         androidxConstraintLayout : "androidx.constraintlayout:constraintlayout:2.0.0-beta2",
         androidxCore             : "androidx.core:core-ktx:1.1.0",
         androidxDesign           : "com.google.android.material:material:1.1.0-beta01",
-        androidxLifecycleCompiler: "androidx.lifecycle:lifecycle-compiler:2.1.0-alpha03",
+        androidxLifecycleCompiler: "androidx.lifecycle:lifecycle-compiler:2.1.0",
         androidxPreference       : "androidx.preference:preference:1.0.0",
         circleimageview          : "de.hdodenhof:circleimageview:3.0.0",
         crashlytics              : "com.crashlytics.sdk.android:crashlytics:2.9.9",
