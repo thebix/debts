@@ -13,7 +13,7 @@ class ObserveDebtorUseCase(
             repository.observeDebtor(debtorId),
             repository.observeDebts(debtorId)
                 .startWith(emptyList<DebtModel>()),
-            repository.getCurrency().toObservable(),
+            repository.observeCurrency(),
             Function3 { debtor, debts, currency ->
                 DebtorDetailsModel(
                     debtor.name,

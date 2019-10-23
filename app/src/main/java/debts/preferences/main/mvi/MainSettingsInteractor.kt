@@ -1,7 +1,8 @@
 package debts.preferences.main.mvi
 
-import debts.common.android.mvi.MviInteractor
 import debts.common.android.DebtsNavigator
+import debts.common.android.mvi.MviInteractor
+import debts.repository.DebtsRepository
 import debts.usecase.SyncDebtorsWithContactsUseCase
 import debts.usecase.UpdateDbDebtsCurrencyUseCase
 import io.reactivex.Observable
@@ -12,13 +13,16 @@ import timber.log.Timber
 class MainSettingsInteractor(
     private val debtsNavigator: DebtsNavigator,
     private val updateDbDebtsCurrencyUseCase: UpdateDbDebtsCurrencyUseCase,
-    private val syncDebtorsWithContactsUseCase: SyncDebtorsWithContactsUseCase
+    private val syncDebtorsWithContactsUseCase: SyncDebtorsWithContactsUseCase,
+    private val repository: DebtsRepository
 ) : MviInteractor<MainSettingsAction, MainSettingsResult> {
 
     private val updateCurrencyProcessor =
         ObservableTransformer<MainSettingsAction.UpdateCurrency, MainSettingsResult> { actions ->
             actions.switchMap {
                 updateDbDebtsCurrencyUseCase.execute()
+                    // to send new currency to all observers
+                    .andThen(repository.setCurrency(it.currency))
                     .subscribeOn(Schedulers.io())
                     .toSingleDefault(MainSettingsResult.UpdateCurrencyEnd as MainSettingsResult)
                     .doOnError { Timber.e(it) }

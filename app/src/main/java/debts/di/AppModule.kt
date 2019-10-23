@@ -144,7 +144,8 @@ val interactorModule = module {
         MainSettingsInteractor(
             debtsNavigator = get(qualifier = StringQualifier(ScreenContextHolder.FRAGMENT_MAIN_PREFERENCES)),
             updateDbDebtsCurrencyUseCase = get(),
-            syncDebtorsWithContactsUseCase = get()
+            syncDebtorsWithContactsUseCase = get(),
+            repository = get()
         )
     }
     factory {

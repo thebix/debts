@@ -14,7 +14,7 @@ class ObserveDebtorsListItemsUseCase(
             .combineLatest(
                 repository.observeDebtors(),
                 repository.observeDebts(),
-                repository.getCurrency().toObservable(),
+                repository.observeCurrency(),
                 Function3 { debtors, debts, defaultCurrency ->
                     return@Function3 debtors.map { debtor ->
                         val debtorDebts = debts.filter { it.debtorId == debtor.id }

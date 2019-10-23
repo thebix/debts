@@ -12,7 +12,7 @@ import debts.usecase.DebtorModel
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import java.util.Date
+import java.util.*
 
 class DebtsRepository(
     private val contentResolver: ContentResolver,
@@ -145,6 +145,7 @@ class DebtsRepository(
         Completable.fromCallable { preferences.putBoolean(PREFS_IS_CONTACT_SYNCED, isSynced) }
 
     fun getCurrency() = Single.fromCallable { preferences.getString(PREFS_CURRENCY, "") }
+    fun observeCurrency() = preferences.observeString(PREFS_CURRENCY, "")
     fun setCurrency(currency: String) =
         Completable.fromCallable { preferences.putString(PREFS_CURRENCY, currency) }
 
