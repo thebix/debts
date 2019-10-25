@@ -74,7 +74,7 @@ class MainSettingsFragment : PreferenceFragmentCompat() {
         syncContactsPref = preferenceScreen.findPreference("preference_main_settings_sync_contacts")
 
         preferenceScreen.findPreference<Preference>("preference_main_settings_version")?.summary =
-            "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+            "${BuildConfig.VERSION_NAME}"
 
         currencyCustomPref?.isVisible = currencyListPref?.value == "Custom"
 

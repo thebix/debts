@@ -20,7 +20,7 @@ android {
         targetSdkVersion androidConfig.targetSdkVersion
         // TODO: increase version to 2.0.0 before release
         versionCode 10
-        versionName '1.0.3'
+        versionName "1.0.3.$versionCode"
 
         javaCompileOptions {
             annotationProcessorOptions {
