@@ -25,8 +25,6 @@
     <string name="home_debtors_menu_sort">Sort</string>
     <string name="home_debtors_menu_sort_name">Name</string>
     <string name="home_debtors_menu_sort_amount">Amount</string>
-    <string name="home_debtors_item_amount" translatable="false">%1$s%2$s</string>
-    <string name="home_debtors_item_date" translatable="false">- %1$s</string>
     <string name="home_debtors_item_menu_remove">Remove</string>
     <string name="home_debtors_item_menu_share">Share</string>
 
@@ -46,7 +44,6 @@
 
     <string name="details_debt_title">Debt</string>
     <string name="details_debt_total">Total</string>
-    <string name="details_debt_amount" translatable="false">%1$s%2$s</string>
     <string name="details_debt_change">Change</string>
     <string name="details_debt_clear">Clear</string>
     <string name="details_dialog_delete_message">Delete debtor and clear debts history?</string>
