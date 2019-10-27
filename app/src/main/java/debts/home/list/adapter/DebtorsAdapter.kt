@@ -7,11 +7,7 @@ import debts.common.android.adapters.DelegatedAdapter
 import debts.common.android.adapters.ItemRenderer
 import debts.common.android.adapters.TypedAdapterDelegate
 import debts.common.android.adapters.ViewHolderRenderer
-import debts.common.android.extensions.applyLayoutParams
-import debts.common.android.extensions.doInRuntime
-import debts.common.android.extensions.setPaddingBottomResCompat
-import debts.common.android.extensions.setPaddingStartResCompat
-import debts.common.android.extensions.setPaddingTopResCompat
+import debts.common.android.extensions.*
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -42,8 +38,8 @@ class DebtorsAdapter(
                         setPaddingTopResCompat(R.dimen.padding_8dp)
                         setPaddingBottomResCompat(R.dimen.padding_8dp)
                         setPaddingStartResCompat(R.dimen.padding_16dp)
-                        setBackgroundColor(context.getColor(R.color.colorAccent))
-                        setTextColor(context.getColor(R.color.debts_white))
+                        setBackgroundColor(context.getColorCompat(R.color.colorAccent))
+                        setTextColor(context.getColorCompat(R.color.debts_white))
                         isAllCaps = true
                     }
                 }
