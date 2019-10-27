@@ -228,9 +228,9 @@ class DetailsFragment : BaseFragment() {
             amountView?.text = context?.getString(R.string.details_debt_amount, currency, amount.toFormattedCurrency())
             isBorrowed = amount < 0
             this@DetailsFragment.avatarUrl = avatarUrl
-            if (avatarUrl.isNotBlank() && avatarView != null) {
+            if (avatarView != null) {
                 Glide.with(avatarView!!)
-                    .load(avatarUrl)
+                    .load(if (avatarUrl.isNotBlank()) avatarUrl else R.drawable.ic_launcher)
                     .placeholder(R.drawable.ic_launcher)
                     .error(R.drawable.ic_launcher)
                     .fallback(R.drawable.ic_launcher)

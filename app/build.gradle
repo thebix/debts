@@ -60,8 +60,6 @@ dependencies {
     implementation libs.androidxDesign
     kapt libs.androidxLifecycleCompiler
     implementation libs.androidxPreference
-    // TODO: remove this dependency
-    implementation libs.circleimageview
     implementation libs.crashlytics
     implementation libs.firebaseCore
     implementation libs.glide
