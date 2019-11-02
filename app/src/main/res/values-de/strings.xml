@@ -1,33 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">"Schulden"</string>
 
-    <string name="app_name">Schulden</string>
-    <string name="details_history_title">Schuldgeschichte</string>
-    <string name="home_debtors_menu_settings">Einstellungen</string>
-    <string name="home_debtors_menu_sort">Sortieren</string>
-    <string name="home_debtors_menu_sort_amount">Anzahl</string>
-    <string name="details_debt_clear">Löschen</string>
-    <string name="home_debtors_toast_debt_added">Schuld wurde hinzugefügt</string>
-    <string name="home_add_debt_amount_error">Zahlenwert ist zu lang</string>
-    <string name="default_positive_button">Fertig</string>
-    <string name="default_negative_button">Abbrechen</string>
-    <string name="home_add_debt_title">Schuld hinzufügen</string>
-    <string name="details_menu_delete">Löschen</string>
-    <string name="details_debt_title">Schuld</string>
-    <string name="default_dialog_title">Sind Sie sicher?</string>
-    <string name="details_dialog_delete_message">Löschen den Schuldner und die Schuldgeschichte?</string>
-    <string name="details_clear_all_dialog_confirmation_message">Löschen die Schuldgeschichte?</string>
-    <string name="details_remove_debt_message">Löschen eine Schuld?</string>
-    <string name="details_debt_total">Total</string>
-    <string name="details_debts_item_sign_lent">Verlieh</string>
-    <string name="details_debts_item_sign_borrowed">Entlieh</string>
-    <string name="home_add_debt_name">Name</string>
-    <string name="home_debtors_menu_sort_name">Name</string>
-    <string name="settings_title">Einstellungen</string>
-    <string name="home_debtors_item_menu_share">Teilen</string>
-    <string name="details_menu_share">Teilen</string>
-    <string name="home_debtors_menu_search">Suchen</string>
-    <string name="home_debtors_search_hint">Suchen</string>
-    <string name="preference_main_settings_general_title">Allgemeine</string>
+    <!-- Defaults -->
+    <string name="default_positive_button">"Fertig"</string>
+    <string name="default_negative_button">"Abbrechen"</string>
+    <string name="default_dialog_title">"Sind Sie sicher?"</string>
 
+    <!-- Home activity -->
+    <string name="home_pager_tab_all">"Alles"</string>
+    <string name="home_pager_tab_debtors">"Schuldner"</string>
+    <string name="home_pager_tab_creditors">"Geldgeber"</string>
+
+    <!-- Debtors fragment -->
+    <string name="home_debtors_empty_debt_fields">"Schuldner oder Schuld löschen"</string>
+    <string name="home_debtors_search_hint">"Suchen"</string>
+    <string name="home_debtors_share_title">"Alle Schulden als .csv-Datei teilen"</string>
+    <string name="home_debtors_toast_debt_added">"Schuld wurde hinzugefügt"</string>
+    <string name="home_debtors_menu_search">"Suchen"</string>
+    <string name="home_debtors_menu_settings">"Einstellungen"</string>
+    <string name="home_debtors_menu_sort">"Sortieren"</string>
+    <string name="home_debtors_menu_sort_name">"Name"</string>
+    <string name="home_debtors_menu_sort_amount">"Anzahl"</string>
+    <string name="home_debtors_item_menu_remove">"Löschen"</string>
+    <string name="home_debtors_item_menu_share">"Teilen"</string>
+
+    <!-- AddDebt dialog -->
+    <string name="home_add_debt_title">"Schuld hinzufügen"</string>
+    <string name="home_add_debt_name">"Name"</string>
+
+    <!-- Не факт -->
+    <string name="home_add_debt_action">"Aktion"</string>
+    <string name="home_add_debt_add">"Verlieh"</string>
+    <string name="home_add_debt_subtract">"Entlieh"</string>
+    <string name="home_add_debt_amount">"Betrag"</string>
+    <string name="home_add_debt_amount_error">"Zahlenwert ist zu lang"</string>
+    <string name="home_add_debt_comment">"Kommentar"</string>
+    <string name="home_add_debt_confirm">"Bestätigen"</string>
+
+    <!-- Details fragment -->
+    <string name="details_debt_title">"Schuld"</string>
+    <string name="details_debt_total">"Total"</string>
+    <string name="details_debt_change">"Ändern"</string>
+    <string name="details_debt_clear">"Löschen"</string>
+    <string name="details_dialog_delete_message">"Löschen den Schuldner und die Schuldgeschichte?"</string>
+    <string name="details_history_title">"Schuldgeschichte"</string>
+    <string name="details_share_title">"Schuldeninformationen teilen"</string>
+
+    <!-- Meh -->
+    <string name="details_share_message_borrowed">"Hey, %1$s von mir entliehen %3$s%2$s"</string>
+
+    <!-- Meh -->
+    <string name="details_share_message_lent">"Hey, ich habe %3$s%2$s %1$s verliehen"</string>
+    <string name="details_debts_item_sign_borrowed">"Entlieh"</string>
+    <string name="details_debts_item_sign_lent">"Verlieh"</string>
+    <string name="details_menu_delete">"Löschen"</string>
+    <string name="details_menu_share">"Teilen"</string>
+    <string name="details_clear_all_dialog_confirmation_message">"Löschen die Schuldgeschichte?"</string>
+    <string name="details_empty_debt_fields">"Leerschuldenbetrag"</string>
+    <string name="details_debts_item_menu_remove">"Löschen"</string>
+    <string name="details_remove_debt_message">"Löschen eine Schuld?"</string>
+
+    <!-- Preferences activity -->
+    <string name="settings_title">"Einstellungen"</string>
+
+    <!-- MainSettings fragment -->
+    <string name="preference_main_settings_general_title">"Allgemeine"</string>
+    <string name="preference_main_settings_currency">"Währung"</string>
+    <string name="preference_main_settings_currency_summary">"Ausgewählt: %1$s"</string>
+
+    <!-- Первое слово смущает, но скорее всего ок -->
+    <string name="preference_main_settings_currency_custom">"Benutzerdefinierte Währung"</string>
+    <string name="preference_main_settings_version">"Version"</string>
+    <string name="preference_main_settings_sync_title">"Synchronisation"</string>
+    <string name="preference_main_settings_sync_contacts">"Synchronisation mit Kontakten"</string>
+    <string name="preference_main_settings_sync_contacts_summary">"Namen und Bilder aktualisieren"</string>
+    <string name="preference_main_settings_state_updating">"Aktualisierung…"</string>
+    <string name="preference_main_settings_state_updated">"Erfolgreich aktualisiert"</string>
+    <string name="preference_main_settings_state_error">"Fehler aufgetreten"</string>
 </resources>

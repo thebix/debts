@@ -1,81 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">Debts</string>
+    <string name="app_name">"Debts"</string>
 
     <!-- Defaults -->
-
-    <string name="default_positive_button">OK</string>
-    <string name="default_negative_button">Cancel</string>
-    <string name="default_dialog_title">Are you sure?</string>
+    <string name="default_positive_button">"OK"</string>
+    <string name="default_negative_button">"Cancel"</string>
+    <string name="default_dialog_title">"Are you sure?"</string>
 
     <!-- Home activity -->
-    <string name="home_pager_tab_all">All</string>
-    <string name="home_pager_tab_debtors">Debtors</string>
-    <string name="home_pager_tab_creditors">Creditors</string>
+    <string name="home_pager_tab_all">"All"</string>
+    <string name="home_pager_tab_debtors">"Debtors"</string>
+    <string name="home_pager_tab_creditors">"Creditors"</string>
 
     <!-- Debtors fragment -->
-
-    <string name="home_debtors_empty_debt_fields">Empty debtor or debt amount</string>
-    <string name="home_debtors_search_hint">Search</string>
-    <string name="home_debtors_share_title">Share all debts as csv</string>
-    <string name="home_debtors_toast_debt_added">Debt has been added</string>
-    <string name="home_debtors_menu_search">Search</string>
-    <string name="home_debtors_menu_settings">Settings</string>
-    <string name="home_debtors_menu_sort">Sort</string>
-    <string name="home_debtors_menu_sort_name">Name</string>
-    <string name="home_debtors_menu_sort_amount">Amount</string>
-    <string name="home_debtors_item_menu_remove">Remove</string>
-    <string name="home_debtors_item_menu_share">Share</string>
+    <string name="home_debtors_empty_debt_fields">"Empty debtor or debt amount"</string>
+    <string name="home_debtors_search_hint">"Search"</string>
+    <string name="home_debtors_share_title">"Share all debts as .csv file"</string>
+    <string name="home_debtors_toast_debt_added">"Debt has been added"</string>
+    <string name="home_debtors_menu_search">"Search"</string>
+    <string name="home_debtors_menu_settings">"Settings"</string>
+    <string name="home_debtors_menu_sort">"Sort"</string>
+    <string name="home_debtors_menu_sort_name">"Name"</string>
+    <string name="home_debtors_menu_sort_amount">"Amount"</string>
+    <string name="home_debtors_item_menu_remove">"Remove"</string>
+    <string name="home_debtors_item_menu_share">"Share"</string>
 
     <!-- AddDebt dialog -->
-
-    <string name="home_add_debt_title">Add debt</string>
-    <string name="home_add_debt_name">Name</string>
-    <string name="home_add_debt_action">Action</string>
-    <string name="home_add_debt_add">Add</string>
-    <string name="home_add_debt_subtract">Subtract</string>
-    <string name="home_add_debt_amount">Amount</string>
-    <string name="home_add_debt_amount_error">Value is to long</string>
-    <string name="home_add_debt_comment">Comment</string>
-    <string name="home_add_debt_confirm">Confirm</string>
+    <string name="home_add_debt_title">"Add debt"</string>
+    <string name="home_add_debt_name">"Name"</string>
+    <string name="home_add_debt_action">"Action"</string>
+    <string name="home_add_debt_add">"Lent"</string>
+    <string name="home_add_debt_subtract">"Borrowed"</string>
+    <string name="home_add_debt_amount">"Amount"</string>
+    <string name="home_add_debt_amount_error">"Value is too long"</string>
+    <string name="home_add_debt_comment">"Comment"</string>
+    <string name="home_add_debt_confirm">"Confirm"</string>
 
     <!-- Details fragment -->
-
-    <string name="details_debt_title">Debt</string>
-    <string name="details_debt_total">Total</string>
-    <string name="details_debt_change">Change</string>
-    <string name="details_debt_clear">Clear</string>
-    <string name="details_dialog_delete_message">Delete debtor and clear debts history?</string>
-    <string name="details_history_title">History</string>
-    <string name="details_share_title">Share debt information with</string>
-    <string name="details_share_message_borrowed">Hey, %1$s borrowed me %3$s%2$s</string>
-    <string name="details_share_message_lent">Hey, I\'ve lent %3$s%2$s to %1$s</string>
-    <string name="details_debts_item_sign_borrowed">Borrowed</string>
-    <string name="details_debts_item_sign_lent">Lent</string>
-    <string name="details_menu_delete">Delete</string>
-    <string name="details_menu_share">Share</string>
-    <string name="details_clear_all_dialog_confirmation_message">Clear debts history?</string>
-    <string name="details_empty_debt_fields">Empty debt amount</string>
-    <string name="details_debts_item_menu_remove">Remove</string>
-    <string name="details_remove_debt_message">Remove one debt?</string>
+    <string name="details_debt_title">"Debt"</string>
+    <string name="details_debt_total">"Total"</string>
+    <string name="details_debt_change">"Change"</string>
+    <string name="details_debt_clear">"Clear"</string>
+    <string name="details_dialog_delete_message">"Delete debtor and clear debts history?"</string>
+    <string name="details_history_title">"History"</string>
+    <string name="details_share_title">"Share debt information with"</string>
+    <string name="details_share_message_borrowed">"Hey, %1$s borrowed from me %3$s%2$s"</string>
+    <string name="details_share_message_lent">"Hey, I've lent %3$s%2$s to %1$s"</string>
+    <string name="details_debts_item_sign_borrowed">"Borrowed"</string>
+    <string name="details_debts_item_sign_lent">"Lent"</string>
+    <string name="details_menu_delete">"Delete"</string>
+    <string name="details_menu_share">"Share"</string>
+    <string name="details_clear_all_dialog_confirmation_message">"Clear debts history?"</string>
+    <string name="details_empty_debt_fields">"Empty debt amount"</string>
+    <string name="details_debts_item_menu_remove">"Remove"</string>
+    <string name="details_remove_debt_message">"Remove one debt?"</string>
 
     <!-- Preferences activity -->
-
-    <string name="settings_title">Settings</string>
+    <string name="settings_title">"Settings"</string>
 
     <!-- MainSettings fragment -->
-
-    <string name="preference_main_settings_general_title">General</string>
-    <string name="preference_main_settings_currency">Currency</string>
-    <string name="preference_main_settings_currency_summary">Selected: %1$s</string>
-    <string name="preference_main_settings_currency_custom">Custom currency</string>
-    <string name="preference_main_settings_version">Version</string>
-    <string name="preference_main_settings_sync_title">Synchronization</string>
-    <string name="preference_main_settings_sync_contacts">Sync with contacts</string>
-    <string name="preference_main_settings_sync_contacts_summary">Update names and pictures</string>
-    <string name="preference_main_settings_state_updating">Updating…</string>
-    <string name="preference_main_settings_state_updated">Successfully updated</string>
-    <string name="preference_main_settings_state_error">Error occurred</string>
-
+    <string name="preference_main_settings_general_title">"General"</string>
+    <string name="preference_main_settings_currency">"Currency"</string>
+    <string name="preference_main_settings_currency_summary">"Selected: %1$s"</string>
+    <string name="preference_main_settings_currency_custom">"Custom currency"</string>
+    <string name="preference_main_settings_version">"Version"</string>
+    <string name="preference_main_settings_sync_title">"Synchronization"</string>
+    <string name="preference_main_settings_sync_contacts">"Sync with contacts"</string>
+    <string name="preference_main_settings_sync_contacts_summary">"Update names and pictures"</string>
+    <string name="preference_main_settings_state_updating">"Updating…"</string>
+    <string name="preference_main_settings_state_updated">"Successfully updated"</string>
+    <string name="preference_main_settings_state_error">"Error occurred"</string>
 </resources>
