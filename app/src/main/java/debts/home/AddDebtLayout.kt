@@ -8,6 +8,7 @@ import android.widget.RadioGroup
 import android.widget.ScrollView
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding3.widget.textChanges
 import debts.common.android.extensions.*
@@ -93,7 +94,7 @@ class AddDebtLayout @JvmOverloads constructor(
                 .filter { contact != null }
                 .subscribe {
                     contact = null
-                    avatarView.setImageResource(R.drawable.ic_launcher)
+                    avatarView.setImageResource(R.mipmap.ic_launcher)
                 },
             amountView.textChanges()
                 .subscribe {
@@ -119,10 +120,11 @@ class AddDebtLayout @JvmOverloads constructor(
 
     private fun showAvatar(url: String?) {
         Glide.with(avatarView)
-            .load(url)
-            .placeholder(R.drawable.ic_launcher)
-            .error(R.drawable.ic_launcher)
-            .fallback(R.drawable.ic_launcher)
+            .load(if (url.isNullOrBlank()) R.mipmap.ic_launcher else url)
+            .placeholder(R.mipmap.ic_launcher)
+            .error(R.mipmap.ic_launcher)
+            .fallback(R.mipmap.ic_launcher)
+            .apply(RequestOptions.circleCropTransform())
             .into(avatarView)
     }
 

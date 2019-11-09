@@ -177,7 +177,7 @@
         android:layout_height="@dimen/height_40dp"
         android:layout_gravity="top"
         android:elevation="@dimen/elevation_8dp"
-        android:src="@drawable/ic_launcher"
+        android:src="@mipmap/ic_launcher"
         app:layout_behavior="debts.details.behavior.DetailsAvatarBehavior"
         app:layout_collapseMode="pin"
         tools:layout_marginStart="@dimen/margin_16dp"

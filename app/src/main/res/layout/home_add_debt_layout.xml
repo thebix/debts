@@ -16,7 +16,7 @@
             android:id="@+id/home_add_debt_avatar"
             android:layout_width="@dimen/width_20dp"
             android:layout_height="@dimen/height_20dp"
-            android:src="@drawable/ic_launcher"
+            android:src="@mipmap/ic_launcher"
             app:layout_constraintEnd_toStartOf="@id/home_add_debt_name_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

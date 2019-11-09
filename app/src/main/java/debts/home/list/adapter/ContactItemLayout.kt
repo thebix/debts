@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import debts.common.android.adapters.ItemRenderer
 import debts.common.android.extensions.applyLayoutParams
 import debts.common.android.extensions.doInRuntime
@@ -35,10 +36,11 @@ class AddDebtSuggestionItemLayout @JvmOverloads constructor(
         with(data) {
             nameView.text = name
             Glide.with(context)
-                .load(avatarUrl)
-                .placeholder(R.drawable.ic_launcher)
-                .error(R.drawable.ic_launcher)
-                .fallback(R.drawable.ic_launcher)
+                .load(if (avatarUrl.isNotBlank()) avatarUrl else R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .fallback(R.mipmap.ic_launcher)
+                .apply(RequestOptions.circleCropTransform())
                 .into(avatarView)
         }
     }

@@ -70,13 +70,17 @@ class DetailsFragment : BaseFragment() {
     private var recyclerView: RecyclerView? = null
 
     private lateinit var addDebtLayout: AddDebtLayout
-    private var debtorId: Long  by FragmentArgumentDelegate()
+    private var debtorId: Long by FragmentArgumentDelegate()
     private lateinit var disposables: CompositeDisposable
     private var adapterDisposable: Disposable? = null
     private var avatarUrl: String = ""
     private var isBorrowed: Boolean = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) =
         inflater.inflate(R.layout.details_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -99,7 +103,10 @@ class DetailsFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(context)
 
             addItemDecoration(
-                DividerItemDecoration(context.applicationContext, DividerItemDecoration.VERTICAL).apply {
+                DividerItemDecoration(
+                    context.applicationContext,
+                    DividerItemDecoration.VERTICAL
+                ).apply {
                     setDrawable(context.applicationContext.getDrawableCompat(R.drawable.list_divider_start_66dp))
                 }
             )
@@ -225,15 +232,20 @@ class DetailsFragment : BaseFragment() {
         with(state) {
             adapter.replaceAllItems(items)
             nameView?.text = name
-            amountView?.text = context?.getString(R.string.details_debt_amount, currency, amount.toFormattedCurrency())
+            amountView?.text = context?.getString(
+                R.string.details_debt_amount,
+                currency,
+                amount.toFormattedCurrency()
+            )
             isBorrowed = amount < 0
             this@DetailsFragment.avatarUrl = avatarUrl
+
             if (avatarView != null) {
                 Glide.with(avatarView!!)
-                    .load(if (avatarUrl.isNotBlank()) avatarUrl else R.drawable.ic_launcher)
-                    .placeholder(R.drawable.ic_launcher)
-                    .error(R.drawable.ic_launcher)
-                    .fallback(R.drawable.ic_launcher)
+                    .load(if (avatarUrl.isNotBlank()) avatarUrl else R.mipmap.ic_launcher)
+                    .placeholder(R.mipmap.ic_launcher)
+                    .error(R.mipmap.ic_launcher)
+                    .fallback(R.mipmap.ic_launcher)
                     .apply(RequestOptions.circleCropTransform())
                     .into(avatarView!!)
             }

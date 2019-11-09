@@ -13,7 +13,7 @@
         android:id="@+id/home_debtors_item_avatar"
         android:layout_width="@dimen/width_50dp"
         android:layout_height="@dimen/height_50dp"
-        android:src="@drawable/ic_launcher"
+        android:src="@mipmap/ic_launcher"
         app:layout_constraintEnd_toStartOf="@id/home_debtors_item_name"
         app:layout_constraintStart_toStartOf="parent" />
 
