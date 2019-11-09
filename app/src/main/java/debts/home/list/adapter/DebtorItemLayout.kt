@@ -3,7 +3,6 @@ package debts.home.list.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
@@ -48,9 +47,10 @@ class DebtorItemLayout @JvmOverloads constructor(
         amountView = findViewById(R.id.home_debtors_item_amount)
         dateView = findViewById(R.id.home_debtors_item_date)
         this.setOnLongClickListener {
-            this.showPopup(R.menu.home_debtors_item_menu, object : PopupMenu.OnMenuItemClickListener {
-                override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
-                    return when (menuItem?.itemId) {
+            this.showPopup(
+                R.menu.home_debtors_item_menu,
+                PopupMenu.OnMenuItemClickListener { menuItem ->
+                    when (menuItem?.itemId) {
                         R.id.home_debtors_item_menu_remove -> {
                             itemClickCallback.onDebtorRemove(debtorId)
                             true
@@ -61,8 +61,7 @@ class DebtorItemLayout @JvmOverloads constructor(
                         }
                         else -> false
                     }
-                }
-            })
+                })
             true
         }
     }
@@ -82,10 +81,10 @@ class DebtorItemLayout @JvmOverloads constructor(
                 Date(lastDate).toSimpleDateString()
             )
             Glide.with(avatarView)
-                .load(if(avatarUrl.isNotBlank()) avatarUrl else R.drawable.ic_launcher)
-                .placeholder(R.drawable.ic_launcher)
-                .error(R.drawable.ic_launcher)
-                .fallback(R.drawable.ic_launcher)
+                .load(if (avatarUrl.isNotBlank()) avatarUrl else R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .fallback(R.mipmap.ic_launcher)
                 .apply(RequestOptions.circleCropTransform())
                 .into(avatarView)
         }
