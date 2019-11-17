@@ -29,3 +29,7 @@ jobs:
           DEBTS_STORE_KEY_PASSWORD: ${{ secrets.DEBTS_STORE_KEY_PASSWORD }}
           DEBTS_FABRIC_API_KEY: ${{ secrets.DEBTS_FABRIC_API_KEY }}
         run: ./gradlew build
+      - uses: actions/upload-artifact@master
+        with:
+          name: app-release-dl.apk
+          path: $GITHUB_WORKSPACE/app/build/outputs/apk/release/app-release.apk
