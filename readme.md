@@ -1,4 +1,4 @@
-![](https://github.com/thebix/debts/workflows/Android%20CI/badge.svg?branch=develop)
+![](https://github.com/thebix/debts/workflows/Android%20CI/badge.svg)
 
 # Debts app
 
