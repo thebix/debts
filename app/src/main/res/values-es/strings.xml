@@ -2,31 +2,4 @@
 <resources>
 
     <string name="app_name">Deudas</string>
-    <string name="details_history_title">Historial</string>
-    <string name="home_debtors_menu_settings">Ajustes</string>
-    <string name="home_debtors_menu_sort">Ordenar</string>
-    <string name="home_debtors_menu_sort_amount">Importe</string>
-    <string name="details_debt_clear">Limpiar</string>
-    <string name="home_debtors_toast_debt_added">La deuda ha sido agregada</string>
-    <string name="home_add_debt_amount_error">El valor es largo</string>
-    <string name="default_positive_button">OK</string>
-    <string name="default_negative_button">Cancelar</string>
-    <string name="home_add_debt_title">Añadir deuda</string>
-    <string name="details_menu_delete">Eliminar</string>
-    <string name="details_debt_title">Deuda</string>
-    <string name="default_dialog_title">Estás seguro?</string>
-    <string name="details_dialog_delete_message">Eliminar deudor y limpiar historial de deudas?</string>
-    <string name="details_clear_all_dialog_confirmation_message">Limpiar historial de deudas?</string>
-    <string name="details_remove_debt_message">Eliminar una deuda?</string>
-    <string name="details_debt_total">Total</string>
-    <string name="details_debts_item_sign_lent">Le di de la deuda</string>
-    <string name="details_debts_item_sign_borrowed">Pedí prestado</string>
-    <string name="home_add_debt_name">Nombre</string>
-    <string name="home_debtors_menu_sort_name">Nombre</string>
-    <string name="settings_title">Ajustes</string>
-    <string name="home_debtors_item_menu_share">Compartir</string>
-    <string name="details_menu_share">Compartir</string>
-    <string name="home_debtors_menu_search">Buscar</string>
-    <string name="home_debtors_search_hint">Buscar</string>
-    <string name="preference_main_settings_general_title">General</string>
 </resources>
