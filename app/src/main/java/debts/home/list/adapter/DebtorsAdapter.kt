@@ -2,11 +2,7 @@ package debts.home.list.adapter
 
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
-import debts.common.android.adapters.CommonDiffUtilCallback
-import debts.common.android.adapters.DelegatedAdapter
-import debts.common.android.adapters.ItemRenderer
-import debts.common.android.adapters.TypedAdapterDelegate
-import debts.common.android.adapters.ViewHolderRenderer
+import debts.common.android.adapters.*
 import debts.common.android.extensions.*
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -58,16 +54,24 @@ class DebtorsAdapter(
     }
 
     fun setItems(newItems: List<DebtorsItemViewModel>): Completable {
-        return Single.fromCallable<DiffUtil.DiffResult> {
-            DiffUtil.calculateDiff(CommonDiffUtilCallback(items, newItems))
-        }
-            .subscribeOn(Schedulers.computation())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSuccess { result ->
-                this.items = newItems
-                result.dispatchUpdatesTo(this)
+        return Single.fromCallable { atLeastNougatMr1() }
+            .flatMapCompletable { atLeastNougatMr1 ->
+                if (atLeastNougatMr1) {
+                    Single.fromCallable {
+                        DiffUtil.calculateDiff(CommonDiffUtilCallback(items, newItems))
+                    }
+                        .subscribeOn(Schedulers.computation())
+                        .observeOn(AndroidSchedulers.mainThread())
+                } else {
+                    Single.fromCallable {
+                        DiffUtil.calculateDiff(CommonDiffUtilCallback(items, newItems))
+                    }
+                }.doOnSuccess { result ->
+                    this.items = newItems
+                    result.dispatchUpdatesTo(this)
+                }
+                    .ignoreElement()
             }
-            .ignoreElement()
     }
 
     fun replaceAllItems(newItems: List<DebtorsItemViewModel>) {
