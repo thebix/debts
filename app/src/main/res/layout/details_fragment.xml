@@ -84,25 +84,31 @@
                 <TextView
                     android:id="@+id/details_debt_change"
                     style="@style/Debts.Button.White"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_20dp"
                     android:background="@drawable/button_radius_4dp"
                     android:text="@string/details_debt_change"
                     android:textAllCaps="true"
+                    app:layout_constraintEnd_toStartOf="@id/details_debt_clear"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="@id/details_debt_amount"
                     app:layout_constraintTop_toBottomOf="@id/details_debt_amount" />
 
                 <TextView
                     android:id="@+id/details_debt_clear"
                     style="@style/Debts.Button.Accent"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginEnd="@dimen/margin_4dp"
                     android:text="@string/details_debt_clear"
                     android:textAllCaps="true"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/details_debt_change"
-                    app:layout_constraintTop_toTopOf="@id/details_debt_change" />
+                    app:layout_constraintTop_toTopOf="@id/details_debt_change"
+                    tools:text="Long clear button" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
