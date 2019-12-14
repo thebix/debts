@@ -36,11 +36,11 @@ class SyncDebtorsWithContactsUseCase(
                 val updateItems = mutableListOf<DebtorModel>()
                 debtors.forEach { debtor ->
                     contacts.firstOrNull { contact ->
-                        contact.id == debtor.contactId
+                        contact.name == debtor.name
                     }?.let { contact ->
                         updateItems.add(
                             debtor.copy(
-                                name = contact.name,
+                                contactId = contact.id,
                                 avatarUrl = contact.avatarUrl
                             )
                         )
