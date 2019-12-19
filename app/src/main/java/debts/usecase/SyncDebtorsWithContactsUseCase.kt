@@ -35,12 +35,19 @@ class SyncDebtorsWithContactsUseCase(
             .map { (debtors, contacts) ->
                 val updateItems = mutableListOf<DebtorModel>()
                 debtors.forEach { debtor ->
-                    contacts.firstOrNull { contact ->
+                    var contactItem = contacts.firstOrNull { contact ->
                         contact.name == debtor.name
-                    }?.let { contact ->
+                    }
+                    if (contactItem == null) {
+                        contactItem = contacts.firstOrNull { contact ->
+                            contact.id == debtor.contactId
+                        }
+                    }
+                    contactItem?.let { contact ->
                         updateItems.add(
                             debtor.copy(
                                 contactId = contact.id,
+                                name = contact.name,
                                 avatarUrl = contact.avatarUrl
                             )
                         )
