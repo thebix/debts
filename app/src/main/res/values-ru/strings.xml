@@ -28,7 +28,7 @@
     <string name="home_debtors_item_menu_share">"Отправить"</string>
 
     <!-- AddDebt dialog -->
-    <string name="home_add_debt_title">"Добавить долг"</string>
+    <string name="home_add_debt_title">"Добавить"</string>
     <string name="home_add_debt_name">"Имя"</string>
     <string name="home_add_debt_action">"Действие"</string>
     <string name="home_add_debt_add">"Дал"</string>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.UiThread
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import debts.common.android.FragmentScreenContext
 import debts.common.android.ScreenContextHolder
 import debts.common.android.extensions.getDrawableCompat
 import debts.common.android.extensions.showAlert
+import debts.common.android.extensions.toFormattedCurrency
 import debts.di.getDebtorsDebtsNavigatorName
 import debts.di.getDebtorsViewModelName
 import debts.home.list.adapter.DebtorsAdapter
@@ -76,6 +78,7 @@ class DebtorsFragment : BaseFragment() {
     private val intentionSubject = PublishSubject.create<DebtorsIntention>()
 
     private var recyclerView: RecyclerView? = null
+    private var totalSum: TextView? = null
     private var page: Int by FragmentArgumentDelegate()
 
     private lateinit var disposables: CompositeDisposable
@@ -102,6 +105,7 @@ class DebtorsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = getView()?.findViewById(R.id.home_debtors_recycler)
+        totalSum = getView()?.findViewById(R.id.home_debtors_total_sum)
 
         recyclerView?.apply {
             adapter = this@DebtorsFragment.adapter
@@ -167,6 +171,7 @@ class DebtorsFragment : BaseFragment() {
 
     override fun onDestroyView() {
         recyclerView = null
+        totalSum = null
         super.onDestroyView()
     }
 
@@ -181,6 +186,11 @@ class DebtorsFragment : BaseFragment() {
     private fun render(state: DebtorsState) {
         Timber.d("State is: $state")
         with(state) {
+            totalSum?.text = resources.getString(
+                R.string.home_debtors_item_amount,
+                currency,
+                (amountAbs).toFormattedCurrency()
+            )
             adapterDisposable?.dispose()
             if (isConfigurationChange) {
                 adapter.replaceAllItems(items)

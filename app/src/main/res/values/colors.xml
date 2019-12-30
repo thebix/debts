@@ -10,6 +10,7 @@
     <color name="debts_white">#ffffff</color>
     <color name="debts_grey">#ababab</color>
     <color name="debts_grey_light">#dbe2e8</color>
+    <color name="debts_grey_lighter">#EEEEEE</color>
     // TODO: rename this color
     <color name="debts_grey_dark">#3d666b</color>
 

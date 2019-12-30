@@ -75,6 +75,10 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
+    <style name="Debts.Text.Body.Header.Highlight.Bold">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
     <!-- Body altered -->
 
     <style name="Debts.Text.Body.Short.Alt">

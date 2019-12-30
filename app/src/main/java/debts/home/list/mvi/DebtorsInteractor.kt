@@ -11,7 +11,7 @@ import debts.usecase.ObserveDebtorsListItemsUseCase
 import debts.usecase.RemoveDebtorUseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
-import io.reactivex.functions.Function3
+import io.reactivex.functions.Function4
 import io.reactivex.schedulers.Schedulers
 import net.thebix.debts.R
 import timber.log.Timber
@@ -25,25 +25,41 @@ class DebtorsInteractor(
     private val repository: DebtsRepository
 ) : MviInteractor<DebtorsAction, DebtorsResult> {
 
-    private val initProcessor = ObservableTransformer<DebtorsAction.Init, DebtorsResult> { actions ->
-        actions.switchMap { action ->
-            Observable.combineLatest<List<DebtorsListItemModel.Debtor>, SortType, String, List<DebtorsListItemModel>>(
-                observeDebtorsListItemsUseCase
-                    .execute(action.tabType),
-                repository.observeSortType(),
-                repository.observeDebtorsFilter(),
-                Function3 { debtors, sortType, nameFilter ->
-                    getDebtorsWithAllFiltersApplied(debtors, nameFilter, sortType, action.tabType == TabTypes.All)
-                }
-            )
-                .switchMap { items ->
-                    Observable.fromCallable { DebtorsResult.ItemsResult(items, action.tabType) as DebtorsResult }
-                }
-                .subscribeOn(Schedulers.io())
-                .doOnError { Timber.e(it) }
-                .onErrorReturnItem(DebtorsResult.Error)
+    private val initProcessor =
+        ObservableTransformer<DebtorsAction.Init, DebtorsResult> { actions ->
+            actions.switchMap { action ->
+                Observable.combineLatest<List<DebtorsListItemModel.Debtor>, SortType, String, String, Pair<Pair<String, Double>, List<DebtorsListItemModel>>>(
+                    observeDebtorsListItemsUseCase
+                        .execute(action.tabType),
+                    repository.observeSortType(),
+                    repository.observeDebtorsFilter(),
+                    repository.observeCurrency(),
+                    Function4 { debtors, sortType, nameFilter, defaultCurrency ->
+                        val filtered = getFiltered(debtors, nameFilter)
+                        val totalAmount = filtered.sumByDouble { it.amount }
+                        defaultCurrency to totalAmount to getDebtorsWithAbsAmountsAndSortingApplied(
+                            filtered,
+                            sortType,
+                            action.tabType == TabTypes.All
+                        )
+                    }
+                )
+                    .switchMap { (defaultCurrencyAndTotalAmount, items) ->
+                        val (defaultCurrency, totalAmount) = defaultCurrencyAndTotalAmount
+                        Observable.fromCallable {
+                            DebtorsResult.ItemsResult(
+                                items,
+                                totalAmount,
+                                defaultCurrency,
+                                action.tabType
+                            ) as DebtorsResult
+                        }
+                    }
+                    .subscribeOn(Schedulers.io())
+                    .doOnError { Timber.e(it) }
+                    .onErrorReturnItem(DebtorsResult.Error)
+            }
         }
-    }
 
     private val removeDebtorProcessor =
         ObservableTransformer<DebtorsAction.RemoveDebtor, DebtorsResult> { actions ->
@@ -71,7 +87,11 @@ class DebtorsInteractor(
     private val shareDebtorProcessor =
         ObservableTransformer<DebtorsAction.ShareDebtor, DebtorsResult> { actions ->
             actions.switchMap { action ->
-                getShareDebtorContentUseCase.execute(action.debtorId, action.borrowedTemplate, action.lentTemplate)
+                getShareDebtorContentUseCase.execute(
+                    action.debtorId,
+                    action.borrowedTemplate,
+                    action.lentTemplate
+                )
                     .flatMapCompletable { content ->
                         debtsNavigator.sendExplicit(
                             action.titleText,
@@ -87,16 +107,28 @@ class DebtorsInteractor(
 
     // region Filtering and Sorting debtors
 
-    private fun getDebtorsWithAllFiltersApplied(
+    private fun getFiltered(
         items: List<DebtorsListItemModel.Debtor>,
-        name: String,
+        name: String
+    ): List<DebtorsListItemModel.Debtor> =
+        if (name.isNotBlank())
+            items.filter {
+                it.name.contains(
+                    name,
+                    true
+                )
+            }
+        else
+            items
+
+    private fun getDebtorsWithAbsAmountsAndSortingApplied(
+        items: List<DebtorsListItemModel.Debtor>,
         sortType: SortType,
         showTitles: Boolean
     ): List<DebtorsListItemModel> {
-        val filtered = getFiltered(items, name)
         return if (showTitles) {
-            val debtors = filtered.filter { it.amount >= 0 }
-            val creditors = filtered.filter { it.amount < 0 }
+            val debtors = items.filter { it.amount >= 0 }
+            val creditors = items.filter { it.amount < 0 }
             return if (debtors.isNotEmpty()) {
                 listOf(DebtorsListItemModel.Title(R.string.home_pager_tab_debtors))
             } else {
@@ -116,23 +148,9 @@ class DebtorsInteractor(
                     getWithAbsAmountsAndSorted(creditors, sortType)
                 )
         } else {
-            getWithAbsAmountsAndSorted(filtered, sortType)
+            getWithAbsAmountsAndSorted(items, sortType)
         }
     }
-
-    private fun getFiltered(
-        items: List<DebtorsListItemModel.Debtor>,
-        name: String
-    ): List<DebtorsListItemModel.Debtor> =
-        if (name.isNotBlank())
-            items.filter {
-                it.name.contains(
-                    name,
-                    true
-                )
-            }
-        else
-            items
 
     private fun getWithAbsAmountsAndSorted(
         items: List<DebtorsListItemModel.Debtor>,

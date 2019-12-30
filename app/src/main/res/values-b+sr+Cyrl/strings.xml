@@ -26,7 +26,7 @@
     <string name="home_debtors_item_menu_share">"Поделити"</string>
 
     <!-- AddDebt dialog -->
-    <string name="home_add_debt_title">"Додати дуг"</string>
+    <string name="home_add_debt_title">"Додати"</string>
     <string name="home_add_debt_name">"Назив"</string>
     <string name="home_add_debt_action">"Шта jе урађено?"</string>
     <string name="home_add_debt_add">"Дато"</string>
