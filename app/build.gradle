@@ -18,8 +18,8 @@ android {
         applicationId 'net.thebix.debts'
         minSdkVersion androidConfig.minSdkVersion
         targetSdkVersion androidConfig.targetSdkVersion
-        versionCode 18
-        versionName "2.0.1.$versionCode"
+        versionCode 19
+        versionName "2.1.0.$versionCode"
 
         javaCompileOptions {
             annotationProcessorOptions {

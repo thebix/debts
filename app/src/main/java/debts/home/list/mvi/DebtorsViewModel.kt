@@ -2,8 +2,10 @@ package debts.home.list.mvi
 
 import debts.common.android.mvi.MviViewModel
 import debts.common.android.mvi.OneShot
+import debts.home.list.TabTypes
 import debts.home.list.adapter.toDebtorsItemViewModel
 import io.reactivex.functions.BiFunction
+import kotlin.math.absoluteValue
 
 class DebtorsViewModel(
     interactor: DebtorsInteractor
@@ -33,7 +35,9 @@ class DebtorsViewModel(
             when (result) {
                 is DebtorsResult.ItemsResult -> {
                     prevState.copy(
-                        items = result.items.map { it.toDebtorsItemViewModel() }
+                        items = result.items.map { it.toDebtorsItemViewModel() },
+                        amountAbs = if (result.tabType == TabTypes.Creditors) result.amount.absoluteValue else result.amount,
+                        currency = result.currency
                     )
                 }
                 DebtorsResult.Error ->

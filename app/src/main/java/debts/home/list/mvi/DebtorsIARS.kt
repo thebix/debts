@@ -1,13 +1,7 @@
 package debts.home.list.mvi
 
 import androidx.annotation.IdRes
-import debts.common.android.mvi.MviAction
-import debts.common.android.mvi.MviInitIntention
-import debts.common.android.mvi.MviIntention
-import debts.common.android.mvi.MviResult
-import debts.common.android.mvi.MviState
-import debts.common.android.mvi.OneShot
-import debts.common.android.mvi.ViewStateWithId
+import debts.common.android.mvi.*
 import debts.home.list.TabTypes
 import debts.home.list.adapter.DebtorsItemViewModel
 import debts.usecase.DebtorsListItemModel
@@ -50,6 +44,8 @@ sealed class DebtorsResult : MviResult {
 
     data class ItemsResult(
         val items: List<DebtorsListItemModel> = emptyList(),
+        val amount: Double = 0.0,
+        val currency: String = "",
         val tabType: TabTypes = TabTypes.All
     ) : DebtorsResult()
 
@@ -58,5 +54,7 @@ sealed class DebtorsResult : MviResult {
 
 data class DebtorsState(
     val items: List<DebtorsItemViewModel> = emptyList(),
-    val isError: OneShot<Boolean> = OneShot.empty()
+    val isError: OneShot<Boolean> = OneShot.empty(),
+    val amountAbs: Double = 0.0,
+    val currency: String = ""
 ) : MviState, ViewStateWithId()

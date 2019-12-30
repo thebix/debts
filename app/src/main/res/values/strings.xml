@@ -26,7 +26,7 @@
     <string name="home_debtors_item_menu_share">"Share"</string>
 
     <!-- AddDebt dialog -->
-    <string name="home_add_debt_title">"Add debt"</string>
+    <string name="home_add_debt_title">"Add"</string>
     <string name="home_add_debt_name">"Name"</string>
     <string name="home_add_debt_action">"Action"</string>
     <string name="home_add_debt_add">"Lent"</string>
