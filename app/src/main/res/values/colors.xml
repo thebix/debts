@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#84dee9</color>
+    <color name="colorPrimaryDark">#34c7d9</color>
+    <color name="colorAccent">#fc4582</color>
+
+    <color name="debts_launcher_background">@color/colorPrimaryDark</color>
+
+    <color name="debts_black">#000000</color>
+    <color name="debts_white">#ffffff</color>
+    <color name="debts_grey">#ababab</color>
+    <color name="debts_grey_light">#dbe2e8</color>
+    // TODO: rename this color
+    <color name="debts_grey_dark">#3d666b</color>
+
+    <color name="debts_white_pressed">#fafafa</color>
+    <color name="debts_accent_pressed">#f5437e</color>
+
+</resources>

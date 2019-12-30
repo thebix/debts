@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="preference_main_settings_entries">
+        <item>@string/preference_main_settings_currency_custom</item>
+        <item>$</item>
+        <item>€</item>
+        <item>£</item>
+        <item>₽</item>
+        <item>¥</item>
+        <item>Дин.</item>
+        <item>Ft</item>
+        <item>🍎</item>
+    </string-array>
+    <string-array name="preference_main_settings_values">
+        <item>Custom</item>
+        <item>$</item>
+        <item>€</item>
+        <item>£</item>
+        <item>₽</item>
+        <item>¥</item>
+        <item>Дин.</item>
+        <item>Ft</item>
+        <item>🍎</item>
+    </string-array>
+</resources>

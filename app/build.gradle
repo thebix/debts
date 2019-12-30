@@ -1,26 +1,86 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion '20.0.0'
+    signingConfigs {
+        release {
+            keyAlias gradle.ext.storeKeyAlias
+            keyPassword gradle.ext.storeKeyAliasPassword
+            storeFile file(gradle.ext.storeKeyFile)
+            storePassword gradle.ext.storeKeyPassword
+        }
+    }
+    compileSdkVersion androidConfig.compileSdkVersion
     defaultConfig {
         applicationId 'net.thebix.debts'
-        minSdkVersion 14
-        targetSdkVersion 22
-        versionCode 7
-        versionName '1.0.2'
+        minSdkVersion androidConfig.minSdkVersion
+        targetSdkVersion androidConfig.targetSdkVersion
+        versionCode 18
+        versionName "2.0.1.$versionCode"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+        defaultConfig {
+            manifestPlaceholders = [
+                    crashlytics: gradle.ext.fabricApiKey
+            ]
+        }
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        debug {
+            applicationIdSuffix ".debug"
         }
+        release {
+            shrinkResources true
+            minifyEnabled true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    // used by Room, to test migrations
+    sourceSets {
+        androidTest.assets.srcDirs +=
+                files("$projectDir/schemas".toString())
+    }
+
+    // TODO: enable lint local checks and remove this
+    lintOptions {
+        abortOnError false
     }
 }
 
 dependencies {
-//    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile files('libs/acra-4.4.0.jar')
-    compile 'com.google.android.gms:play-services:4.+'
+    implementation libs.androidxAppCompat
+    implementation libs.androidxConstraintLayout
+    implementation libs.androidxCore
+    implementation libs.androidxDesign
+    kapt libs.androidxLifecycleCompiler
+    implementation libs.androidxPreference
+    implementation libs.crashlytics
+    implementation libs.firebaseCore
+    implementation libs.glide
+    kapt libs.glideCompiler
+    implementation libs.koin
+    implementation libs.koinScope
+    implementation libs.koinViewModel
+    implementation libs.koptional
+    implementation libs.kotlin
+    debugImplementation libs.leakCanary
+    implementation libs.room
+    kapt libs.roomCompiler
+    implementation libs.roomRxJava
+    testImplementation libs.roomTesting
+    implementation libs.rxAndroid
+    implementation libs.rxBinding
+    implementation libs.rxJava2
+    implementation libs.timber
 }

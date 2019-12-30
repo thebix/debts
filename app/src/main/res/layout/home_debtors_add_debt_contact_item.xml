@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><!-- // TODO: refactor this to one TextView with drawable and to merge -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_2dp"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/home_debtors_add_debt_contact_avatar"
+        android:layout_width="@dimen/width_40dp"
+        android:layout_height="@dimen/height_40dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintEnd_toStartOf="@id/home_debtors_item_name"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/home_debtors_add_debt_contact_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:paddingStart="@dimen/margin_8dp"
+        android:textAppearance="@style/Debts.Text.Large.Title"
+        app:layout_constraintBottom_toTopOf="@id/home_add_debt_radio"
+        app:layout_constraintTop_toBottomOf="@id/home_add_debt_name_layout"
+        tools:ignore="RtlSymmetry"
+        tools:text="John Zorn" />
+
+</LinearLayout>

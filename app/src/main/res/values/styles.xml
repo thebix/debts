@@ -1,109 +1,117 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="AppBaseTheme" parent="@android:style/Theme.Holo.Light"></style>
+    <style name="Debts" />
 
-    <style name="AppTheme" parent="@style/AppBaseTheme">
-        <item name="android:windowBackground">@android:color/white</item>
+    <style name="Debts.Theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
-    <color name="ListDivider">#dedede</color>
-    <color name="ListSubItem">#b3b3b3</color>
-    <color name="Main">#33b5e5</color>
-    <color name="TabLineDividerCenter">#99daf2</color>
-    <color name="TabLineDividerEdge">#cfeef9</color>
-    <color name="EditRowBackground">#f0f0f0</color>
+    <style name="Debts.Theme.TextInput" parent="Widget.Design.TextInputLayout">
+        <item name="android:textColor">@color/debts_grey</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:textColorHint">@color/debts_grey_light</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="colorControlNormal">@color/debts_grey</item>
+        <item name="colorControlHighlight">@android:color/holo_orange_dark</item>
+    </style>
 
-    <!-- Заголовок секции -->
-    <style name="SectionTitle">
-        <!--<item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">32dp</item>-->
-        <item name="android:textColor">@color/Main</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:textSize">@dimen/ListSubItem</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:background">@drawable/ch_title_bottom_line_divider</item>
-        <item name="android:layout_marginTop">16dp</item>
-        <item name="android:paddingLeft">8dp</item>
-        <!-- <item name="android:paddingTop">16dp</item> -->
-        <!-- <item name="android:paddingBottom">8dp</item> -->
+    <style name="UcbReport.EditText.OnboardingError" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/text_size_12sp</item>
+    </style>
+
+    <!-- Text -->
+
+    <style name="Debts.Text" />
+
+    <!-- Large -->
+
+    <style name="Debts.Text.Large">
+        <item name="android:textSize">0sp</item>
+    </style>
+
+    <style name="Debts.Text.Large.Title">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Debts.Text.Large.Headline">
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="Debts.Text.Large.Extra">
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <!-- Large altered -->
+
+    <style name="Debts.Text.Large.Title.Alt">
+        <item name="android:textColor">@color/debts_grey</item>
+    </style>
+
+    <!-- Body -->
+
+    <style name="Debts.Text.Body">
+        <item name="android:textSize">0sp</item>
+    </style>
+
+    <style name="Debts.Text.Body.Long">
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="Debts.Text.Body.Short">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Debts.Text.Body.Header">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <!-- // TODO: "sans-serif" is the same font as used by default for Debts.Text.Body.Header, this value should be changed to proper one -->
+    <style name="Debts.Text.Body.Header.Highlight">
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- Body altered -->
+
+    <style name="Debts.Text.Body.Short.Alt">
+        <item name="android:textColor">@color/debts_grey</item>
+    </style>
+
+    <!-- Small -->
+
+    <style name="Debts.Text.Small">
+        <item name="android:textSize">0sp</item>
+    </style>
+
+    <style name="Debts.Text.Small.Text" />
+
+    <style name="Debts.Text.Small.Text.Highlight" />
+
+    <!-- Button -->
+
+    <style name="Debts.Button" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_size_14sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">@dimen/padding_8dp</item>
+        <item name="android:stateListAnimator">@animator/button_elevation_selector</item>
+        <item name="android:paddingBottom">@dimen/padding_8dp</item>
+        <item name="android:paddingStart">@dimen/padding_20dp</item>
+        <item name="android:paddingEnd">@dimen/padding_20dp</item>
+    </style>
+
+    <style name="Debts.Button.White" parent="Debts.Button">
+        <item name="android:background">@drawable/button_radius_4dp</item>
+        <item name="android:textColor">@color/button_text_color_selector</item>
 
     </style>
 
-    <!-- Заглавный лэйаут элемента листа -->
-    <style name="LayoutListViewItem">
-        <!-- <item name="android:layout_height">68dp</item>
-        <item name="android:layout_width">match_parent</item> -->
-        <item name="android:padding">14dp</item>
-    </style>
-
-    <!-- Заглавный лэйаут Total Sum -->
-    <style name="LayoutTotalSum">
-        <!-- <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">68dp</item> -->
-        <item name="android:layout_alignParentBottom">true</item>
-        <item name="android:background">@drawable/ch_top_line_divider_marign</item>
-        <item name="android:padding">16dp</item>
-    </style>
-
-    <!-- Стандартный стиль для EditText -->
-    <style name="StandartEditText">
-        <!-- <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">40dp</item> -->
-        <item name="android:ellipsize">end</item>
-        <item name="android:lines">1</item>
-        <item name="android:scrollHorizontally">true</item>
-        <item name="android:textSize">@dimen/StandartText</item>
-        <item name="android:inputType">text</item>
-    </style>
-
-    <!-- Стандартный стиль для TextView -->
-    <style name="TextView">
-        <!-- <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item> -->
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:textSize">@dimen/StandartText</item>
-        <item name="android:lines">1</item>
-        <item name="android:ellipsize">end</item>
-    </style>
-
-    <!-- Текствью дочернего элемента листа -->
-    <style name="TextView.ListSubItem" >
-        <item name="android:textColor">@color/ListSubItem</item>
-        <item name="android:textSize">@dimen/ListSubItem</item>
-    </style>
-
-    <!-- Стиль для строки с суммарным долгом -->
-    <style name="TextView.Total" >
-<!--         <item name="android:layout_width">wrap_content</item> -->
-<!--         <item name="android:layout_height">36dp</item> -->
-        <!-- <item name="android:layout_alignParentLeft">true</item> -->
-        <item name="android:text">@string/text_result_sum</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="TextView.Sum" >
-<!--         <item name="android:layout_width">80dp</item> -->
-<!--         <item name="android:layout_height">36dp</item> -->
-        <item name="android:gravity">right|center_vertical</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:background">@drawable/ch_left_line_divider_marign</item>
-        <item name="android:text">@string/text_zero</item>
-    </style>
-
-    <!-- Стандартный ImageButton -->
-    <style name="ImageButton">
-        <!-- <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item> -->
-        <item name="android:background">@null</item>
-    </style>
-
-    <!-- Стандартный ListView -->
-    <style name="ListView">
-        <!-- <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>-->
-        <item name="android:divider">@drawable/ch_listview_line_divider_marign</item>
-        <item name="android:dividerHeight">1dp</item>
+    <style name="Debts.Button.Accent" parent="Debts.Button">
+        <item name="android:background">@drawable/button_accent_radius_4dp</item>
+        <item name="android:textColor">@color/button_accent_text_color_selector</item>
     </style>
 
 </resources>

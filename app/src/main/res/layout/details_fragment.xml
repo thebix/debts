@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/debts_white">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/details_collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:contentScrim="@android:color/transparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:titleEnabled="false">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:background="@color/debts_white"
+                android:clipToPadding="false"
+                android:paddingTop="@dimen/padding_54dp"
+                android:paddingBottom="@dimen/padding_20dp"
+                app:layout_collapseMode="parallax"
+                app:layout_scrollFlags="scroll"
+                tools:ignore="RtlSymmetry">
+
+                <View
+                    android:id="@+id/details_name_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_1dp"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:background="@color/debts_grey_light"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/details_wallet"
+                    android:layout_width="@dimen/width_20dp"
+                    android:layout_height="@dimen/height_20dp"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:background="@drawable/ic_wallet"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/details_name_divider" />
+
+                <TextView
+                    android:id="@+id/details_debt_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_64dp"
+                    android:text="@string/details_debt_title"
+                    android:textAppearance="@style/Debts.Text.Large.Title.Alt"
+                    app:layout_constraintBottom_toBottomOf="@id/details_wallet"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/details_wallet" />
+
+                <TextView
+                    android:id="@+id/details_debt_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:text="@string/details_debt_total"
+                    android:textAppearance="@style/Debts.Text.Large.Title"
+                    app:layout_constraintStart_toStartOf="@id/details_debt_title"
+                    app:layout_constraintTop_toBottomOf="@id/details_debt_title" />
+
+                <TextView
+                    android:id="@+id/details_debt_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_2dp"
+                    android:textAppearance="@style/Debts.Text.Large.Extra"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/details_debt_total"
+                    app:layout_constraintTop_toBottomOf="@id/details_debt_total"
+                    tools:text="150$ 150$ 150$ 150$ 150$ 150$ 150$ 150$ 150$ 150$" />
+
+                <TextView
+                    android:id="@+id/details_debt_change"
+                    style="@style/Debts.Button.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:background="@drawable/button_radius_4dp"
+                    android:text="@string/details_debt_change"
+                    android:textAllCaps="true"
+                    app:layout_constraintStart_toStartOf="@id/details_debt_amount"
+                    app:layout_constraintTop_toBottomOf="@id/details_debt_amount" />
+
+                <TextView
+                    android:id="@+id/details_debt_clear"
+                    style="@style/Debts.Button.Accent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:text="@string/details_debt_clear"
+                    android:textAllCaps="true"
+                    app:layout_constraintStart_toEndOf="@id/details_debt_change"
+                    app:layout_constraintTop_toTopOf="@id/details_debt_change"
+                    tools:text="Long clear button" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/details_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="top"
+                android:background="@color/debts_white"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                tools:menu="@menu/home_details_menu" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/details_history_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/debts_white"
+            app:layout_collapseMode="pin">
+
+            <View
+                android:id="@+id/details_debt_divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_1dp"
+                android:background="@color/debts_grey_light"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/details_clock"
+                android:layout_width="@dimen/width_20dp"
+                android:layout_height="@dimen/height_20dp"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_marginBottom="@dimen/margin_16dp"
+                android:background="@drawable/ic_clock"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/details_debt_divider" />
+
+            <TextView
+                android:id="@+id/details_history_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_32dp"
+                android:text="@string/details_history_title"
+                android:textAppearance="@style/Debts.Text.Large.Title.Alt"
+                app:layout_constraintBottom_toBottomOf="@id/details_clock"
+                app:layout_constraintStart_toEndOf="@id/details_clock"
+                app:layout_constraintTop_toTopOf="@id/details_clock"
+                tools:ignore="RtlSymmetry" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/details_history"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:layout_marginStart="@dimen/margin_64dp"
+        tools:layout_marginTop="430dp"
+        tools:paddingEnd="@dimen/padding_8dp" />
+
+    <ImageView
+        android:id="@+id/details_avatar"
+        android:layout_width="@dimen/width_40dp"
+        android:layout_height="@dimen/height_40dp"
+        android:layout_gravity="top"
+        android:elevation="@dimen/elevation_8dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_behavior="debts.details.behavior.DetailsAvatarBehavior"
+        app:layout_collapseMode="pin"
+        tools:layout_marginStart="@dimen/margin_16dp"
+        tools:layout_marginTop="@dimen/margin_16dp" />
+
+    <TextView
+        android:id="@+id/details_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/elevation_8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="@style/Debts.Text.Large.Headline"
+        app:layout_behavior="debts.details.behavior.DetailsTitleBehavior"
+        tools:layout_marginBottom="@dimen/margin_20dp"
+        tools:layout_marginStart="@dimen/margin_8dp"
+        tools:paddingEnd="80dp"
+        tools:text="John Zorn John Zorn John Zorn John Zorn John Zorn John Zorn" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

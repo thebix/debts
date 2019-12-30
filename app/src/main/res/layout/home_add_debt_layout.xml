@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/padding_20dp"
+    android:paddingEnd="@dimen/padding_20dp"
+    tools:parentTag="android.widget.ScrollView">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/home_add_debt_avatar"
+            android:layout_width="@dimen/width_20dp"
+            android:layout_height="@dimen/height_20dp"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintEnd_toStartOf="@id/home_add_debt_name_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/home_add_debt_name_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:theme="@style/Debts.Theme.TextInput"
+            app:hintTextAppearance="@style/Debts.Theme.TextInput"
+            app:layout_constraintBottom_toTopOf="@id/home_add_debt_action"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/home_add_debt_avatar"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/home_add_debt_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/home_add_debt_name"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@color/debts_black"
+                android:textColorHint="@color/debts_grey_light"
+                tools:ignore="Autofill" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/home_add_debt_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20dp"
+            android:text="@string/home_add_debt_action"
+            android:textAppearance="@style/Debts.Text.Large.Title.Alt"
+            app:layout_constraintBottom_toTopOf="@id/home_add_debt_radio"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_add_debt_name_layout" />
+
+        <RadioGroup
+            android:id="@+id/home_add_debt_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/home_add_debt_amount_layout"
+            app:layout_constraintTop_toBottomOf="@id/home_add_debt_action">
+
+            <RadioButton
+                android:id="@+id/home_add_debt_radio_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:checked="true"
+                android:text="@string/home_add_debt_add"
+                android:textAppearance="@style/Debts.Text.Body.Short" />
+
+            <RadioButton
+                android:id="@+id/home_add_debt_radio_subtract"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_8dp"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/home_add_debt_subtract"
+                android:textAppearance="@style/Debts.Text.Body.Short" />
+
+        </RadioGroup>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/home_add_debt_amount_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:theme="@style/Debts.Theme.TextInput"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@style/UcbReport.EditText.OnboardingError"
+            app:hintTextAppearance="@style/Debts.Theme.TextInput"
+            app:layout_constraintBottom_toTopOf="@id/home_add_debt_comment_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_add_debt_radio">
+
+            <EditText
+                android:id="@+id/home_add_debt_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/home_add_debt_amount"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:paddingBottom="@dimen/padding_20dp"
+                android:textColor="@color/debts_black"
+                android:textColorHint="@color/debts_grey_light"
+                tools:ignore="Autofill" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/home_add_debt_comment_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:theme="@style/Debts.Theme.TextInput"
+            app:hintTextAppearance="@style/Debts.Theme.TextInput"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_add_debt_amount_layout">
+
+            <EditText
+                android:id="@+id/home_add_debt_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/home_add_debt_comment"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingBottom="@dimen/padding_20dp"
+                android:textColor="@color/debts_black"
+                android:textColorHint="@color/debts_grey_light"
+                tools:ignore="Autofill" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</merge>
