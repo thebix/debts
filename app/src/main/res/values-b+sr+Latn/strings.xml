@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"Dugovi"</string>
+
+    <!-- Defaults -->
+    <string name="default_positive_button">"OK"</string>
+    <string name="default_negative_button">"Otkazati"</string>
+    <string name="default_dialog_title">"Da li ste sigurni?"</string>
+
+    <!-- Home activity -->
+    <string name="home_pager_tab_all">"Svi"</string>
+    <string name="home_pager_tab_debtors">"Dužnici"</string>
+    <string name="home_pager_tab_creditors">"Kreditori"</string>
+
+    <!-- Debtors fragment -->
+    <string name="home_debtors_empty_debt_fields">"Ime dužnika ili iznos nije popunjen"</string>
+    <string name="home_debtors_search_hint">"Pretraga"</string>
+    <string name="home_debtors_share_title">"Podeliti sve dugove kao .csv fajl"</string>
+    <string name="home_debtors_toast_debt_added">"Dug je dodat"</string>
+    <string name="home_debtors_menu_search">"Pretraga"</string>
+    <string name="home_debtors_menu_settings">"Podešavanja"</string>
+    <string name="home_debtors_menu_sort">"Sortirati"</string>
+    <string name="home_debtors_menu_sort_name">"Ime"</string>
+    <string name="home_debtors_menu_sort_amount">"Iznos"</string>
+    <string name="home_debtors_item_menu_remove">"Izbrisati"</string>
+    <string name="home_debtors_item_menu_share">"Podeliti"</string>
+
+    <!-- AddDebt dialog -->
+    <string name="home_add_debt_title">"Dodati dug"</string>
+    <string name="home_add_debt_name">"Naziv"</string>
+    <string name="home_add_debt_action">"Šta je urađeno?"</string>
+    <string name="home_add_debt_add">"Dato"</string>
+    <string name="home_add_debt_subtract">"Uzeto"</string>
+    <string name="home_add_debt_amount">"Iznos"</string>
+    <string name="home_add_debt_amount_error">"Suma je prevelika"</string>
+    <string name="home_add_debt_comment">"Komentar"</string>
+    <string name="home_add_debt_confirm">"Potvrditi"</string>
+
+    <!-- Details fragment -->
+    <string name="details_debt_title">"Naziv"</string>
+    <string name="details_debt_total">"Ukupno"</string>
+    <string name="details_debt_change">"Promeniti"</string>
+    <string name="details_debt_clear">"Obrisati"</string>
+    <string name="details_dialog_delete_message">"Izbrisati dužnika i istoriju dugova?"</string>
+    <string name="details_history_title">"Istorija"</string>
+    <string name="details_share_title">"Podeliti podatke duga sa"</string>
+    <string name="details_share_message_borrowed">"Ćao! Uzeo/la sam %3$s%2$s od %1$s"</string>
+    <string name="details_share_message_lent">"Ćao! Dao/la sam %3$s%2$s %1$s"</string>
+    <string name="details_debts_item_sign_borrowed">"Uzeto"</string>
+    <string name="details_debts_item_sign_lent">"Dato"</string>
+    <string name="details_menu_delete">"Izbrisati"</string>
+    <string name="details_menu_share">"Podeliti"</string>
+    <string name="details_clear_all_dialog_confirmation_message">"Obrisati istoriju dugova?"</string>
+    <string name="details_empty_debt_fields">"Iznos duga je prazan"</string>
+    <string name="details_debts_item_menu_remove">"Izbriši"</string>
+    <string name="details_remove_debt_message">"Izbrisati jedan dug?"</string>
+
+    <!-- Preferences activity -->
+    <string name="settings_title">"Podešavanja"</string>
+
+    <!-- MainSettings fragment -->
+    <string name="preference_main_settings_general_title">"Opšta"</string>
+    <string name="preference_main_settings_currency">"Valuta"</string>
+    <string name="preference_main_settings_currency_summary">"Izabrano: %1$s"</string>
+    <string name="preference_main_settings_currency_custom">"Druga valuta"</string>
+    <string name="preference_main_settings_version">"Verzija"</string>
+    <string name="preference_main_settings_sync_title">"Sinhronizacija"</string>
+    <string name="preference_main_settings_sync_contacts">"Sinhronizovati sa kontaktima"</string>
+    <string name="preference_main_settings_sync_contacts_summary">"Ažurirati imena i fotografije"</string>
+    <string name="preference_main_settings_state_updating">"Ažuriranje..."</string>
+    <string name="preference_main_settings_state_updated">"Uspešno je ažurirano"</string>
+    <string name="preference_main_settings_state_error">"Došlo je do greške"</string>
+</resources>
