@@ -14,7 +14,7 @@ ext.libs = [
         androidxConstraintLayout : "androidx.constraintlayout:constraintlayout:2.0.0-beta4",
         androidxCore             : "androidx.core:core-ktx:1.2.0",
         androidxDesign           : "com.google.android.material:material:1.1.0",
-        androidxLifecycleCompiler: "androidx.lifecycle:lifecycle-compiler:2.1.0",
+        androidxLifecycleCompiler: "androidx.lifecycle:lifecycle-compiler:2.2.0",
         androidxPreference       : "androidx.preference:preference-ktx:1.1.0",
         crashlytics              : "com.google.firebase:firebase-crashlytics:17.0.0",
         firebaseCore             : "com.google.firebase:firebase-core:17.2.0",
