@@ -1,7 +1,7 @@
 package debts.common
 
 import android.util.Log
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import timber.log.Timber
 
 class TimberCrashlyticsTree : Timber.Tree() {
@@ -17,14 +17,16 @@ class TimberCrashlyticsTree : Timber.Tree() {
             return
         }
 
-        Crashlytics.setInt(CRASHLYTICS_KEY_PRIORITY, priority)
-        Crashlytics.setString(CRASHLYTICS_KEY_TAG, tag)
-        Crashlytics.setString(CRASHLYTICS_KEY_MESSAGE, message)
+        val crashlytics = FirebaseCrashlytics.getInstance()
+
+        crashlytics.setCustomKey(CRASHLYTICS_KEY_PRIORITY, priority)
+        tag?.let { crashlytics.setCustomKey(CRASHLYTICS_KEY_TAG, it) }
+        crashlytics.setCustomKey(CRASHLYTICS_KEY_MESSAGE, message)
 
         if (t == null) {
-            Crashlytics.logException(Exception(message))
+            crashlytics.recordException(Exception(message))
         } else {
-            Crashlytics.logException(t)
+            crashlytics.recordException(t)
         }
     }
 }
