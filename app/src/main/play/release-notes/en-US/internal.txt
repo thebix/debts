@@ -1,0 +1,7 @@
+App was rewritten from the scratch.
+- changed design to a brand new
+- added debt comment field
+- added preferences screen
+- added currency choice
+- added debtor's debt sharing
+- added full debts history "CSV-file" sharing
