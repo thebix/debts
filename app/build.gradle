@@ -1,8 +1,11 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: "com.google.firebase.crashlytics"
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "kotlin-kapt"
+    id "com.google.gms.google-services"
+    id "com.google.firebase.crashlytics"
+    id "com.github.triplet.play" version "2.7.5"
+}
 
 android {
     signingConfigs {
@@ -83,4 +86,15 @@ dependencies {
     implementation libs.rxBinding
     implementation libs.rxJava2
     implementation libs.timber
+}
+
+play {
+    releaseName = "Internal track release name"
+    userFraction = 1.0
+    defaultToAppBundles = true
+    serviceAccountCredentials = file("google-play-publisher.json")
+
+    // defaults, just to make explicit
+    track = "internal"
+    releaseStatus = "completed"
 }
