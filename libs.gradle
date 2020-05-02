@@ -6,7 +6,7 @@ ext.androidConfig = [
 ]
 ext.versions = [
         glide        : "4.11.0",
-        koin         : "2.0.1",
+        koin         : "2.1.5",
         room         : "2.2.0"
 ]
 ext.libs = [
