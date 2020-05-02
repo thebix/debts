@@ -24,7 +24,7 @@ ext.libs = [
         koinScope                : "org.koin:koin-androidx-scope:$versions.koin",
         koinViewModel            : "org.koin:koin-androidx-viewmodel:$versions.koin",
         koptional                : "com.gojuno.koptional:koptional:1.6.0",
-        kotlin                   : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+        kotlin                   : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
         leakCanary               : "com.squareup.leakcanary:leakcanary-android:2.0-beta-3",
         room                     : "androidx.room:room-runtime:$versions.room",
         roomCompiler             : "androidx.room:room-compiler:$versions.room",
