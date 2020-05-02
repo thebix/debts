@@ -1,10 +1,8 @@
 package debts
 
 import android.app.Application
-import com.crashlytics.android.Crashlytics
 import debts.common.TimberCrashlyticsTree
 import debts.di.*
-import io.fabric.sdk.android.Fabric
 import net.thebix.debts.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -19,7 +17,6 @@ class DebtsApp : Application() {
             Timber.plant(Timber.DebugTree())
         } else {
             Timber.plant(TimberCrashlyticsTree())
-            Fabric.with(this, Crashlytics())
         }
         startKoin {
             androidLogger()
