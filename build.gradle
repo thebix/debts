@@ -44,11 +44,19 @@ detekt {
     }
 }
 
+// tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
+//     // include("**/special/package/**") // only analyze a sub package inside src/main/kotlin
+//     exclude("buildSrc/build/**") // but exclude our legacy internal package
+// }
+
+dependencies {
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.8.0"
+}
+
 allprojects {
     repositories {
         google()
         jcenter()
         maven { url "https://kotlin.bintray.com/kotlinx/" }
-        maven { url "https://maven.fabric.io/public" }
     }
 }
