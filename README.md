@@ -33,3 +33,19 @@ base64 file encode
 openssl base64 -in ./debts.keystore -out ./debts.keystore.base64
 openssl base64 -in ./google-services.json -out ./google-services.json.base64
 ```
+
+## Google Play Store
+### [Gradle Play Publisher ](https://github.com/Triple-T/gradle-play-publisher)
+```shell script
+# publish
+./gradlew publishReleaseBundle
+# all available tasks
+./gradlew tasks --group publishing
+# fetch all the media and texts from play store
+./gradlew bootstrap
+```
+
+## Release
+### Steps
+1. Change release notes and other text in `app/src/main/play` folder
+1. Change app version
