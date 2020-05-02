@@ -7,7 +7,7 @@ ext.androidConfig = [
 ext.versions = [
         glide        : "4.11.0",
         koin         : "2.1.5",
-        room         : "2.2.0"
+        room         : "2.2.5"
 ]
 ext.libs = [
         androidxAppCompat        : "androidx.appcompat:appcompat:1.1.0",
