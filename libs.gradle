@@ -5,9 +5,10 @@ ext.androidConfig = [
         targetSdkVersion : 29,
 ]
 ext.versions = [
-        glide: "4.11.0",
-        koin : "2.1.5",
-        room : "2.2.5"
+        glide   : "4.11.0",
+        hyperion: "0.9.27",
+        koin    : "2.1.5",
+        room    : "2.2.5"
 ]
 ext.libs = [
         androidxAppCompat        : "androidx.appcompat:appcompat:1.1.0",
@@ -20,6 +21,17 @@ ext.libs = [
         firebaseCore             : "com.google.firebase:firebase-core:17.4.0",
         glide                    : "com.github.bumptech.glide:glide:$versions.glide",
         glideCompiler            : "com.github.bumptech.glide:compiler:$versions.glide",
+        hyperionCore             : "com.willowtreeapps.hyperion:hyperion-core:$versions.hyperion",
+        hyperionAttr             : "com.willowtreeapps.hyperion:hyperion-attr:$versions.hyperion",
+        hyperionBuildConfig      : "com.willowtreeapps.hyperion:hyperion-build-config:$versions.hyperion",
+        hyperionCrash            : "com.willowtreeapps.hyperion:hyperion-crash:$versions.hyperion",
+        hyperionDisk             : "com.willowtreeapps.hyperion:hyperion-disk:$versions.hyperion",
+        hyperionGeigerCounter    : "com.willowtreeapps.hyperion:hyperion-geiger-counter:$versions.hyperion",
+        hyperionMeasurement      : "com.willowtreeapps.hyperion:hyperion-measurement:$versions.hyperion",
+        hyperionPhoenix          : "com.willowtreeapps.hyperion:hyperion-phoenix:$versions.hyperion",
+        hyperionRecorder         : "com.willowtreeapps.hyperion:hyperion-recorder:$versions.hyperion",
+        hyperionSharedPrefs      : "com.willowtreeapps.hyperion:hyperion-shared-preferences:$versions.hyperion",
+        hyperionTimber           : "com.willowtreeapps.hyperion:hyperion-timber:$versions.hyperion",
         koin                     : "org.koin:koin-android:$versions.koin",
         koinScope                : "org.koin:koin-androidx-scope:$versions.koin",
         koinViewModel            : "org.koin:koin-androidx-viewmodel:$versions.koin",
