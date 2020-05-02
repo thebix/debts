@@ -17,7 +17,7 @@ ext.libs = [
         androidxLifecycleCompiler: "androidx.lifecycle:lifecycle-compiler:2.2.0",
         androidxPreference       : "androidx.preference:preference-ktx:1.1.1",
         crashlytics              : "com.google.firebase:firebase-crashlytics:17.0.0",
-        firebaseCore             : "com.google.firebase:firebase-core:17.2.0",
+        firebaseCore             : "com.google.firebase:firebase-core:17.4.0",
         glide                    : "com.github.bumptech.glide:glide:$versions.glide",
         glideCompiler            : "com.github.bumptech.glide:compiler:$versions.glide",
         koin                     : "org.koin:koin-android:$versions.koin",
