@@ -1,0 +1,11 @@
+Gestor de deutes simple per emmagatzemar informació sobre els seus ingressos i el resultat.
+
+Características:
+* 3 llistes (tot / deutes / deutors)
+* Vinculació amb Contactes
+* Historial de transaccions
+* Interface simple
+* CSV - Arxiu amb la història
+* Classificació
+
+Gràcies a Olga Biryukova (icona, ui, DE Traducció), Alexey Chistyakov (disseny, ui), Jordi Román Sebastian (ES / CA Traducció) i Egor Dovzhenko (SR / HR Traducció).

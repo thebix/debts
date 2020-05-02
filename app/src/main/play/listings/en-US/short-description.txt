@@ -1,0 +1,1 @@
+Simple debts manager for storing information about your income and outcome.

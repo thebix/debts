@@ -1,0 +1,15 @@
+Control your debts. Simple debts manager for storing information about your income and outcome.
+
+Features:
+* 3 lists (all / debtors / creditors)
+* Long-press on list item for submenu
+* Contacts binding
+* Transaction history
+* Simple light interface
+* Sharing CSV-file with history
+* Sorting
+* Search
+* Custom currency
+* Ads free
+
+Thanks to Olga Biryukova (icon, ui, DE localisation), Alexey Chistyakov (design, ui), Jordi Román Sebastian (ES / CA localisation) and Egor Dovzhenko (SE / HR localisation).

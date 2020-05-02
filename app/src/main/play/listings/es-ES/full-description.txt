@@ -1,0 +1,11 @@
+Gestor de deudas simple para almacenar información acerca de sus ingresos y el resultado.
+
+Características:
+* 3 listas (todas / deudas / deudores) 
+* Vinculacion con Contactos
+* Historial de transacciones
+* Interfaz simple 
+* CSV - Archivo con la historia
+* Clasificación
+
+Gracias a Olga Biryukova (icono, ui , DE Traducción), Alexey Chistyakov (diseño, ui), Jordi Román Sebastian (ES / CA Traducción) y Egor Dovzhenko (SR / HR Traducción).
