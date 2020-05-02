@@ -39,6 +39,7 @@ openssl base64 -in ./google-services.json -out ./google-services.json.base64
 ```shell script
 # publish
 ./gradlew publishReleaseBundle
+./gradlew publishReleaseApk
 # all available tasks
 ./gradlew tasks --group publishing
 # fetch all the media and texts from play store
