@@ -1,5 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">"Deudas"</string>
 
-    <string name="app_name">Deudas</string>
+    <!-- Defaults -->
+    <string name="default_positive_button">"Vale"</string>
+    <string name="default_negative_button">"Cancelar"</string>
+    <string name="default_dialog_title">"¿Estás seguro?"</string>
+
+    <!-- Home activity -->
+    <string name="home_pager_tab_all">"Todos"</string>
+    <string name="home_pager_tab_debtors">"Deudores"</string>
+    <string name="home_pager_tab_creditors">"Acreedores"</string>
+
+    <!-- Debtors fragment -->
+    <string name="home_debtors_empty_debt_fields">"El deudor o importe de la deuda está vacío"</string>
+    <string name="home_debtors_search_hint">"Buscar"</string>
+    <string name="home_debtors_share_title">"Compartir todas las deudas como .csv archivo"</string>
+    <string name="home_debtors_toast_debt_added">"La deuda está añadida"</string>
+    <string name="home_debtors_menu_search">"Buscar"</string>
+    <string name="home_debtors_menu_settings">"Ajustes"</string>
+    <string name="home_debtors_menu_sort">"Ordenar"</string>
+    <string name="home_debtors_menu_sort_name">"Nombre"</string>
+    <string name="home_debtors_menu_sort_amount">"Importe"</string>
+    <string name="home_debtors_item_menu_remove">"Borrar"</string>
+    <string name="home_debtors_item_menu_share">"Compartir"</string>
+
+    <!-- AddDebt dialog -->
+    <string name="home_add_debt_title">"Añadir una deuda"</string>
+    <string name="home_add_debt_name">"Nombre"</string>
+    <string name="home_add_debt_action">"Acción"</string>
+    <string name="home_add_debt_add">"Le presté"</string>
+    <string name="home_add_debt_subtract">"Tomé prestado"</string>
+    <string name="home_add_debt_amount">"Importe"</string>
+    <string name="home_add_debt_amount_error">"El valor es demasiado largo"</string>
+    <string name="home_add_debt_comment">"Comentario"</string>
+    <string name="home_add_debt_confirm">"Confirmar"</string>
+
+    <!-- Details fragment -->
+    <string name="details_debt_title">"Deuda"</string>
+    <string name="details_debt_total">"Total"</string>
+    <string name="details_debt_change">"Cambiar"</string>
+    <string name="details_debt_clear">"Borrar"</string>
+    <string name="details_dialog_delete_message">"¿Eliminar el deudor y borrar el historial de deudas?"</string>
+    <string name="details_history_title">"Historial"</string>
+    <string name="details_share_title">"Compartir la información de la deuda con"</string>
+    <string name="details_share_message_borrowed">"¡Hola, tomé prestado  %3$s%2$s de %1$s !"</string>
+    <string name="details_share_message_lent">"¡Hola, le he prestado %3$s%2$s a %1$s !"</string>
+    <string name="details_debts_item_sign_borrowed">"Tomé prestado"</string>
+    <string name="details_debts_item_sign_lent">"Le presté"</string>
+    <string name="details_menu_delete">"Eliminar"</string>
+    <string name="details_menu_share">"Compartir"</string>
+    <string name="details_clear_all_dialog_confirmation_message">"¿Borrar el historial de deudas?"</string>
+    <string name="details_empty_debt_fields">"El importe de la deuda está vacío"</string>
+    <string name="details_debts_item_menu_remove">"Eliminar"</string>
+    <string name="details_remove_debt_message">"¿Eliminar una deuda?"</string>
+
+    <!-- Preferences activity -->
+    <string name="settings_title">"Ajustes"</string>
+
+    <!-- MainSettings fragment -->
+    <string name="preference_main_settings_general_title">"General"</string>
+    <string name="preference_main_settings_currency">"Moneda"</string>
+    <string name="preference_main_settings_currency_summary">"Seleccionado: %1$s"</string>
+    <string name="preference_main_settings_currency_custom">"La moneda personalizada"</string>
+    <string name="preference_main_settings_version">"Versión"</string>
+    <string name="preference_main_settings_sync_title">"Sincronización"</string>
+    <string name="preference_main_settings_sync_contacts">"Sincronizar con contactos"</string>
+    <string name="preference_main_settings_sync_contacts_summary">"Actualizar los nombres y las imágenes"</string>
+    <string name="preference_main_settings_state_updating">"Está actualizando..."</string>
+    <string name="preference_main_settings_state_updated">"Está actualizado con éxito"</string>
+    <string name="preference_main_settings_state_error">"Ocurrió un error"</string>
 </resources>
