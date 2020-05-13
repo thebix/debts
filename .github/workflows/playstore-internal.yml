@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - internal/*
+      - release/*
 
 jobs:
   publish:
@@ -25,8 +26,8 @@ jobs:
           echo "GITHUB_ACTOR=$GITHUB_ACTOR"
       - name: Setup environment
         run: |
-          echo "${{ secrets.KEYSTORE_FILE }}" | base64 -d > app/app.upload.keystore;
-          echo "${{ secrets.SIGNING_PROPERTIES }}" | base64 -d > signing.properties;
+          echo "${{ secrets.DEBTS_KEY_FILE_BASE64 }}" | base64 -d > ./app/debts.keystore;
+          echo "${{ secrets.DEBTS_GOOGLE_SERVICES_FILE_BASE64 }}" | base64 -d > ./app/google-services.json;
           echo "${{ secrets.GOOGLE_PLAY_PUBLISHER }}" | base64 -d > app/google-play-publisher.json;
       - name: Static Code Analysis (Kotlin, detekt)
         run: ./gradlew detekt
@@ -34,5 +35,11 @@ jobs:
           ENV_BUILD_ID: ${{ github.run_number }}
       - name: Lint (Android)
         run: ./gradlew lintDebug
-      - name: Build
-        run: ./gradlew publishReleaseBundle
+      - name: PublishReleaseApk
+        env:
+          DEBTS_STORE_KEY_ALIAS: ${{ secrets.DEBTS_STORE_KEY_ALIAS }}
+          DEBTS_STORE_KEY_ALIAS_PASSWORD: ${{ secrets.DEBTS_STORE_KEY_ALIAS_PASSWORD }}
+          DEBTS_STORE_KEY_FILE: ${{ secrets.DEBTS_STORE_KEY_FILE }}
+          DEBTS_STORE_KEY_PASSWORD: ${{ secrets.DEBTS_STORE_KEY_PASSWORD }}
+          DEBTS_FABRIC_API_KEY: ${{ secrets.DEBTS_FABRIC_API_KEY }}
+        run: ./gradlew publishReleaseApk
