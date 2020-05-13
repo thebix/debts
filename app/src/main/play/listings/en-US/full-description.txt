@@ -12,4 +12,4 @@ Features:
 * Custom currency
 * Ads free
 
-Thanks to Olga Biryukova (icon, ui, DE localisation), Alexey Chistyakov (design, ui), Jordi Román Sebastian (ES / CA localisation) and Egor Dovzhenko (SE / HR localisation).
+Thanks to Alexey Chistyakov (design, ui), Olga Biryukova (icon, DE localisation), Daria Polikanina (ES localisation) and Egor Dovzhenko (SE localisation).
