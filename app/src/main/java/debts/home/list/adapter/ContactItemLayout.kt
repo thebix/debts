@@ -13,7 +13,7 @@ import debts.common.android.extensions.doInRuntime
 import debts.common.android.extensions.selfInflate
 import net.thebix.debts.R
 
-class AddDebtSuggestionItemLayout @JvmOverloads constructor(
+class ContactItemLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0

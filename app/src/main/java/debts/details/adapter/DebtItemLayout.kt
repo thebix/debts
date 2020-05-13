@@ -3,15 +3,25 @@ package debts.details.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.widget.ConstraintLayout
 import debts.common.android.adapters.ItemRenderer
-import debts.common.android.extensions.*
-import java.util.*
-import kotlin.math.absoluteValue
+import debts.common.android.extensions.applyLayoutParams
+import debts.common.android.extensions.doInRuntime
+import debts.common.android.extensions.selfInflate
+import debts.common.android.extensions.setPaddingBottomResCompat
+import debts.common.android.extensions.setPaddingEndResCompat
+import debts.common.android.extensions.setPaddingStartResCompat
+import debts.common.android.extensions.setPaddingTopResCompat
+import debts.common.android.extensions.setSelectableItemBackground
+import debts.common.android.extensions.showPopup
+import debts.common.android.extensions.toFormattedCurrency
+import debts.common.android.extensions.toSimpleDateTimeString
+import debts.common.android.extensions.visible
 import net.thebix.debts.R
+import java.util.Date
+import kotlin.math.absoluteValue
 
 @SuppressLint("ViewConstructor")
 class DebtItemLayout @JvmOverloads constructor(
@@ -43,17 +53,17 @@ class DebtItemLayout @JvmOverloads constructor(
         dateView = findViewById(R.id.details_debts_item_date)
         commentView = findViewById(R.id.details_debts_item_comment)
         this.setOnLongClickListener {
-            this.showPopup(R.menu.home_details_debts_item_menu, object : PopupMenu.OnMenuItemClickListener {
-                override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
-                    return when (menuItem?.itemId) {
+            this.showPopup(
+                R.menu.home_details_debts_item_menu,
+                PopupMenu.OnMenuItemClickListener { menuItem ->
+                    when (menuItem?.itemId) {
                         R.id.home_details_debts_item_menu_remove -> {
                             historyItemCallback.onDebtRemove(debtId)
                             true
                         }
                         else -> false
                     }
-                }
-            })
+                })
             true
         }
     }

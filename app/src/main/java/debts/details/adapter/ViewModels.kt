@@ -11,11 +11,9 @@ sealed class DebtsItemViewModel(open val id: Long) {
         val date: Long,
         val comment: String
     ) : DebtsItemViewModel(id)
-
 }
 
 // region Mapping
-////////////////////////////////////////////////////////////////
 
 fun DebtItemModel.toDebtsItemViewModel() =
     DebtsItemViewModel.DebtItemViewModel(

@@ -1,6 +1,13 @@
 package debts.db
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Database
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.RoomDatabase
+import androidx.room.Transaction
+import androidx.room.Update
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -24,6 +31,7 @@ abstract class DebtsDatabase : RoomDatabase() {
 }
 
 @Dao
+@Suppress("TooManyMethods", "TooManyFunctions")
 abstract class DebtsDao {
 
     @Insert

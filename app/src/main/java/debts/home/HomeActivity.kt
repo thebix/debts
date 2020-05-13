@@ -214,7 +214,7 @@ class HomeActivity : BaseActivity() {
         grantResults: IntArray
     ) {
         when (requestCode) {
-            HomeActivity.READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 intentionSubject
                     .onNext(
                         HomeIntention.OpenAddDebtDialog(
@@ -225,7 +225,7 @@ class HomeActivity : BaseActivity() {
             } else {
                 showAddDebtDialog()
             }
-            HomeActivity.READ_CONTACTS_SYNC_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            READ_CONTACTS_SYNC_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 intentionSubject.onNext(HomeIntention.SyncWithContacts)
             }
         }

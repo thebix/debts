@@ -5,7 +5,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.UiThread
 import androidx.appcompat.widget.Toolbar
-import androidx.preference.*
+import androidx.preference.EditTextPreference
+import androidx.preference.ListPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import debts.common.android.BaseActivity
 import debts.common.android.FragmentScreenContext
@@ -88,7 +92,12 @@ class MainSettingsFragment : PreferenceFragmentCompat() {
          *      - use constants
          */
         val preferences = PreferenceManager.getDefaultSharedPreferences(context?.applicationContext)
-        updateCurrencyCustomSummary(preferences.getString("preference_main_settings_currency_custom", "") ?: "")
+        updateCurrencyCustomSummary(
+            preferences.getString(
+                "preference_main_settings_currency_custom",
+                ""
+            ) ?: ""
+        )
 
         currencyListPref?.setOnPreferenceChangeListener { _, newValue ->
             currencyCustomPref?.isVisible = (newValue == "Custom")
@@ -189,13 +198,16 @@ class MainSettingsFragment : PreferenceFragmentCompat() {
             }
             when (syncWithContactsState.get(this)) {
                 MainSettingsState.UpdateState.START -> {
-                    syncContactsPref?.summary = context?.getString(R.string.preference_main_settings_state_updating)
+                    syncContactsPref?.summary =
+                        context?.getString(R.string.preference_main_settings_state_updating)
                 }
                 MainSettingsState.UpdateState.END -> {
-                    syncContactsPref?.summary = context?.getString(R.string.preference_main_settings_state_updated)
+                    syncContactsPref?.summary =
+                        context?.getString(R.string.preference_main_settings_state_updated)
                 }
                 MainSettingsState.UpdateState.ERROR -> {
-                    syncContactsPref?.summary = context?.getString(R.string.preference_main_settings_state_error)
+                    syncContactsPref?.summary =
+                        context?.getString(R.string.preference_main_settings_state_error)
                 }
             }
         }
