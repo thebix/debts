@@ -2,37 +2,41 @@
 
 # Debts app
 
-## prepare env
+## Developer setup
 - create apps `net.thebix.debts` and `net.thebix.debts.debug` in Firebase and save `/app/google-services.json`
-- connect project to the Firebase
 - put `debts.keystore` to `/app/debts.keystore`
-- make file `./debts_credentials.properties` with 
-
-```
+- make file `./debts_credentials.properties` with
+```text
     DEBTS_STORE_KEY_ALIAS=
     DEBTS_STORE_KEY_ALIAS_PASSWORD=
-    DEBTS_STORE_KEY_FILE=
+    DEBTS_STORE_KEY_FILE=debts.keystore
     DEBTS_STORE_KEY_PASSWORD=
     DEBTS_FABRIC_API_KEY=
 ```
+- Prepare file `app/google-play-publisher.json`. More info: [Google Play Publisher](https://github.com/Triple-T/gradle-play-publisher)
 
-## github actions
-- create [secrets](https://github.com/thebix/debts/settings/secrets/)
+## Github setup
+1. Convert `debts.keystore` file to base64
+```shell script
+openssl base64 -in app/debts.keystore -out debts.keystore.base64
 ```
-    DEBTS_STORE_KEY_ALIAS=
-    DEBTS_STORE_KEY_ALIAS_PASSWORD=
-    DEBTS_STORE_KEY_FILE=
-    DEBTS_STORE_KEY_PASSWORD=
-    DEBTS_FABRIC_API_KEY=
-    DEBTS_GOOGLE_SERVICES_FILE_BASE64=base64 representation of google-services.json
-    DEBTS_KEY_FILE_BASE64=base64 representation of debts.keystore
+2. Convert `google-services.json` file to base64
+```shell script
+openssl base64 -in app/google-services.json -out google-services.json.base64
 ```
-
-base64 file encode
+3. Convert `google-play-publisher.json` file to base64
+```shell script
+openssl base64 -in ./app/google-play-publisher.json -out ./google-play-publisher.json.base64
 ```
-openssl base64 -in ./debts.keystore -out ./debts.keystore.base64
-openssl base64 -in ./google-services.json -out ./google-services.json.base64
-```
+4. create [secrets](https://github.com/thebix/debts/settings/secrets/)
+- `DEBTS_STORE_KEY_ALIAS`
+- `DEBTS_STORE_KEY_ALIAS_PASSWORD`
+- `DEBTS_STORE_KEY_FILE`
+- `DEBTS_STORE_KEY_PASSWORD`
+- `DEBTS_FABRIC_API_KEY`
+- `DEBTS_KEY_FILE_BASE64` with content of `debts.keystore.base64`
+- `DEBTS_GOOGLE_SERVICES_FILE_BASE64` with content of `google-services.json.base64`
+- `GOOGLE_PLAY_PUBLISHER` with content of `google-play-publisher.json`
 
 ## Google Play Store
 ### [Gradle Play Publisher ](https://github.com/Triple-T/gradle-play-publisher)
@@ -49,4 +53,18 @@ openssl base64 -in ./google-services.json -out ./google-services.json.base64
 ## Release
 ### Steps
 1. Change release notes and other text in `app/src/main/play` folder
-1. Change app version
+2. Change app version
+3. Push to remote
+4. Tag release with `release/*.*.*`
+```shell script
+git tag -a release/*.*.* -m "Release/*.*.*"
+git push origin release/*.*.*
+```
+
+### Internal
+```
+git push --delete origin internal/release
+git tag -d internal/release
+git tag -a internal/release -m "internal release"
+git push --follow-tags
+```
