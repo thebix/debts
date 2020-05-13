@@ -31,9 +31,10 @@ class ContactsAdapter(
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val item = getItem(position) ?: return View(context)
+
         @Suppress("UNCHECKED_CAST")
         val convertViewRes = if (convertView == null) {
-            val view = AddDebtSuggestionItemLayout(context)
+            val view = ContactItemLayout(context)
             val holder = ViewHolderRenderer(view)
             view.tag = holder
             view
@@ -56,7 +57,6 @@ class ContactsAdapter(
                             }
                         values = filteredItems
                         count = filteredItems.size
-
                     }
             }
 
@@ -65,14 +65,12 @@ class ContactsAdapter(
                     @Suppress("UNCHECKED_CAST")
                     currentItems = results.values as List<ContactsItemViewModel>
                     notifyDataSetChanged()
-
                 } else notifyDataSetInvalidated()
             }
 
             override fun convertResultToString(resultValue: Any?): CharSequence {
                 return (resultValue as ContactsItemViewModel).name
             }
-
         }
     }
 }

@@ -23,7 +23,6 @@ sealed class DebtorsItemViewModel(open val id: Long) {
 data class ContactsItemViewModel(val id: Long, val name: String, val avatarUrl: String)
 
 // region Mapping
-////////////////////////////////////////////////////////////////
 
 fun DebtorsListItemModel.toDebtorsItemViewModel() = when (this) {
     is DebtorsListItemModel.Debtor -> DebtorsItemViewModel.DebtorItemViewModel(

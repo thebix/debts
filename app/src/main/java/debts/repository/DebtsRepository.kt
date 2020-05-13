@@ -12,7 +12,7 @@ import debts.usecase.DebtorModel
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import java.util.*
+import java.util.Date
 
 class DebtsRepository(
     private val contentResolver: ContentResolver,
@@ -128,19 +128,18 @@ class DebtsRepository(
 
     fun removeDebt(id: Long): Completable = dao.deleteDebt(id)
 
-    fun updateDebtsCurrency(): Completable =
-        getCurrency()
-            .flatMapCompletable {
-                Completable.fromCallable { dao.updateDebtsCurrency(it) }
-            }
-
+    fun updateDebtsCurrency(): Completable = getCurrency()
+        .flatMapCompletable {
+            Completable.fromCallable { dao.updateDebtsCurrency(it) }
+        }
 
     fun removeDebtor(debtorId: Long): Completable = dao.deleteDebtor(debtorId)
 
     // region Preferences
-    ///////////////////////////////////////////////////////////////////////////
 
-    fun isContactsSynced() = Single.fromCallable { preferences.getBoolean(PREFS_IS_CONTACT_SYNCED, false) }
+    fun isContactsSynced() =
+        Single.fromCallable { preferences.getBoolean(PREFS_IS_CONTACT_SYNCED, false) }
+
     fun setContactsSynced(isSynced: Boolean = true) =
         Completable.fromCallable { preferences.putBoolean(PREFS_IS_CONTACT_SYNCED, isSynced) }
 
@@ -149,12 +148,15 @@ class DebtsRepository(
     fun setCurrency(currency: String) =
         Completable.fromCallable { preferences.putString(PREFS_CURRENCY, currency) }
 
-    fun isAppFirstStart() = Single.fromCallable { preferences.getBoolean(PREFS_IS_FIRST_START, true) }
+    fun isAppFirstStart() =
+        Single.fromCallable { preferences.getBoolean(PREFS_IS_FIRST_START, true) }
+
     fun setAppFirstStart(isAppFirstStart: Boolean = true) =
         Completable.fromCallable { preferences.putBoolean(PREFS_IS_FIRST_START, isAppFirstStart) }
 
-    fun observeSortType(): Observable<SortType> = preferences.observeString(PREFS_SORT_KEY, SortType.NOTHING.name)
-        .map { SortType.valueOf(it) }
+    fun observeSortType(): Observable<SortType> =
+        preferences.observeString(PREFS_SORT_KEY, SortType.NOTHING.name)
+            .map { SortType.valueOf(it) }
 
     fun setSortType(sortType: SortType) {
         preferences.putString(PREFS_SORT_KEY, sortType.name)

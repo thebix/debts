@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions")
+
 package debts.common.android.extensions
 
 import android.app.Activity
@@ -9,14 +11,20 @@ import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
-import androidx.annotation.*
+import androidx.annotation.ArrayRes
+import androidx.annotation.BoolRes
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.annotation.DimenRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.IntegerRes
+import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import net.thebix.debts.R
 import timber.log.Timber
 
 // region Resources
-///////////////////////////////////////////////////////////////////////////
 
 @ColorInt
 fun Context.getColorCompat(@ColorRes colorRes: Int): Int = ContextCompat.getColor(this, colorRes)
@@ -45,7 +53,6 @@ fun Context.getBoolean(@BoolRes resId: Int): Boolean = resources.getBoolean(resI
 // endregion
 
 // region Activity
-///////////////////////////////////////////////////////////////////////////
 
 fun Context.tryToFindActivity(): Activity? {
     var context = this
@@ -68,7 +75,6 @@ fun Context.tryToGoBack() {
 // endregion
 
 // region Permissions
-///////////////////////////////////////////////////////////////////////////
 /**
  * Returns true if passed [permission] is granted.
  */
@@ -87,8 +93,8 @@ fun Context.isPermissionGranted(permission: String): Boolean {
 // endregion
 
 // region AlertDialog
-///////////////////////////////////////////////////////////////////////////
 
+@Suppress("LongParameterList")
 fun Context.showAlert(
     @StringRes messageId: Int = 0,
     isCancelable: Boolean = true,
@@ -128,7 +134,6 @@ fun Context.showAlert(
 // endregion
 
 // region Explicit intentions
-///////////////////////////////////////////////////////////////////////////
 
 fun Context.openUrl(url: String) {
     val intent = Intent(Intent.ACTION_VIEW)

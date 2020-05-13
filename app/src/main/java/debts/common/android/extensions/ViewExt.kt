@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions")
+
 package debts.common.android.extensions
 
 import android.app.Activity
@@ -15,11 +17,11 @@ import androidx.core.view.MarginLayoutParamsCompat
 import androidx.core.view.ViewCompat
 
 // region Helpers
-///////////////////////////////////////////////////////////////////////////
 
 @Suppress("PropertyName", "unused")
 val View.MATCH_PARENT
     get() = ViewGroup.LayoutParams.MATCH_PARENT
+
 @Suppress("PropertyName", "unused")
 val View.WRAP_CONTENT
     get() = ViewGroup.LayoutParams.WRAP_CONTENT
@@ -47,24 +49,20 @@ fun View.getActivity(): Activity? = context.tryToFindActivity()
 // endregion
 
 // region Visibility
-///////////////////////////////////////////////////////////////////////////
 
 fun View.isVisible() = visibility == View.VISIBLE
 fun View.setVisible() {
-    if (!isVisible())
-        visibility = View.VISIBLE
+    if (!isVisible()) visibility = View.VISIBLE
 }
 
 fun View.isInvisible() = visibility == View.INVISIBLE
 fun View.setInvisible() {
-    if (!isInvisible())
-        visibility = View.INVISIBLE
+    if (!isInvisible()) visibility = View.INVISIBLE
 }
 
 fun View.isGone() = visibility == View.GONE
 fun View.setGone() {
-    if (!isGone())
-        visibility = View.GONE
+    if (!isGone()) visibility = View.GONE
 }
 
 /**
@@ -81,11 +79,13 @@ var View.visible
 // endregion
 
 // region Margins
-///////////////////////////////////////////////////////////////////////////
 
 fun View.setMarginStartResCompat(@DimenRes marginRes: Int) {
     val params = layoutParams as? ViewGroup.MarginLayoutParams ?: return
-    MarginLayoutParamsCompat.setMarginStart(params, context.getDimensionPixelOffsetCompat(marginRes))
+    MarginLayoutParamsCompat.setMarginStart(
+        params,
+        context.getDimensionPixelOffsetCompat(marginRes)
+    )
     layoutParams = params
 }
 
@@ -111,7 +111,6 @@ fun View.setMarginBottomResCompat(@DimenRes marginRes: Int) {
 
 
 // region Paddings
-///////////////////////////////////////////////////////////////////////////
 
 fun View.setPaddingStartResCompat(@DimenRes paddingRes: Int) {
     setPaddingStartCompat(context.getDimensionPixelOffsetCompat(paddingRes))
@@ -172,7 +171,6 @@ fun View.setPaddingBottomCompat(padding: Int) {
 // endregion
 
 // region Background
-///////////////////////////////////////////////////////////////////////////
 
 fun View.setSelectableItemBackground() {
     val outValue = TypedValue()
@@ -183,7 +181,6 @@ fun View.setSelectableItemBackground() {
 // endregion
 
 // region Keyboard management
-///////////////////////////////////////////////////////////////////////////
 
 fun View.hideKeyboard(delay: Long = 64L) {
     getActivity()?.let { activity ->
@@ -195,12 +192,19 @@ fun View.hideKeyboard(delay: Long = 64L) {
                 {
                     val inputMethodManager =
                         activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    inputMethodManager.hideSoftInputFromWindow(windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+                    inputMethodManager.hideSoftInputFromWindow(
+                        windowToken,
+                        InputMethodManager.HIDE_NOT_ALWAYS
+                    )
                 }, delay
             )
         } else {
-            val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+            val inputMethodManager =
+                activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(
+                windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
         }
     }
 }
@@ -225,7 +229,8 @@ fun EditText.showKeyboard(delay: Long = 64L) {
                 }, delay
             )
         } else {
-            val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager =
+                activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.showSoftInput(focusedView, InputMethodManager.SHOW_IMPLICIT)
         }
 

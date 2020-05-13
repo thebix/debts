@@ -111,15 +111,14 @@ class DebtorsInteractor(
         items: List<DebtorsListItemModel.Debtor>,
         name: String
     ): List<DebtorsListItemModel.Debtor> =
-        if (name.isNotBlank())
+        if (name.isNotBlank()) {
             items.filter {
                 it.name.contains(
                     name,
                     true
                 )
             }
-        else
-            items
+        } else items
 
     private fun getDebtorsWithAbsAmountsAndSortingApplied(
         items: List<DebtorsListItemModel.Debtor>,

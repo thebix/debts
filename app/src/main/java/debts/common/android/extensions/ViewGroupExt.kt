@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 
 // region Helpers
-///////////////////////////////////////////////////////////////////////////
 
 fun ViewGroup.selfInflate(@LayoutRes resId: Int) {
     View.inflate(context, resId, this)
@@ -15,7 +14,6 @@ fun ViewGroup.selfInflate(@LayoutRes resId: Int) {
 
 
 // region Children
-///////////////////////////////////////////////////////////////////////////
 
 operator fun ViewGroup.contains(view: View): Boolean = indexOfChild(view) != -1
 
