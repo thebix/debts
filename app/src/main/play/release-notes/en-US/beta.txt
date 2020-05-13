@@ -1,2 +1,2 @@
-Fixed synchronization with Contacts after update
-- to enforce synchronization with Contacts go to Settings and tap on Sync item
+- ES localisation
+- stability improvements

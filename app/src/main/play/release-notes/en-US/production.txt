@@ -1,1 +1,2 @@
-- added bottom bar with total sum amount
+- ES localisation
+- stability improvements
