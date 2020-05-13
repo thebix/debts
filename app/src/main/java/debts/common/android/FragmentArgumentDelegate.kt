@@ -30,6 +30,7 @@ class FragmentArgumentDelegate<T : Any> : ReadWriteProperty<Fragment, T> {
         return value ?: throw IllegalStateException("Property ${property.name} could not be read")
     }
 
+    @Suppress("ComplexMethod")
     override operator fun setValue(thisRef: Fragment, property: KProperty<*>, value: T) {
         if (thisRef.arguments == null) thisRef.arguments = Bundle()
 

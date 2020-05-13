@@ -1,12 +1,19 @@
 package debts.preferences.main.mvi
 
-import debts.common.android.mvi.*
+import debts.common.android.mvi.MviAction
+import debts.common.android.mvi.MviInitIntention
+import debts.common.android.mvi.MviIntention
+import debts.common.android.mvi.MviResult
+import debts.common.android.mvi.MviState
+import debts.common.android.mvi.OneShot
+import debts.common.android.mvi.ViewStateWithId
 
 sealed class MainSettingsIntention : MviIntention {
 
     object Init : MainSettingsIntention(), MviInitIntention
     data class UpdateCurrency(val currency: String) : MainSettingsIntention()
-    data class SyncWithContacts(val permission: String, val resultCode: Int) : MainSettingsIntention()
+    data class SyncWithContacts(val permission: String, val resultCode: Int) :
+        MainSettingsIntention()
 }
 
 sealed class MainSettingsAction : MviAction {

@@ -10,9 +10,19 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import debts.common.android.adapters.ItemRenderer
-import debts.common.android.extensions.*
+import debts.common.android.extensions.applyLayoutParams
+import debts.common.android.extensions.doInRuntime
+import debts.common.android.extensions.selfInflate
+import debts.common.android.extensions.setPaddingBottomResCompat
+import debts.common.android.extensions.setPaddingStartResCompat
+import debts.common.android.extensions.setPaddingTopResCompat
+import debts.common.android.extensions.setSelectableItemBackground
+import debts.common.android.extensions.showPopup
+import debts.common.android.extensions.toFormattedCurrency
+import debts.common.android.extensions.toSimpleDateString
+import debts.common.android.extensions.visible
 import net.thebix.debts.R
-import java.util.*
+import java.util.Date
 
 @SuppressLint("ViewConstructor")
 class DebtorItemLayout @JvmOverloads constructor(

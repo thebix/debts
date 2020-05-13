@@ -20,6 +20,7 @@ import timber.log.Timber
 import java.text.NumberFormat
 import java.util.Locale
 
+@Suppress("LongParameterList")
 class HomeInteractor(
     private val getContactsUseCase: GetContactsUseCase,
     private val addDebtUseCase: AddDebtUseCase,

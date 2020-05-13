@@ -71,7 +71,6 @@ class DebtorsFragment : BaseFragment() {
                 )
             )
         }
-
     }
     private val screenContextHolder: ScreenContextHolder by inject()
     private val adapter: DebtorsAdapter = DebtorsAdapter(itemCallback)
@@ -159,7 +158,6 @@ class DebtorsFragment : BaseFragment() {
             ?.let { savedState ->
                 recyclerView?.layoutManager?.onRestoreInstanceState(savedState)
             }
-
     }
 
     override fun onResume() {

@@ -21,7 +21,6 @@ interface Preferences {
     fun clear()
 }
 
-
 class AndroidPreferences(
     context: Context,
     preferencesName: String = ""

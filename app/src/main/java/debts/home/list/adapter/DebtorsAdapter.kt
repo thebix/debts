@@ -1,9 +1,19 @@
 package debts.home.list.adapter
 
-import android.widget.TextView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.DiffUtil
-import debts.common.android.adapters.*
-import debts.common.android.extensions.*
+import debts.common.android.adapters.CommonDiffUtilCallback
+import debts.common.android.adapters.DelegatedAdapter
+import debts.common.android.adapters.ItemRenderer
+import debts.common.android.adapters.TypedAdapterDelegate
+import debts.common.android.adapters.ViewHolderRenderer
+import debts.common.android.extensions.applyLayoutParams
+import debts.common.android.extensions.atLeastNougatMr1
+import debts.common.android.extensions.doInRuntime
+import debts.common.android.extensions.getColorCompat
+import debts.common.android.extensions.setPaddingBottomResCompat
+import debts.common.android.extensions.setPaddingStartResCompat
+import debts.common.android.extensions.setPaddingTopResCompat
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -27,7 +37,8 @@ class DebtorsAdapter(
             ViewHolderRenderer(layout)
         })
         addDelegate(TYPE_TITLE, TypedAdapterDelegate { parent ->
-            val layout = object : TextView(parent.context), ItemRenderer<DebtorsItemViewModel.TitleItem> {
+            val layout = object : AppCompatTextView(parent.context),
+                ItemRenderer<DebtorsItemViewModel.TitleItem> {
                 init {
                     doInRuntime {
                         applyLayoutParams()

@@ -1,7 +1,12 @@
 package debts.details
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.UiThread
@@ -165,7 +170,7 @@ class DetailsFragment : BaseFragment() {
                         return@subscribe
                     }
                     addDebtLayout = AddDebtLayout(
-                        context!!,
+                        requireContext(),
                         name = nameView?.text.toString(),
                         avatarUrl = avatarUrl
                     )

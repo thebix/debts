@@ -11,7 +11,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding3.widget.textChanges
-import debts.common.android.extensions.*
+import debts.common.android.extensions.applyLayoutParams
+import debts.common.android.extensions.doInRuntime
+import debts.common.android.extensions.selfInflate
+import debts.common.android.extensions.setPaddingBottomResCompat
+import debts.common.android.extensions.setPaddingEndResCompat
+import debts.common.android.extensions.setPaddingStartResCompat
+import debts.common.android.extensions.setPaddingTopResCompat
+import debts.common.android.extensions.showKeyboard
 import debts.home.list.adapter.ContactsAdapter
 import debts.home.list.adapter.ContactsItemViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -35,10 +42,8 @@ class AddDebtLayout @JvmOverloads constructor(
         get() {
             val inverseAmount = radioAdd.checkedRadioButtonId == R.id.home_add_debt_radio_subtract
             val amount = try {
-                if (amountView.text.length > AMOUNT_MAX_LENGTH)
-                    0.0
-                else
-                    amountView.text.toString().toDouble() * if (inverseAmount) -1 else 1
+                if (amountView.text.length > AMOUNT_MAX_LENGTH) 0.0
+                else amountView.text.toString().toDouble() * if (inverseAmount) -1 else 1
             } catch (ex: Throwable) {
                 0.0
             }
@@ -98,7 +103,8 @@ class AddDebtLayout @JvmOverloads constructor(
                 },
             amountView.textChanges()
                 .subscribe {
-                    amountLayoutView.error = if (it.length > AMOUNT_MAX_LENGTH) context.getString(R.string.home_add_debt_amount_error) else ""
+                    amountLayoutView.error =
+                        if (it.length > AMOUNT_MAX_LENGTH) context.getString(R.string.home_add_debt_amount_error) else ""
                 }
         )
 

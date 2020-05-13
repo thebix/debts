@@ -10,6 +10,7 @@ private const val DEBTS_TABLE_NAME_LEGACY = "Debits"
 private const val DEBTORS_TABLE_NAME = DebtorEntity.TABLE_NAME
 private const val DEBTS_TABLE_NAME = DebtEntity.TABLE_NAME
 
+@Suppress("LongMethod")
 fun migration1To2() = object : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
 

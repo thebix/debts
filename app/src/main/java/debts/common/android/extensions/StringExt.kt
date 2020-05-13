@@ -1,6 +1,8 @@
 package debts.common.android.extensions
 
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 fun Date.toSimpleDateString(): String {
     val calendar = Calendar.getInstance()

@@ -3,7 +3,6 @@ package debts.usecase
 import androidx.annotation.StringRes
 
 // region Repo return models
-////////////////////////////////////////////////////////////////
 
 data class DebtorModel(
     val id: Long,
@@ -26,7 +25,6 @@ data class ContactsItemModel(val id: Long, val name: String, val avatarUrl: Stri
 // endregion
 
 // region UseCase return models
-////////////////////////////////////////////////////////////////
 
 // TODO: rename to DebtorsItemModel
 sealed class DebtorsListItemModel(open val id: Long) {

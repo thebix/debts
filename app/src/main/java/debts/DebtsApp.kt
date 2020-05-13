@@ -2,7 +2,11 @@ package debts
 
 import android.app.Application
 import debts.common.TimberCrashlyticsTree
-import debts.di.*
+import debts.di.appModule
+import debts.di.interactorModule
+import debts.di.repositoriesModule
+import debts.di.useCasesModule
+import debts.di.viewModelModule
 import net.thebix.debts.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
