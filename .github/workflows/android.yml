@@ -48,4 +48,4 @@ jobs:
           DEBTS_STORE_KEY_FILE: ${{ secrets.DEBTS_STORE_KEY_FILE }}
           DEBTS_STORE_KEY_PASSWORD: ${{ secrets.DEBTS_STORE_KEY_PASSWORD }}
           DEBTS_FABRIC_API_KEY: ${{ secrets.DEBTS_FABRIC_API_KEY }}
-        run: ./gradlew buildRelease
+        run: ./gradlew build
