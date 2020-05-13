@@ -6,7 +6,7 @@ def patch = 0
 def buildId = System.getenv("ENV_BUILD_ID") as Integer ?: 0
 
 ext.appVersion = [
-        code: 1000000000 + major * 1000000 + minor * 10000 + patch * 1000 + buildId,
+        code: major * 1000000 + minor * 10000 + patch * 1000 + buildId,
         name: "$major.$minor.$patch.$buildId"
 ]
 
