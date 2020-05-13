@@ -40,7 +40,7 @@ jobs:
           DEBTS_STORE_KEY_FILE: ${{ secrets.DEBTS_STORE_KEY_FILE }}
           DEBTS_FABRIC_API_KEY: ${{ secrets.DEBTS_FABRIC_API_KEY }}
         run: ./gradlew lintDebug
-      - name: Build
+      - name: Build Release
         env:
           ENV_BUILD_ID: ${{ github.run_number }}
           DEBTS_STORE_KEY_ALIAS: ${{ secrets.DEBTS_STORE_KEY_ALIAS }}
