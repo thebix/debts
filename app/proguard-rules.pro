@@ -122,9 +122,6 @@
 -dontnote com.google.android.material.**
 -dontnote android.widget.Space
 
-# Coroutines
--keep class java.util.concurrent.** { *; }
-
 ###############################
 ### Code ######################
 ###############################
