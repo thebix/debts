@@ -5,11 +5,13 @@ import debts.common.android.mvi.MviInteractor
 import debts.repository.DebtsRepository
 import debts.usecase.AddDebtUseCase
 import debts.usecase.ClearHistoryUseCase
+import debts.usecase.GetDebtUseCase
 import debts.usecase.GetShareDebtorContentUseCase
 import debts.usecase.ObserveDebtorUseCase
 import debts.usecase.ObserveDebtsUseCase
 import debts.usecase.RemoveDebtUseCase
 import debts.usecase.RemoveDebtorUseCase
+import debts.usecase.UpdateDebtUseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.schedulers.Schedulers
@@ -24,6 +26,8 @@ class DetailsInteractor(
     private val observeDebtorUseCase: ObserveDebtorUseCase,
     private val observeDebtsUseCase: ObserveDebtsUseCase,
     private val removeDebtUseCase: RemoveDebtUseCase,
+    private val getDebtUseCase: GetDebtUseCase,
+    private val updateDebtUseCase: UpdateDebtUseCase,
     private val removeDebtorUseCase: RemoveDebtorUseCase,
     private val getShareDebtorContentUseCase: GetShareDebtorContentUseCase,
     private val repository: DebtsRepository
@@ -100,6 +104,52 @@ class DetailsInteractor(
             }
         }
 
+    private val editDebtProcessor =
+        ObservableTransformer<DetailsAction.EditDebt, DetailsResult> { actions ->
+            actions.switchMap {
+                getDebtUseCase
+                    .execute(it.id)
+                    .subscribeOn(Schedulers.io())
+                    .map { debtModel ->
+                        DetailsResult.EditDebt(
+                            debtId = it.id,
+                            amount = debtModel.amount,
+                            comment = debtModel.comment
+                        ) as DetailsResult
+                    }
+                    .toObservable()
+                    .doOnError { error -> Timber.e(error) }
+                    .onErrorReturnItem(DetailsResult.Error)
+            }
+        }
+
+    private val editDebtSaveProcessor =
+        ObservableTransformer<DetailsAction.EditDebtSave, DetailsResult> { actions ->
+            actions.switchMap {
+                getDebtUseCase.execute(it.debtId)
+                    .subscribeOn(Schedulers.io())
+                    .flatMapCompletable { debtModel ->
+                        updateDebtUseCase
+                            .execute(
+                                id = debtModel.id,
+                                debtorId = debtModel.debtorId,
+                                amount = it.amount,
+                                date = debtModel.date,
+                                currency = debtModel.currency,
+                                comment = it.comment
+                            )
+                            .doOnError { error -> Timber.e(error) }
+                    }
+                    .doOnComplete {
+                        // TODO: this resource id should be provided from Fragment through intent/action
+                        debtsNavigator.showToast(R.string.home_debtors_toast_debt_changed)
+                    }
+                    .toObservable<DetailsResult>()
+                    .doOnError { error -> Timber.e(error) }
+                    .onErrorReturnItem(DetailsResult.Error)
+            }
+        }
+
     private val removeDebtorProcessor =
         ObservableTransformer<DetailsAction.RemoveDebtor, DetailsResult> { actions ->
             actions.switchMap {
@@ -147,6 +197,10 @@ class DetailsInteractor(
                             .compose(addDebtProcessor),
                         action.ofType(DetailsAction.RemoveDebt::class.java)
                             .compose(removeDebtProcessor),
+                        action.ofType(DetailsAction.EditDebt::class.java)
+                            .compose(editDebtProcessor),
+                        action.ofType(DetailsAction.EditDebtSave::class.java)
+                            .compose(editDebtSaveProcessor),
                         action.ofType(DetailsAction.RemoveDebtor::class.java)
                             .compose(removeDebtorProcessor),
                         action.ofType(DetailsAction.ShareDebtor::class.java)
