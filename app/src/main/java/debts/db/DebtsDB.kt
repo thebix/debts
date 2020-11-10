@@ -80,6 +80,9 @@ abstract class DebtsDao {
     @Query("SELECT * FROM ${DebtEntity.TABLE_NAME}")
     abstract fun observeDebts(): Observable<List<DebtEntity>>
 
+    @Query("SELECT * FROM ${DebtEntity.TABLE_NAME} WHERE ${DebtEntity.ID} = :id")
+    abstract fun getDebt(id: Long): Single<DebtEntity>
+
     @Query("SELECT * FROM ${DebtEntity.TABLE_NAME} WHERE ${DebtEntity.DEBTOR_ID} = :debtorId")
     abstract fun observeDebts(debtorId: Long): Observable<List<DebtEntity>>
 

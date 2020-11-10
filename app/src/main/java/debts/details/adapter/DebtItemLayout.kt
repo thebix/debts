@@ -61,6 +61,10 @@ class DebtItemLayout @JvmOverloads constructor(
                             historyItemCallback.onDebtRemove(debtId)
                             true
                         }
+                        R.id.home_details_debts_item_menu_chage -> {
+                            historyItemCallback.onDebtEdit(debtId)
+                            true
+                        }
                         else -> false
                     }
                 })
@@ -88,6 +92,8 @@ class DebtItemLayout @JvmOverloads constructor(
     }
 
     interface HistoryItemCallback {
+
         fun onDebtRemove(debtId: Long)
+        fun onDebtEdit(debtId: Long)
     }
 }

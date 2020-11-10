@@ -40,6 +40,10 @@ class DebtsRepository(
             .take(1)
             .single(emptyList())
 
+    fun getDebt(debtId: Long): Single<DebtModel> =
+        dao.getDebt(debtId)
+            .map { it.toDebtModel() }
+
     fun observeDebts(debtorId: Long = 0): Observable<List<DebtModel>> =
         (if (debtorId == 0L) dao.observeDebts() else dao.observeDebts(debtorId))
             .map { items -> items.map { it.toDebtModel() } }
@@ -123,6 +127,17 @@ class DebtsRepository(
                 comment
             )
         )
+
+    fun updateDebt(
+        id: Long,
+        debtorId: Long,
+        amount: Double,
+        currency: String,
+        date: Long,
+        comment: String
+    ): Completable = dao.updateDebt(
+        DebtEntity(id, debtorId, amount, currency, date, comment)
+    )
 
     fun clearDebts(debtorId: Long): Completable = dao.clearAllDebts(debtorId)
 
