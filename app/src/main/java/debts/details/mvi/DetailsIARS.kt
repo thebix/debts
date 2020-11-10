@@ -20,6 +20,13 @@ sealed class DetailsIntention : MviIntention {
     ) : DetailsIntention()
 
     data class RemoveDebt(val id: Long) : DetailsIntention()
+    data class EditDebt(val id: Long) : DetailsIntention()
+    data class EditDebtSave(
+        val debtId: Long,
+        val amount: Double,
+        val comment: String
+    ) : DetailsIntention()
+
     data class ClearHistory(val id: Long) : DetailsIntention()
     data class RemoveDebtor(val debtorId: Long) : DetailsIntention()
     data class ShareDebtor(
@@ -41,6 +48,13 @@ sealed class DetailsAction : MviAction {
     ) : DetailsAction()
 
     data class RemoveDebt(val id: Long) : DetailsAction()
+    data class EditDebt(val id: Long) : DetailsAction()
+    data class EditDebtSave(
+        val debtId: Long,
+        val amount: Double,
+        val comment: String
+    ) : DetailsAction()
+
     data class ClearHistory(val id: Long) : DetailsAction()
     data class RemoveDebtor(val debtorId: Long) : DetailsAction()
     data class ShareDebtor(
@@ -64,6 +78,12 @@ sealed class DetailsResult : MviResult {
         val items: List<DebtItemModel> = emptyList()
     ) : DetailsResult()
 
+    data class EditDebt(
+        val debtId: Long,
+        val amount: Double,
+        val comment: String
+    ) : DetailsResult()
+
     object DebtorRemoved : DetailsResult()
 
     object Error : DetailsResult()
@@ -76,5 +96,13 @@ data class DetailsState(
     val currency: String = "",
     val avatarUrl: String = "",
     val isError: OneShot<Boolean> = OneShot.empty(),
-    val isDebtorRemoved: OneShot<Boolean> = OneShot.empty()
-) : MviState, ViewStateWithId()
+    val isDebtorRemoved: OneShot<Boolean> = OneShot.empty(),
+    val debtEdit: OneShot<EditDebt> = OneShot.empty()
+) : MviState, ViewStateWithId() {
+
+    data class EditDebt(
+        val debtId: Long = 0L,
+        val comment: String = "",
+        val amount: Double = 0.0
+    )
+}

@@ -23,6 +23,7 @@ import debts.home.list.adapter.ContactsAdapter
 import debts.home.list.adapter.ContactsItemViewModel
 import io.reactivex.disposables.CompositeDisposable
 import net.thebix.debts.R
+import kotlin.math.absoluteValue
 
 class AddDebtLayout @JvmOverloads constructor(
     context: Context,
@@ -30,7 +31,10 @@ class AddDebtLayout @JvmOverloads constructor(
     defStyleAttr: Int = 0,
     private val contacts: List<ContactsItemViewModel> = emptyList(),
     private val name: String = "",
-    private val avatarUrl: String = ""
+    private val avatarUrl: String = "",
+    private val comment: String = "",
+    private val amount: Double = 0.0,
+    private val existingDebtId: Long? = null
 ) : ScrollView(context, attrs, defStyleAttr) {
 
     private companion object {
@@ -51,8 +55,8 @@ class AddDebtLayout @JvmOverloads constructor(
                 contact?.id,
                 nameView.text.trim().toString(),
                 amount,
-                commentView.text.trim().toString()
-
+                commentView.text.trim().toString(),
+                existingDebtId
             )
         }
 
@@ -107,7 +111,15 @@ class AddDebtLayout @JvmOverloads constructor(
                         if (it.length > AMOUNT_MAX_LENGTH) context.getString(R.string.home_add_debt_amount_error) else ""
                 }
         )
+        initFields()
+    }
 
+    override fun onDetachedFromWindow() {
+        disposables.dispose()
+        super.onDetachedFromWindow()
+    }
+
+    private fun initFields() {
         if (name.isNotBlank()) {
             nameView.setText(name)
             nameView.isEnabled = false
@@ -117,11 +129,15 @@ class AddDebtLayout @JvmOverloads constructor(
         if (avatarUrl.isNotBlank()) {
             showAvatar(avatarUrl)
         }
-    }
-
-    override fun onDetachedFromWindow() {
-        disposables.dispose()
-        super.onDetachedFromWindow()
+        if (comment.isNotBlank()) {
+            commentView.setText(comment)
+        }
+        if (amount != 0.0) {
+            amountView.setText(amount.absoluteValue.toString())
+            if (amount < 0) {
+                radioAdd.check(R.id.home_add_debt_radio_subtract)
+            }
+        }
     }
 
     private fun showAvatar(url: String?) {
@@ -138,6 +154,7 @@ class AddDebtLayout @JvmOverloads constructor(
         val contactId: Long?,
         val name: String,
         val amount: Double,
-        val comment: String
+        val comment: String,
+        val existingDebtId: Long?
     )
 }

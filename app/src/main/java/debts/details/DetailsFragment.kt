@@ -59,6 +59,10 @@ class DetailsFragment : BaseFragment() {
                 intentionSubject.onNext(DetailsIntention.RemoveDebt(debtId))
             }
         }
+
+        override fun onDebtEdit(debtId: Long) {
+            intentionSubject.onNext(DetailsIntention.EditDebt(debtId))
+        }
     }
 
     private val screenContextHolder: ScreenContextHolder by inject()
@@ -166,40 +170,7 @@ class DetailsFragment : BaseFragment() {
             viewModel.processIntentions(intentions()),
             changeView!!.clicks()
                 .subscribe {
-                    if (context == null) {
-                        return@subscribe
-                    }
-                    addDebtLayout = AddDebtLayout(
-                        requireContext(),
-                        name = nameView?.text.toString(),
-                        avatarUrl = avatarUrl
-                    )
-                    context?.showAlert(
-                        customView = addDebtLayout,
-                        titleResId = R.string.home_add_debt_title,
-                        positiveButtonResId = R.string.home_add_debt_confirm
-                    ) {
-                        with(addDebtLayout.data) {
-                            if (amount != 0.0) {
-                                intentionSubject.onNext(
-                                    DetailsIntention.AddDebt(
-                                        debtorId,
-                                        amount,
-                                        comment
-                                    )
-                                )
-                            } else {
-                                Snackbar
-                                    .make(
-                                        changeView!!,
-                                        R.string.details_empty_debt_fields,
-                                        Snackbar.LENGTH_SHORT
-                                    )
-                                    .show()
-                            }
-
-                        }
-                    }
+                    showAdDebtLayout()
                 },
             clearView!!.clicks()
                 .subscribe {
@@ -261,6 +232,10 @@ class DetailsFragment : BaseFragment() {
                     context?.tryToGoBack()
                 }
             }
+            debtEdit.get(state)
+                ?.let { editDebt ->
+                    showAdDebtLayout(comment = editDebt.comment, amount = editDebt.amount, existingDebtId = editDebt.debtId)
+                }
             // endregion
             // TODO: isError
         }
@@ -273,4 +248,52 @@ class DetailsFragment : BaseFragment() {
                 intentionSubject
             )
         )
+
+    private fun showAdDebtLayout(
+        comment: String = "",
+        amount: Double = 0.0,
+        existingDebtId: Long? = null
+    ) {
+        if (context == null) {
+            return
+        }
+        addDebtLayout = AddDebtLayout(
+            requireContext(),
+            name = nameView?.text.toString(),
+            avatarUrl = avatarUrl,
+            comment = comment,
+            amount = amount,
+            existingDebtId = existingDebtId
+        )
+        context?.showAlert(
+            customView = addDebtLayout,
+            titleResId = if (existingDebtId == null) R.string.home_add_debt_title else R.string.home_add_debt_change_title,
+            positiveButtonResId = R.string.home_add_debt_confirm
+        ) {
+            with(addDebtLayout.data) {
+                if (this.amount != 0.0) {
+                    intentionSubject.onNext(
+                        if (this.existingDebtId == null) DetailsIntention.AddDebt(
+                            debtorId,
+                            this.amount,
+                            this.comment
+                        ) else DetailsIntention.EditDebtSave(
+                            this.existingDebtId,
+                            this.amount,
+                            this.comment
+                        )
+                    )
+                } else {
+                    Snackbar
+                        .make(
+                            changeView!!,
+                            R.string.details_empty_debt_fields,
+                            Snackbar.LENGTH_SHORT
+                        )
+                        .show()
+                }
+
+            }
+        }
+    }
 }

@@ -21,6 +21,7 @@ import debts.usecase.AddDebtUseCase
 import debts.usecase.ClearHistoryUseCase
 import debts.usecase.CreateDebtorUseCase
 import debts.usecase.GetContactsUseCase
+import debts.usecase.GetDebtUseCase
 import debts.usecase.GetDebtsCsvContentUseCase
 import debts.usecase.GetShareDebtorContentUseCase
 import debts.usecase.ObserveDebtorUseCase
@@ -30,6 +31,7 @@ import debts.usecase.RemoveDebtUseCase
 import debts.usecase.RemoveDebtorUseCase
 import debts.usecase.SyncDebtorsWithContactsUseCase
 import debts.usecase.UpdateDbDebtsCurrencyUseCase
+import debts.usecase.UpdateDebtUseCase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -85,11 +87,13 @@ val useCasesModule = module {
             createDebtorUseCase = get()
         )
     }
+    single { UpdateDebtUseCase(repository = get()) }
     single { CreateDebtorUseCase(repository = get()) }
     single { ClearHistoryUseCase(repository = get()) }
     single { ObserveDebtorUseCase(repository = get()) }
     single { ObserveDebtsUseCase(repository = get()) }
     single { RemoveDebtUseCase(repository = get()) }
+    single { GetDebtUseCase(repository = get()) }
     single { RemoveDebtorUseCase(repository = get()) }
     single { SyncDebtorsWithContactsUseCase(repository = get()) }
     single { UpdateDbDebtsCurrencyUseCase(repository = get()) }
@@ -147,6 +151,8 @@ val interactorModule = module {
             observeDebtorUseCase = get(),
             observeDebtsUseCase = get(),
             removeDebtUseCase = get(),
+            getDebtUseCase = get(),
+            updateDebtUseCase = get(),
             removeDebtorUseCase = get(),
             getShareDebtorContentUseCase = get(),
             repository = get()
