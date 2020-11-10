@@ -3,4 +3,7 @@
     <item
         android:id="@+id/home_details_debts_item_menu_remove"
         android:title="@string/details_debts_item_menu_remove" />
+    <item
+        android:id="@+id/home_details_debts_item_menu_chage"
+        android:title="@string/details_debts_item_menu_change" />
 </menu>
