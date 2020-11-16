@@ -25,20 +25,17 @@ class GetShareDebtorContentUseCase(
             Function3 { debtor, debts, currency ->
                 val amount = debts.sumByDouble { it.amount }
                 val isBorrowed = amount < 0
-                try {
-                    return@Function3 String.format(
+                runCatching {
+                    String.format(
                         (if (isBorrowed) templateBorrowed else templateLent),
                         debtor.name,
                         amount.absoluteValue.toFormattedCurrency(),
                         currency
                     )
-                } catch (ex: Exception) {
-                    Timber.e(ex)
-                    return@Function3 ""
-                }
+                }.onFailure {
+                    Timber.e(it)
+                }.getOrDefault("")
             }
         )
-
     }
-
 }

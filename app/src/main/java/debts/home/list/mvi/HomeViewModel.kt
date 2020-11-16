@@ -13,6 +13,7 @@ class HomeViewModel(
     override val defaultState: HomeState
         get() = HomeState()
 
+    @Suppress("ComplexMethod")
     override fun actionFromIntention(intent: HomeIntention): HomeAction =
         when (intent) {
             is HomeIntention.Init -> HomeAction.Init(intent.contactPermission, intent.requestCode)

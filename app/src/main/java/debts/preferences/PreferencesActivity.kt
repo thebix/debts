@@ -13,7 +13,6 @@ class PreferencesActivity : BaseActivity() {
 
         @JvmStatic
         fun createIntent(context: Context) = Intent(context, PreferencesActivity::class.java)
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
