@@ -85,7 +85,7 @@ class DebtorItemLayout @JvmOverloads constructor(
                 currency,
                 amount.toFormattedCurrency()
             )
-            dateView.visible = lastDate > 0
+            dateView.visible = lastDate != Long.MIN_VALUE
             dateView.text = resources.getString(
                 R.string.home_debtors_item_date,
                 Date(lastDate).toSimpleDateString()

@@ -16,7 +16,8 @@ class AddDebtUseCase(
         name: String,
         amount: Double,
         currency: String,
-        comment: String
+        comment: String,
+        date: Long
     ): Completable {
         return when {
             debtorId != null -> Single.fromCallable { debtorId!! }
@@ -40,7 +41,8 @@ class AddDebtUseCase(
                     debtor,
                     amount,
                     currency,
-                    comment
+                    comment,
+                    date
                 ).ignoreElement()
             }
     }

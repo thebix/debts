@@ -26,7 +26,7 @@ class ObserveDebtorsListItemsUseCase(
                             debtor.name,
                             amount,
                             lastDebt?.currency ?: defaultCurrency,
-                            lastDebt?.date ?: 0,
+                            lastDebt?.date ?: Long.MIN_VALUE,
                             debtor.avatarUrl
                         )
                     }

@@ -115,7 +115,8 @@ class DebtsRepository(
         debtorId: Long,
         amount: Double,
         currency: String,
-        comment: String
+        comment: String,
+        date: Long
     ): Single<Long> =
         dao.insertDebt(
             DebtEntity(
@@ -123,7 +124,7 @@ class DebtsRepository(
                 debtorId,
                 amount,
                 currency,
-                Date().time,
+                date,
                 comment
             )
         )
