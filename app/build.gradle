@@ -29,11 +29,6 @@ android {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
-//        defaultConfig {
-//            manifestPlaceholders = [
-//                    crashlytics: gradle.ext.fabricApiKey
-//            ]
-//        }
 
         println "App Id=$applicationId\nApp code version=${versionCode}\nApp name=$versionName"
     }
