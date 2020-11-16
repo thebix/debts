@@ -28,8 +28,6 @@
 
 ## Crashlytics
 # https://docs.fabric.io/android/crashlytics/dex-and-proguard.html
-# If using DexGuard, also add the following line to your configuration file to keep DexGuard from removing your Fabric API key:
-# -keepresourcexmlelements manifest/application/meta-data@name=io.fabric.ApiKey
 # For Fabric to properly de-obfuscate your crash reports, you need to remove this line from your configuration file, or we won’t be able to automatically upload your mapping file:
 # -printmapping mapping.txt
 # To skip running ProGuard on Crashlytics, just add the following to your ProGuard config file.
