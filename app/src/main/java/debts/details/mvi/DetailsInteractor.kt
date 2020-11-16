@@ -78,7 +78,8 @@ class DetailsInteractor(
                                 "",
                                 action.amount,
                                 currency,
-                                action.comment
+                                action.comment,
+                                action.date
                             )
                     }
                     .doOnComplete {
@@ -114,7 +115,8 @@ class DetailsInteractor(
                         DetailsResult.EditDebt(
                             debtId = it.id,
                             amount = debtModel.amount,
-                            comment = debtModel.comment
+                            comment = debtModel.comment,
+                            date = debtModel.date
                         ) as DetailsResult
                     }
                     .toObservable()
@@ -134,7 +136,7 @@ class DetailsInteractor(
                                 id = debtModel.id,
                                 debtorId = debtModel.debtorId,
                                 amount = it.amount,
-                                date = debtModel.date,
+                                date = it.date,
                                 currency = debtModel.currency,
                                 comment = it.comment
                             )

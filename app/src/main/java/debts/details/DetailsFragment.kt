@@ -19,6 +19,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
+import debts.adddebt.AddDebtData
+import debts.adddebt.AddOrEditDebtDialogHolder
 import debts.common.android.BaseFragment
 import debts.common.android.FragmentArgumentDelegate
 import debts.common.android.FragmentScreenContext
@@ -32,7 +34,6 @@ import debts.details.adapter.DebtsAdapter
 import debts.details.mvi.DetailsIntention
 import debts.details.mvi.DetailsState
 import debts.details.mvi.DetailsViewModel
-import debts.home.AddDebtLayout
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -41,6 +42,7 @@ import net.thebix.debts.R
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.util.Date
 
 class DetailsFragment : BaseFragment() {
 
@@ -65,6 +67,13 @@ class DetailsFragment : BaseFragment() {
         }
     }
 
+    private val addOrEditDebtDialogHolderCallbacks = object : AddOrEditDebtDialogHolder.AddOrEditDebtDialogHolderCallbacks {
+
+        override fun onConfirm(data: AddDebtData) {
+            handleAddOrEditDialogConfirmation(data)
+        }
+    }
+
     private val screenContextHolder: ScreenContextHolder by inject()
     private val viewModel: DetailsViewModel by viewModel()
     private val adapter = DebtsAdapter(menuItemClickListener)
@@ -78,7 +87,7 @@ class DetailsFragment : BaseFragment() {
     private var clearView: View? = null
     private var recyclerView: RecyclerView? = null
 
-    private lateinit var addDebtLayout: AddDebtLayout
+    private var addOrEditDebtDialogHolder: AddOrEditDebtDialogHolder? = null
     private var debtorId: Long by FragmentArgumentDelegate()
     private lateinit var disposables: CompositeDisposable
     private var adapterDisposable: Disposable? = null
@@ -106,6 +115,8 @@ class DetailsFragment : BaseFragment() {
         (activity as AppCompatActivity).setSupportActionBar(toolbarView)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setHasOptionsMenu(true)
+
+        addOrEditDebtDialogHolder = AddOrEditDebtDialogHolder((activity as AppCompatActivity), addOrEditDebtDialogHolderCallbacks)
 
         recyclerView?.apply {
             adapter = this@DetailsFragment.adapter
@@ -170,7 +181,7 @@ class DetailsFragment : BaseFragment() {
             viewModel.processIntentions(intentions()),
             changeView!!.clicks()
                 .subscribe {
-                    showAdDebtLayout()
+                    showAddDebtLayout()
                 },
             clearView!!.clicks()
                 .subscribe {
@@ -198,6 +209,7 @@ class DetailsFragment : BaseFragment() {
         changeView = null
         clearView = null
         recyclerView = null
+        addOrEditDebtDialogHolder = null
         super.onDestroyView()
     }
 
@@ -234,7 +246,7 @@ class DetailsFragment : BaseFragment() {
             }
             debtEdit.get(state)
                 ?.let { editDebt ->
-                    showAdDebtLayout(comment = editDebt.comment, amount = editDebt.amount, existingDebtId = editDebt.debtId)
+                    showAddDebtLayout(comment = editDebt.comment, amount = editDebt.amount, existingDebtId = editDebt.debtId, date = editDebt.date)
                 }
             // endregion
             // TODO: isError
@@ -249,50 +261,56 @@ class DetailsFragment : BaseFragment() {
             )
         )
 
-    private fun showAdDebtLayout(
+    private fun showAddDebtLayout(
         comment: String = "",
         amount: Double = 0.0,
+        date: Long = Date().time,
         existingDebtId: Long? = null
     ) {
-        if (context == null) {
-            return
+        if (existingDebtId == null) {
+            addOrEditDebtDialogHolder?.showAddDebt(
+                name = nameView?.text.toString(),
+                avatarUrl = avatarUrl,
+                contacts = emptyList(),
+                canChangeDebtor = false
+            )
+        } else {
+            addOrEditDebtDialogHolder?.showEditDebt(
+                name = nameView?.text.toString(),
+                avatarUrl = avatarUrl,
+                amount = amount,
+                comment = comment,
+                existingDebtId = existingDebtId,
+                date = date,
+                canChangeDebtor = false
+            )
         }
-        addDebtLayout = AddDebtLayout(
-            requireContext(),
-            name = nameView?.text.toString(),
-            avatarUrl = avatarUrl,
-            comment = comment,
-            amount = amount,
-            existingDebtId = existingDebtId
-        )
-        context?.showAlert(
-            customView = addDebtLayout,
-            titleResId = if (existingDebtId == null) R.string.home_add_debt_title else R.string.home_add_debt_change_title,
-            positiveButtonResId = R.string.home_add_debt_confirm
-        ) {
-            with(addDebtLayout.data) {
-                if (this.amount != 0.0) {
-                    intentionSubject.onNext(
-                        if (this.existingDebtId == null) DetailsIntention.AddDebt(
-                            debtorId,
-                            this.amount,
-                            this.comment
-                        ) else DetailsIntention.EditDebtSave(
-                            this.existingDebtId,
-                            this.amount,
-                            this.comment
-                        )
-                    )
-                } else {
-                    Snackbar
-                        .make(
-                            changeView!!,
-                            R.string.details_empty_debt_fields,
-                            Snackbar.LENGTH_SHORT
-                        )
-                        .show()
-                }
+    }
 
+    private fun handleAddOrEditDialogConfirmation(data: AddDebtData) {
+        with(data) {
+            if (this.amount != 0.0) {
+                intentionSubject.onNext(
+                    if (this.existingDebtId == null) DetailsIntention.AddDebt(
+                        debtorId,
+                        this.amount,
+                        this.comment,
+                        this.date
+                    ) else DetailsIntention.EditDebtSave(
+                        this.existingDebtId,
+                        this.amount,
+                        this.comment,
+                        this.date
+                    )
+                )
+            } else {
+                Snackbar
+                    .make(
+                        changeView!!,
+                        R.string.details_empty_debt_fields,
+                        Snackbar.LENGTH_SHORT
+                    )
+                    .show()
             }
         }
     }

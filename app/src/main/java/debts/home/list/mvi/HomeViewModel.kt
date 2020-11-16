@@ -38,7 +38,8 @@ class HomeViewModel(
                 intent.contactId,
                 intent.name,
                 intent.amount,
-                intent.comment
+                intent.comment,
+                intent.date
             )
             is HomeIntention.OpenAddDebtDialog -> HomeAction.OpenAddDebtDialog(
                 intent.contactPermission,
