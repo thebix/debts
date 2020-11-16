@@ -17,10 +17,12 @@ abstract class BaseActivity : AppCompatActivity() {
         if (animations.isNotEmpty()) {
             when (animations.size) {
                 2 -> fragmentTransaction.setCustomAnimations(animations[0], animations[1])
+                @Suppress("MagicNumber")
                 4 -> fragmentTransaction.setCustomAnimations(
                     animations[0],
                     animations[1],
                     animations[2],
+                    @Suppress("MagicNumber")
                     animations[3]
                 )
                 else -> {
@@ -36,7 +38,9 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun addFragment(
-        fragment: Fragment, @IdRes rootId: Int, addToBackStack: Boolean = true,
+        fragment: Fragment,
+        @IdRes rootId: Int,
+        addToBackStack: Boolean = true,
         animations: List<Int> = listOf()
     ) {
         val fragmentTransaction = supportFragmentManager
@@ -44,10 +48,12 @@ abstract class BaseActivity : AppCompatActivity() {
         if (animations.isNotEmpty()) {
             when (animations.size) {
                 2 -> fragmentTransaction.setCustomAnimations(animations[0], animations[1])
+                @Suppress("MagicNumber")
                 4 -> fragmentTransaction.setCustomAnimations(
                     animations[0],
                     animations[1],
                     animations[2],
+                    @Suppress("MagicNumber")
                     animations[3]
                 )
                 else -> {

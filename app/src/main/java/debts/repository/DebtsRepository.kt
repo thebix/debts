@@ -12,7 +12,6 @@ import debts.usecase.DebtorModel
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import java.util.Date
 
 class DebtsRepository(
     private val contentResolver: ContentResolver,

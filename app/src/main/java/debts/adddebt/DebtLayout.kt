@@ -31,6 +31,7 @@ import net.thebix.debts.R
 import java.util.Date
 import kotlin.math.absoluteValue
 
+// TODO: extract additional fields (private val/var) from constructor
 internal class DebtLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -54,12 +55,10 @@ internal class DebtLayout @JvmOverloads constructor(
     val data: AddDebtData
         get() {
             val inverseAmount = radioAdd.checkedRadioButtonId == R.id.home_add_debt_radio_subtract
-            val amount = try {
+            val amount = runCatching {
                 if (amountView.text.length > AMOUNT_MAX_LENGTH) 0.0
                 else amountView.text.toString().toDouble() * if (inverseAmount) -1 else 1
-            } catch (ex: Throwable) {
-                0.0
-            }
+            }.getOrDefault(0.0)
             return AddDebtData(
                 contactId = contact?.id,
                 name = nameView.text.trim().toString(),

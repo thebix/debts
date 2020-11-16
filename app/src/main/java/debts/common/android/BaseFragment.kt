@@ -32,7 +32,6 @@ abstract class BaseFragment : Fragment() {
         if (isRemoving || anyParentIsRemoving) {
             onScopeFinished()
         }
-
     }
 
     @CallSuper

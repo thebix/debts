@@ -109,7 +109,6 @@ fun View.setMarginBottomResCompat(@DimenRes marginRes: Int) {
 
 // endregion
 
-
 // region Paddings
 
 fun View.setPaddingStartResCompat(@DimenRes paddingRes: Int) {
@@ -225,7 +224,6 @@ fun EditText.showKeyboard(delay: Long = 64L) {
                     val inputMethodManager =
                         activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     inputMethodManager.showSoftInput(focusedView, InputMethodManager.SHOW_IMPLICIT)
-
                 }, delay
             )
         } else {
@@ -233,7 +231,6 @@ fun EditText.showKeyboard(delay: Long = 64L) {
                 activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.showSoftInput(focusedView, InputMethodManager.SHOW_IMPLICIT)
         }
-
     }
 }
 

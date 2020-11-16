@@ -1,6 +1,5 @@
 package debts.common.android.adapters
 
-import androidx.recyclerview.widget.RecyclerView
 import android.util.SparseArray
 import android.view.ViewGroup
 
@@ -19,7 +18,8 @@ abstract class DelegatedAdapter : androidx.recyclerview.widget.RecyclerView.Adap
     abstract override fun getItemViewType(position: Int): Int
 
     final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
-        val adapterDelegate = delegates[viewType] ?: throw IllegalStateException("No delegate for $viewType viewType")
+        val adapterDelegate = delegates[viewType]
+                              ?: throw IllegalStateException("No delegate for $viewType viewType")
         return adapterDelegate.onCreateViewHolder(parent)
     }
 
@@ -28,14 +28,12 @@ abstract class DelegatedAdapter : androidx.recyclerview.widget.RecyclerView.Adap
     }
 }
 
-
 interface AdapterDelegate {
 
     fun onCreateViewHolder(parent: ViewGroup): androidx.recyclerview.widget.RecyclerView.ViewHolder
 
     fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int, items: List<Any>)
 }
-
 
 class TypedAdapterDelegate<in Data>(
     private val creator: (ViewGroup) -> ViewHolder<Data>
@@ -48,7 +46,7 @@ class TypedAdapterDelegate<in Data>(
     @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int, items: List<Any>) {
         val data = items[position] as? Data
-            ?: throw IllegalStateException("Incorrect data for position $position. Was ${items[position]}. Check your items list.")
+                   ?: throw IllegalStateException("Incorrect data for position $position. Was ${items[position]}. Check your items list.")
         (holder as ViewHolder<Data>).bind(data)
     }
 }

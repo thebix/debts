@@ -1,5 +1,5 @@
 build:
-  maxIssues: 55
+  maxIssues: 5
   excludeCorrectable: false
   weights:
   # complexity: 2
@@ -83,8 +83,8 @@ complexity:
     threshold: 60
   LongParameterList:
     active: true
-    functionThreshold: 7
-    constructorThreshold: 7
+    functionThreshold: 8
+    constructorThreshold: 8
     ignoreDefaultParameters: false
     ignoreDataClasses: true
     ignoreAnnotated: []
@@ -104,8 +104,8 @@ complexity:
   TooManyFunctions:
     active: true
     excludes: ['**/test/**', '**/androidTest/**', '**/*.Test.kt', '**/*.Spec.kt', '**/*.Spek.kt']
-    thresholdInFiles: 11
-    thresholdInClasses: 11
+    thresholdInFiles: 15
+    thresholdInClasses: 15
     thresholdInInterfaces: 11
     thresholdInObjects: 11
     thresholdInEnums: 11
@@ -562,7 +562,7 @@ style:
     active: false
   ReturnCount:
     active: true
-    max: 2
+    max: 6
     excludedFunctions: 'equals'
     excludeLabeled: false
     excludeReturnFromLambda: true
