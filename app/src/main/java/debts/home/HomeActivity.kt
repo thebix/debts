@@ -13,11 +13,12 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.jakewharton.rxbinding3.view.clicks
+import debts.adddebt.AddDebtData
+import debts.adddebt.AddOrEditDebtDialogHolder
 import debts.common.android.ActivityScreenContext
 import debts.common.android.BaseActivity
 import debts.common.android.ScreenContextHolder
 import debts.common.android.extensions.getColorCompat
-import debts.common.android.extensions.showAlert
 import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtsPagerAdapter
 import debts.home.list.mvi.HomeIntention
@@ -43,11 +44,18 @@ class HomeActivity : BaseActivity() {
     private val intentionSubject = PublishSubject.create<HomeIntention>()
     private val screenContextHolder: ScreenContextHolder by inject()
     private val viewModel: HomeViewModel by viewModel()
+    private val addOrEditDebtDialogHolderCallbacks = object : AddOrEditDebtDialogHolder.AddOrEditDebtDialogHolderCallbacks {
+
+        override fun onConfirm(data: AddDebtData) {
+            handleAddOrEditDialogConfirmation(data)
+        }
+    }
 
     private var fabView: View? = null
     private lateinit var menu: Menu
     private lateinit var disposables: CompositeDisposable
-    private var addDebtLayout: AddDebtLayout? = null
+
+    private var addOrEditDebtDialogHolder: AddOrEditDebtDialogHolder? = null
     private var contacts: List<ContactsItemViewModel> = emptyList()
     private var dontShowAddDebtDialog: Boolean = true
 
@@ -68,6 +76,8 @@ class HomeActivity : BaseActivity() {
         }
         val tabs = findViewById<TabLayout>(R.id.home_pager_tabs)
         tabs.setupWithViewPager(pager)
+
+        addOrEditDebtDialogHolder = AddOrEditDebtDialogHolder(this, addOrEditDebtDialogHolderCallbacks)
 
         val toolbarView: Toolbar = findViewById(R.id.home_toolbar)
         setSupportActionBar(toolbarView)
@@ -115,12 +125,12 @@ class HomeActivity : BaseActivity() {
     override fun onStop() {
         screenContextHolder.remove(ScreenContextHolder.ACTIVITY_HOME)
         disposables.dispose()
-        addDebtLayout = null
         super.onStop()
     }
 
     override fun onDestroy() {
         fabView = null
+        addOrEditDebtDialogHolder = null
         super.onDestroy()
     }
 
@@ -219,7 +229,7 @@ class HomeActivity : BaseActivity() {
                     .onNext(
                         HomeIntention.OpenAddDebtDialog(
                             Manifest.permission.READ_CONTACTS,
-                            HomeActivity.READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE
+                            READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE
                         )
                     )
             } else {
@@ -233,34 +243,29 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun showAddDebtDialog() {
-        addDebtLayout = AddDebtLayout(
-            this,
-            contacts = contacts
-        )
-        this.showAlert(
-            customView = addDebtLayout,
-            titleResId = R.string.home_add_debt_title,
-            positiveButtonResId = R.string.home_add_debt_confirm
-        ) {
-            addDebtLayout?.data?.let { data ->
-                if (data.name.isNotBlank() && data.amount != 0.0) {
-                    intentionSubject.onNext(
-                        HomeIntention.AddDebt(
-                            data.contactId,
-                            data.name,
-                            data.amount,
-                            data.comment
-                        )
+        addOrEditDebtDialogHolder?.showAddDebt(contacts = contacts)
+    }
+
+    private fun handleAddOrEditDialogConfirmation(data: AddDebtData) {
+        with(data) {
+            if (this.name.isNotBlank() && this.amount != 0.0) {
+                intentionSubject.onNext(
+                    HomeIntention.AddDebt(
+                        this.contactId,
+                        this.name,
+                        this.amount,
+                        this.comment,
+                        this.date
                     )
-                } else if (fabView != null) {
-                    Snackbar
-                        .make(
-                            fabView!!,
-                            R.string.home_debtors_empty_debt_fields,
-                            Snackbar.LENGTH_SHORT
-                        )
-                        .show()
-                }
+                )
+            } else {
+                Snackbar
+                    .make(
+                        fabView!!,
+                        R.string.home_debtors_empty_debt_fields,
+                        Snackbar.LENGTH_SHORT
+                    )
+                    .show()
             }
         }
     }

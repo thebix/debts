@@ -176,7 +176,7 @@ class HomeInteractor(
                 repository.getCurrency()
                     .flatMapCompletable { currency ->
                         addDebtUseCase
-                            .execute(null, it.contactId, it.name, it.amount, currency, it.comment)
+                            .execute(null, it.contactId, it.name, it.amount, currency, it.comment, it.date)
                     }
                     .doOnComplete {
                         // TODO: this resource id should be provided from Fragment through intent/action

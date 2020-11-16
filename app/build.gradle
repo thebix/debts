@@ -2,8 +2,8 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "kotlin-kapt"
-    id "com.google.gms.google-services"
     id "com.google.firebase.crashlytics"
+    id "com.google.gms.google-services"
     id "com.github.triplet.play" version "2.7.5"
 }
 
@@ -29,11 +29,11 @@ android {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
-        defaultConfig {
-            manifestPlaceholders = [
-                    crashlytics: gradle.ext.fabricApiKey
-            ]
-        }
+//        defaultConfig {
+//            manifestPlaceholders = [
+//                    crashlytics: gradle.ext.fabricApiKey
+//            ]
+//        }
 
         println "App Id=$applicationId\nApp code version=${versionCode}\nApp name=$versionName"
     }
@@ -92,7 +92,6 @@ dependencies {
     debugImplementation libs.hyperionCore
     debugImplementation libs.hyperionAttr
     debugImplementation libs.hyperionBuildConfig
-    debugImplementation libs.hyperionCrash
     debugImplementation libs.hyperionDisk
     debugImplementation libs.hyperionGeigerCounter
     debugImplementation libs.hyperionMeasurement

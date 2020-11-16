@@ -31,6 +31,7 @@ Thumbs.db
 build/
 
 google-services.json
-debts_credentials.properties
+private/debts_credentials.properties
 debts.keystore
 google-play-publisher.json
+/private

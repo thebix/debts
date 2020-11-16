@@ -2,26 +2,50 @@
 
     <style name="Debts" />
 
-    <style name="Debts.Theme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Debts.Theme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
-    <style name="Debts.Theme.TextInput" parent="Widget.Design.TextInputLayout">
+    <!-- Text Input-->
+
+    <style name="Debts.Theme.TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:textColor">@color/debts_grey</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textCursorDrawable">@null</item>
         <item name="android:textColorHint">@color/debts_grey_light</item>
+        <item name="hintTextColor">@color/debts_grey</item>
         <item name="colorControlActivated">@color/colorPrimaryDark</item>
-        <item name="colorControlNormal">@color/debts_grey</item>
+        <item name="colorControlNormal">@android:color/transparent</item>
         <item name="colorControlHighlight">@android:color/holo_orange_dark</item>
     </style>
 
-    <style name="UcbReport.EditText.OnboardingError" parent="TextAppearance.AppCompat">
+    <style name="Debts.EditText.Error" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">@dimen/text_size_12sp</item>
+    </style>
+
+    <style name="Debts.Theme.TextAutocompleteInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="android:textColor">@color/debts_grey</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:textColorHint">@color/debts_grey_light</item>
+        <item name="hintTextColor">@color/debts_grey</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="colorControlNormal">@android:color/transparent</item>
+        <item name="colorControlHighlight">@android:color/holo_orange_dark</item>
+
+        <item name="endIconMode">none</item>
+    </style>
+
+    <!-- Tabs -->
+
+    <style name="Debts.Tabs" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:background">@color/debts_white_pressed</item>
+        <item name="tabTextColor">@color/tabs_color</item>
+        <item name="tabIndicatorColor">@color/debts_accent_pressed</item>
     </style>
 
     <!-- Text -->
@@ -116,6 +140,11 @@
     <style name="Debts.Button.Accent" parent="Debts.Button">
         <item name="android:background">@drawable/button_accent_radius_4dp</item>
         <item name="android:textColor">@color/button_accent_text_color_selector</item>
+    </style>
+
+    <style name="Debts.FloatingButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/colorAccent</item>
+        <item name="tint">@color/debts_white</item>
     </style>
 
 </resources>

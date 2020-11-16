@@ -20,7 +20,8 @@ class DetailsViewModel(
             is DetailsIntention.AddDebt -> DetailsAction.AddDebt(
                 intent.debtorId,
                 intent.amount,
-                intent.comment
+                intent.comment,
+                intent.date
             )
             is DetailsIntention.RemoveDebt -> DetailsAction.RemoveDebt(intent.id)
             is DetailsIntention.EditDebt -> DetailsAction.EditDebt(intent.id)
@@ -31,7 +32,7 @@ class DetailsViewModel(
                 intent.borrowedTemplate,
                 intent.lentTemplate
             )
-            is DetailsIntention.EditDebtSave -> DetailsAction.EditDebtSave(intent.debtId, intent.amount, intent.comment)
+            is DetailsIntention.EditDebtSave -> DetailsAction.EditDebtSave(intent.debtId, intent.amount, intent.comment, intent.date)
         }
 
     override val reducer: BiFunction<DetailsState, DetailsResult, DetailsState>
@@ -54,7 +55,8 @@ class DetailsViewModel(
                     debtEdit = OneShot(DetailsState.EditDebt(
                         debtId = result.debtId,
                         amount = result.amount,
-                        comment = result.comment
+                        comment = result.comment,
+                        date = result.date
                     ))
                 )
                 DetailsResult.DebtorRemoved -> prevState.copy(
