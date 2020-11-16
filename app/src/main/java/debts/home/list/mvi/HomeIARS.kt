@@ -35,7 +35,8 @@ sealed class HomeIntention : MviIntention {
         val contactId: Long?,
         val name: String,
         val amount: Double,
-        val comment: String
+        val comment: String,
+        val date: Long
 
     ) : HomeIntention()
 
@@ -67,7 +68,8 @@ sealed class HomeAction : MviAction {
         val contactId: Long?,
         val name: String,
         val amount: Double,
-        val comment: String
+        val comment: String,
+        val date: Long
     ) : HomeAction()
 
     object SyncWithContacts : HomeAction()

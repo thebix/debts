@@ -16,7 +16,8 @@ sealed class DetailsIntention : MviIntention {
     data class AddDebt(
         val debtorId: Long,
         val amount: Double,
-        val comment: String
+        val comment: String,
+        val date: Long
     ) : DetailsIntention()
 
     data class RemoveDebt(val id: Long) : DetailsIntention()
@@ -24,7 +25,8 @@ sealed class DetailsIntention : MviIntention {
     data class EditDebtSave(
         val debtId: Long,
         val amount: Double,
-        val comment: String
+        val comment: String,
+        val date: Long
     ) : DetailsIntention()
 
     data class ClearHistory(val id: Long) : DetailsIntention()
@@ -43,7 +45,8 @@ sealed class DetailsAction : MviAction {
     data class AddDebt(
         val debtorId: Long,
         val amount: Double,
-        val comment: String
+        val comment: String,
+        val date: Long
 
     ) : DetailsAction()
 
@@ -52,7 +55,8 @@ sealed class DetailsAction : MviAction {
     data class EditDebtSave(
         val debtId: Long,
         val amount: Double,
-        val comment: String
+        val comment: String,
+        val date: Long
     ) : DetailsAction()
 
     data class ClearHistory(val id: Long) : DetailsAction()
@@ -81,7 +85,8 @@ sealed class DetailsResult : MviResult {
     data class EditDebt(
         val debtId: Long,
         val amount: Double,
-        val comment: String
+        val comment: String,
+        val date: Long
     ) : DetailsResult()
 
     object DebtorRemoved : DetailsResult()
@@ -103,6 +108,7 @@ data class DetailsState(
     data class EditDebt(
         val debtId: Long = 0L,
         val comment: String = "",
-        val amount: Double = 0.0
+        val amount: Double = 0.0,
+        val date: Long = 0L
     )
 }

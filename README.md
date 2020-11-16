@@ -5,7 +5,7 @@
 ## Developer setup
 - create apps `net.thebix.debts` and `net.thebix.debts.debug` in Firebase and save `/app/google-services.json`
 - put `debts.keystore` to `/app/debts.keystore`
-- make file `./debts_credentials.properties` with
+- make file `./private/debts_credentials.properties` with
 ```text
     DEBTS_STORE_KEY_ALIAS=
     DEBTS_STORE_KEY_ALIAS_PASSWORD=
