@@ -4,17 +4,11 @@ import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.datepicker.MaterialDatePicker
 import debts.common.android.extensions.showAlert
-import debts.common.android.extensions.toSimpleDateTimeString
 import debts.home.list.adapter.ContactsItemViewModel
 import net.thebix.debts.R
 import timber.log.Timber
 import java.lang.ref.WeakReference
-import java.time.Instant
-import java.time.LocalDateTime
-import java.util.Calendar
 import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
 
 class AddOrEditDebtDialogHolder(
     activity: AppCompatActivity,
@@ -28,6 +22,7 @@ class AddOrEditDebtDialogHolder(
             addDebtData = data
             dialogAdd?.dismiss()
             dialogAdd = null
+            debtLayout = null
             showCalendar()
         }
     }
@@ -110,7 +105,6 @@ class AddOrEditDebtDialogHolder(
 
         val calendarPickerBuilder = MaterialDatePicker.Builder
             .datePicker()
-
 
         addDebtData?.let {
             calendarPickerBuilder

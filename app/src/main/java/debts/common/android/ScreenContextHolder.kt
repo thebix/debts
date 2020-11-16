@@ -371,7 +371,6 @@ private fun replaceFragment(
     activity: BaseActivity
 ) {
     activity.replaceFragment(fragment, rootId, addToBackStack, animation.value)
-
 }
 
 private fun addFragment(

@@ -27,7 +27,5 @@ class GetDebtsCsvContentUseCase(
                 sb.toString()
             }
         )
-
     }
-
 }

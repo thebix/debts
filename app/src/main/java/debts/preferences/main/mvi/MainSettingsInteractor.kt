@@ -48,7 +48,6 @@ class MainSettingsInteractor(
                                 action.requestCode
                             )
                                 .toSingleDefault(MainSettingsResult.SyncWithContactsError)
-
                         }
                     }
                     .subscribeOn(Schedulers.io())

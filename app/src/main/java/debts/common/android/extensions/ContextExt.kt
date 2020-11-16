@@ -79,15 +79,14 @@ fun Context.tryToGoBack() {
  * Returns true if passed [permission] is granted.
  */
 fun Context.isPermissionGranted(permission: String): Boolean {
-    val permissionResult = try {
+    val permissionResult = runCatching {
         ContextCompat.checkSelfPermission(this, permission)
-    } catch (unexpected: Throwable) { // Unknown exception code: 1 msg null
+    }.onFailure { // Unknown exception code: 1 msg null
         // issue discussions:
         //    https://github.com/permissions-dispatcher/PermissionsDispatcher/issues/107
         //    https://github.com/Karumi/Dexter/issues/86
         Timber.e(UnknownError("Unexpected exception occurred while checking $permission permission."))
-        PackageManager.PERMISSION_DENIED
-    }
+    }.getOrDefault(PackageManager.PERMISSION_DENIED)
     return permissionResult == PackageManager.PERMISSION_GRANTED
 }
 // endregion
@@ -107,8 +106,9 @@ fun Context.showAlert(
 ): AlertDialog {
     val builder = AlertDialog
         .Builder(this)
-    if (customView != null)
+    if (customView != null) {
         builder.setView(customView)
+    }
     if (titleResId != 0) {
         builder.setTitle(titleResId)
     }

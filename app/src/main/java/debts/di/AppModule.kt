@@ -63,9 +63,7 @@ val appModule = module {
     }
 }
 
-val networkModule = module {
-
-}
+val networkModule = module {}
 
 val repositoriesModule = module {
     single {
