@@ -30,7 +30,6 @@ class SyncDebtorsWithContactsUseCase(
                 }
                 repository.getContacts()
                     .map { contacts -> debtors to contacts }
-
             }
             .map { (debtors, contacts) ->
                 val updateItems = mutableListOf<DebtorModel>()
@@ -62,6 +61,4 @@ class SyncDebtorsWithContactsUseCase(
             .andThen(
                 repository.setContactsSynced(true)
             )
-
 }
-

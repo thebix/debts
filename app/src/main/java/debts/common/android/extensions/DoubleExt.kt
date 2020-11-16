@@ -5,6 +5,7 @@ import java.text.DecimalFormatSymbols
 import java.util.Locale
 
 fun Double.toDecimal(): Double {
+    @Suppress("MagicNumber")
     return Math.round(this * 100.0) / 100.0
 }
 

@@ -29,6 +29,7 @@ class DetailsTitleBehavior(
     private var startHeight: Int = -1
     private var endHeight: Int = -1
     private var startScale: Int = 1
+    @Suppress("MagicNumber")
     private var endScale: Float = 0.7f
     private var maxScroll = -1
     private var menuFirstItemX = -1

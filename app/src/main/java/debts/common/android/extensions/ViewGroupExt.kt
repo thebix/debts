@@ -1,8 +1,8 @@
 package debts.common.android.extensions
 
-import androidx.annotation.LayoutRes
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 
 // region Helpers
 
@@ -11,7 +11,6 @@ fun ViewGroup.selfInflate(@LayoutRes resId: Int) {
 }
 
 // endregion
-
 
 // region Children
 
