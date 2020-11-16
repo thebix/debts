@@ -11,7 +11,6 @@
     DEBTS_STORE_KEY_ALIAS_PASSWORD=
     DEBTS_STORE_KEY_FILE=debts.keystore
     DEBTS_STORE_KEY_PASSWORD=
-    DEBTS_FABRIC_API_KEY=
 ```
 - Prepare file `app/google-play-publisher.json`. More info: [Google Play Publisher](https://github.com/Triple-T/gradle-play-publisher)
 
@@ -33,7 +32,6 @@ openssl base64 -in ./app/google-play-publisher.json -out ./google-play-publisher
 - `DEBTS_STORE_KEY_ALIAS_PASSWORD`
 - `DEBTS_STORE_KEY_FILE`
 - `DEBTS_STORE_KEY_PASSWORD`
-- `DEBTS_FABRIC_API_KEY`
 - `DEBTS_KEY_FILE_BASE64` with content of `debts.keystore.base64`
 - `DEBTS_GOOGLE_SERVICES_FILE_BASE64` with content of `google-services.json.base64`
 - `GOOGLE_PLAY_PUBLISHER` with content of `google-play-publisher.json`
