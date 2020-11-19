@@ -96,7 +96,7 @@
             app:errorEnabled="true"
             app:errorTextAppearance="@style/Debts.EditText.Error"
             app:hintTextAppearance="@style/Debts.Theme.TextInput"
-            app:layout_constraintBottom_toTopOf="@id/home_add_debt_calendar"
+            app:layout_constraintBottom_toTopOf="@id/home_add_debt_calendar_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/home_add_debt_radio">
@@ -114,25 +114,28 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/home_add_debt_calendar_icon"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/home_add_debt_calendar_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/home_add_debt_calendar"
-            app:layout_constraintEnd_toStartOf="@id/home_add_debt_calendar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/home_add_debt_calendar"
-            app:srcCompat="@drawable/ic_calendar" />
-
-        <TextView
-            android:id="@+id/home_add_debt_calendar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_4dp"
+            android:gravity="center_vertical"
             app:layout_constraintBottom_toTopOf="@id/home_add_debt_amount_layout"
-            app:layout_constraintStart_toEndOf="@id/home_add_debt_calendar_icon"
-            app:layout_constraintTop_toBottomOf="@id/home_add_debt_comment_layout"
-            tools:text="29 Jan 2012" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_add_debt_comment_layout">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/home_add_debt_calendar_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_calendar" />
+
+            <TextView
+                android:id="@+id/home_add_debt_calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_4dp"
+                tools:text="29 Jan 2012" />
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/home_add_debt_comment_layout"
@@ -143,7 +146,7 @@
             app:hintTextAppearance="@style/Debts.Theme.TextInput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/home_add_debt_calendar">
+            app:layout_constraintTop_toBottomOf="@id/home_add_debt_calendar_container">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/home_add_debt_comment"
