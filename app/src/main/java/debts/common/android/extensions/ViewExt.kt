@@ -4,6 +4,7 @@ package debts.common.android.extensions
 
 import android.app.Activity
 import android.content.Context
+import android.os.SystemClock
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -242,4 +243,31 @@ fun View.showPopup(@MenuRes menuId: Int, menuItemClickListener: PopupMenu.OnMenu
         inflate(menuId)
         show()
     }
+}
+
+@JvmOverloads
+fun View.setThrottlingClickListener(
+    thresholdInterval: Int = 1000,
+    onSafeClick: (View) -> Unit
+) {
+
+    class OnceClickListener(
+        private val interval: Int,
+        private val onCLick: (View) -> Unit
+    ) : View.OnClickListener {
+        private var lastTimeClicked: Long = 0
+        override fun onClick(view: View) {
+            val currentTime = SystemClock.elapsedRealtime()
+            if (currentTime - lastTimeClicked < interval) {
+                return
+            }
+            lastTimeClicked = currentTime
+            onCLick(view)
+        }
+    }
+
+    val safeClickListener = OnceClickListener(thresholdInterval) {
+        onSafeClick(it)
+    }
+    setOnClickListener(safeClickListener)
 }
