@@ -1,4 +1,4 @@
-ext.kotlin_version = '1.3.72'
+ext.kotlin_version = '1.4.10'
 
 def major = 2
 def minor = 2
@@ -11,20 +11,20 @@ ext.appVersion = [
 ]
 
 ext.androidConfig = [
-        compileSdkVersion: 29,
+        compileSdkVersion: 30,
         minSdkVersion    : 21,
-        targetSdkVersion : 29,
+        targetSdkVersion : 30,
 ]
 ext.versions = [
         glide   : "4.11.0",
-        hyperion: "0.9.27",
-        koin    : "2.1.5",
+        hyperion: "0.9.29",
+        koin    : "2.2.1",
         room    : "2.2.5"
 ]
 ext.libs = [
-        androidxAppCompat        : "androidx.appcompat:appcompat:1.1.0",
-        androidxConstraintLayout : "androidx.constraintlayout:constraintlayout:2.0.0-beta4",
-        androidxCore             : "androidx.core:core-ktx:1.2.0",
+        androidxAppCompat        : "androidx.appcompat:appcompat:1.2.0",
+        androidxConstraintLayout : "androidx.constraintlayout:constraintlayout:2.0.4",
+        androidxCore             : "androidx.core:core-ktx:1.3.2",
         androidxDesign           : "com.google.android.material:material:1.2.1",
         androidxLifecycleCompiler: "androidx.lifecycle:lifecycle-compiler:2.2.0",
         androidxPreference       : "androidx.preference:preference-ktx:1.1.1",
@@ -45,15 +45,15 @@ ext.libs = [
         koin                     : "org.koin:koin-android:$versions.koin",
         koinScope                : "org.koin:koin-androidx-scope:$versions.koin",
         koinViewModel            : "org.koin:koin-androidx-viewmodel:$versions.koin",
-        koptional                : "com.gojuno.koptional:koptional:1.6.0",
+        koptional                : "com.gojuno.koptional:koptional:1.7.0",
         kotlin                   : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
-        leakCanary               : "com.squareup.leakcanary:leakcanary-android:2.2",
+        leakCanary               : "com.squareup.leakcanary:leakcanary-android:2.5",
         room                     : "androidx.room:room-runtime:$versions.room",
         roomCompiler             : "androidx.room:room-compiler:$versions.room",
         roomRxJava               : "androidx.room:room-rxjava2:$versions.room",
         roomTesting              : "androidx.room:room-testing:$versions.room",
         rxAndroid                : "io.reactivex.rxjava2:rxandroid:2.1.1",
-        rxBinding                : "com.jakewharton.rxbinding3:rxbinding:3.0.0",
-        rxJava2                  : "io.reactivex.rxjava2:rxjava:2.2.13",
+        rxBinding                : "com.jakewharton.rxbinding3:rxbinding:3.1.0",
+        rxJava2                  : "io.reactivex.rxjava2:rxjava:2.2.20",
         timber                   : "com.jakewharton.timber:timber:4.7.1"
 ]
