@@ -15,6 +15,7 @@ import debts.common.android.extensions.setPaddingEndResCompat
 import debts.common.android.extensions.setPaddingStartResCompat
 import debts.common.android.extensions.setPaddingTopResCompat
 import debts.common.android.extensions.setSelectableItemBackground
+import debts.common.android.extensions.setThrottlingClickListener
 import debts.common.android.extensions.showPopup
 import debts.common.android.extensions.toFormattedCurrency
 import debts.common.android.extensions.toSimpleDateTimeString
@@ -69,6 +70,9 @@ class DebtItemLayout @JvmOverloads constructor(
                     }
                 })
             true
+        }
+        this.setThrottlingClickListener {
+            historyItemCallback.onDebtEdit(debtId)
         }
     }
 

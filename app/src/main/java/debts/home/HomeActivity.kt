@@ -13,7 +13,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.jakewharton.rxbinding3.view.clicks
-import debts.adddebt.AddDebtData
+import debts.adddebt.DebtLayoutData
 import debts.adddebt.AddOrEditDebtDialogHolder
 import debts.common.android.ActivityScreenContext
 import debts.common.android.BaseActivity
@@ -44,9 +44,9 @@ class HomeActivity : BaseActivity() {
     private val intentionSubject = PublishSubject.create<HomeIntention>()
     private val screenContextHolder: ScreenContextHolder by inject()
     private val viewModel: HomeViewModel by viewModel()
-    private val addOrEditDebtDialogHolderCallbacks = object : AddOrEditDebtDialogHolder.AddOrEditDebtDialogHolderCallbacks {
+    private val addOrEditDebtDialogHolderCallbacks = object : AddOrEditDebtDialogHolder.AddOrEditDebtDialogHolderCallback {
 
-        override fun onConfirm(data: AddDebtData) {
+        override fun onConfirm(data: DebtLayoutData) {
             handleAddOrEditDialogConfirmation(data)
         }
     }
@@ -246,7 +246,7 @@ class HomeActivity : BaseActivity() {
         addOrEditDebtDialogHolder?.showAddDebt(contacts = contacts)
     }
 
-    private fun handleAddOrEditDialogConfirmation(data: AddDebtData) {
+    private fun handleAddOrEditDialogConfirmation(data: DebtLayoutData) {
         with(data) {
             if (this.name.isNotBlank() && this.amount != 0.0) {
                 intentionSubject.onNext(

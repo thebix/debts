@@ -12,14 +12,14 @@ import java.util.Date
 
 class AddOrEditDebtDialogHolder(
     activity: AppCompatActivity,
-    private val holderCallbacks: AddOrEditDebtDialogHolderCallbacks
+    private val holderCallback: AddOrEditDebtDialogHolderCallback
 ) {
 
     private val activityRef: WeakReference<AppCompatActivity> = WeakReference(activity)
-    private val dialogCallbacks: AddOrAddDebtDialogCallbacks = object : AddOrAddDebtDialogCallbacks {
+    private val dialogCallbacks: DebtLayout.DebtLayoutCallback = object : DebtLayout.DebtLayoutCallback {
 
-        override fun onCalendarClicked(data: AddDebtData) {
-            addDebtData = data
+        override fun onCalendarClicked(params: DebtLayout.DebtLayoutParams) {
+            debtLayoutParams = params
             dialogAdd?.dismiss()
             dialogAdd = null
             debtLayout = null
@@ -28,7 +28,7 @@ class AddOrEditDebtDialogHolder(
     }
     private var debtLayout: DebtLayout? = null
     private var dialogAdd: Dialog? = null
-    private var addDebtData: AddDebtData? = null
+    private var debtLayoutParams: DebtLayout.DebtLayoutParams = DebtLayout.DebtLayoutParams()
 
     fun showAddDebt(
         name: String = "",
@@ -36,18 +36,14 @@ class AddOrEditDebtDialogHolder(
         contacts: List<ContactsItemViewModel> = emptyList(),
         canChangeDebtor: Boolean = true
     ) {
-        addDebtData = AddDebtData(
-            contactId = null,
+        val debtLayoutParams = DebtLayout.DebtLayoutParams(
             avatarUrl = avatarUrl,
             name = name,
-            amount = 0.0,
-            comment = "",
-            existingDebtId = null,
             contacts = contacts,
             date = Date().time,
             canChangeDebtor = canChangeDebtor
         )
-        showAddDebtLayout(addDebtData!!)
+        showAddDebtLayout(debtLayoutParams)
     }
 
     fun showEditDebt(
@@ -56,46 +52,36 @@ class AddOrEditDebtDialogHolder(
         comment: String,
         amount: Double,
         date: Long,
-        existingDebtId: Long,
-        canChangeDebtor: Boolean = true
+        existingDebtId: Long
     ) {
-        addDebtData = AddDebtData(
-            contactId = null,
+        val debtLayoutParams = DebtLayout.DebtLayoutParams(
             avatarUrl = avatarUrl,
             name = name,
             amount = amount,
             comment = comment,
-            contacts = emptyList(),
             existingDebtId = existingDebtId,
             date = date,
-            canChangeDebtor = canChangeDebtor
+            canChangeDebtor = false
         )
-        showAddDebtLayout(addDebtData!!)
+        showAddDebtLayout(debtLayoutParams)
     }
 
-    private fun showAddDebtLayout(addDebtData: AddDebtData) {
-        Timber.d("showAddDebtLayout(addDebtData.date=${addDebtData.date})")
+    private fun showAddDebtLayout(params: DebtLayout.DebtLayoutParams) {
+        Timber.d("showAddDebtLayout(params.date=${params.date})")
         val activity = activityRef.get() ?: return
 
-        debtLayout = DebtLayout(
-            activity,
-            name = addDebtData.name,
-            avatarUrl = addDebtData.avatarUrl,
-            comment = addDebtData.comment,
-            amount = addDebtData.amount,
-            existingDebtId = addDebtData.existingDebtId,
-            dialogCallbacks = dialogCallbacks,
-            contacts = addDebtData.contacts,
-            date = addDebtData.date,
-            canChangeDebtor = addDebtData.canChangeDebtor
-        )
+        debtLayout = DebtLayout(activity).apply {
+            setup(params, dialogCallbacks)
+        }
         dialogAdd = activity.showAlert(
             customView = debtLayout,
-            titleResId = if (addDebtData.existingDebtId == null) R.string.home_add_debt_title else R.string.home_add_debt_change_title,
+            titleResId = if (params.existingDebtId == null) R.string.home_add_debt_title else R.string.home_add_debt_change_title,
             positiveButtonResId = R.string.home_add_debt_confirm
         ) {
-            if (debtLayout == null) return@showAlert
-            holderCallbacks.onConfirm(debtLayout!!.data)
+            val data = debtLayout?.data ?: return@showAlert
+            holderCallback.onConfirm(data)
+            dialogAdd = null
+            debtLayout = null
         }
     }
 
@@ -106,9 +92,9 @@ class AddOrEditDebtDialogHolder(
         val calendarPickerBuilder = MaterialDatePicker.Builder
             .datePicker()
 
-        addDebtData?.let {
+        if (debtLayoutParams.date != Long.MIN_VALUE) {
             calendarPickerBuilder
-                .setSelection(it.date)
+                .setSelection(debtLayoutParams.date)
         }
         val calendarPicker = calendarPickerBuilder
             .build()
@@ -116,33 +102,22 @@ class AddOrEditDebtDialogHolder(
         calendarPicker
             .addOnCancelListener {
                 Timber.d("addOnCancelListener()")
-                addDebtData?.let {
-                    showAddDebtLayout(it)
-                }
+                showAddDebtLayout(debtLayoutParams)
             }
         calendarPicker.addOnNegativeButtonClickListener {
             Timber.d("addOnNegativeButtonClickListener()")
-            addDebtData?.let {
-                showAddDebtLayout(it)
-            }
+            showAddDebtLayout(debtLayoutParams)
         }
         calendarPicker.addOnPositiveButtonClickListener { newDate ->
-            Timber.d("addOnPositiveButtonClickListener(newDate=$newDate) oldDate=${addDebtData?.date}")
-            addDebtData?.let {
-                addDebtData = it.copy(date = newDate)
-                showAddDebtLayout(addDebtData!!)
-            }
+            Timber.d("addOnPositiveButtonClickListener(newDate=$newDate) oldDate=${debtLayoutParams.date}")
+            debtLayoutParams = debtLayoutParams.copy(date = newDate)
+            showAddDebtLayout(debtLayoutParams)
         }
         calendarPicker.show(supportFragmentManager, null)
     }
 
-    internal interface AddOrAddDebtDialogCallbacks {
+    interface AddOrEditDebtDialogHolderCallback {
 
-        fun onCalendarClicked(data: AddDebtData)
-    }
-
-    interface AddOrEditDebtDialogHolderCallbacks {
-
-        fun onConfirm(data: AddDebtData)
+        fun onConfirm(data: DebtLayoutData)
     }
 }
