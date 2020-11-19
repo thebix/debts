@@ -1,7 +1,6 @@
 package debts.adddebt
 
 import android.content.Context
-import android.util.AttributeSet
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -25,50 +24,32 @@ import debts.common.android.extensions.showKeyboard
 import debts.common.android.extensions.toSimpleDateString
 import debts.home.list.adapter.ContactsAdapter
 import debts.home.list.adapter.ContactsItemViewModel
-import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import net.thebix.debts.R
 import java.util.Date
 import kotlin.math.absoluteValue
 
-// TODO: extract additional fields (private val/var) from constructor
-internal class DebtLayout @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-    private val contacts: List<ContactsItemViewModel> = emptyList(),
-    private val name: String = "",
-    private var avatarUrl: String = "",
-    private val comment: String = "",
-    private val amount: Double = 0.0,
-    private val existingDebtId: Long? = null,
-    private val date: Long = 0L,
-    private val canChangeDebtor: Boolean = true,
-    private val dialogCallbacks: AddOrEditDebtDialogHolder.AddOrAddDebtDialogCallbacks
-) : ScrollView(context, attrs, defStyleAttr) {
+internal class DebtLayout(context: Context) : ScrollView(context) {
 
     private companion object {
 
         const val AMOUNT_MAX_LENGTH = 16
     }
 
-    val data: AddDebtData
+    val data: DebtLayoutData
         get() {
             val inverseAmount = radioAdd.checkedRadioButtonId == R.id.home_add_debt_radio_subtract
             val amount = runCatching {
                 if (amountView.text.length > AMOUNT_MAX_LENGTH) 0.0
                 else amountView.text.toString().toDouble() * if (inverseAmount) -1 else 1
             }.getOrDefault(0.0)
-            return AddDebtData(
-                contactId = contact?.id,
+            return DebtLayoutData(
+                contactId = params.contactId,
                 name = nameView.text.trim().toString(),
                 amount = amount,
                 comment = commentView.text.trim().toString(),
-                existingDebtId = existingDebtId,
-                contacts = contacts,
-                avatarUrl = avatarUrl,
-                date = date,
-                canChangeDebtor = canChangeDebtor
+                existingDebtId = params.existingDebtId,
+                date = params.date
             )
         }
 
@@ -79,9 +60,11 @@ internal class DebtLayout @JvmOverloads constructor(
     private val radioAdd: RadioGroup
     private val commentView: EditText
     private val calendarView: TextView
-    private val calendarIcon: View
-    private var contact: ContactsItemViewModel? = null
+    private val calendarContainer: View
+
     private lateinit var disposables: CompositeDisposable
+    private lateinit var params: DebtLayoutParams
+    private lateinit var dialogCallback: DebtLayoutCallback
 
     init {
         selfInflate(R.layout.add_or_edit_debt_layout)
@@ -99,27 +82,33 @@ internal class DebtLayout @JvmOverloads constructor(
         radioAdd = findViewById(R.id.home_add_debt_radio)
         commentView = findViewById(R.id.home_add_debt_comment)
         calendarView = findViewById(R.id.home_add_debt_calendar)
-        calendarIcon = findViewById(R.id.home_add_debt_calendar_icon)
+        calendarContainer = findViewById(R.id.home_add_debt_calendar_container)
+    }
+
+    fun setup(params: DebtLayoutParams, dialogCallback: DebtLayoutCallback) {
+        this.params = params
+        this.dialogCallback = dialogCallback
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         nameView.showKeyboard()
+        initFields()
 
-        val adapter = ContactsAdapter(context, contacts)
+        val adapter = ContactsAdapter(context, params.contacts)
         nameView.setAdapter<ContactsAdapter>(adapter)
         nameView.setOnItemClickListener { _, _, _, id ->
-            contact = contacts.firstOrNull { it.id == id }
-            avatarUrl = contact?.avatarUrl ?: ""
-            showAvatar(avatarUrl)
+            val contact = params.contacts.firstOrNull { it.id == id }
+            params = params.copy(avatarUrl = contact?.avatarUrl ?: "", contactId = id)
+            showAvatar(params.avatarUrl)
             amountView.requestFocus()
         }
 
         disposables = CompositeDisposable(
             nameView.textChanges()
-                .filter { contact != null }
+                .filter { params.contactId != null && nameView.hasFocus() }
                 .subscribe {
-                    contact = null
+                    params = params.copy(contactId = null, avatarUrl = "")
                     avatarView.setImageResource(R.mipmap.ic_launcher)
                 },
             amountView.textChanges()
@@ -127,14 +116,16 @@ internal class DebtLayout @JvmOverloads constructor(
                     amountLayoutView.error =
                         if (it.length > AMOUNT_MAX_LENGTH) context.getString(R.string.home_add_debt_amount_error) else ""
                 },
-            Observable.merge(
-                calendarIcon.clicks(),
-                calendarView.clicks()
-            ).subscribe {
-                dialogCallbacks.onCalendarClicked(data)
-            }
+            calendarContainer.clicks()
+                .subscribe {
+                    val params = params.copy(
+                        name = data.name,
+                        amount = data.amount,
+                        comment = data.comment
+                    )
+                    dialogCallback.onCalendarClicked(params)
+                }
         )
-        initFields()
     }
 
     override fun onDetachedFromWindow() {
@@ -143,27 +134,27 @@ internal class DebtLayout @JvmOverloads constructor(
     }
 
     private fun initFields() {
-        if (name.isNotBlank()) {
-            nameView.setText(name)
+        if (params.name.isNotBlank()) {
+            nameView.setText(params.name)
             amountView.requestFocus()
             amountView.showKeyboard()
         }
-        if (canChangeDebtor.not()) {
+        if (params.canChangeDebtor.not()) {
             nameView.isEnabled = false
         }
-        if (avatarUrl.isNotBlank()) {
-            showAvatar(avatarUrl)
+        if (params.avatarUrl.isNotBlank()) {
+            showAvatar(params.avatarUrl)
         }
-        if (comment.isNotBlank()) {
-            commentView.setText(comment)
+        if (params.comment.isNotBlank()) {
+            commentView.setText(params.comment)
         }
-        if (amount != 0.0) {
-            amountView.setText(amount.absoluteValue.toString())
-            if (amount < 0) {
+        if (params.amount != 0.0) {
+            amountView.setText(params.amount.absoluteValue.toString())
+            if (params.amount < 0) {
                 radioAdd.check(R.id.home_add_debt_radio_subtract)
             }
         }
-        calendarView.text = Date(date).toSimpleDateString()
+        calendarView.text = Date(params.date).toSimpleDateString()
     }
 
     private fun showAvatar(url: String?) {
@@ -175,16 +166,22 @@ internal class DebtLayout @JvmOverloads constructor(
             .apply(RequestOptions.circleCropTransform())
             .into(avatarView)
     }
+
+    interface DebtLayoutCallback {
+
+        fun onCalendarClicked(params: DebtLayoutParams)
+    }
+
+    data class DebtLayoutParams(
+        val contactId: Long? = null,
+        val avatarUrl: String = "",
+        val name: String = "",
+        val amount: Double = 0.0,
+        val comment: String = "",
+        val date: Long = Long.MIN_VALUE,
+        val existingDebtId: Long? = null,
+        val contacts: List<ContactsItemViewModel> = emptyList(),
+        val canChangeDebtor: Boolean = true
+    )
 }
 
-data class AddDebtData(
-    val contactId: Long?,
-    val avatarUrl: String,
-    val name: String,
-    val amount: Double,
-    val comment: String,
-    val date: Long,
-    val existingDebtId: Long?,
-    val contacts: List<ContactsItemViewModel>,
-    val canChangeDebtor: Boolean
-)

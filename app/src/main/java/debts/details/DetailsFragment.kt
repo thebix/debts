@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
-import debts.adddebt.AddDebtData
+import debts.adddebt.DebtLayoutData
 import debts.adddebt.AddOrEditDebtDialogHolder
 import debts.common.android.BaseFragment
 import debts.common.android.FragmentArgumentDelegate
@@ -67,9 +67,9 @@ class DetailsFragment : BaseFragment() {
         }
     }
 
-    private val addOrEditDebtDialogHolderCallbacks = object : AddOrEditDebtDialogHolder.AddOrEditDebtDialogHolderCallbacks {
+    private val addOrEditDebtDialogHolderCallbacks = object : AddOrEditDebtDialogHolder.AddOrEditDebtDialogHolderCallback {
 
-        override fun onConfirm(data: AddDebtData) {
+        override fun onConfirm(data: DebtLayoutData) {
             handleAddOrEditDialogConfirmation(data)
         }
     }
@@ -281,13 +281,12 @@ class DetailsFragment : BaseFragment() {
                 amount = amount,
                 comment = comment,
                 existingDebtId = existingDebtId,
-                date = date,
-                canChangeDebtor = false
+                date = date
             )
         }
     }
 
-    private fun handleAddOrEditDialogConfirmation(data: AddDebtData) {
+    private fun handleAddOrEditDialogConfirmation(data: DebtLayoutData) {
         with(data) {
             if (this.amount != 0.0) {
                 intentionSubject.onNext(
