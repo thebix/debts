@@ -1,2 +1,2 @@
 - edit debts
-- set date of debt
+- change date of the debt
