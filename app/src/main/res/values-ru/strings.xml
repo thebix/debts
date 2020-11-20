@@ -72,4 +72,7 @@
     <string name="preference_main_settings_state_updating">"Обновление…"</string>
     <string name="preference_main_settings_state_updated">"Успешно обновлено"</string>
     <string name="preference_main_settings_state_error">"Возникла ошибка"</string>
+    <string name="home_debtors_toast_debt_changed">"Долг изменен"</string>
+    <string name="home_add_debt_change_title">"Изменить"</string>
+    <string name="details_debts_item_menu_change">"Изменить"</string>
 </resources>

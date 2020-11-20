@@ -70,4 +70,7 @@
     <string name="preference_main_settings_state_updating">"Ažuriranje..."</string>
     <string name="preference_main_settings_state_updated">"Uspešno je ažurirano"</string>
     <string name="preference_main_settings_state_error">"Došlo je do greške"</string>
+    <string name="home_debtors_toast_debt_changed"></string>
+    <string name="home_add_debt_change_title">"Promeniti"</string>
+    <string name="details_debts_item_menu_change">"Promeniti"</string>
 </resources>

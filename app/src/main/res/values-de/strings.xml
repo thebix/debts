@@ -78,4 +78,7 @@
     <string name="preference_main_settings_state_updating">"Aktualisierung…"</string>
     <string name="preference_main_settings_state_updated">"Erfolgreich aktualisiert"</string>
     <string name="preference_main_settings_state_error">"Fehler aufgetreten"</string>
+    <string name="home_debtors_toast_debt_changed"></string>
+    <string name="home_add_debt_change_title">"Ändern"</string>
+    <string name="details_debts_item_menu_change">"Ändern"</string>
 </resources>
