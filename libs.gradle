@@ -1,8 +1,8 @@
 ext.kotlin_version = '1.4.10'
 
 def major = 2
-def minor = 2
-def patch = 1
+def minor = 3
+def patch = 0
 def buildId = System.getenv("ENV_BUILD_ID") as Integer ?: 0
 
 ext.appVersion = [
