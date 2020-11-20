@@ -1,2 +1,2 @@
-- ES localisation
-- stability improvements
+- edit debts
+- set date of debt
