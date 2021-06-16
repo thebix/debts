@@ -166,6 +166,7 @@ class HomeActivity : BaseActivity() {
     }
 
     @UiThread
+    @Suppress("NestedBlockDepth")
     private fun render(state: HomeState) {
         Timber.d("State is: $state")
         with(state) {

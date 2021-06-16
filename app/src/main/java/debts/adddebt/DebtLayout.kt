@@ -184,4 +184,3 @@ internal class DebtLayout(context: Context) : ScrollView(context) {
         val canChangeDebtor: Boolean = true
     )
 }
-

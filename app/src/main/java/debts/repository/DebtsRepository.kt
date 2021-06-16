@@ -13,6 +13,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 
+@Suppress("TooManyFunctions")
 class DebtsRepository(
     private val contentResolver: ContentResolver,
     private val dao: DebtsDao,

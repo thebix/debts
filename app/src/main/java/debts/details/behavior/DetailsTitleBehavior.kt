@@ -98,6 +98,7 @@ class DetailsTitleBehavior(
         endHeight = child.height
 
         startX = marginStart + avatarView.width + marginStart
+        @Suppress("MagicNumber")
         endX = (toolbarView.children.firstOrNull()?.width ?: 0) + 4
         startY = toolbarHeight + (marginTop - child.height) / 2
         endY = (toolbarHeight - endHeight) / 2
