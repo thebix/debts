@@ -1,0 +1,1 @@
+Semplice gestore dei debiti per la memorizzazione di informazioni sul tuo reddito ed eventuali risultati.

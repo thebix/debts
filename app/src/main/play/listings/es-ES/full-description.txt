@@ -8,4 +8,4 @@ Características:
 * CSV - Archivo con la historia
 * Clasificación
 
-Gracias a Alexey Chistyakov (diseño, ui), Olga Biryukova (icono, DE Traducción), Daria Polikanina (ES Traducción) y Egor Dovzhenko (SR Traducción).
+Gracias a Alexey Chistyakov (diseño, ui), Olga Biryukova (icono, DE Traducción), Daria Polikanina (ES Traducción), Egor Dovzhenko (SR Traducción) y Mattia Brambilla (IT Traducción).

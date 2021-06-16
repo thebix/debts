@@ -1,0 +1,15 @@
+Organizza e controlla i tuoi debiti. Semplice gestore dei debiti per la memorizzazione di informazioni sul tuo reddito ed eventuali risultati.
+
+Caratteristiche:
+* 3 elenchi organizzati (tutti/debitori/creditori)
+* Premi a lungo sulla voce dell'elenco per aprire i sottomenu
+* Sincronizzazione con contatti
+* Cronologia delle transazioni
+* Interfaccia semplice e chiara
+* Esportazione in file CSV con cronologia
+* Ordinamento
+* Ricerca
+* Valuta personalizzata
+* Senza annunci pubblicitari
+
+Ringraziamenti speciali a Alexey Chistyakov (Design, Interfacce), Olga Biryukova (Icona, traduzioni in tedesco), Daria Polikanina (traduzioni in spagnolo), Egor Dovzhenko (traduzioni in svedese) and Mattia Brambilla (traduzioni in italiano).

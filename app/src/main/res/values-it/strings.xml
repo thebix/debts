@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"Debiti"</string>
+
+    <!-- Defaults -->
+    <string name="default_positive_button">"OK"</string>
+    <string name="default_negative_button">"Annulla"</string>
+    <string name="default_dialog_title">"Sei sicuro?"</string>
+
+    <!-- Home activity -->
+    <string name="home_pager_tab_all">"Tutti"</string>
+    <string name="home_pager_tab_debtors">"Debitori"</string>
+    <string name="home_pager_tab_creditors">"Creditori"</string>
+
+    <!-- Debtors fragment -->
+    <string name="home_debtors_empty_debt_fields">"Svuota debitore o importo del debito"</string>
+    <string name="home_debtors_search_hint">"Ricerca"</string>
+    <string name="home_debtors_share_title">"Esporta tutti i debiti in un file .csv"</string>
+    <string name="home_debtors_toast_debt_added">"Debito aggiunto"</string>
+    <string name="home_debtors_menu_search">"Ricerca"</string>
+    <string name="home_debtors_menu_settings">"Impostazioni"</string>
+    <string name="home_debtors_menu_sort">"Ordina"</string>
+    <string name="home_debtors_menu_sort_name">"Nome"</string>
+    <string name="home_debtors_menu_sort_amount">"Quantità"</string>
+    <string name="home_debtors_item_menu_remove">"Rimuovi"</string>
+    <string name="home_debtors_item_menu_share">"Condividi"</string>
+
+    <!-- AddDebt dialog -->
+    <string name="home_add_debt_title">"Aggiungi"</string>
+    <string name="home_add_debt_name">"Nome"</string>
+    <string name="home_add_debt_action">"Azione"</string>
+    <string name="home_add_debt_add">"Prestato"</string>
+    <string name="home_add_debt_subtract">"Preso in prestito"</string>
+    <string name="home_add_debt_amount">"Quantità"</string>
+    <string name="home_add_debt_amount_error">"Valore troppo lungo"</string>
+    <string name="home_add_debt_comment">"Commento"</string>
+    <string name="home_add_debt_confirm">"Conferma"</string>
+
+    <!-- Details fragment -->
+    <string name="details_debt_title">"Debito"</string>
+    <string name="details_debt_total">"Totale"</string>
+    <string name="details_debt_change">"Cambia"</string>
+    <string name="details_debt_clear">"Pulisci"</string>
+    <string name="details_dialog_delete_message">"Eliminare il debitore e cancellare la cronologia dei debiti?"</string>
+    <string name="details_history_title">"Cronologia"</string>
+    <string name="details_share_title">"Condividi le informazioni sul debito"</string>
+    <string name="details_share_message_borrowed">"Ehi, ho preso in prestito %3$s%2$s da %1$s"</string>
+    <string name="details_share_message_lent">"Ehi, ho prestato %3$s%2$s a %1$s"</string>
+    <string name="details_debts_item_sign_borrowed">"Preso in prestito"</string>
+    <string name="details_debts_item_sign_lent">"Prestato"</string>
+    <string name="details_menu_delete">"Rimuovi"</string>
+    <string name="details_menu_share">"Condividi"</string>
+    <string name="details_clear_all_dialog_confirmation_message">"Cancellare la cronologia dei debiti?"</string>
+    <string name="details_empty_debt_fields">"Svuota l'importo del debito"</string>
+    <string name="details_debts_item_menu_remove">"Rimuovi"</string>
+    <string name="details_remove_debt_message">"Rimuovere un debito?"</string>
+
+    <!-- Preferences activity -->
+    <string name="settings_title">"Impostazioni"</string>
+
+    <!-- MainSettings fragment -->
+    <string name="preference_main_settings_general_title">"Generale"</string>
+    <string name="preference_main_settings_currency">"Valuta"</string>
+    <string name="preference_main_settings_currency_summary">"Selezionato: %1$s"</string>
+    <string name="preference_main_settings_currency_custom">"Valuta personalizzata"</string>
+    <string name="preference_main_settings_version">"Versione"</string>
+    <string name="preference_main_settings_sync_title">"Sincronizzazione"</string>
+    <string name="preference_main_settings_sync_contacts">"Sincronizza con contatti"</string>
+    <string name="preference_main_settings_sync_contacts_summary">"Aggiorna nomi e immagini"</string>
+    <string name="preference_main_settings_state_updating">"Aggiornamento…"</string>
+    <string name="preference_main_settings_state_updated">"Aggiornato con successo"</string>
+    <string name="preference_main_settings_state_error">"Riscontrato errore"</string>
+    <string name="home_debtors_toast_debt_changed">"Il debito è stato modificato"</string>
+    <string name="home_add_debt_change_title">"Modificare"</string>
+    <string name="details_debts_item_menu_change">"Modificare"</string>
+</resources>
