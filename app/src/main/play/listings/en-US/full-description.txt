@@ -11,5 +11,6 @@ Features:
 * Search
 * Custom currency
 * Ads free
+* Сhange date of the debt
 
-Thanks to Alexey Chistyakov (design, ui), Olga Biryukova (icon, DE localisation), Daria Polikanina (ES localisation) and Egor Dovzhenko (SE localisation).
+Thanks to Alexey Chistyakov (design, ui), Olga Biryukova (icon, DE localisation), Daria Polikanina (ES localisation), Egor Dovzhenko (SE localisation) and Mattia Brambilla (IT localisation).
