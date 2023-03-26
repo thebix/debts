@@ -4,10 +4,11 @@ buildscript {
     apply from: 'libs.gradle'
     repositories {
         google()
+        mavenCentral()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.android.tools.build:gradle:7.4.2' // WARNING: when plugin is updated to 8.1.0-alpha09 and upper search project for "region This section is added because com.android.tools.build:gradle:7.4.2 is used" and remove redundant configuration completely
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.1"
         classpath 'com.google.gms:google-services:4.3.15'
@@ -56,7 +57,8 @@ dependencies {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         maven { url "https://kotlin.bintray.com/kotlinx/" }
+        jcenter()
     }
 }

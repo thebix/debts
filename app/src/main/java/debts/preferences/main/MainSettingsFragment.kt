@@ -161,7 +161,7 @@ class MainSettingsFragment : PreferenceFragmentCompat() {
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         when (requestCode) {
             READ_CONTACTS_SYNC_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -183,8 +183,10 @@ class MainSettingsFragment : PreferenceFragmentCompat() {
             when (updateCurrencyState.get(this)) {
                 MainSettingsState.UpdateState.START -> {
                 }
+
                 MainSettingsState.UpdateState.END -> {
                 }
+
                 MainSettingsState.UpdateState.ERROR -> {
                     if (toolbarView != null) {
                         Snackbar.make(
@@ -195,20 +197,26 @@ class MainSettingsFragment : PreferenceFragmentCompat() {
                             .show()
                     }
                 }
+
+                null -> {}
             }
             when (syncWithContactsState.get(this)) {
                 MainSettingsState.UpdateState.START -> {
                     syncContactsPref?.summary =
                         context?.getString(R.string.preference_main_settings_state_updating)
                 }
+
                 MainSettingsState.UpdateState.END -> {
                     syncContactsPref?.summary =
                         context?.getString(R.string.preference_main_settings_state_updated)
                 }
+
                 MainSettingsState.UpdateState.ERROR -> {
                     syncContactsPref?.summary =
                         context?.getString(R.string.preference_main_settings_state_error)
                 }
+
+                null -> {}
             }
         }
     }

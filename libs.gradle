@@ -1,4 +1,4 @@
-ext.kotlin_version = '1.6.21'
+ext.kotlin_version = '1.8.10'
 
 def major = 2
 def minor = 4
@@ -18,7 +18,7 @@ ext.androidConfig = [
 ext.versions = [
         glide   : "4.11.0",
         hyperion: "0.9.29",
-        koin    : "2.2.1",
+        koin    : "3.4.0",
         room    : "2.5.1"
 ]
 ext.libs = [
@@ -42,9 +42,7 @@ ext.libs = [
         hyperionRecorder         : "com.willowtreeapps.hyperion:hyperion-recorder:$versions.hyperion",
         hyperionSharedPrefs      : "com.willowtreeapps.hyperion:hyperion-shared-preferences:$versions.hyperion",
         hyperionTimber           : "com.willowtreeapps.hyperion:hyperion-timber:$versions.hyperion",
-        koin                     : "org.koin:koin-android:$versions.koin",
-        koinScope                : "org.koin:koin-androidx-scope:$versions.koin",
-        koinViewModel            : "org.koin:koin-androidx-viewmodel:$versions.koin",
+        koin                     : "io.insert-koin:koin-android:$versions.koin",
         koptional                : "com.gojuno.koptional:koptional:1.7.0",
         kotlin                   : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
         leakCanary               : "com.squareup.leakcanary:leakcanary-android:2.5",
