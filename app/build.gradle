@@ -7,6 +7,12 @@ plugins {
     id "com.github.triplet.play" version "2.7.5"
 }
 
+kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of("$java_version"))
+    }
+}
+
 android {
     signingConfigs {
         release {
