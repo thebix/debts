@@ -1,4 +1,4 @@
-ext.kotlin_version = '1.4.10'
+ext.kotlin_version = '1.6.21'
 
 def major = 2
 def minor = 4
@@ -11,15 +11,15 @@ ext.appVersion = [
 ]
 
 ext.androidConfig = [
-        compileSdkVersion: 30,
+        compileSdkVersion: 33,
         minSdkVersion    : 21,
-        targetSdkVersion : 30,
+        targetSdkVersion : 33,
 ]
 ext.versions = [
         glide   : "4.11.0",
         hyperion: "0.9.29",
         koin    : "2.2.1",
-        room    : "2.2.5"
+        room    : "2.5.1"
 ]
 ext.libs = [
         androidxAppCompat        : "androidx.appcompat:appcompat:1.2.0",

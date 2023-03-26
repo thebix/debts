@@ -51,9 +51,9 @@ android {
         androidTest.assets.srcDirs +=
                 files("$projectDir/schemas".toString())
     }
-
+    namespace 'net.thebix.debts'
     // TODO: enable lint local checks and remove this
-    lintOptions {
+    lint {
         abortOnError false
     }
 }
