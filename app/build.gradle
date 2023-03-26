@@ -29,6 +29,14 @@ android {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
+        // region This section is added because com.android.tools.build:gradle:7.4.2 is used
+        // this region should be removed completely when plugin is updated to 8.1.0-alpha09 and upper
+        // link: https://kotlinlang.org/docs/gradle-configure-project.html#gradle-java-toolchains-support
+        compileOptions {
+            sourceCompatibility = JavaVersion.VERSION_15
+            targetCompatibility = JavaVersion.VERSION_15
+        }
+        // endregion
 
         println "App Id=$applicationId\nApp code version=${versionCode}\nApp name=$versionName"
     }
@@ -70,8 +78,6 @@ dependencies {
     implementation libs.glide
     kapt libs.glideCompiler
     implementation libs.koin
-    implementation libs.koinScope
-    implementation libs.koinViewModel
     implementation libs.koptional
     implementation libs.kotlin
     debugImplementation libs.leakCanary
