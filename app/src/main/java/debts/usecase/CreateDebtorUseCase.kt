@@ -1,34 +1,35 @@
 package debts.usecase
 
-import com.gojuno.koptional.None
-import com.gojuno.koptional.toOptional
 import debts.repository.DebtsRepository
 import io.reactivex.Single
 
 class CreateDebtorUseCase(
-    private val repository: DebtsRepository
+    private val repository: DebtsRepository,
 ) {
-
     fun execute(
         name: String,
-        contactId: Long?
+        contactId: Long?,
     ): Single<Long> {
         return if (contactId != null) {
             repository.getContacts()
                 .map { contacts ->
-                    contacts.firstOrNull { contact ->
+                    val contact = contacts.firstOrNull { contact ->
                         contact.id == contactId
-                    }.toOptional()
+                    }
+                    AvatarUrl(contact?.avatarUrl ?: "")
                 }
         } else {
-            Single.fromCallable { None }
+            Single.fromCallable { AvatarUrl("") }
         }
-            .flatMap { contact ->
+            .flatMap { avatarUrl ->
                 repository.createDebtor(
                     name,
                     contactId,
-                    contact.toNullable()?.avatarUrl ?: ""
+                    avatarUrl.url
                 )
             }
     }
+
+    @JvmInline
+    private value class AvatarUrl(val url: String)
 }

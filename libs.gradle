@@ -45,7 +45,6 @@ ext.libs = [
         hyperionSharedPrefs      : "com.willowtreeapps.hyperion:hyperion-shared-preferences:$versions.hyperion",
         hyperionTimber           : "com.willowtreeapps.hyperion:hyperion-timber:$versions.hyperion",
         koin                     : "io.insert-koin:koin-android:$versions.koin",
-        koptional                : "com.gojuno.koptional:koptional:1.7.0",
         kotlin                   : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
         leakCanary               : "com.squareup.leakcanary:leakcanary-android:2.10",
         room                     : "androidx.room:room-runtime:$versions.room",

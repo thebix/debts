@@ -5,10 +5,10 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2' // WARNING: when plugin is updated to 8.1.0-alpha09 and upper search project for "region This section is added because com.android.tools.build:gradle:7.4.2 is used" and remove redundant configuration completely
+        classpath 'com.android.tools.build:gradle:7.4.2'
+        // WARNING: when plugin is updated to 8.1.0-alpha09 and upper search project for "region This section is added because com.android.tools.build:gradle:7.4.2 is used" and remove redundant configuration completely
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.3.15'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.4'
@@ -58,6 +58,5 @@ allprojects {
         google()
         mavenCentral()
         maven { url "https://kotlin.bintray.com/kotlinx/" }
-        jcenter()
     }
 }

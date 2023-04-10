@@ -84,7 +84,6 @@ dependencies {
     implementation libs.glide
     kapt libs.glideCompiler
     implementation libs.koin
-    implementation libs.koptional
     implementation libs.kotlin
     debugImplementation libs.leakCanary
     implementation libs.room
