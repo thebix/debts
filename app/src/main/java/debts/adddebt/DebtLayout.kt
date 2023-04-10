@@ -40,8 +40,11 @@ internal class DebtLayout(context: Context) : ScrollView(context) {
         get() {
             val inverseAmount = radioAdd.checkedRadioButtonId == R.id.home_add_debt_radio_subtract
             val amount = runCatching {
-                if (amountView.text.length > AMOUNT_MAX_LENGTH) 0.0
-                else amountView.text.toString().toDouble() * if (inverseAmount) -1 else 1
+                if (amountView.text.length > AMOUNT_MAX_LENGTH) {
+                    0.0
+                } else {
+                    amountView.text.toString().toDouble() * if (inverseAmount) -1 else 1
+                }
             }.getOrDefault(0.0)
             return DebtLayoutData(
                 contactId = params.contactId,

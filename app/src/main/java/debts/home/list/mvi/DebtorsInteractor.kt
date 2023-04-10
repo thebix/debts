@@ -22,7 +22,7 @@ class DebtorsInteractor(
     private val removeDebtorUseCase: RemoveDebtorUseCase,
     private val debtsNavigator: DebtsNavigator,
     private val getShareDebtorContentUseCase: GetShareDebtorContentUseCase,
-    private val repository: DebtsRepository
+    private val repository: DebtsRepository,
 ) : MviInteractor<DebtorsAction, DebtorsResult> {
 
     private val initProcessor =
@@ -109,7 +109,7 @@ class DebtorsInteractor(
 
     private fun getFiltered(
         items: List<DebtorsListItemModel.Debtor>,
-        name: String
+        name: String,
     ): List<DebtorsListItemModel.Debtor> =
         if (name.isNotBlank()) {
             items.filter {
@@ -118,12 +118,14 @@ class DebtorsInteractor(
                     true
                 )
             }
-        } else items
+        } else {
+            items
+        }
 
     private fun getDebtorsWithAbsAmountsAndSortingApplied(
         items: List<DebtorsListItemModel.Debtor>,
         sortType: SortType,
-        showTitles: Boolean
+        showTitles: Boolean,
     ): List<DebtorsListItemModel> {
         return if (showTitles) {
             val debtors = items.filter { it.amount >= 0 }
@@ -153,7 +155,7 @@ class DebtorsInteractor(
 
     private fun getWithAbsAmountsAndSorted(
         items: List<DebtorsListItemModel.Debtor>,
-        sortType: SortType
+        sortType: SortType,
     ): List<DebtorsListItemModel.Debtor> {
         val absoluteAmounts =
             items.map { item ->

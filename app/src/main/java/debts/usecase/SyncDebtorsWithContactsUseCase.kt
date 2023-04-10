@@ -12,12 +12,12 @@ class SyncDebtorsWithContactsUseCase(
      * forceSync ignores preferences check
      */
     fun execute(forceSync: Boolean = false): Completable =
-        (if (forceSync) {
+        if (forceSync) {
             Single.fromCallable { true }
         } else {
             repository.isContactsSynced()
                 .map { it.not() }
-        })
+        }
             .flatMap { isShouldSync ->
                 if (isShouldSync) repository.getDebtors() else Single.fromCallable { listOf<DebtorModel>() }
             }

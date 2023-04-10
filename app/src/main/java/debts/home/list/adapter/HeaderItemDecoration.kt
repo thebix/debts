@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class HeaderItemDecoration(
     parent: RecyclerView,
-    private val isHeader: (itemPosition: Int) -> Boolean
+    private val isHeader: (itemPosition: Int) -> Boolean,
 ) : RecyclerView.ItemDecoration() {
 
     private var currentHeader: Pair<Int, RecyclerView.ViewHolder>? = null
@@ -43,7 +43,9 @@ class HeaderItemDecoration(
             override fun onInterceptTouchEvent(recyclerView: RecyclerView, motionEvent: MotionEvent): Boolean {
                 return if (motionEvent.action == ACTION_DOWN) {
                     motionEvent.y <= currentHeader?.second?.itemView?.bottom ?: 0
-                } else false
+                } else {
+                    false
+                }
             }
         })
     }
@@ -144,8 +146,16 @@ class HeaderItemDecoration(
         val heightSpec = View.MeasureSpec.makeMeasureSpec(parent.height, View.MeasureSpec.UNSPECIFIED)
 
         // Specs for children (headers)
-        val childWidthSpec = ViewGroup.getChildMeasureSpec(widthSpec, parent.paddingLeft + parent.paddingRight, view.layoutParams.width)
-        val childHeightSpec = ViewGroup.getChildMeasureSpec(heightSpec, parent.paddingTop + parent.paddingBottom, view.layoutParams.height)
+        val childWidthSpec = ViewGroup.getChildMeasureSpec(
+            widthSpec,
+            parent.paddingLeft + parent.paddingRight,
+            view.layoutParams.width
+        )
+        val childHeightSpec = ViewGroup.getChildMeasureSpec(
+            heightSpec,
+            parent.paddingTop + parent.paddingBottom,
+            view.layoutParams.height
+        )
 
         view.measure(childWidthSpec, childHeightSpec)
         view.layout(0, 0, view.measuredWidth, view.measuredHeight)

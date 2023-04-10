@@ -7,7 +7,7 @@ import io.reactivex.functions.BiFunction
 import kotlin.math.absoluteValue
 
 class DetailsViewModel(
-    interactor: DetailsInteractor
+    interactor: DetailsInteractor,
 ) : MviViewModel<DetailsIntention, DetailsAction, DetailsResult, DetailsState>(interactor) {
 
     override val defaultState: DetailsState
@@ -23,6 +23,7 @@ class DetailsViewModel(
                 intent.comment,
                 intent.date
             )
+
             is DetailsIntention.RemoveDebt -> DetailsAction.RemoveDebt(intent.id)
             is DetailsIntention.EditDebt -> DetailsAction.EditDebt(intent.id)
             is DetailsIntention.RemoveDebtor -> DetailsAction.RemoveDebtor(intent.debtorId)
@@ -32,6 +33,7 @@ class DetailsViewModel(
                 intent.borrowedTemplate,
                 intent.lentTemplate
             )
+
             is DetailsIntention.EditDebtSave -> DetailsAction.EditDebtSave(intent.debtId, intent.amount, intent.comment, intent.date)
         }
 
@@ -39,11 +41,15 @@ class DetailsViewModel(
         get() = BiFunction { prevState, result ->
             when (result) {
                 is DetailsResult.History ->
-                    prevState.copy(items = result.items
-                        .sortedByDescending { it.date }
-                        .map { it.toDebtsItemViewModel() })
+                    prevState.copy(
+                        items = result.items
+                            .sortedByDescending { it.date }
+                            .map { it.toDebtsItemViewModel() }
+                    )
+
                 DetailsResult.Error ->
                     prevState.copy(isError = OneShot(true))
+
                 is DetailsResult.Debtor ->
                     prevState.copy(
                         name = result.name,
@@ -51,14 +57,18 @@ class DetailsViewModel(
                         currency = result.currency,
                         avatarUrl = result.avatarUrl
                     )
+
                 is DetailsResult.EditDebt -> prevState.copy(
-                    debtEdit = OneShot(DetailsState.EditDebt(
-                        debtId = result.debtId,
-                        amount = result.amount,
-                        comment = result.comment,
-                        date = result.date
-                    ))
+                    debtEdit = OneShot(
+                        DetailsState.EditDebt(
+                            debtId = result.debtId,
+                            amount = result.amount,
+                            comment = result.comment,
+                            date = result.date
+                        )
+                    )
                 )
+
                 DetailsResult.DebtorRemoved -> prevState.copy(
                     isDebtorRemoved = OneShot(true)
                 )

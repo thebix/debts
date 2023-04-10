@@ -70,9 +70,7 @@ class DebtsNavigator(
 
     fun requestPermission(permission: String, requestCode: Int): Completable =
         Completable.fromCallable {
-            screenContextHolder.get(name)?.requestPermissions(
-                arrayOf(permission), requestCode
-            )
+            screenContextHolder.get(name)?.requestPermissions(arrayOf(permission), requestCode)
         }
 
     // endregion
