@@ -10,7 +10,6 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.4.2' // WARNING: when plugin is updated to 8.1.0-alpha09 and upper search project for "region This section is added because com.android.tools.build:gradle:7.4.2 is used" and remove redundant configuration completely
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.1"
         classpath 'com.google.gms:google-services:4.3.15'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.4'
 
@@ -20,11 +19,11 @@ buildscript {
 }
 
 plugins {
-    id "io.gitlab.arturbosch.detekt" version "1.8.0"
+    id "io.gitlab.arturbosch.detekt" version "$detekt_version"
 }
 
 detekt {
-    toolVersion = "1.8.0"
+    toolVersion = "$detekt_version"
     input = files(projectDir)
     config = files("$projectDir/config/detekt/detekt.yml")
     buildUponDefaultConfig = true
@@ -51,7 +50,7 @@ detekt {
 // }
 
 dependencies {
-    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.8.0"
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version"
 }
 
 allprojects {
