@@ -5,7 +5,7 @@ import debts.common.android.adapters.TypedAdapterDelegate
 import debts.common.android.adapters.ViewHolderRenderer
 
 class DebtsAdapter(
-    historyItemCallback: DebtItemLayout.HistoryItemCallback
+    historyItemCallback: DebtItemLayout.HistoryItemCallback,
 ) : DelegatedAdapter() {
 
     companion object {
@@ -15,13 +15,16 @@ class DebtsAdapter(
     override var items: List<DebtsItemViewModel> = emptyList()
 
     init {
-        addDelegate(TYPE_DEBT, TypedAdapterDelegate { parent ->
-            val layout = DebtItemLayout(
-                parent.context,
-                historyItemCallback = historyItemCallback
-            )
-            ViewHolderRenderer(layout)
-        })
+        addDelegate(
+            TYPE_DEBT,
+            TypedAdapterDelegate { parent ->
+                val layout = DebtItemLayout(
+                    parent.context,
+                    historyItemCallback = historyItemCallback
+                )
+                ViewHolderRenderer(layout)
+            }
+        )
     }
 
     override fun getItemViewType(position: Int) = when (items[position]) {

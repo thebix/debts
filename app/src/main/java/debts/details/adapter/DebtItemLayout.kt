@@ -29,7 +29,7 @@ class DebtItemLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-    historyItemCallback: HistoryItemCallback
+    historyItemCallback: HistoryItemCallback,
 ) : ConstraintLayout(context, attrs, defStyleAttr),
     ItemRenderer<DebtsItemViewModel> {
 
@@ -62,13 +62,16 @@ class DebtItemLayout @JvmOverloads constructor(
                             historyItemCallback.onDebtRemove(debtId)
                             true
                         }
+
                         R.id.home_details_debts_item_menu_chage -> {
                             historyItemCallback.onDebtEdit(debtId)
                             true
                         }
+
                         else -> false
                     }
-                })
+                }
+            )
             true
         }
         this.setThrottlingClickListener {

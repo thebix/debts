@@ -17,7 +17,7 @@ import io.reactivex.Single
 class DebtsRepository(
     private val contentResolver: ContentResolver,
     private val dao: DebtsDao,
-    private val preferences: Preferences
+    private val preferences: Preferences,
 ) {
 
     private companion object {
@@ -75,9 +75,7 @@ class DebtsRepository(
                             )
                         )
                         items.add(
-                            ContactsItemModel(
-                                id, name ?: "", avatar ?: ""
-                            )
+                            ContactsItemModel(id, name ?: "", avatar ?: "")
                         )
                     }
                 }
@@ -93,7 +91,7 @@ class DebtsRepository(
         contactId: Long?,
         avatarUrl: String,
         email: String = "",
-        phone: String = ""
+        phone: String = "",
     ): Single<Long> =
         dao.insertDebtor(
             DebtorEntity(
@@ -116,7 +114,7 @@ class DebtsRepository(
         amount: Double,
         currency: String,
         comment: String,
-        date: Long
+        date: Long,
     ): Single<Long> =
         dao.insertDebt(
             DebtEntity(
@@ -135,7 +133,7 @@ class DebtsRepository(
         amount: Double,
         currency: String,
         date: Long,
-        comment: String
+        comment: String,
     ): Completable = dao.updateDebt(
         DebtEntity(id, debtorId, amount, currency, date, comment)
     )

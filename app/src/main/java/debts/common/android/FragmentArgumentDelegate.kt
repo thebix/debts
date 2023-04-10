@@ -9,13 +9,13 @@ import androidx.fragment.app.Fragment
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-@Suppress("unused")
 /**
  * Eases the Fragment.newInstance ceremony by marking the fragment's args with this delegate
  * Just write the property in newInstance and read it like any other property after the fragment has been created
  *
  * Inspired by Adam Powell, he mentioned it during his IO/17 talk about Kotlin
  */
+@Suppress("unused")
 class FragmentArgumentDelegate<T : Any> : ReadWriteProperty<Fragment, T> {
 
     var value: T? = null

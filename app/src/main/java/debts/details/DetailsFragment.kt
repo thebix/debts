@@ -19,8 +19,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
-import debts.adddebt.DebtLayoutData
 import debts.adddebt.AddOrEditDebtDialogHolder
+import debts.adddebt.DebtLayoutData
 import debts.common.android.BaseFragment
 import debts.common.android.FragmentArgumentDelegate
 import debts.common.android.FragmentScreenContext
@@ -116,7 +116,7 @@ class DetailsFragment : BaseFragment() {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setHasOptionsMenu(true)
 
-        addOrEditDebtDialogHolder = AddOrEditDebtDialogHolder((activity as AppCompatActivity), addOrEditDebtDialogHolderCallbacks)
+        addOrEditDebtDialogHolder = AddOrEditDebtDialogHolder(activity as AppCompatActivity, addOrEditDebtDialogHolderCallbacks)
 
         recyclerView?.apply {
             adapter = this@DetailsFragment.adapter
@@ -143,6 +143,7 @@ class DetailsFragment : BaseFragment() {
             android.R.id.home -> {
                 activity?.onBackPressed()
             }
+
             R.id.home_details_menu_delete -> {
                 context?.showAlert(messageId = R.string.details_dialog_delete_message) {
                     intentionSubject.onNext(
@@ -151,6 +152,7 @@ class DetailsFragment : BaseFragment() {
                 }
                 return true
             }
+
             R.id.home_details_menu_share -> {
 
                 intentionSubject.onNext(
@@ -191,7 +193,8 @@ class DetailsFragment : BaseFragment() {
                             intentionSubject.onNext(DetailsIntention.ClearHistory(debtorId))
                         }
                     )
-                })
+                }
+        )
     }
 
     override fun onStop() {
@@ -246,7 +249,12 @@ class DetailsFragment : BaseFragment() {
             }
             debtEdit.get(state)
                 ?.let { editDebt ->
-                    showAddDebtLayout(comment = editDebt.comment, amount = editDebt.amount, existingDebtId = editDebt.debtId, date = editDebt.date)
+                    showAddDebtLayout(
+                        comment = editDebt.comment,
+                        amount = editDebt.amount,
+                        existingDebtId = editDebt.debtId,
+                        date = editDebt.date
+                    )
                 }
             // endregion
             // TODO: isError
@@ -290,17 +298,21 @@ class DetailsFragment : BaseFragment() {
         with(data) {
             if (this.amount != 0.0) {
                 intentionSubject.onNext(
-                    if (this.existingDebtId == null) DetailsIntention.AddDebt(
-                        debtorId,
-                        this.amount,
-                        this.comment,
-                        this.date
-                    ) else DetailsIntention.EditDebtSave(
-                        this.existingDebtId,
-                        this.amount,
-                        this.comment,
-                        this.date
-                    )
+                    if (this.existingDebtId == null) {
+                        DetailsIntention.AddDebt(
+                            debtorId,
+                            this.amount,
+                            this.comment,
+                            this.date
+                        )
+                    } else {
+                        DetailsIntention.EditDebtSave(
+                            this.existingDebtId,
+                            this.amount,
+                            this.comment,
+                            this.date
+                        )
+                    }
                 )
             } else {
                 Snackbar

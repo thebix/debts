@@ -12,7 +12,7 @@ import net.thebix.debts.R
 
 class DetailsTitleBehavior(
     context: Context,
-    attrs: AttributeSet
+    attrs: AttributeSet,
 ) : CoordinatorLayout.Behavior<View>(context, attrs) {
 
     private val marginStart: Int = context.resources.getDimensionPixelOffset(R.dimen.margin_16dp)
@@ -29,6 +29,7 @@ class DetailsTitleBehavior(
     private var startHeight: Int = -1
     private var endHeight: Int = -1
     private var startScale: Int = 1
+
     @Suppress("MagicNumber")
     private var endScale: Float = 0.7f
     private var maxScroll = -1
@@ -40,14 +41,14 @@ class DetailsTitleBehavior(
     override fun layoutDependsOn(
         parent: CoordinatorLayout,
         child: View,
-        dependency: View
+        dependency: View,
     ): Boolean =
         dependency is RecyclerView
 
     override fun onDependentViewChanged(
         parent: CoordinatorLayout,
         child: View,
-        dependency: View
+        dependency: View,
     ): Boolean {
         initialize(parent, child, dependency)
 

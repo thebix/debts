@@ -96,7 +96,7 @@ class DebtorsFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View =
         inflater.inflate(R.layout.home_debtors_fragment, container, false)
 
@@ -119,9 +119,11 @@ class DebtorsFragment : BaseFragment() {
             )
             layoutManager = LinearLayoutManager(context)
             if (page == TabTypes.All.page) {
-                recyclerView?.addItemDecoration(HeaderItemDecoration(recyclerView!!) { itemIndex: Int ->
-                    headersIndexes.contains(itemIndex)
-                })
+                recyclerView?.addItemDecoration(
+                    HeaderItemDecoration(recyclerView!!) { itemIndex: Int ->
+                        headersIndexes.contains(itemIndex)
+                    }
+                )
             }
         }
     }

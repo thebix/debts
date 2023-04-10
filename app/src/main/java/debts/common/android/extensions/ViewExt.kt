@@ -196,7 +196,8 @@ fun View.hideKeyboard(delay: Long = 64L) {
                         windowToken,
                         InputMethodManager.HIDE_NOT_ALWAYS
                     )
-                }, delay
+                },
+                delay
             )
         } else {
             val inputMethodManager =
@@ -225,7 +226,8 @@ fun EditText.showKeyboard(delay: Long = 64L) {
                     val inputMethodManager =
                         activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     inputMethodManager.showSoftInput(focusedView, InputMethodManager.SHOW_IMPLICIT)
-                }, delay
+                },
+                delay
             )
         } else {
             val inputMethodManager =

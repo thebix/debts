@@ -21,7 +21,7 @@ import io.reactivex.schedulers.Schedulers
 import net.thebix.debts.R
 
 class DebtorsAdapter(
-    private val itemClickCallback: ItemClickCallback
+    private val itemClickCallback: ItemClickCallback,
 ) : DelegatedAdapter() {
 
     companion object {
@@ -32,31 +32,38 @@ class DebtorsAdapter(
     override var items: List<DebtorsItemViewModel> = emptyList()
 
     init {
-        addDelegate(TYPE_DEBTOR, TypedAdapterDelegate { parent ->
-            val layout = DebtorItemLayout(parent.context, itemClickCallback = itemClickCallback)
-            ViewHolderRenderer(layout)
-        })
-        addDelegate(TYPE_TITLE, TypedAdapterDelegate { parent ->
-            val layout = object : AppCompatTextView(parent.context),
-                ItemRenderer<DebtorsItemViewModel.TitleItem> {
-                init {
-                    doInRuntime {
-                        applyLayoutParams()
-                        setPaddingTopResCompat(R.dimen.padding_8dp)
-                        setPaddingBottomResCompat(R.dimen.padding_8dp)
-                        setPaddingStartResCompat(R.dimen.padding_16dp)
-                        setBackgroundColor(context.getColorCompat(R.color.colorAccent))
-                        setTextColor(context.getColorCompat(R.color.debts_white))
-                        isAllCaps = true
+        addDelegate(
+            TYPE_DEBTOR,
+            TypedAdapterDelegate { parent ->
+                val layout = DebtorItemLayout(parent.context, itemClickCallback = itemClickCallback)
+                ViewHolderRenderer(layout)
+            }
+        )
+        addDelegate(
+            TYPE_TITLE,
+            TypedAdapterDelegate { parent ->
+                val layout = object :
+                    AppCompatTextView(parent.context),
+                    ItemRenderer<DebtorsItemViewModel.TitleItem> {
+                    init {
+                        doInRuntime {
+                            applyLayoutParams()
+                            setPaddingTopResCompat(R.dimen.padding_8dp)
+                            setPaddingBottomResCompat(R.dimen.padding_8dp)
+                            setPaddingStartResCompat(R.dimen.padding_16dp)
+                            setBackgroundColor(context.getColorCompat(R.color.colorAccent))
+                            setTextColor(context.getColorCompat(R.color.debts_white))
+                            isAllCaps = true
+                        }
+                    }
+
+                    override fun render(data: DebtorsItemViewModel.TitleItem) {
+                        this.text = resources.getString(data.titleId)
                     }
                 }
-
-                override fun render(data: DebtorsItemViewModel.TitleItem) {
-                    this.text = resources.getString(data.titleId)
-                }
+                ViewHolderRenderer(layout)
             }
-            ViewHolderRenderer(layout)
-        })
+        )
     }
 
     override fun getItemViewType(position: Int) = when (items[position]) {

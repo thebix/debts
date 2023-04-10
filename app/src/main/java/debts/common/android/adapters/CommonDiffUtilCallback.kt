@@ -16,8 +16,9 @@ class CommonDiffUtilCallback(
         val oldItem = oldItems[oldItemPosition]
         val newItem = newItems[newItemPosition]
         val sameClass = oldItem::class == newItem::class
-        return if (!sameClass) false
-        else {
+        return if (!sameClass) {
+            false
+        } else {
             areContentsTheSame(oldItemPosition, newItemPosition)
             when (oldItem) {
                 is DebtorsItemViewModel.DebtorItemViewModel -> oldItem.id == (newItem as DebtorsItemViewModel.DebtorItemViewModel).id

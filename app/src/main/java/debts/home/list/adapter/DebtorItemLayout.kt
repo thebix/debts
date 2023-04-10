@@ -29,7 +29,7 @@ class DebtorItemLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-    private val itemClickCallback: DebtorsAdapter.ItemClickCallback
+    private val itemClickCallback: DebtorsAdapter.ItemClickCallback,
 ) : ConstraintLayout(context, attrs, defStyleAttr),
     ItemRenderer<DebtorsItemViewModel.DebtorItemViewModel> {
 
@@ -65,13 +65,16 @@ class DebtorItemLayout @JvmOverloads constructor(
                             itemClickCallback.onDebtorRemove(debtorId)
                             true
                         }
+
                         R.id.home_debtors_item_menu_share -> {
                             itemClickCallback.onDebtorShare(debtorId)
                             true
                         }
+
                         else -> false
                     }
-                })
+                }
+            )
             true
         }
     }

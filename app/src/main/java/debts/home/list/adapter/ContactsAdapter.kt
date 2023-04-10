@@ -10,9 +10,11 @@ import debts.common.android.adapters.ViewHolderRenderer
 
 class ContactsAdapter(
     context: Context,
-    private val items: List<ContactsItemViewModel>
+    private val items: List<ContactsItemViewModel>,
 ) : ArrayAdapter<ContactsItemViewModel>(
-    context, android.R.layout.simple_dropdown_item_1line, items
+    context,
+    android.R.layout.simple_dropdown_item_1line,
+    items,
 ) {
 
     private var currentItems = items
@@ -52,8 +54,12 @@ class ContactsAdapter(
                 return FilterResults()
                     .apply {
                         val filteredItems =
-                            if (constraint == null) items else items.filter { (_, name) ->
-                                name.contains(constraint, true)
+                            if (constraint == null) {
+                                items
+                            } else {
+                                items.filter { (_, name) ->
+                                    name.contains(constraint, true)
+                                }
                             }
                         values = filteredItems
                         count = filteredItems.size
@@ -65,7 +71,9 @@ class ContactsAdapter(
                     @Suppress("UNCHECKED_CAST")
                     currentItems = results.values as List<ContactsItemViewModel>
                     notifyDataSetChanged()
-                } else notifyDataSetInvalidated()
+                } else {
+                    notifyDataSetInvalidated()
+                }
             }
 
             override fun convertResultToString(resultValue: Any?): CharSequence {

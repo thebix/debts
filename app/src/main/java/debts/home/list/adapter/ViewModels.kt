@@ -12,7 +12,7 @@ sealed class DebtorsItemViewModel(open val id: Long) {
         val amount: Double,
         val currency: String,
         val lastDate: Long,
-        val avatarUrl: String
+        val avatarUrl: String,
     ) : DebtorsItemViewModel(id)
 
     // INFO: title must be unique for adapter
@@ -30,14 +30,17 @@ fun DebtorsListItemModel.toDebtorsItemViewModel() = when (this) {
         amount,
         currency,
         lastDate,
-        avatarUrl
+        avatarUrl,
     )
+
     is DebtorsListItemModel.Title -> DebtorsItemViewModel.TitleItem(id.toInt())
 }
 
 fun ContactsItemModel.toContactsItemViewModel() =
     ContactsItemViewModel(
-        id, name, avatarUrl
+        id,
+        name,
+        avatarUrl,
     )
 
 // endregion
