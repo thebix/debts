@@ -91,7 +91,7 @@ class MainSettingsFragment : PreferenceFragmentCompat() {
          *      - pref clicks should be wrapped with RxBind if it's possible
          *      - use constants
          */
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context?.applicationContext)
+        val preferences = PreferenceManager.getDefaultSharedPreferences(view.context.applicationContext)
         updateCurrencyCustomSummary(
             preferences.getString(
                 "preference_main_settings_currency_custom",
