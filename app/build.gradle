@@ -79,8 +79,8 @@ dependencies {
     implementation libs.androidxDesign
     kapt libs.androidxLifecycleCompiler
     implementation libs.androidxPreference
-    implementation libs.crashlytics
-    implementation libs.firebaseCore
+    implementation platform(libs.firebaseBom)
+    implementation libs.firebaseCrashlytics
     implementation libs.glide
     kapt libs.glideCompiler
     implementation libs.koin
