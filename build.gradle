@@ -51,6 +51,12 @@ detekt {
 
 dependencies {
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version"
+    /*
+    Rules in this rule set report issues related to libraries API exposure. https://detekt.dev/docs/rules/libraries
+    Enabling this rule raised a lot of issues. Mostly because the current project structure includes just one module and therefore there is no need for most
+    of the classes to be public. There is no need to fix that as this project should be modularized anyway.
+     */
+    //detektPlugins "io.gitlab.arturbosch.detekt:detekt-rules-libraries:$detekt_version"
 }
 
 allprojects {
@@ -58,6 +64,5 @@ allprojects {
         google()
         mavenCentral()
         maven { url "https://kotlin.bintray.com/kotlinx/" }
-        jcenter()
     }
 }

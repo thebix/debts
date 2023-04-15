@@ -65,7 +65,7 @@ complexity:
     threshold: 10
     includeStaticDeclarations: false
     includePrivateDeclarations: false
-  ComplexMethod:
+  CyclomaticComplexMethod:
     active: true
     threshold: 15
     ignoreSingleWhenExpression: false
@@ -242,7 +242,6 @@ formatting:
     active: false
     autoCorrect: true
     indentSize: 4
-    continuationIndentSize: 4
   MaximumLineLength:
     active: true
     maxLineLength: 160
@@ -321,6 +320,36 @@ formatting:
   StringTemplate:
     active: true
     autoCorrect: true
+  ArgumentListWrapping:
+    # Set the wrapping style for arguments. Possible values are:
+    # - NO_WRAP (do not wrap arguments)
+    # - WRAP_IF_LONG (wrap arguments only if the line is too long)
+    # - CHOP_DOWN_IF_LONG (wrap arguments and break them into multiple lines)
+    # - ALWAYS_WRAP (always wrap arguments)
+    # style: WRAP_IF_LONG
+    # Set the maximum line length before wrapping occurs
+    maxLineLength: 160
+    # Set the indent size for wrapped arguments
+    # indentSize: 4
+    # Set whether to align wrapped arguments with the first argument
+    # alignWrappedArguments: true
+    # Set whether to use hanging indent for wrapped arguments
+    # hangingIndent: false
+  ParameterListWrapping:
+    # Set the wrapping style for arguments. Possible values are:
+    # - NO_WRAP (do not wrap arguments)
+    # - WRAP_IF_LONG (wrap arguments only if the line is too long)
+    # - CHOP_DOWN_IF_LONG (wrap arguments and break them into multiple lines)
+    # - ALWAYS_WRAP (always wrap arguments)
+    # style: WRAP_IF_LONG
+    # Set the maximum line length before wrapping occurs
+    maxLineLength: 160
+    # Set the indent size for wrapped arguments
+    # indentSize: 4
+    # Set whether to align wrapped arguments with the first argument
+    # alignWrappedArguments: true
+    # Set whether to use hanging indent for wrapped arguments
+    # hangingIndent: false
 
 naming:
   active: true
@@ -421,8 +450,6 @@ potential-bugs:
   active: true
   Deprecation:
     active: false
-  DuplicateCaseInWhenExpression:
-    active: true
   EqualsAlwaysReturnsTrueOrFalse:
     active: true
   EqualsWithHashCodeExist:
@@ -442,14 +469,10 @@ potential-bugs:
   LateinitUsage:
     active: false
     excludes: ['**/test/**', '**/androidTest/**', '**/*.Test.kt', '**/*.Spec.kt', '**/*.Spek.kt']
-    excludeAnnotatedProperties: []
+    ignoreAnnotated: []
     ignoreOnClassesPattern: ''
   MapGetWithNotNullAssertionOperator:
     active: false
-  MissingWhenCase:
-    active: true
-  RedundantElseInWhen:
-    active: true
   UnconditionalJumpStatementInLoop:
     active: false
   UnnecessaryNotNullOperator:
@@ -473,7 +496,7 @@ style:
     active: false
   DataClassContainsFunctions:
     active: false
-    conversionFunctionPrefix: 'to'
+    conversionFunctionPrefix: ['to']
   DataClassShouldBeImmutable:
     active: false
   EqualsNullCall:
@@ -498,9 +521,6 @@ style:
   ForbiddenMethodCall:
     active: false
     methods: []
-  ForbiddenPublicDataClass:
-    active: false
-    ignorePackages: ['*.internal', '*.internal.*']
   ForbiddenVoid:
     active: false
     ignoreOverridden: false
@@ -508,10 +528,8 @@ style:
   FunctionOnlyReturningConstant:
     active: true
     ignoreOverridableFunction: true
-    excludedFunctions: 'describeContents'
-    excludeAnnotatedFunction: ['dagger.Provides']
-  LibraryCodeMustSpecifyReturnType:
-    active: true
+    excludedFunctions: ['describeContents']
+    ignoreAnnotated: ['dagger.Provides']
   LoopWithTooManyJumpStatements:
     active: true
     maxJumpCount: 1
@@ -563,7 +581,7 @@ style:
   ReturnCount:
     active: true
     max: 6
-    excludedFunctions: 'equals'
+    excludedFunctions: ['equals']
     excludeLabeled: false
     excludeReturnFromLambda: true
     excludeGuardClauses: false
@@ -580,10 +598,10 @@ style:
     active: false
   UnderscoresInNumericLiterals:
     active: false
-    acceptableDecimalLength: 5
+    acceptableLength: 5
   UnnecessaryAbstractClass:
     active: true
-    excludeAnnotatedClasses: ['dagger.Module']
+    ignoreAnnotated: ['dagger.Module']
   UnnecessaryAnnotationUseSiteTarget:
     active: false
   UnnecessaryApply:
@@ -609,7 +627,7 @@ style:
     active: false
   UseDataClass:
     active: false
-    excludeAnnotatedClasses: []
+    ignoreAnnotated: []
     allowVars: false
   UseIfInsteadOfWhen:
     active: false
