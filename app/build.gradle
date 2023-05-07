@@ -4,12 +4,12 @@ plugins {
     id "kotlin-kapt"
     id "com.google.firebase.crashlytics"
     id "com.google.gms.google-services"
-    id "com.github.triplet.play" version "2.7.5"
+    alias libs.plugins.triplet.play
 }
 
 kotlin {
     jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of("$java_version"))
+        languageVersion.set(JavaLanguageVersion.of("${libs.versions.java.get()}"))
     }
 }
 
@@ -39,8 +39,8 @@ android {
         // this region should be removed completely when plugin is updated to 8.1.0-alpha09 and upper
         // link: https://kotlinlang.org/docs/gradle-configure-project.html#gradle-java-toolchains-support
         compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_15
-            targetCompatibility = JavaVersion.VERSION_15
+            sourceCompatibility = "${libs.versions.java.get()}"
+            targetCompatibility = "${libs.versions.java.get()}"
         }
         // endregion
 

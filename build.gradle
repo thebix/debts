@@ -1,17 +1,17 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    apply from: 'libs.gradle'
+    apply from: 'app-version.gradle'
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath libs.android.gradle.plugin
         // WARNING: when plugin is updated to 8.1.0-alpha09 and upper search project for "region This section is added because com.android.tools.build:gradle:7.4.2 is used" and remove redundant configuration completely
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.gms:google-services:4.3.15'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.5'
+        classpath libs.kotlin.gralde.plugin
+        classpath libs.google.services
+        classpath libs.firebase.crashlytics.gradle
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -19,11 +19,11 @@ buildscript {
 }
 
 plugins {
-    id "io.gitlab.arturbosch.detekt" version "$detekt_version"
+    alias libs.plugins.detekt
 }
 
 detekt {
-    toolVersion = "$detekt_version"
+    toolVersion = "${libs.versions.detekt.get()}"
     input = files(projectDir)
     config = files("$projectDir/config/detekt/detekt.yml")
     buildUponDefaultConfig = true
@@ -50,13 +50,13 @@ detekt {
 // }
 
 dependencies {
-    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version"
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:${libs.versions.detekt.get()}"
     /*
     Rules in this rule set report issues related to libraries API exposure. https://detekt.dev/docs/rules/libraries
     Enabling this rule raised a lot of issues. Mostly because the current project structure includes just one module and therefore there is no need for most
     of the classes to be public. There is no need to fix that as this project should be modularized anyway.
      */
-    //detektPlugins "io.gitlab.arturbosch.detekt:detekt-rules-libraries:$detekt_version"
+    //detektPlugins "io.gitlab.arturbosch.detekt:detekt-rules-libraries:${libs.versions.detekt.get()}"
 }
 
 allprojects {
