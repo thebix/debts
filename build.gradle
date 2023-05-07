@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    apply from: 'app-version.gradle'
+    apply from: 'lib.gradle'
     repositories {
         google()
         mavenCentral()
