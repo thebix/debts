@@ -10,7 +10,7 @@ updates:
       - "thebix"
   # Updates for Gradle dependencies
   - package-ecosystem: "gradle"
-    directory: "/gradle"
+    directory: "/"
     schedule:
       interval: "daily"
     reviewers:
