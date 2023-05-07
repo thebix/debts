@@ -32,6 +32,7 @@ ext.libs = [
         androidxPreference       : "androidx.preference:preference-ktx:1.2.0",
         firebaseBom              : "com.google.firebase:firebase-bom:31.4.0",
         firebaseCrashlytics      : "com.google.firebase:firebase-crashlytics-ktx",
+        firebaseAnalytics      : "com.google.firebase:firebase-analytics-ktx",
         glide                    : "com.github.bumptech.glide:glide:$versions.glide",
         glideCompiler            : "com.github.bumptech.glide:compiler:$versions.glide",
         hyperionCore             : "com.willowtreeapps.hyperion:hyperion-core:$versions.hyperion",

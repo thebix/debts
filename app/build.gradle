@@ -81,6 +81,7 @@ dependencies {
     implementation libs.androidxPreference
     implementation platform(libs.firebaseBom)
     implementation libs.firebaseCrashlytics
+    implementation libs.firebaseAnalytics
     implementation libs.glide
     kapt libs.glideCompiler
     implementation libs.koin
