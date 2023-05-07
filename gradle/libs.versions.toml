@@ -1,0 +1,54 @@
+[versions]
+androidx-appcompat = "1.6.1"
+androidx-constraintlayout = "2.1.4"
+androidx-core = "1.9.0"
+google-android-material = "1.8.0"
+androidx-lifecycle-compiler = "2.6.1"
+androidx-preference = "1.2.0"
+firebase-bom = "31.5.0"
+glide = "4.12.0"
+hyperion = "0.9.34"
+koin = "3.1.2"
+kotlin = "1.8.10"
+leak-canary = "2.10"
+room = "2.4.0"
+rxjava2-rxandroid = "2.1.1"
+rxjava2-rxjava = "2.2.21"
+rxbinding3 = "3.1.0"
+timber = "5.0.1"
+
+[libraries]
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
+androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx-lifecycle-compiler = { module = "androidx.lifecycle:lifecycle-compiler", version.ref = "androidx-lifecycle-compiler" }
+androidx-preference = { module = "preference-ktx:lifecycle-compiler", version.ref = "androidx-preference" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
+glide-core = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+google-android-material = { group = "com.google.android.material", name = "material", version.ref = "google-android-material" }
+hyperion-core = { module = "com.willowtreeapps.hyperion:hyperion-core", version.ref = "hyperion" }
+hyperion-attr = { module = "com.willowtreeapps.hyperion:hyperion-attr", version.ref = "hyperion" }
+hyperion-build-config = { module = "com.willowtreeapps.hyperion:hyperion-build-config", version.ref = "hyperion" }
+hyperion-disk = { module = "com.willowtreeapps.hyperion:hyperion-disk", version.ref = "hyperion" }
+hyperion-geiger-counter = { module = "com.willowtreeapps.hyperion:hyperion-geiger-counter", version.ref = "hyperion" }
+hyperion-measurement = { module = "com.willowtreeapps.hyperion:hyperion-measurement", version.ref = "hyperion" }
+hyperion-phoenix = { module = "com.willowtreeapps.hyperion:hyperion-phoenix", version.ref = "hyperion" }
+hyperion-recorder = { module = "com.willowtreeapps.hyperion:hyperion-recorder", version.ref = "hyperion" }
+hyperion-shared-preferences = { module = "com.willowtreeapps.hyperion:hyperion-shared-preferences", version.ref = "hyperion" }
+hyperion-timber = { module = "com.willowtreeapps.hyperion:hyperion-timber", version.ref = "hyperion" }
+koin = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+leak-canary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leak-canary" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-rxjava2 = { module = "androidx.room:room-rxjava2", version.ref = "room" }
+room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
+rxbinding = { module = "com.jakewharton.rxbinding3:rxbinding", version.ref = "rxbinding3" }
+rxjava2-rxandroid = { module = "io.reactivex.rxjava2:rxandroid", version.ref = "rxjava2-rxandroid" }
+rxjava2-rxjava = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava2-rxjava" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+
+[plugins]

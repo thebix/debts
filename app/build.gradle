@@ -73,39 +73,39 @@ android {
 }
 
 dependencies {
-    implementation libs.androidxAppCompat
-    implementation libs.androidxConstraintLayout
-    implementation libs.androidxCore
-    implementation libs.androidxDesign
-    kapt libs.androidxLifecycleCompiler
-    implementation libs.androidxPreference
-    implementation platform(libs.firebaseBom)
-    implementation libs.firebaseCrashlytics
-    implementation libs.firebaseAnalytics
-    implementation libs.glide
-    kapt libs.glideCompiler
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.constraintlayout
+    implementation libs.androidx.core
+    implementation libs.google.android.material
+    kapt libs.androidx.lifecycle.compiler
+    implementation libs.androidx.preference
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.crashlytics
+    implementation libs.firebase.analytics
+    implementation libs.glide.core
+    kapt libs.glide.compiler
     implementation libs.koin
-    implementation libs.kotlin
-    debugImplementation libs.leakCanary
-    implementation libs.room
-    kapt libs.roomCompiler
-    implementation libs.roomRxJava
-    testImplementation libs.roomTesting
-    implementation libs.rxAndroid
-    implementation libs.rxBinding
-    implementation libs.rxJava2
+    implementation libs.kotlin.stdlib.jdk8
+    debugImplementation libs.leak.canary
+    implementation libs.room.runtime
+    kapt libs.room.compiler
+    implementation libs.room.rxjava2
+    testImplementation libs.room.testing
+    implementation libs.rxbinding
+    implementation libs.rxjava2.rxandroid
+    implementation libs.rxjava2.rxjava
     implementation libs.timber
 
-    debugImplementation libs.hyperionCore
-    debugImplementation libs.hyperionAttr
-    debugImplementation libs.hyperionBuildConfig
-    debugImplementation libs.hyperionDisk
-    debugImplementation libs.hyperionGeigerCounter
-    debugImplementation libs.hyperionMeasurement
-    debugImplementation libs.hyperionPhoenix
-    debugImplementation libs.hyperionRecorder
-    debugImplementation libs.hyperionSharedPrefs
-    debugImplementation libs.hyperionTimber
+    debugImplementation libs.hyperion.core
+    debugImplementation libs.hyperion.attr
+    debugImplementation libs.hyperion.build.config
+    debugImplementation libs.hyperion.disk
+    debugImplementation libs.hyperion.geiger.counter
+    debugImplementation libs.hyperion.measurement
+    debugImplementation libs.hyperion.phoenix
+    debugImplementation libs.hyperion.recorder
+    debugImplementation libs.hyperion.shared.preferences
+    debugImplementation libs.hyperion.timber
 }
 
 play {
