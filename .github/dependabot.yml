@@ -1,0 +1,17 @@
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/about-dependabot-version-updates
+version: 2
+updates:
+  # Updates for Github Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "thebix"
+  # Updates for Gradle dependencies
+  - package-ecosystem: "gradle"
+    directory: "/gradle"
+    schedule:
+      interval: "daily"
+    reviewers:
+      - "thebix"
