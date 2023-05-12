@@ -1,19 +1,10 @@
-name: Android CI
+name: Static Analysis
 
 on:
-  push:
-    branches:
-      - '**'
-    tags-ignore:
-      - internal/*
-      - release/*
+  workflow_call:
 
 jobs:
   static-analysis:
-    uses: ./.github/workflows/static-analysis.yml
-    secrets: inherit
-  build:
-    needs: static-analysis
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -34,11 +25,17 @@ jobs:
           echo "${{ secrets.DEBTS_KEY_FILE_BASE64 }}" | base64 -d > ./app/debts.keystore;
           echo "${{ secrets.DEBTS_GOOGLE_SERVICES_FILE_BASE64 }}" | base64 -d > ./app/google-services.json;
           echo "${{ secrets.GOOGLE_PLAY_PUBLISHER }}" | base64 -d > app/google-play-publisher.json;
-      - name: Build Release
+      - name: Static Code Analysis (Kotlin, detekt)
         env:
-          ENV_BUILD_ID: ${{ github.run_number }}
           DEBTS_STORE_KEY_ALIAS: ${{ secrets.DEBTS_STORE_KEY_ALIAS }}
           DEBTS_STORE_KEY_ALIAS_PASSWORD: ${{ secrets.DEBTS_STORE_KEY_ALIAS_PASSWORD }}
           DEBTS_STORE_KEY_FILE: ${{ secrets.DEBTS_STORE_KEY_FILE }}
           DEBTS_STORE_KEY_PASSWORD: ${{ secrets.DEBTS_STORE_KEY_PASSWORD }}
-        run: ./gradlew build
+        run: ./gradlew detekt
+      - name: Lint (Android)
+        env:
+          DEBTS_STORE_KEY_ALIAS: ${{ secrets.DEBTS_STORE_KEY_ALIAS }}
+          DEBTS_STORE_KEY_ALIAS_PASSWORD: ${{ secrets.DEBTS_STORE_KEY_ALIAS_PASSWORD }}
+          DEBTS_STORE_KEY_FILE: ${{ secrets.DEBTS_STORE_KEY_FILE }}
+          DEBTS_STORE_KEY_PASSWORD: ${{ secrets.DEBTS_STORE_KEY_PASSWORD }}
+        run: ./gradlew lintDebug
