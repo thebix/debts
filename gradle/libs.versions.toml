@@ -4,7 +4,6 @@ android-gradle-plugin = "8.0.1"
 androidx-appcompat = "1.6.1"
 androidx-constraintlayout = "2.1.4"
 androidx-core = "1.10.1"
-androidx-lifecycle-compiler = "2.6.1"
 androidx-preference = "1.2.0"
 detekt = "1.22.0"
 firebase-bom = "32.0.0"
@@ -29,7 +28,6 @@ android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
-androidx-lifecycle-compiler = { module = "androidx.lifecycle:lifecycle-compiler", version.ref = "androidx-lifecycle-compiler" }
 androidx-preference = { module = "androidx.preference:preference-ktx", version.ref = "androidx-preference" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }

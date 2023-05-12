@@ -76,7 +76,6 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core)
     implementation(libs.google.android.material)
-    kapt(libs.androidx.lifecycle.compiler)
     implementation(libs.androidx.preference)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.crashlytics)
