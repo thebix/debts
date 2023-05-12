@@ -34,7 +34,6 @@ androidx-preference = { module = "androidx.preference:preference-ktx", version.r
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
-firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebase-crashlytics-gradle" }
 glide-core = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 google-android-material = { group = "com.google.android.material", name = "material", version.ref = "google-android-material" }
@@ -49,9 +48,6 @@ hyperion-recorder = { module = "com.willowtreeapps.hyperion:hyperion-recorder", 
 hyperion-shared-preferences = { module = "com.willowtreeapps.hyperion:hyperion-shared-preferences", version.ref = "hyperion" }
 hyperion-timber = { module = "com.willowtreeapps.hyperion:hyperion-timber", version.ref = "hyperion" }
 koin = { module = "io.insert-koin:koin-android", version.ref = "koin" }
-# WARNING: when plugin is updated to 8.1.0-alpha09 and upper search project for "region This section is added because com.android.tools.build:gradle:7.4.2 is used" and remove redundant configuration completely
-kotlin-gralde-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-google-services = { module = "com.google.gms:google-services", version.ref = "google-services" }
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 leak-canary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leak-canary" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
@@ -64,5 +60,10 @@ rxjava2-rxjava = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
 [plugins]
+android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-gradle" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 triplet-play = { id = "com.github.triplet.play", version.ref = "triplet-play" }
