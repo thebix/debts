@@ -7,13 +7,13 @@ jobs:
   static-analysis:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Setup environment
         uses: ./.github/actions/setup-environment
         with:
           key-file-base64: "${{ secrets.DEBTS_KEY_FILE_BASE64 }}"
           google-services-file-base64: "${{ secrets.DEBTS_GOOGLE_SERVICES_FILE_BASE64 }}"
           google-play-publisher-file-base64: "${{ secrets.GOOGLE_PLAY_PUBLISHER }}"
-#      - uses: actions/checkout@v3
 #      - name: set up JDK
 #        uses: actions/setup-java@v3
 #        with:
