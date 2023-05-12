@@ -39,7 +39,7 @@ dependencies {
     and therefore there is no need for most of the classes to be public. There is no need to fix that as this project
     should be modularized anyway.
      */
-    //detektPlugins "io.gitlab.arturbosch.detekt:detekt-rules-libraries:${libs.versions.detekt.get()}"
+    // detektPlugins "io.gitlab.arturbosch.detekt:detekt-rules-libraries:${libs.versions.detekt.get()}"
 }
 
 allprojects {

@@ -17,8 +17,11 @@ fun Project.credentials(): Credentials {
                 key to value
             }.toMap()
         }
-    } else emptyMap()
+    } else {
+        emptyMap()
+    }
 
+    @Suppress("ThrowsCount")
     return Credentials(
         storeKeyAlias = configuration["DEBTS_STORE_KEY_ALIAS"] ?: System.getenv("DEBTS_STORE_KEY_ALIAS")
         ?: throw IllegalArgumentException("DEBTS_STORE_KEY_ALIAS is not set"),
