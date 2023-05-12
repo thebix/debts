@@ -13,6 +13,7 @@ glide = "4.15.1"
 google-android-material = "1.9.0"
 google-services = "4.3.15"
 hyperion = "0.9.37"
+ksp = "1.8.21-1.0.11"
 koin = "3.4.0"
 kotlin = "1.8.21"
 leak-canary = "2.10"
@@ -63,5 +64,5 @@ detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-gradle" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 triplet-play = { id = "com.github.triplet.play", version.ref = "triplet-play" }
