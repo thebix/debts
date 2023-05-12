@@ -14,9 +14,9 @@ kotlin {
 }
 
 android {
-    val credentials = credentials()
     signingConfigs {
         create("release") {
+            val credentials = credentials()
             storeFile = file(credentials.storeKeyFile)
             storePassword = credentials.storeKeyPassword
             keyAlias = credentials.storeKeyAlias

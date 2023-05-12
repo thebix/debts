@@ -20,9 +20,13 @@ fun Project.credentials(): Credentials {
     } else emptyMap()
 
     return Credentials(
-        storeKeyAlias = configuration["DEBTS_STORE_KEY_ALIAS"] ?: System.getenv("DEBTS_STORE_KEY_ALIAS"),
-        storeKeyAliasPassword = configuration["DEBTS_STORE_KEY_ALIAS_PASSWORD"] ?: System.getenv("DEBTS_STORE_KEY_ALIAS_PASSWORD"),
-        storeKeyFile = configuration["DEBTS_STORE_KEY_FILE"] ?: System.getenv("DEBTS_STORE_KEY_FILE"),
-        storeKeyPassword = configuration["DEBTS_STORE_KEY_PASSWORD"] ?: System.getenv("DEBTS_STORE_KEY_PASSWORD"),
+        storeKeyAlias = configuration["DEBTS_STORE_KEY_ALIAS"] ?: System.getenv("DEBTS_STORE_KEY_ALIAS")
+        ?: throw IllegalArgumentException("DEBTS_STORE_KEY_ALIAS is not set"),
+        storeKeyAliasPassword = configuration["DEBTS_STORE_KEY_ALIAS_PASSWORD"] ?: System.getenv("DEBTS_STORE_KEY_ALIAS_PASSWORD")
+        ?: throw IllegalArgumentException("DEBTS_STORE_KEY_ALIAS_PASSWORD is not set"),
+        storeKeyFile = configuration["DEBTS_STORE_KEY_FILE"] ?: System.getenv("DEBTS_STORE_KEY_FILE")
+        ?: throw IllegalArgumentException("DEBTS_STORE_KEY_FILE is not set"),
+        storeKeyPassword = configuration["DEBTS_STORE_KEY_PASSWORD"] ?: System.getenv("DEBTS_STORE_KEY_PASSWORD")
+        ?: throw IllegalArgumentException("DEBTS_STORE_KEY_PASSWORD is not set"),
     )
 }
