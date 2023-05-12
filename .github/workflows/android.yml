@@ -11,6 +11,7 @@ on:
 jobs:
   static-analysis:
     uses: ./.github/workflows/static-analysis.yml
+    secrets: inherit
   build:
     needs: static-analysis
     runs-on: ubuntu-latest
