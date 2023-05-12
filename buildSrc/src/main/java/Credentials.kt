@@ -8,6 +8,7 @@ data class Credentials(
     val storeKeyPassword: String,
 )
 
+@Suppress("ThrowsCount")
 fun Project.credentials(): Credentials {
     val localDebtsCredentialsFile = "${project.rootDir}/private/debts_credentials.properties"
     val configuration: Map<String, String> = if (File(localDebtsCredentialsFile).exists()) {
@@ -21,7 +22,6 @@ fun Project.credentials(): Credentials {
         emptyMap()
     }
 
-    @Suppress("ThrowsCount")
     return Credentials(
         storeKeyAlias = configuration["DEBTS_STORE_KEY_ALIAS"] ?: System.getenv("DEBTS_STORE_KEY_ALIAS")
         ?: throw IllegalArgumentException("DEBTS_STORE_KEY_ALIAS is not set"),
