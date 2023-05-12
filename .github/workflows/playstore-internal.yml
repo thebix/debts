@@ -15,24 +15,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: set up JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '17'
-      - name: Github environment info
-        run: |
-          echo "GITHUB_ACTION=$GITHUB_ACTION"
-          echo "GITHUB_RUN_ID=$GITHUB_RUN_ID"
-          echo "GITHUB_RUN_NUMBER=$GITHUB_RUN_NUMBER"
-          echo "GITHUB_SHA=$GITHUB_SHA"
-          echo "GITHUB_ACTOR=$GITHUB_ACTOR"
       - name: Setup environment
-        run: |
-          echo "${{ secrets.DEBTS_KEY_FILE_BASE64 }}" | base64 -d > ./app/debts.keystore;
-          echo "${{ secrets.DEBTS_GOOGLE_SERVICES_FILE_BASE64 }}" | base64 -d > ./app/google-services.json;
-          echo "${{ secrets.GOOGLE_PLAY_PUBLISHER }}" | base64 -d > app/google-play-publisher.json;
-      - name: PublishReleaseApk
+        uses: ./.github/actions/setup-environment
+        with:
+          key-file-base64: "${{ secrets.DEBTS_KEY_FILE_BASE64 }}"
+          google-services-file-base64: "${{ secrets.DEBTS_GOOGLE_SERVICES_FILE_BASE64 }}"
+          google-play-publisher-file-base64: "${{ secrets.GOOGLE_PLAY_PUBLISHER }}"
+      - name: Publish Release Apk
         env:
           ENV_BUILD_ID: ${{ github.run_number }}
           DEBTS_STORE_KEY_ALIAS: ${{ secrets.DEBTS_STORE_KEY_ALIAS }}
