@@ -7,10 +7,11 @@ on:
       - release/*
 
 jobs:
+  static-analysis:
+    uses: ./.github/workflows/static-analysis.yml
   publish:
-
+    needs: static-analysis
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
       - name: set up JDK
@@ -30,14 +31,6 @@ jobs:
           echo "${{ secrets.DEBTS_KEY_FILE_BASE64 }}" | base64 -d > ./app/debts.keystore;
           echo "${{ secrets.DEBTS_GOOGLE_SERVICES_FILE_BASE64 }}" | base64 -d > ./app/google-services.json;
           echo "${{ secrets.GOOGLE_PLAY_PUBLISHER }}" | base64 -d > app/google-play-publisher.json;
-      - name: Static Code Analysis (Kotlin, detekt)
-        run: ./gradlew detekt
-        env:
-          DEBTS_STORE_KEY_FILE: ${{ secrets.DEBTS_STORE_KEY_FILE }}
-      - name: Lint (Android)
-        env:
-          DEBTS_STORE_KEY_FILE: ${{ secrets.DEBTS_STORE_KEY_FILE }}
-        run: ./gradlew lintDebug
       - name: PublishReleaseApk
         env:
           ENV_BUILD_ID: ${{ github.run_number }}
