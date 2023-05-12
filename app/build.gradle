@@ -108,13 +108,15 @@ dependencies {
     debugImplementation libs.hyperion.timber
 }
 
+import com.github.triplet.gradle.androidpublisher.ReleaseStatus
 play {
     releaseName = "Internal track release name"
-    userFraction = 1.0
+    // Note: the userFraction is only applicable where releaseStatus=[IN_PROGRESS/HALTED]
+    // userFraction = 1.0
     defaultToAppBundles = true
     serviceAccountCredentials = file("google-play-publisher.json")
 
     // defaults, just to make explicit
     track = "internal"
-    releaseStatus = "completed"
+    releaseStatus = ReleaseStatus.COMPLETED
 }
