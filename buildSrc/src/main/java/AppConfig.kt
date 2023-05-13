@@ -3,7 +3,7 @@
 object AppConfig {
 
     private const val major = 2
-    private const val minor = 5
+    private const val minor = 6
     private const val patch = 0
     private val buildId = System.getenv("ENV_BUILD_ID")?.toIntOrNull() ?: 0
 
