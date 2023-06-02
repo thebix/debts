@@ -28,4 +28,4 @@ jobs:
           DEBTS_STORE_KEY_ALIAS_PASSWORD: ${{ secrets.DEBTS_STORE_KEY_ALIAS_PASSWORD }}
           DEBTS_STORE_KEY_FILE: ${{ secrets.DEBTS_STORE_KEY_FILE }}
           DEBTS_STORE_KEY_PASSWORD: ${{ secrets.DEBTS_STORE_KEY_PASSWORD }}
-        run: ./gradlew publishReleaseApk
+        run: ./gradlew publishReleaseApk uploadCrashlyticsMappingFileRelease
