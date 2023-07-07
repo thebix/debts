@@ -22,7 +22,7 @@ rxjava2-rxandroid = "2.1.1"
 rxjava2-rxjava = "2.2.21"
 rxbinding3 = "3.1.0"
 timber = "5.0.1"
-triplet-play = "3.8.3"
+triplet-play = "3.8.4"
 
 [libraries]
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
