@@ -1,0 +1,29 @@
+# clean build master
+
+clean-buildDebug-master {
+    title = "Clean Build"
+    tasks = ["buildDebug"]
+    cleanup-tasks = ["clean"]
+    gradle-args = ["--no-build-cache"]
+    show-build-cache-size = true
+    # warm-ups = 1
+    # iterations = 1
+    git-checkout = {
+        build = "master"
+    }
+}
+
+# clean build k2
+
+clean-buildDebug-k2 {
+    title = "Clean Build"
+    tasks = ["buildDebug"]
+    cleanup-tasks = ["clean"]
+    gradle-args = ["--no-build-cache"]
+    show-build-cache-size = true
+    # warm-ups = 1
+    # iterations = 1
+    git-checkout = {
+        build = "kotlin-k2"
+    }
+}

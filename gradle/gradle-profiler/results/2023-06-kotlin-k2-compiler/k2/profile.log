@@ -1,0 +1,2575 @@
+
+* Started at 2023-07-09T07:42:21.349007Z
+
+* Settings
+Project dir: /Users/pavel.biriukov/repo/debts/.
+Output dir: /Users/pavel.biriukov/repo/debts/gradle/gradle-profiler/results/2023-06-kotlin-k2-compiler/k2
+Profiler: none
+Benchmark: true
+Versions: []
+Gradle User Home: /Users/pavel.biriukov/repo/debts/gradle-user-home
+Targets: [clean-buildDebug-k2]
+
+* Inspecting the build using its default Gradle version
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :help
+
+Welcome to Gradle 8.1.
+
+To run a build, run gradle <task> ...
+
+To see a list of available tasks, run gradle tasks
+
+To see more detail about a task, run gradle help --task <task>
+
+To see a list of command-line options, run gradle --help
+
+For more detail on using Gradle, see https://docs.gradle.org/8.1/userguide/command_line_interface.html
+
+For troubleshooting, visit https://help.gradle.org
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+BUILD SUCCESSFUL in 5s
+5 actionable tasks: 1 executed, 4 up-to-date
+
+* Stopping daemons
+Running command /Users/pavel.biriukov/repo/debts/gradle-user-home/wrapper/dists/gradle-8.1-bin/2eyty4r6kz6fpakefpk52nbbm/gradle-8.1/bin/gradle --stop --gradle-user-home /Users/pavel.biriukov/repo/debts/gradle-user-home
+Picked up _JAVA_OPTIONS: -Xmx8g
+Stopping Daemon(s)
+1 Daemon stopped
+
+* Scenarios
+Scenario: Clean Build using Gradle 8.1
+  Gradle 8.1 (/Users/pavel.biriukov/repo/debts/gradle-user-home/wrapper/dists/gradle-8.1-bin/2eyty4r6kz6fpakefpk52nbbm/gradle-8.1)
+  Run using: Tooling API
+  Run: run tasks buildDebug
+  Cleanup: run tasks clean
+  Gradle args: [--no-build-cache]
+  Build changes: [ShowBuildCacheSizeMutator, GitCheckoutMutator(cleanup: null, build: kotlin-k2)]
+  Warm-ups: 6
+  Builds: 10
+
+* Running scenario Clean Build using Gradle 8.1 (scenario 1/1)
+
+* Stopping daemons
+Running command /Users/pavel.biriukov/repo/debts/gradle-user-home/wrapper/dists/gradle-8.1-bin/2eyty4r6kz6fpakefpk52nbbm/gradle-8.1/bin/gradle --stop --gradle-user-home /Users/pavel.biriukov/repo/debts/gradle-user-home
+Picked up _JAVA_OPTIONS: -Xmx8g
+No Gradle daemons are running.
+
+* Build details
+Gradle version: Gradle 8.1
+Java home: /Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+OS: mac os x aarch64 13.3.1
+JVM args:
+  -XX:MaxMetaspaceSize=1g
+  --add-opens=java.base/java.util=ALL-UNNAMED
+  --add-opens=java.base/java.lang=ALL-UNNAMED
+  --add-opens=java.base/java.lang.invoke=ALL-UNNAMED
+  --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED
+  --add-opens=java.base/java.nio.charset=ALL-UNNAMED
+  --add-opens=java.base/java.net=ALL-UNNAMED
+  --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED
+  -Xms512M
+  -Xmx4g
+  -Dfile.encoding=UTF-8
+  -Duser.country=GB
+  -Duser.language=en
+  -Duser.variant
+  -Dkotlin.daemon.jvm.options=-Xmx1g
+  -Dorg.gradle.profiler.scenario=clean-buildDebug-k2
+Gradle args:
+  --gradle-user-home
+  /Users/pavel.biriukov/repo/debts/gradle-user-home
+  --no-build-cache
+  -I
+  /private/var/folders/n_/4ycdrv6s7m93vg8xsh0gw3w80000gr/T/gradleProfiler5329438694073403111.gradle
+> Resetting Git hard
+Running command git reset --hard HEAD
+HEAD is now at 7fea491 use Kotlin K2 compiler
+Running command git status
+HEAD detached at 7fea491
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	gradle-user-home/
+	gradle/gradle-profiler/results/
+
+nothing added to commit but untracked files present (use "git add" to track)
+Running command git rev-parse HEAD
+
+* Running cleanup for warm-up build #1
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:clean
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 5s
+5 actionable tasks: 1 executed, 4 up-to-date
+Used daemon with pid 7978
+
+* Running warm-up build #1
+> Checking out kotlin-k2
+Running command git checkout kotlin-k2
+Switched to branch 'kotlin-k2'
+Your branch and 'origin/kotlin-k2' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResValues
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :app:processDebugGoogleServices
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processApplicationManifestDebugForBundle
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugResources
+> Task :app:mergeDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:packageDebugResources
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:javaPreCompileDebug
+> Task :app:parseDebugLocalResources
+> Task :app:mergeDebugJniLibFolders
+> Task :app:checkDebugDuplicateClasses
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:writeDebugAppMetadata
+> Task :app:processDebugManifestForPackage
+> Task :app:mergeLibDexDebug
+> Task :app:bundleDebugResources
+> Task :app:processDebugResources
+> Task :app:mergeExtDexDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /Users/pavel.biriukov/repo/debts/app/src/main/java/debts/db/DebtsDB.kt:23: Schema export directory is not provided to the annotation processor so we cannot export the schema. You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+
+> Task :app:compileDebugKotlin
+w: Language version 2.0 is experimental, there are no backwards compatibility guarantees for new language and library features
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/common/android/FragmentArgumentDelegate.kt:28:26 '@Deprecated(...) @Nullable() fun get(p0: String!): Any?' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:117:9 '@Deprecated(...) fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:136:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:138:15 '@Deprecated(...) @MainThread() fun onCreateOptionsMenu(@NonNull() p0: @EnhancedNullability Menu, @NonNull() p1: @EnhancedNullability MenuInflater): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:170:22 '@Deprecated(...) @MainThread() fun onOptionsItemSelected(@NonNull() p0: @EnhancedNullability MenuItem): Boolean' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:5:8 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) constructor(@NonNull() p0: @EnhancedNullability FragmentManager): FragmentStatePagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/DebtorsInteractor.kt:39:52 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/HomeInteractor.kt:74:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) @InlineOnly() fun String.toLowerCase(): String' is deprecated. Use lowercase() instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:161:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:176:15 '@Deprecated(...) fun onRequestPermissionsResult(p0: Int, @NonNull() p1: ft<@EnhancedNullability Array<String!>, @EnhancedNullability Array<out String!>>, @NonNull() p2: @EnhancedNullability IntArray): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/GetShareDebtorContentUseCase.kt:26:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorUseCase.kt:20:27 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorsListItemsUseCase.kt:21:50 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:buildDebugPreBundle
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+:app:compileDebugKotlin: 2.0 language version
+##### 100% (1/1) tasks have been compiled with Kotlin 2.0 #####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 18s
+38 actionable tasks: 34 executed, 4 up-to-date
+Used daemon with pid 7978
+Execution time 18614 ms
+> Checking out 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Running command git checkout 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Note: switching to '7fea491f27688a5aa57d1b8e196bfcc9f7592261'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7fea491 use Kotlin K2 compiler
+
+* Running cleanup for warm-up build #2
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:clean
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 634ms
+5 actionable tasks: 1 executed, 4 up-to-date
+Used daemon with pid 7978
+
+* Running warm-up build #2
+> Checking out kotlin-k2
+Running command git checkout kotlin-k2
+Switched to branch 'kotlin-k2'
+Your branch and 'origin/kotlin-k2' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResValues
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :app:processDebugGoogleServices
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processApplicationManifestDebugForBundle
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:packageDebugResources
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:parseDebugLocalResources
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:checkDebugDuplicateClasses
+> Task :app:mergeDebugResources
+> Task :app:writeDebugAppMetadata
+> Task :app:processDebugManifestForPackage
+> Task :app:mergeLibDexDebug
+> Task :app:bundleDebugResources
+> Task :app:processDebugResources
+> Task :app:mergeExtDexDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /Users/pavel.biriukov/repo/debts/app/src/main/java/debts/db/DebtsDB.kt:23: Schema export directory is not provided to the annotation processor so we cannot export the schema. You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+
+> Task :app:compileDebugKotlin
+w: Language version 2.0 is experimental, there are no backwards compatibility guarantees for new language and library features
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/common/android/FragmentArgumentDelegate.kt:28:26 '@Deprecated(...) @Nullable() fun get(p0: String!): Any?' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:117:9 '@Deprecated(...) fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:136:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:138:15 '@Deprecated(...) @MainThread() fun onCreateOptionsMenu(@NonNull() p0: @EnhancedNullability Menu, @NonNull() p1: @EnhancedNullability MenuInflater): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:170:22 '@Deprecated(...) @MainThread() fun onOptionsItemSelected(@NonNull() p0: @EnhancedNullability MenuItem): Boolean' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:5:8 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) constructor(@NonNull() p0: @EnhancedNullability FragmentManager): FragmentStatePagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/DebtorsInteractor.kt:39:52 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/HomeInteractor.kt:74:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) @InlineOnly() fun String.toLowerCase(): String' is deprecated. Use lowercase() instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:161:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:176:15 '@Deprecated(...) fun onRequestPermissionsResult(p0: Int, @NonNull() p1: ft<@EnhancedNullability Array<String!>, @EnhancedNullability Array<out String!>>, @NonNull() p2: @EnhancedNullability IntArray): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/GetShareDebtorContentUseCase.kt:26:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorUseCase.kt:20:27 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorsListItemsUseCase.kt:21:50 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:buildDebugPreBundle
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+:app:compileDebugKotlin: 2.0 language version
+##### 100% (1/1) tasks have been compiled with Kotlin 2.0 #####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 8s
+38 actionable tasks: 34 executed, 4 up-to-date
+Used daemon with pid 7978
+Execution time 8609 ms
+> Checking out 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Running command git checkout 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Note: switching to '7fea491f27688a5aa57d1b8e196bfcc9f7592261'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7fea491 use Kotlin K2 compiler
+
+* Running cleanup for warm-up build #3
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:clean
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 371ms
+5 actionable tasks: 1 executed, 4 up-to-date
+Used daemon with pid 7978
+
+* Running warm-up build #3
+> Checking out kotlin-k2
+Running command git checkout kotlin-k2
+Switched to branch 'kotlin-k2'
+Your branch and 'origin/kotlin-k2' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResValues
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :app:processDebugGoogleServices
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processApplicationManifestDebugForBundle
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:mergeDebugResources
+> Task :app:packageDebugResources
+> Task :app:parseDebugLocalResources
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:writeDebugAppMetadata
+> Task :app:processDebugManifestForPackage
+> Task :app:checkDebugDuplicateClasses
+> Task :app:mergeLibDexDebug
+> Task :app:bundleDebugResources
+> Task :app:processDebugResources
+> Task :app:mergeExtDexDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /Users/pavel.biriukov/repo/debts/app/src/main/java/debts/db/DebtsDB.kt:23: Schema export directory is not provided to the annotation processor so we cannot export the schema. You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+
+> Task :app:compileDebugKotlin
+w: Language version 2.0 is experimental, there are no backwards compatibility guarantees for new language and library features
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/common/android/FragmentArgumentDelegate.kt:28:26 '@Deprecated(...) @Nullable() fun get(p0: String!): Any?' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:117:9 '@Deprecated(...) fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:136:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:138:15 '@Deprecated(...) @MainThread() fun onCreateOptionsMenu(@NonNull() p0: @EnhancedNullability Menu, @NonNull() p1: @EnhancedNullability MenuInflater): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:170:22 '@Deprecated(...) @MainThread() fun onOptionsItemSelected(@NonNull() p0: @EnhancedNullability MenuItem): Boolean' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:5:8 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) constructor(@NonNull() p0: @EnhancedNullability FragmentManager): FragmentStatePagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/DebtorsInteractor.kt:39:52 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/HomeInteractor.kt:74:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) @InlineOnly() fun String.toLowerCase(): String' is deprecated. Use lowercase() instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:161:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:176:15 '@Deprecated(...) fun onRequestPermissionsResult(p0: Int, @NonNull() p1: ft<@EnhancedNullability Array<String!>, @EnhancedNullability Array<out String!>>, @NonNull() p2: @EnhancedNullability IntArray): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/GetShareDebtorContentUseCase.kt:26:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorUseCase.kt:20:27 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorsListItemsUseCase.kt:21:50 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:buildDebugPreBundle
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+:app:compileDebugKotlin: 2.0 language version
+##### 100% (1/1) tasks have been compiled with Kotlin 2.0 #####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 7s
+38 actionable tasks: 34 executed, 4 up-to-date
+Used daemon with pid 7978
+Execution time 7389 ms
+> Checking out 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Running command git checkout 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Note: switching to '7fea491f27688a5aa57d1b8e196bfcc9f7592261'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7fea491 use Kotlin K2 compiler
+
+* Running cleanup for warm-up build #4
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:clean
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 526ms
+5 actionable tasks: 1 executed, 4 up-to-date
+Used daemon with pid 7978
+
+* Running warm-up build #4
+> Checking out kotlin-k2
+Running command git checkout kotlin-k2
+Switched to branch 'kotlin-k2'
+Your branch and 'origin/kotlin-k2' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResValues
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :app:processDebugGoogleServices
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processApplicationManifestDebugForBundle
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:packageDebugResources
+> Task :app:parseDebugLocalResources
+> Task :app:mergeDebugResources
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:checkDebugDuplicateClasses
+> Task :app:writeDebugAppMetadata
+> Task :app:processDebugManifestForPackage
+> Task :app:mergeLibDexDebug
+> Task :app:bundleDebugResources
+> Task :app:processDebugResources
+> Task :app:mergeExtDexDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /Users/pavel.biriukov/repo/debts/app/src/main/java/debts/db/DebtsDB.kt:23: Schema export directory is not provided to the annotation processor so we cannot export the schema. You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+
+> Task :app:compileDebugKotlin
+w: Language version 2.0 is experimental, there are no backwards compatibility guarantees for new language and library features
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/common/android/FragmentArgumentDelegate.kt:28:26 '@Deprecated(...) @Nullable() fun get(p0: String!): Any?' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:117:9 '@Deprecated(...) fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:136:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:138:15 '@Deprecated(...) @MainThread() fun onCreateOptionsMenu(@NonNull() p0: @EnhancedNullability Menu, @NonNull() p1: @EnhancedNullability MenuInflater): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:170:22 '@Deprecated(...) @MainThread() fun onOptionsItemSelected(@NonNull() p0: @EnhancedNullability MenuItem): Boolean' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:5:8 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) constructor(@NonNull() p0: @EnhancedNullability FragmentManager): FragmentStatePagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/DebtorsInteractor.kt:39:52 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/HomeInteractor.kt:74:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) @InlineOnly() fun String.toLowerCase(): String' is deprecated. Use lowercase() instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:161:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:176:15 '@Deprecated(...) fun onRequestPermissionsResult(p0: Int, @NonNull() p1: ft<@EnhancedNullability Array<String!>, @EnhancedNullability Array<out String!>>, @NonNull() p2: @EnhancedNullability IntArray): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/GetShareDebtorContentUseCase.kt:26:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorUseCase.kt:20:27 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorsListItemsUseCase.kt:21:50 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:buildDebugPreBundle
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+:app:compileDebugKotlin: 2.0 language version
+##### 100% (1/1) tasks have been compiled with Kotlin 2.0 #####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 6s
+38 actionable tasks: 34 executed, 4 up-to-date
+Used daemon with pid 7978
+Execution time 6631 ms
+> Checking out 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Running command git checkout 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Note: switching to '7fea491f27688a5aa57d1b8e196bfcc9f7592261'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7fea491 use Kotlin K2 compiler
+
+* Running cleanup for warm-up build #5
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:clean
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 440ms
+5 actionable tasks: 1 executed, 4 up-to-date
+Used daemon with pid 7978
+
+* Running warm-up build #5
+> Checking out kotlin-k2
+Running command git checkout kotlin-k2
+Switched to branch 'kotlin-k2'
+Your branch and 'origin/kotlin-k2' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResValues
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :app:processDebugGoogleServices
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processApplicationManifestDebugForBundle
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:packageDebugResources
+> Task :app:mergeDebugResources
+> Task :app:parseDebugLocalResources
+> Task :app:javaPreCompileDebug
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:writeDebugAppMetadata
+> Task :app:checkDebugDuplicateClasses
+> Task :app:processDebugManifestForPackage
+> Task :app:mergeLibDexDebug
+> Task :app:bundleDebugResources
+> Task :app:processDebugResources
+> Task :app:mergeExtDexDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /Users/pavel.biriukov/repo/debts/app/src/main/java/debts/db/DebtsDB.kt:23: Schema export directory is not provided to the annotation processor so we cannot export the schema. You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+
+> Task :app:compileDebugKotlin
+w: Language version 2.0 is experimental, there are no backwards compatibility guarantees for new language and library features
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/common/android/FragmentArgumentDelegate.kt:28:26 '@Deprecated(...) @Nullable() fun get(p0: String!): Any?' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:117:9 '@Deprecated(...) fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:136:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:138:15 '@Deprecated(...) @MainThread() fun onCreateOptionsMenu(@NonNull() p0: @EnhancedNullability Menu, @NonNull() p1: @EnhancedNullability MenuInflater): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:170:22 '@Deprecated(...) @MainThread() fun onOptionsItemSelected(@NonNull() p0: @EnhancedNullability MenuItem): Boolean' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:5:8 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) constructor(@NonNull() p0: @EnhancedNullability FragmentManager): FragmentStatePagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/DebtorsInteractor.kt:39:52 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/HomeInteractor.kt:74:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) @InlineOnly() fun String.toLowerCase(): String' is deprecated. Use lowercase() instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:161:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:176:15 '@Deprecated(...) fun onRequestPermissionsResult(p0: Int, @NonNull() p1: ft<@EnhancedNullability Array<String!>, @EnhancedNullability Array<out String!>>, @NonNull() p2: @EnhancedNullability IntArray): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/GetShareDebtorContentUseCase.kt:26:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorUseCase.kt:20:27 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorsListItemsUseCase.kt:21:50 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:buildDebugPreBundle
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+:app:compileDebugKotlin: 2.0 language version
+##### 100% (1/1) tasks have been compiled with Kotlin 2.0 #####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 6s
+38 actionable tasks: 34 executed, 4 up-to-date
+Used daemon with pid 7978
+Execution time 6532 ms
+> Checking out 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Running command git checkout 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Note: switching to '7fea491f27688a5aa57d1b8e196bfcc9f7592261'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7fea491 use Kotlin K2 compiler
+
+* Running cleanup for warm-up build #6
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:clean
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 345ms
+5 actionable tasks: 1 executed, 4 up-to-date
+Used daemon with pid 7978
+
+* Running warm-up build #6
+> Checking out kotlin-k2
+Running command git checkout kotlin-k2
+Switched to branch 'kotlin-k2'
+Your branch and 'origin/kotlin-k2' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResValues
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :app:processDebugGoogleServices
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processApplicationManifestDebugForBundle
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:packageDebugResources
+> Task :app:parseDebugLocalResources
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:mergeDebugResources
+> Task :app:writeDebugAppMetadata
+> Task :app:checkDebugDuplicateClasses
+> Task :app:processDebugManifestForPackage
+> Task :app:mergeLibDexDebug
+> Task :app:bundleDebugResources
+> Task :app:processDebugResources
+> Task :app:mergeExtDexDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /Users/pavel.biriukov/repo/debts/app/src/main/java/debts/db/DebtsDB.kt:23: Schema export directory is not provided to the annotation processor so we cannot export the schema. You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+
+> Task :app:compileDebugKotlin
+w: Language version 2.0 is experimental, there are no backwards compatibility guarantees for new language and library features
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/common/android/FragmentArgumentDelegate.kt:28:26 '@Deprecated(...) @Nullable() fun get(p0: String!): Any?' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:117:9 '@Deprecated(...) fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:136:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:138:15 '@Deprecated(...) @MainThread() fun onCreateOptionsMenu(@NonNull() p0: @EnhancedNullability Menu, @NonNull() p1: @EnhancedNullability MenuInflater): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:170:22 '@Deprecated(...) @MainThread() fun onOptionsItemSelected(@NonNull() p0: @EnhancedNullability MenuItem): Boolean' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:5:8 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) constructor(@NonNull() p0: @EnhancedNullability FragmentManager): FragmentStatePagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/DebtorsInteractor.kt:39:52 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/HomeInteractor.kt:74:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) @InlineOnly() fun String.toLowerCase(): String' is deprecated. Use lowercase() instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:161:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:176:15 '@Deprecated(...) fun onRequestPermissionsResult(p0: Int, @NonNull() p1: ft<@EnhancedNullability Array<String!>, @EnhancedNullability Array<out String!>>, @NonNull() p2: @EnhancedNullability IntArray): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/GetShareDebtorContentUseCase.kt:26:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorUseCase.kt:20:27 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorsListItemsUseCase.kt:21:50 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:buildDebugPreBundle
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+:app:compileDebugKotlin: 2.0 language version
+##### 100% (1/1) tasks have been compiled with Kotlin 2.0 #####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 5s
+38 actionable tasks: 34 executed, 4 up-to-date
+Used daemon with pid 7978
+Execution time 5540 ms
+> Checking out 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Running command git checkout 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Note: switching to '7fea491f27688a5aa57d1b8e196bfcc9f7592261'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7fea491 use Kotlin K2 compiler
+
+* Using args for instrumented builds:
+
+* Running cleanup for measured build #1
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:clean
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 506ms
+5 actionable tasks: 1 executed, 4 up-to-date
+Used daemon with pid 7978
+
+* Running measured build #1
+> Checking out kotlin-k2
+Running command git checkout kotlin-k2
+Switched to branch 'kotlin-k2'
+Your branch and 'origin/kotlin-k2' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResValues
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :app:processDebugGoogleServices
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processApplicationManifestDebugForBundle
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:packageDebugResources
+> Task :app:mergeDebugResources
+> Task :app:parseDebugLocalResources
+> Task :app:javaPreCompileDebug
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:writeDebugAppMetadata
+> Task :app:processDebugManifestForPackage
+> Task :app:checkDebugDuplicateClasses
+> Task :app:mergeLibDexDebug
+> Task :app:bundleDebugResources
+> Task :app:processDebugResources
+> Task :app:mergeExtDexDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /Users/pavel.biriukov/repo/debts/app/src/main/java/debts/db/DebtsDB.kt:23: Schema export directory is not provided to the annotation processor so we cannot export the schema. You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+
+> Task :app:compileDebugKotlin
+w: Language version 2.0 is experimental, there are no backwards compatibility guarantees for new language and library features
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/common/android/FragmentArgumentDelegate.kt:28:26 '@Deprecated(...) @Nullable() fun get(p0: String!): Any?' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:117:9 '@Deprecated(...) fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:136:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:138:15 '@Deprecated(...) @MainThread() fun onCreateOptionsMenu(@NonNull() p0: @EnhancedNullability Menu, @NonNull() p1: @EnhancedNullability MenuInflater): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:170:22 '@Deprecated(...) @MainThread() fun onOptionsItemSelected(@NonNull() p0: @EnhancedNullability MenuItem): Boolean' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:5:8 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) constructor(@NonNull() p0: @EnhancedNullability FragmentManager): FragmentStatePagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/DebtorsInteractor.kt:39:52 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/HomeInteractor.kt:74:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) @InlineOnly() fun String.toLowerCase(): String' is deprecated. Use lowercase() instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:161:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:176:15 '@Deprecated(...) fun onRequestPermissionsResult(p0: Int, @NonNull() p1: ft<@EnhancedNullability Array<String!>, @EnhancedNullability Array<out String!>>, @NonNull() p2: @EnhancedNullability IntArray): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/GetShareDebtorContentUseCase.kt:26:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorUseCase.kt:20:27 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorsListItemsUseCase.kt:21:50 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:buildDebugPreBundle
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+:app:compileDebugKotlin: 2.0 language version
+##### 100% (1/1) tasks have been compiled with Kotlin 2.0 #####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 5s
+38 actionable tasks: 34 executed, 4 up-to-date
+Used daemon with pid 7978
+Execution time 5607 ms
+> Checking out 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Running command git checkout 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Note: switching to '7fea491f27688a5aa57d1b8e196bfcc9f7592261'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7fea491 use Kotlin K2 compiler
+
+* Running cleanup for measured build #2
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:clean
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 337ms
+5 actionable tasks: 1 executed, 4 up-to-date
+Used daemon with pid 7978
+
+* Running measured build #2
+> Checking out kotlin-k2
+Running command git checkout kotlin-k2
+Switched to branch 'kotlin-k2'
+Your branch and 'origin/kotlin-k2' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResValues
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :app:processDebugGoogleServices
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processApplicationManifestDebugForBundle
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:packageDebugResources
+> Task :app:parseDebugLocalResources
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:writeDebugAppMetadata
+> Task :app:checkDebugDuplicateClasses
+> Task :app:processDebugManifestForPackage
+> Task :app:mergeDebugResources
+> Task :app:mergeLibDexDebug
+> Task :app:bundleDebugResources
+> Task :app:processDebugResources
+> Task :app:mergeExtDexDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /Users/pavel.biriukov/repo/debts/app/src/main/java/debts/db/DebtsDB.kt:23: Schema export directory is not provided to the annotation processor so we cannot export the schema. You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+
+> Task :app:compileDebugKotlin
+w: Language version 2.0 is experimental, there are no backwards compatibility guarantees for new language and library features
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/common/android/FragmentArgumentDelegate.kt:28:26 '@Deprecated(...) @Nullable() fun get(p0: String!): Any?' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:117:9 '@Deprecated(...) fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:136:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:138:15 '@Deprecated(...) @MainThread() fun onCreateOptionsMenu(@NonNull() p0: @EnhancedNullability Menu, @NonNull() p1: @EnhancedNullability MenuInflater): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:170:22 '@Deprecated(...) @MainThread() fun onOptionsItemSelected(@NonNull() p0: @EnhancedNullability MenuItem): Boolean' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:5:8 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) constructor(@NonNull() p0: @EnhancedNullability FragmentManager): FragmentStatePagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/DebtorsInteractor.kt:39:52 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/HomeInteractor.kt:74:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) @InlineOnly() fun String.toLowerCase(): String' is deprecated. Use lowercase() instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:161:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:176:15 '@Deprecated(...) fun onRequestPermissionsResult(p0: Int, @NonNull() p1: ft<@EnhancedNullability Array<String!>, @EnhancedNullability Array<out String!>>, @NonNull() p2: @EnhancedNullability IntArray): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/GetShareDebtorContentUseCase.kt:26:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorUseCase.kt:20:27 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorsListItemsUseCase.kt:21:50 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:buildDebugPreBundle
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+:app:compileDebugKotlin: 2.0 language version
+##### 100% (1/1) tasks have been compiled with Kotlin 2.0 #####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 4s
+38 actionable tasks: 34 executed, 4 up-to-date
+Used daemon with pid 7978
+Execution time 5025 ms
+> Checking out 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Running command git checkout 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Note: switching to '7fea491f27688a5aa57d1b8e196bfcc9f7592261'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7fea491 use Kotlin K2 compiler
+
+* Running cleanup for measured build #3
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:clean
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 303ms
+5 actionable tasks: 1 executed, 4 up-to-date
+Used daemon with pid 7978
+
+* Running measured build #3
+> Checking out kotlin-k2
+Running command git checkout kotlin-k2
+Switched to branch 'kotlin-k2'
+Your branch and 'origin/kotlin-k2' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResValues
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :app:processDebugGoogleServices
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processApplicationManifestDebugForBundle
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:packageDebugResources
+> Task :app:parseDebugLocalResources
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:mergeDebugResources
+> Task :app:writeDebugAppMetadata
+> Task :app:checkDebugDuplicateClasses
+> Task :app:processDebugManifestForPackage
+> Task :app:mergeLibDexDebug
+> Task :app:bundleDebugResources
+> Task :app:processDebugResources
+> Task :app:mergeExtDexDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /Users/pavel.biriukov/repo/debts/app/src/main/java/debts/db/DebtsDB.kt:23: Schema export directory is not provided to the annotation processor so we cannot export the schema. You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+
+> Task :app:compileDebugKotlin
+w: Language version 2.0 is experimental, there are no backwards compatibility guarantees for new language and library features
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/common/android/FragmentArgumentDelegate.kt:28:26 '@Deprecated(...) @Nullable() fun get(p0: String!): Any?' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:117:9 '@Deprecated(...) fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:136:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:138:15 '@Deprecated(...) @MainThread() fun onCreateOptionsMenu(@NonNull() p0: @EnhancedNullability Menu, @NonNull() p1: @EnhancedNullability MenuInflater): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:170:22 '@Deprecated(...) @MainThread() fun onOptionsItemSelected(@NonNull() p0: @EnhancedNullability MenuItem): Boolean' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:5:8 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) constructor(@NonNull() p0: @EnhancedNullability FragmentManager): FragmentStatePagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/DebtorsInteractor.kt:39:52 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/HomeInteractor.kt:74:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) @InlineOnly() fun String.toLowerCase(): String' is deprecated. Use lowercase() instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:161:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:176:15 '@Deprecated(...) fun onRequestPermissionsResult(p0: Int, @NonNull() p1: ft<@EnhancedNullability Array<String!>, @EnhancedNullability Array<out String!>>, @NonNull() p2: @EnhancedNullability IntArray): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/GetShareDebtorContentUseCase.kt:26:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorUseCase.kt:20:27 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorsListItemsUseCase.kt:21:50 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:buildDebugPreBundle
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+:app:compileDebugKotlin: 2.0 language version
+##### 100% (1/1) tasks have been compiled with Kotlin 2.0 #####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 5s
+38 actionable tasks: 34 executed, 4 up-to-date
+Used daemon with pid 7978
+Execution time 5244 ms
+> Checking out 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Running command git checkout 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Note: switching to '7fea491f27688a5aa57d1b8e196bfcc9f7592261'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7fea491 use Kotlin K2 compiler
+
+* Running cleanup for measured build #4
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:clean
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 527ms
+5 actionable tasks: 1 executed, 4 up-to-date
+Used daemon with pid 7978
+
+* Running measured build #4
+> Checking out kotlin-k2
+Running command git checkout kotlin-k2
+Switched to branch 'kotlin-k2'
+Your branch and 'origin/kotlin-k2' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResValues
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :app:processDebugGoogleServices
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processApplicationManifestDebugForBundle
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:packageDebugResources
+> Task :app:parseDebugLocalResources
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:writeDebugAppMetadata
+> Task :app:checkDebugDuplicateClasses
+> Task :app:mergeDebugResources
+> Task :app:processDebugManifestForPackage
+> Task :app:mergeLibDexDebug
+> Task :app:processDebugResources
+> Task :app:bundleDebugResources
+> Task :app:mergeExtDexDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /Users/pavel.biriukov/repo/debts/app/src/main/java/debts/db/DebtsDB.kt:23: Schema export directory is not provided to the annotation processor so we cannot export the schema. You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+
+> Task :app:compileDebugKotlin
+w: Language version 2.0 is experimental, there are no backwards compatibility guarantees for new language and library features
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/common/android/FragmentArgumentDelegate.kt:28:26 '@Deprecated(...) @Nullable() fun get(p0: String!): Any?' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:117:9 '@Deprecated(...) fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:136:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:138:15 '@Deprecated(...) @MainThread() fun onCreateOptionsMenu(@NonNull() p0: @EnhancedNullability Menu, @NonNull() p1: @EnhancedNullability MenuInflater): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:170:22 '@Deprecated(...) @MainThread() fun onOptionsItemSelected(@NonNull() p0: @EnhancedNullability MenuItem): Boolean' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:5:8 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) constructor(@NonNull() p0: @EnhancedNullability FragmentManager): FragmentStatePagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/DebtorsInteractor.kt:39:52 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/HomeInteractor.kt:74:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) @InlineOnly() fun String.toLowerCase(): String' is deprecated. Use lowercase() instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:161:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:176:15 '@Deprecated(...) fun onRequestPermissionsResult(p0: Int, @NonNull() p1: ft<@EnhancedNullability Array<String!>, @EnhancedNullability Array<out String!>>, @NonNull() p2: @EnhancedNullability IntArray): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/GetShareDebtorContentUseCase.kt:26:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorUseCase.kt:20:27 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorsListItemsUseCase.kt:21:50 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:buildDebugPreBundle
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+:app:compileDebugKotlin: 2.0 language version
+##### 100% (1/1) tasks have been compiled with Kotlin 2.0 #####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 5s
+38 actionable tasks: 34 executed, 4 up-to-date
+Used daemon with pid 7978
+Execution time 5413 ms
+> Checking out 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Running command git checkout 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Note: switching to '7fea491f27688a5aa57d1b8e196bfcc9f7592261'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7fea491 use Kotlin K2 compiler
+
+* Running cleanup for measured build #5
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:clean
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 288ms
+5 actionable tasks: 1 executed, 4 up-to-date
+Used daemon with pid 7978
+
+* Running measured build #5
+> Checking out kotlin-k2
+Running command git checkout kotlin-k2
+Switched to branch 'kotlin-k2'
+Your branch and 'origin/kotlin-k2' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResValues
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :app:processDebugGoogleServices
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processApplicationManifestDebugForBundle
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:packageDebugResources
+> Task :app:parseDebugLocalResources
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:writeDebugAppMetadata
+> Task :app:processDebugManifestForPackage
+> Task :app:checkDebugDuplicateClasses
+> Task :app:mergeDebugResources
+> Task :app:mergeLibDexDebug
+> Task :app:processDebugResources
+> Task :app:bundleDebugResources
+> Task :app:mergeExtDexDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /Users/pavel.biriukov/repo/debts/app/src/main/java/debts/db/DebtsDB.kt:23: Schema export directory is not provided to the annotation processor so we cannot export the schema. You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+
+> Task :app:compileDebugKotlin
+w: Language version 2.0 is experimental, there are no backwards compatibility guarantees for new language and library features
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/common/android/FragmentArgumentDelegate.kt:28:26 '@Deprecated(...) @Nullable() fun get(p0: String!): Any?' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:117:9 '@Deprecated(...) fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:136:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:138:15 '@Deprecated(...) @MainThread() fun onCreateOptionsMenu(@NonNull() p0: @EnhancedNullability Menu, @NonNull() p1: @EnhancedNullability MenuInflater): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:170:22 '@Deprecated(...) @MainThread() fun onOptionsItemSelected(@NonNull() p0: @EnhancedNullability MenuItem): Boolean' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:5:8 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) constructor(@NonNull() p0: @EnhancedNullability FragmentManager): FragmentStatePagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/DebtorsInteractor.kt:39:52 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/HomeInteractor.kt:74:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) @InlineOnly() fun String.toLowerCase(): String' is deprecated. Use lowercase() instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:161:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:176:15 '@Deprecated(...) fun onRequestPermissionsResult(p0: Int, @NonNull() p1: ft<@EnhancedNullability Array<String!>, @EnhancedNullability Array<out String!>>, @NonNull() p2: @EnhancedNullability IntArray): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/GetShareDebtorContentUseCase.kt:26:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorUseCase.kt:20:27 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorsListItemsUseCase.kt:21:50 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:buildDebugPreBundle
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+:app:compileDebugKotlin: 2.0 language version
+##### 100% (1/1) tasks have been compiled with Kotlin 2.0 #####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 4s
+38 actionable tasks: 34 executed, 4 up-to-date
+Used daemon with pid 7978
+Execution time 4932 ms
+> Checking out 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Running command git checkout 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Note: switching to '7fea491f27688a5aa57d1b8e196bfcc9f7592261'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7fea491 use Kotlin K2 compiler
+
+* Running cleanup for measured build #6
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:clean
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 282ms
+5 actionable tasks: 1 executed, 4 up-to-date
+Used daemon with pid 7978
+
+* Running measured build #6
+> Checking out kotlin-k2
+Running command git checkout kotlin-k2
+Switched to branch 'kotlin-k2'
+Your branch and 'origin/kotlin-k2' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResValues
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :app:processDebugGoogleServices
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processApplicationManifestDebugForBundle
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:packageDebugResources
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:writeDebugAppMetadata
+> Task :app:parseDebugLocalResources
+> Task :app:javaPreCompileDebug
+> Task :app:processDebugManifestForPackage
+> Task :app:checkDebugDuplicateClasses
+> Task :app:mergeDebugResources
+> Task :app:mergeLibDexDebug
+> Task :app:processDebugResources
+> Task :app:bundleDebugResources
+> Task :app:mergeExtDexDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /Users/pavel.biriukov/repo/debts/app/src/main/java/debts/db/DebtsDB.kt:23: Schema export directory is not provided to the annotation processor so we cannot export the schema. You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+
+> Task :app:compileDebugKotlin
+w: Language version 2.0 is experimental, there are no backwards compatibility guarantees for new language and library features
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/common/android/FragmentArgumentDelegate.kt:28:26 '@Deprecated(...) @Nullable() fun get(p0: String!): Any?' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:117:9 '@Deprecated(...) fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:136:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:138:15 '@Deprecated(...) @MainThread() fun onCreateOptionsMenu(@NonNull() p0: @EnhancedNullability Menu, @NonNull() p1: @EnhancedNullability MenuInflater): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:170:22 '@Deprecated(...) @MainThread() fun onOptionsItemSelected(@NonNull() p0: @EnhancedNullability MenuItem): Boolean' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:5:8 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) constructor(@NonNull() p0: @EnhancedNullability FragmentManager): FragmentStatePagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/DebtorsInteractor.kt:39:52 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/HomeInteractor.kt:74:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) @InlineOnly() fun String.toLowerCase(): String' is deprecated. Use lowercase() instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:161:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:176:15 '@Deprecated(...) fun onRequestPermissionsResult(p0: Int, @NonNull() p1: ft<@EnhancedNullability Array<String!>, @EnhancedNullability Array<out String!>>, @NonNull() p2: @EnhancedNullability IntArray): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/GetShareDebtorContentUseCase.kt:26:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorUseCase.kt:20:27 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorsListItemsUseCase.kt:21:50 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:buildDebugPreBundle
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+:app:compileDebugKotlin: 2.0 language version
+##### 100% (1/1) tasks have been compiled with Kotlin 2.0 #####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 4s
+38 actionable tasks: 34 executed, 4 up-to-date
+Used daemon with pid 7978
+Execution time 4755 ms
+> Checking out 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Running command git checkout 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Note: switching to '7fea491f27688a5aa57d1b8e196bfcc9f7592261'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7fea491 use Kotlin K2 compiler
+
+* Running cleanup for measured build #7
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:clean
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 257ms
+5 actionable tasks: 1 executed, 4 up-to-date
+Used daemon with pid 7978
+
+* Running measured build #7
+> Checking out kotlin-k2
+Running command git checkout kotlin-k2
+Switched to branch 'kotlin-k2'
+Your branch and 'origin/kotlin-k2' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResValues
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :app:processDebugGoogleServices
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processApplicationManifestDebugForBundle
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:packageDebugResources
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:parseDebugLocalResources
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:writeDebugAppMetadata
+> Task :app:processDebugManifestForPackage
+> Task :app:checkDebugDuplicateClasses
+> Task :app:mergeDebugResources
+> Task :app:mergeLibDexDebug
+> Task :app:processDebugResources
+> Task :app:bundleDebugResources
+> Task :app:mergeExtDexDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /Users/pavel.biriukov/repo/debts/app/src/main/java/debts/db/DebtsDB.kt:23: Schema export directory is not provided to the annotation processor so we cannot export the schema. You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+
+> Task :app:compileDebugKotlin
+w: Language version 2.0 is experimental, there are no backwards compatibility guarantees for new language and library features
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/common/android/FragmentArgumentDelegate.kt:28:26 '@Deprecated(...) @Nullable() fun get(p0: String!): Any?' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:117:9 '@Deprecated(...) fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:136:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:138:15 '@Deprecated(...) @MainThread() fun onCreateOptionsMenu(@NonNull() p0: @EnhancedNullability Menu, @NonNull() p1: @EnhancedNullability MenuInflater): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:170:22 '@Deprecated(...) @MainThread() fun onOptionsItemSelected(@NonNull() p0: @EnhancedNullability MenuItem): Boolean' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:5:8 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) constructor(@NonNull() p0: @EnhancedNullability FragmentManager): FragmentStatePagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/DebtorsInteractor.kt:39:52 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/HomeInteractor.kt:74:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) @InlineOnly() fun String.toLowerCase(): String' is deprecated. Use lowercase() instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:161:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:176:15 '@Deprecated(...) fun onRequestPermissionsResult(p0: Int, @NonNull() p1: ft<@EnhancedNullability Array<String!>, @EnhancedNullability Array<out String!>>, @NonNull() p2: @EnhancedNullability IntArray): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/GetShareDebtorContentUseCase.kt:26:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorUseCase.kt:20:27 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorsListItemsUseCase.kt:21:50 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:buildDebugPreBundle
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+:app:compileDebugKotlin: 2.0 language version
+##### 100% (1/1) tasks have been compiled with Kotlin 2.0 #####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 4s
+38 actionable tasks: 34 executed, 4 up-to-date
+Used daemon with pid 7978
+Execution time 4304 ms
+> Checking out 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Running command git checkout 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Note: switching to '7fea491f27688a5aa57d1b8e196bfcc9f7592261'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7fea491 use Kotlin K2 compiler
+
+* Running cleanup for measured build #8
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:clean
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 261ms
+5 actionable tasks: 1 executed, 4 up-to-date
+Used daemon with pid 7978
+
+* Running measured build #8
+> Checking out kotlin-k2
+Running command git checkout kotlin-k2
+Switched to branch 'kotlin-k2'
+Your branch and 'origin/kotlin-k2' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResValues
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :app:processDebugGoogleServices
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processApplicationManifestDebugForBundle
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:packageDebugResources
+> Task :app:parseDebugLocalResources
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:writeDebugAppMetadata
+> Task :app:processDebugManifestForPackage
+> Task :app:checkDebugDuplicateClasses
+> Task :app:mergeDebugResources
+> Task :app:mergeLibDexDebug
+> Task :app:bundleDebugResources
+> Task :app:processDebugResources
+> Task :app:mergeExtDexDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /Users/pavel.biriukov/repo/debts/app/src/main/java/debts/db/DebtsDB.kt:23: Schema export directory is not provided to the annotation processor so we cannot export the schema. You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+
+> Task :app:compileDebugKotlin
+w: Language version 2.0 is experimental, there are no backwards compatibility guarantees for new language and library features
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/common/android/FragmentArgumentDelegate.kt:28:26 '@Deprecated(...) @Nullable() fun get(p0: String!): Any?' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:117:9 '@Deprecated(...) fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:136:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:138:15 '@Deprecated(...) @MainThread() fun onCreateOptionsMenu(@NonNull() p0: @EnhancedNullability Menu, @NonNull() p1: @EnhancedNullability MenuInflater): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:170:22 '@Deprecated(...) @MainThread() fun onOptionsItemSelected(@NonNull() p0: @EnhancedNullability MenuItem): Boolean' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:5:8 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) constructor(@NonNull() p0: @EnhancedNullability FragmentManager): FragmentStatePagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/DebtorsInteractor.kt:39:52 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/HomeInteractor.kt:74:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) @InlineOnly() fun String.toLowerCase(): String' is deprecated. Use lowercase() instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:161:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:176:15 '@Deprecated(...) fun onRequestPermissionsResult(p0: Int, @NonNull() p1: ft<@EnhancedNullability Array<String!>, @EnhancedNullability Array<out String!>>, @NonNull() p2: @EnhancedNullability IntArray): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/GetShareDebtorContentUseCase.kt:26:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorUseCase.kt:20:27 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorsListItemsUseCase.kt:21:50 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:buildDebugPreBundle
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+:app:compileDebugKotlin: 2.0 language version
+##### 100% (1/1) tasks have been compiled with Kotlin 2.0 #####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 4s
+38 actionable tasks: 34 executed, 4 up-to-date
+Used daemon with pid 7978
+Execution time 4410 ms
+> Checking out 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Running command git checkout 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Note: switching to '7fea491f27688a5aa57d1b8e196bfcc9f7592261'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7fea491 use Kotlin K2 compiler
+
+* Running cleanup for measured build #9
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:clean
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 305ms
+5 actionable tasks: 1 executed, 4 up-to-date
+Used daemon with pid 7978
+
+* Running measured build #9
+> Checking out kotlin-k2
+Running command git checkout kotlin-k2
+Switched to branch 'kotlin-k2'
+Your branch and 'origin/kotlin-k2' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResValues
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :app:processDebugGoogleServices
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processApplicationManifestDebugForBundle
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:packageDebugResources
+> Task :app:parseDebugLocalResources
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:writeDebugAppMetadata
+> Task :app:checkDebugDuplicateClasses
+> Task :app:processDebugManifestForPackage
+> Task :app:mergeDebugResources
+> Task :app:mergeLibDexDebug
+> Task :app:processDebugResources
+> Task :app:bundleDebugResources
+> Task :app:mergeExtDexDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /Users/pavel.biriukov/repo/debts/app/src/main/java/debts/db/DebtsDB.kt:23: Schema export directory is not provided to the annotation processor so we cannot export the schema. You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+
+> Task :app:compileDebugKotlin
+w: Language version 2.0 is experimental, there are no backwards compatibility guarantees for new language and library features
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/common/android/FragmentArgumentDelegate.kt:28:26 '@Deprecated(...) @Nullable() fun get(p0: String!): Any?' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:117:9 '@Deprecated(...) fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:136:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:138:15 '@Deprecated(...) @MainThread() fun onCreateOptionsMenu(@NonNull() p0: @EnhancedNullability Menu, @NonNull() p1: @EnhancedNullability MenuInflater): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:170:22 '@Deprecated(...) @MainThread() fun onOptionsItemSelected(@NonNull() p0: @EnhancedNullability MenuItem): Boolean' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:5:8 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) constructor(@NonNull() p0: @EnhancedNullability FragmentManager): FragmentStatePagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/DebtorsInteractor.kt:39:52 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/HomeInteractor.kt:74:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) @InlineOnly() fun String.toLowerCase(): String' is deprecated. Use lowercase() instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:161:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:176:15 '@Deprecated(...) fun onRequestPermissionsResult(p0: Int, @NonNull() p1: ft<@EnhancedNullability Array<String!>, @EnhancedNullability Array<out String!>>, @NonNull() p2: @EnhancedNullability IntArray): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/GetShareDebtorContentUseCase.kt:26:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorUseCase.kt:20:27 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorsListItemsUseCase.kt:21:50 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:buildDebugPreBundle
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+:app:compileDebugKotlin: 2.0 language version
+##### 100% (1/1) tasks have been compiled with Kotlin 2.0 #####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 4s
+38 actionable tasks: 34 executed, 4 up-to-date
+Used daemon with pid 7978
+Execution time 4248 ms
+> Checking out 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Running command git checkout 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Note: switching to '7fea491f27688a5aa57d1b8e196bfcc9f7592261'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7fea491 use Kotlin K2 compiler
+
+* Running cleanup for measured build #10
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:clean
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+No Kotlin compilation tasks have been run
+#####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 250ms
+5 actionable tasks: 1 executed, 4 up-to-date
+Used daemon with pid 7978
+
+* Running measured build #10
+> Checking out kotlin-k2
+Running command git checkout kotlin-k2
+Switched to branch 'kotlin-k2'
+Your branch and 'origin/kotlin-k2' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :app
+ATTENTION: 'kotlin.experimental.tryK2' is an experimental option enabled in the project for trying out the new Kotlin K2 compiler only.
+Please refrain from using it in production code and provide feedback to the Kotlin team for any issues encountered via https://kotl.in/issue
+App Id=net.thebix.debts
+App code version=2060000
+App name=2.6.0.0
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResValues
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :app:processDebugGoogleServices
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processApplicationManifestDebugForBundle
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:packageDebugResources
+> Task :app:parseDebugLocalResources
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:writeDebugAppMetadata
+> Task :app:checkDebugDuplicateClasses
+> Task :app:processDebugManifestForPackage
+> Task :app:mergeLibDexDebug
+> Task :app:mergeDebugResources
+> Task :app:processDebugResources
+> Task :app:bundleDebugResources
+> Task :app:mergeExtDexDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /Users/pavel.biriukov/repo/debts/app/src/main/java/debts/db/DebtsDB.kt:23: Schema export directory is not provided to the annotation processor so we cannot export the schema. You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+
+> Task :app:compileDebugKotlin
+w: Language version 2.0 is experimental, there are no backwards compatibility guarantees for new language and library features
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/common/android/FragmentArgumentDelegate.kt:28:26 '@Deprecated(...) @Nullable() fun get(p0: String!): Any?' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:117:9 '@Deprecated(...) fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:136:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:138:15 '@Deprecated(...) @MainThread() fun onCreateOptionsMenu(@NonNull() p0: @EnhancedNullability Menu, @NonNull() p1: @EnhancedNullability MenuInflater): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/details/DetailsFragment.kt:170:22 '@Deprecated(...) @MainThread() fun onOptionsItemSelected(@NonNull() p0: @EnhancedNullability MenuItem): Boolean' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:5:8 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) constructor(@NonNull() p0: @EnhancedNullability FragmentManager): FragmentStatePagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/adapter/DebtsPagerAdapter.kt:11:5 '@Deprecated(...) class FragmentStatePagerAdapter : PagerAdapter' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/DebtorsInteractor.kt:39:52 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/home/list/mvi/HomeInteractor.kt:74:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) @InlineOnly() fun String.toLowerCase(): String' is deprecated. Use lowercase() instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:161:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the @Deprecated annotation or suppress
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/preferences/main/MainSettingsFragment.kt:176:15 '@Deprecated(...) fun onRequestPermissionsResult(p0: Int, @NonNull() p1: ft<@EnhancedNullability Array<String!>, @EnhancedNullability Array<out String!>>, @NonNull() p2: @EnhancedNullability IntArray): Unit' is deprecated. Deprecated in Java
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/GetShareDebtorContentUseCase.kt:26:36 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorUseCase.kt:20:27 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+w: file:///Users/pavel.biriukov/repo/debts/app/src/main/java/debts/usecase/ObserveDebtorsListItemsUseCase.kt:21:50 '@Deprecated(...) @DeprecatedSinceKotlin(...) fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double' is deprecated. Use sumOf instead.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:buildDebugPreBundle
+##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
+:app:compileDebugKotlin: 2.0 language version
+##### 100% (1/1) tasks have been compiled with Kotlin 2.0 #####
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 4s
+38 actionable tasks: 34 executed, 4 up-to-date
+Used daemon with pid 7978
+Execution time 4338 ms
+> Checking out 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Running command git checkout 7fea491f27688a5aa57d1b8e196bfcc9f7592261
+Note: switching to '7fea491f27688a5aa57d1b8e196bfcc9f7592261'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7fea491 use Kotlin K2 compiler
+
+* Stopping daemons
+Running command /Users/pavel.biriukov/repo/debts/gradle-user-home/wrapper/dists/gradle-8.1-bin/2eyty4r6kz6fpakefpk52nbbm/gradle-8.1/bin/gradle --stop --gradle-user-home /Users/pavel.biriukov/repo/debts/gradle-user-home
+Picked up _JAVA_OPTIONS: -Xmx8g
+Stopping Daemon(s)
+1 Daemon stopped
+
+* Results written to /Users/pavel.biriukov/repo/debts/gradle/gradle-profiler/results/2023-06-kotlin-k2-compiler/k2
+  /Users/pavel.biriukov/repo/debts/gradle/gradle-profiler/results/2023-06-kotlin-k2-compiler/k2/benchmark.csv
+  /Users/pavel.biriukov/repo/debts/gradle/gradle-profiler/results/2023-06-kotlin-k2-compiler/k2/benchmark.html
+
