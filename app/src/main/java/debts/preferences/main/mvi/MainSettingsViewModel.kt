@@ -1,11 +1,11 @@
 package debts.preferences.main.mvi
 
-import debts.common.android.mvi.MviViewModel
-import debts.common.android.mvi.OneShot
+import debts.core.common.android.mvi.MviViewModel
+import debts.core.common.android.mvi.OneShot
 import io.reactivex.functions.BiFunction
 
 class MainSettingsViewModel(
-    interactor: MainSettingsInteractor
+    interactor: MainSettingsInteractor,
 ) : MviViewModel<MainSettingsIntention, MainSettingsAction, MainSettingsResult, MainSettingsState>(interactor) {
 
     override val defaultState: MainSettingsState
@@ -26,16 +26,22 @@ class MainSettingsViewModel(
             when (result) {
                 MainSettingsResult.Error ->
                     prevState.copy(isError = OneShot(true))
+
                 MainSettingsResult.UpdateCurrencyStart ->
                     prevState.copy(updateCurrencyState = OneShot(MainSettingsState.UpdateState.START))
+
                 MainSettingsResult.UpdateCurrencyEnd ->
                     prevState.copy(updateCurrencyState = OneShot(MainSettingsState.UpdateState.END))
+
                 MainSettingsResult.UpdateCurrencyError ->
                     prevState.copy(updateCurrencyState = OneShot(MainSettingsState.UpdateState.ERROR))
+
                 MainSettingsResult.SyncWithContactsStart ->
                     prevState.copy(syncWithContactsState = OneShot(MainSettingsState.UpdateState.START))
+
                 MainSettingsResult.SyncWithContactsEnd ->
                     prevState.copy(syncWithContactsState = OneShot(MainSettingsState.UpdateState.END))
+
                 MainSettingsResult.SyncWithContactsError ->
                     prevState.copy(syncWithContactsState = OneShot(MainSettingsState.UpdateState.ERROR))
             }

@@ -7,10 +7,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import debts.common.android.adapters.ItemRenderer
-import debts.common.android.extensions.applyLayoutParams
-import debts.common.android.extensions.doInRuntime
-import debts.common.android.extensions.selfInflate
+import debts.core.common.android.adapters.ItemRenderer
+import debts.core.common.android.extensions.applyLayoutParams
+import debts.core.common.android.extensions.doInRuntime
+import debts.core.common.android.extensions.selfInflate
 import net.thebix.debts.R
 
 class ContactItemLayout @JvmOverloads constructor(

@@ -1,8 +1,8 @@
 package debts.details.adapter
 
-import debts.common.android.adapters.DelegatedAdapter
-import debts.common.android.adapters.TypedAdapterDelegate
-import debts.common.android.adapters.ViewHolderRenderer
+import debts.core.common.android.adapters.DelegatedAdapter
+import debts.core.common.android.adapters.TypedAdapterDelegate
+import debts.core.common.android.adapters.ViewHolderRenderer
 
 class DebtsAdapter(
     historyItemCallback: DebtItemLayout.HistoryItemCallback,

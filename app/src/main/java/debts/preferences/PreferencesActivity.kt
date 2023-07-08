@@ -3,7 +3,7 @@ package debts.preferences
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import debts.common.android.BaseActivity
+import debts.core.common.android.BaseActivity
 import debts.preferences.main.MainSettingsFragment
 import net.thebix.debts.R
 

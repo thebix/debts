@@ -2,11 +2,6 @@
 <resources>
     <string name="app_name">"Дугови"</string>
 
-    <!-- Defaults -->
-    <string name="default_positive_button">"ОК"</string>
-    <string name="default_negative_button">"Отказати"</string>
-    <string name="default_dialog_title">"Да ли сте сигурни?"</string>
-
     <!-- Home activity -->
     <string name="home_pager_tab_all">"Сви"</string>
     <string name="home_pager_tab_debtors">"Дужници"</string>

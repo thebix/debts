@@ -2,11 +2,6 @@
 <resources>
     <string name="app_name">"Dugovi"</string>
 
-    <!-- Defaults -->
-    <string name="default_positive_button">"OK"</string>
-    <string name="default_negative_button">"Otkazati"</string>
-    <string name="default_dialog_title">"Da li ste sigurni?"</string>
-
     <!-- Home activity -->
     <string name="home_pager_tab_all">"Svi"</string>
     <string name="home_pager_tab_debtors">"Dužnici"</string>

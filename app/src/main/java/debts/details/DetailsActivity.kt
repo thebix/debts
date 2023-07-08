@@ -3,8 +3,8 @@ package debts.details
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import debts.common.android.BaseActivity
-import debts.common.exeptions.NotExistsException
+import debts.core.common.android.BaseActivity
+import debts.core.common.exeptions.NotExistsException
 import net.thebix.debts.R
 
 class DetailsActivity : BaseActivity() {

@@ -33,6 +33,10 @@ gradlePlugin {
             id = "debts.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
+        register("androidLibrary") {
+            id = "debts.android.library"
+            implementationClass = "AndroidLibraryConventionPlugin"
+        }
         register("androidRoom") {
             id = "debts.android.room"
             implementationClass = "AndroidRoomConventionPlugin"

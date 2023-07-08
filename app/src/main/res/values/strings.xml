@@ -2,11 +2,6 @@
 <resources>
     <string name="app_name">"Debts"</string>
 
-    <!-- Defaults -->
-    <string name="default_positive_button">"OK"</string>
-    <string name="default_negative_button">"Cancel"</string>
-    <string name="default_dialog_title">"Are you sure?"</string>
-
     <!-- Home activity -->
     <string name="home_pager_tab_all">"All"</string>
     <string name="home_pager_tab_debtors">"Debtors"</string>

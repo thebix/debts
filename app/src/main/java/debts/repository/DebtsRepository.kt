@@ -2,7 +2,7 @@ package debts.repository
 
 import android.content.ContentResolver
 import android.provider.ContactsContract
-import debts.common.android.prefs.Preferences
+import debts.core.common.android.prefs.Preferences
 import debts.db.DebtEntity
 import debts.db.DebtorEntity
 import debts.db.DebtsDao
@@ -157,7 +157,7 @@ class DebtsRepository(
     fun setContactsSynced(isSynced: Boolean = true) =
         Completable.fromCallable { preferences.putBoolean(PREFS_IS_CONTACT_SYNCED, isSynced) }
 
-    fun getCurrency() = Single.fromCallable { preferences.getString(PREFS_CURRENCY, "") }
+    fun getCurrency(): Single<String> = Single.fromCallable { preferences.getString(PREFS_CURRENCY, "") }
     fun observeCurrency() = preferences.observeString(PREFS_CURRENCY, "")
     fun setCurrency(currency: String) =
         Completable.fromCallable { preferences.putString(PREFS_CURRENCY, currency) }

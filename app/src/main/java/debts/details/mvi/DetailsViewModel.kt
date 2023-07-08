@@ -1,7 +1,7 @@
 package debts.details.mvi
 
-import debts.common.android.mvi.MviViewModel
-import debts.common.android.mvi.OneShot
+import debts.core.common.android.mvi.MviViewModel
+import debts.core.common.android.mvi.OneShot
 import debts.details.adapter.toDebtsItemViewModel
 import io.reactivex.functions.BiFunction
 import kotlin.math.absoluteValue

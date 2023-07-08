@@ -7,6 +7,8 @@ plugins {
 }
 
 android {
+    namespace = AppConfig.applicationId
+
     signingConfigs {
         create("release") {
             val credentials = credentials()
@@ -35,15 +37,11 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
     }
-
-    namespace = AppConfig.applicationId
-    // TODO: enable lint local checks and remove this
-    lint {
-        abortOnError = false
-    }
 }
 
 dependencies {
+    implementation(project(":core:common"))
+
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core)
@@ -51,7 +49,6 @@ dependencies {
     implementation(libs.androidx.preference)
     implementation(libs.koin)
     implementation(libs.bundles.rxjava)
-    implementation(libs.timber)
 
     debugImplementation(libs.leak.canary)
     debugImplementation(libs.bundles.hyperion)

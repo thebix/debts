@@ -1,6 +1,6 @@
 package debts.usecase
 
-import debts.common.android.extensions.toFormattedCurrency
+import debts.core.common.android.extensions.toFormattedCurrency
 import debts.repository.DebtsRepository
 import io.reactivex.Single
 import io.reactivex.functions.Function3
@@ -8,13 +8,13 @@ import timber.log.Timber
 import kotlin.math.absoluteValue
 
 class GetShareDebtorContentUseCase(
-    private val repository: DebtsRepository
+    private val repository: DebtsRepository,
 ) {
 
     fun execute(
         debtorId: Long,
         templateBorrowed: String,
-        templateLent: String
+        templateLent: String,
     ): Single<String> {
         return Single.zip(
             repository.observeDebtor(debtorId = debtorId)

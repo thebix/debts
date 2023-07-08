@@ -1,14 +1,14 @@
 package debts.home.list.mvi
 
-import debts.common.android.mvi.MviViewModel
-import debts.common.android.mvi.OneShot
+import debts.core.common.android.mvi.MviViewModel
+import debts.core.common.android.mvi.OneShot
 import debts.home.list.TabTypes
 import debts.home.list.adapter.toDebtorsItemViewModel
 import io.reactivex.functions.BiFunction
 import kotlin.math.absoluteValue
 
 class DebtorsViewModel(
-    interactor: DebtorsInteractor
+    interactor: DebtorsInteractor,
 ) : MviViewModel<DebtorsIntention, DebtorsAction, DebtorsResult, DebtorsState>(interactor) {
 
     override val defaultState: DebtorsState
@@ -24,6 +24,7 @@ class DebtorsViewModel(
                 intent.borrowedTemplate,
                 intent.lentTemplate
             )
+
             is DebtorsIntention.OpenDetails -> DebtorsAction.OpenDetails(
                 intent.debtorId,
                 intent.rootId
@@ -40,6 +41,7 @@ class DebtorsViewModel(
                         currency = result.currency
                     )
                 }
+
                 DebtorsResult.Error ->
                     prevState.copy(isError = OneShot(true))
             }

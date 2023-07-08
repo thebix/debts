@@ -2,11 +2,6 @@
 <resources>
     <string name="app_name">"Schulden"</string>
 
-    <!-- Defaults -->
-    <string name="default_positive_button">"Fertig"</string>
-    <string name="default_negative_button">"Abbrechen"</string>
-    <string name="default_dialog_title">"Sind Sie sicher?"</string>
-
     <!-- Home activity -->
     <string name="home_pager_tab_all">"Alles"</string>
     <string name="home_pager_tab_debtors">"Schuldner"</string>

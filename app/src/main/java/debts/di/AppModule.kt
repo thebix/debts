@@ -4,8 +4,8 @@ import androidx.room.Room
 import debts.common.android.DebtsNavigator
 import debts.common.android.ScreenContextHolder
 import debts.common.android.ScreenContextHolderImpl
-import debts.common.android.prefs.AndroidPreferences
-import debts.common.android.prefs.Preferences
+import debts.core.common.android.prefs.AndroidPreferences
+import debts.core.common.android.prefs.Preferences
 import debts.db.DebtsDatabase
 import debts.db.migrations.migration1To2
 import debts.details.mvi.DetailsInteractor

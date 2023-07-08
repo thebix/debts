@@ -13,12 +13,12 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.jakewharton.rxbinding3.view.clicks
-import debts.adddebt.DebtLayoutData
 import debts.adddebt.AddOrEditDebtDialogHolder
+import debts.adddebt.DebtLayoutData
 import debts.common.android.ActivityScreenContext
-import debts.common.android.BaseActivity
 import debts.common.android.ScreenContextHolder
-import debts.common.android.extensions.getColorCompat
+import debts.core.common.android.BaseActivity
+import debts.core.common.android.extensions.getColorCompat
 import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtsPagerAdapter
 import debts.home.list.mvi.HomeIntention
@@ -140,14 +140,17 @@ class HomeActivity : BaseActivity() {
                 intentionSubject.onNext(HomeIntention.ToggleSortByName(sortType))
                 return true
             }
+
             R.id.home_debtors_menu_sort_amount -> {
                 intentionSubject.onNext(HomeIntention.ToggleSortByAmount(sortType))
                 return true
             }
+
             R.id.home_debtors_menu_settings -> {
                 intentionSubject.onNext(HomeIntention.OpenSettings)
                 return true
             }
+
             R.id.home_debtors_menu_share -> {
                 intentionSubject.onNext(
                     HomeIntention.ShareAllDebts(
@@ -222,7 +225,7 @@ class HomeActivity : BaseActivity() {
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         when (requestCode) {
             READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -236,6 +239,7 @@ class HomeActivity : BaseActivity() {
             } else {
                 showAddDebtDialog()
             }
+
             READ_CONTACTS_SYNC_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 intentionSubject.onNext(HomeIntention.SyncWithContacts)
             }

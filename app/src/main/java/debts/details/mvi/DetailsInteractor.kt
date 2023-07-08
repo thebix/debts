@@ -1,7 +1,7 @@
 package debts.details.mvi
 
 import debts.common.android.DebtsNavigator
-import debts.common.android.mvi.MviInteractor
+import debts.core.common.android.mvi.MviInteractor
 import debts.repository.DebtsRepository
 import debts.usecase.AddDebtUseCase
 import debts.usecase.ClearHistoryUseCase
@@ -30,9 +30,9 @@ class DetailsInteractor(
     private val updateDebtUseCase: UpdateDebtUseCase,
     private val removeDebtorUseCase: RemoveDebtorUseCase,
     private val getShareDebtorContentUseCase: GetShareDebtorContentUseCase,
-    private val repository: DebtsRepository
+    private val repository: DebtsRepository,
 
-) : MviInteractor<DetailsAction, DetailsResult> {
+    ) : MviInteractor<DetailsAction, DetailsResult> {
 
     private val initProcessor =
         ObservableTransformer<DetailsAction.Init, DetailsResult> { actions ->

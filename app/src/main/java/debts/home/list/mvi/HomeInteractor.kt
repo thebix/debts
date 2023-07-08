@@ -1,7 +1,7 @@
 package debts.home.list.mvi
 
 import debts.common.android.DebtsNavigator
-import debts.common.android.mvi.MviInteractor
+import debts.core.common.android.mvi.MviInteractor
 import debts.home.list.TabTypes
 import debts.repository.DebtsRepository
 import debts.usecase.AddDebtUseCase
@@ -29,7 +29,7 @@ class HomeInteractor(
     private val observeDebtorsListItemsUseCase: ObserveDebtorsListItemsUseCase,
     private val syncDebtorsWithContactsUseCase: SyncDebtorsWithContactsUseCase,
     private val updateDbDebtsCurrencyUseCase: UpdateDbDebtsCurrencyUseCase,
-    private val repository: DebtsRepository
+    private val repository: DebtsRepository,
 ) : MviInteractor<HomeAction, HomeResult> {
 
     private val initProcessor = ObservableTransformer<HomeAction.Init, HomeResult> { actions ->
