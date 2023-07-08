@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.debts.android.application)
     alias(libs.plugins.debts.android.application.firebase)
-    alias(libs.plugins.debts.android.room) // TODO: should be moved to the db module
+    alias(libs.plugins.debts.android.room) // TODO: search project for "move room out of the app module". should be removed during DI refactoring
     alias(libs.plugins.triplet.play)
     alias(libs.plugins.debts.android.image.loader)
 }
@@ -41,6 +41,7 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
+    implementation(project(":core:db"))
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)

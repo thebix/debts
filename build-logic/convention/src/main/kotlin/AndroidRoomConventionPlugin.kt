@@ -14,7 +14,6 @@
  *   limitations under the License.
  */
 
-import com.android.build.api.dsl.ApplicationExtension
 import com.google.devtools.ksp.gradle.KspExtension
 import common.libs
 import org.gradle.api.Plugin
@@ -37,7 +36,9 @@ class AndroidRoomConventionPlugin : Plugin<Project> {
                 // The schemas directory contains a schema file for each version of the Room database.
                 // This is required to enable Room auto migrations.
                 // See https://developer.android.com/reference/kotlin/androidx/room/AutoMigration.
-                arg(RoomSchemaArgProvider(File(projectDir, "schemas")))
+                // TODO: search project for "move room out of the app module". once room moved out of the app module completely,
+                //  change to: arg(RoomSchemaArgProvider(File(projectDir, "schemas")))
+                arg(RoomSchemaArgProvider(File("$rootDir/core/db", "schemas")))
             }
 
             dependencies {
@@ -49,9 +50,9 @@ class AndroidRoomConventionPlugin : Plugin<Project> {
             }
 
             // used by Room, to test migrations
-            extensions.configure<ApplicationExtension> {
-                sourceSets.getByName("androidTest").assets.srcDirs(files("$projectDir/schemas"))
-            }
+//            extensions.configure<LibraryExtension> {
+//                sourceSets.getByName("androidTest").assets.srcDirs(files("$projectDir/schemas"))
+//            }
         }
     }
 
