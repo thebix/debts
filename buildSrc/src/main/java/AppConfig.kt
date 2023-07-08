@@ -15,10 +15,3 @@ object AppConfig {
         val name = "$major.$minor.$patch.$buildId"
     }
 }
-
-object AndroidConfig {
-
-    const val compileSdkVersion = 33
-    const val minSdkVersion = 21
-    const val targetSdkVersion = 33
-}

@@ -23,9 +23,11 @@ rxjava2-rxjava = "2.2.21"
 rxbinding3 = "3.1.0"
 timber = "5.0.1"
 triplet-play = "3.8.3"
+#junit = "5.0-SNAPSHOT"
+#androidx-test-ext-junit = "1.1.5"
+#espresso-core = "3.5.1"
 
 [libraries]
-android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -51,12 +53,37 @@ kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", versi
 leak-canary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leak-canary" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-rxjava2 = { module = "androidx.room:room-rxjava2", version.ref = "room" }
 room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 rxbinding = { module = "com.jakewharton.rxbinding3:rxbinding", version.ref = "rxbinding3" }
 rxjava2-rxandroid = { module = "io.reactivex.rxjava2:rxandroid", version.ref = "rxjava2-rxandroid" }
 rxjava2-rxjava = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava2-rxjava" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+#junit = { group = "junit", name = "junit", version.ref = "junit" }
+#androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
+#espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+
+# Dependencies of the included build-logic
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle-plugin" }
+firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebase-crashlytics-gradle" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+
+[bundles]
+hyperion = [
+    "hyperion-core",
+    "hyperion-attr",
+    "hyperion-build-config",
+    "hyperion-disk",
+    "hyperion-geiger-counter",
+    "hyperion-measurement",
+    "hyperion-phoenix",
+    "hyperion-recorder",
+    "hyperion-shared-preferences",
+    "hyperion-timber"
+]
+rxjava = ["rxjava2-rxandroid", "rxjava2-rxjava", "rxbinding"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
@@ -66,3 +93,10 @@ google-services = { id = "com.google.gms.google-services", version.ref = "google
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 triplet-play = { id = "com.github.triplet.play", version.ref = "triplet-play" }
+#androidLibrary = { id = "com.android.library", version.ref = "android-gradle-plugin" }
+
+# Debts plugins defined in build-logic
+debts-android-application = { id = "debts.android.application", version.ref = "android-gradle-plugin" }
+debts-android-room = { id = "debts.android.room", version.ref = "room" }
+debts-android-application-firebase = { id = "debts.android.application.firebase", version.ref = "firebase-crashlytics-gradle" }
+debts-android-image-loader = { id = "debts.android.image.loader", version.ref = "glide" }

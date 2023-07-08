@@ -3,10 +3,12 @@
 plugins {
     alias(libs.plugins.android.application) apply (false)
     alias(libs.plugins.kotlin.android) apply (false)
+    alias(libs.plugins.firebase.crashlytics) apply (false)
     alias(libs.plugins.ksp) apply (false)
     alias(libs.plugins.google.services) apply (false)
     alias(libs.plugins.triplet.play) apply (false)
     alias(libs.plugins.detekt)
+//    alias(libs.plugins.androidLibrary) apply false
 }
 
 detekt {
@@ -40,11 +42,4 @@ dependencies {
     should be modularized anyway.
      */
     // detektPlugins "io.gitlab.arturbosch.detekt:detekt-rules-libraries:${libs.versions.detekt.get()}"
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
 }
