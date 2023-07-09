@@ -1,0 +1,20 @@
+scenario,Clean Build
+version,Gradle 8.1
+tasks,buildDebug
+value,total execution time
+warm-up build #1,54364.68
+warm-up build #2,9299.27
+warm-up build #3,8098.19
+warm-up build #4,7109.81
+warm-up build #5,6691.36
+warm-up build #6,6111.51
+measured build #1,6129.96
+measured build #2,6574.39
+measured build #3,5698.40
+measured build #4,5849.90
+measured build #5,6243.79
+measured build #6,6314.69
+measured build #7,6176.39
+measured build #8,5709.86
+measured build #9,5272.05
+measured build #10,5754.70
