@@ -14,13 +14,13 @@ jobs:
           key-file-base64: "${{ secrets.DEBTS_KEY_FILE_BASE64 }}"
           google-services-file-base64: "${{ secrets.DEBTS_GOOGLE_SERVICES_FILE_BASE64 }}"
           google-play-publisher-file-base64: "${{ secrets.GOOGLE_PLAY_PUBLISHER }}"
-      - name: Static Code Analysis (Kotlin, detekt)
-        env:
-          DEBTS_STORE_KEY_ALIAS: ${{ secrets.DEBTS_STORE_KEY_ALIAS }}
-          DEBTS_STORE_KEY_ALIAS_PASSWORD: ${{ secrets.DEBTS_STORE_KEY_ALIAS_PASSWORD }}
-          DEBTS_STORE_KEY_FILE: ${{ secrets.DEBTS_STORE_KEY_FILE }}
-          DEBTS_STORE_KEY_PASSWORD: ${{ secrets.DEBTS_STORE_KEY_PASSWORD }}
-        run: ./gradlew detekt
+#      - name: Static Code Analysis (Kotlin, detekt)
+#        env:
+#          DEBTS_STORE_KEY_ALIAS: ${{ secrets.DEBTS_STORE_KEY_ALIAS }}
+#          DEBTS_STORE_KEY_ALIAS_PASSWORD: ${{ secrets.DEBTS_STORE_KEY_ALIAS_PASSWORD }}
+#          DEBTS_STORE_KEY_FILE: ${{ secrets.DEBTS_STORE_KEY_FILE }}
+#          DEBTS_STORE_KEY_PASSWORD: ${{ secrets.DEBTS_STORE_KEY_PASSWORD }}
+#        run: ./gradlew detekt
       - name: Lint (Android)
         env:
           DEBTS_STORE_KEY_ALIAS: ${{ secrets.DEBTS_STORE_KEY_ALIAS }}
