@@ -289,10 +289,6 @@ formatting:
   PackageName:
     active: true
     autoCorrect: true
-  ParameterListWrapping:
-    active: true
-    autoCorrect: true
-    indentSize: 4
   SpacingAroundColon:
     active: true
     autoCorrect: true
@@ -336,6 +332,9 @@ formatting:
     # Set whether to use hanging indent for wrapped arguments
     # hangingIndent: false
   ParameterListWrapping:
+    active: true
+    autoCorrect: true
+    indentSize: 4
     # Set the wrapping style for arguments. Possible values are:
     # - NO_WRAP (do not wrap arguments)
     # - WRAP_IF_LONG (wrap arguments only if the line is too long)
