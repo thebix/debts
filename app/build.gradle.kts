@@ -1,16 +1,9 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.google.services)
+    alias(libs.plugins.debts.android.application)
+    alias(libs.plugins.debts.android.application.firebase)
+    alias(libs.plugins.debts.android.room) // TODO: should be moved to the db module
     alias(libs.plugins.triplet.play)
-}
-
-kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(libs.versions.java.get()))
-    }
+    alias(libs.plugins.debts.android.image.loader)
 }
 
 android {
@@ -23,19 +16,10 @@ android {
             keyPassword = credentials.storeKeyAliasPassword
         }
     }
-    compileSdk = AndroidConfig.compileSdkVersion
     defaultConfig {
         applicationId = AppConfig.applicationId
-        minSdk = AndroidConfig.minSdkVersion
-        targetSdk = AndroidConfig.targetSdkVersion
         versionCode = AppConfig.Version.code
         versionName = AppConfig.Version.name
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += mapOf("room.schemaLocation" to "$projectDir/schemas".toString())
-            }
-        }
 
         println("App Id=$applicationId\nApp code version=${versionCode}\nApp name=$versionName")
     }
@@ -52,10 +36,6 @@ android {
         }
     }
 
-    // used by Room, to test migrations
-    sourceSets {
-        getByName("androidTest").assets.srcDirs(files("$projectDir/schemas"))
-    }
     namespace = AppConfig.applicationId
     // TODO: enable lint local checks and remove this
     lint {
@@ -69,33 +49,12 @@ dependencies {
     implementation(libs.androidx.core)
     implementation(libs.google.android.material)
     implementation(libs.androidx.preference)
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.analytics)
-    implementation(libs.glide.core)
-    ksp(libs.glide.compiler)
     implementation(libs.koin)
-    implementation(libs.kotlin.stdlib.jdk8)
-    debugImplementation(libs.leak.canary)
-    implementation(libs.room.runtime)
-    ksp(libs.room.compiler)
-    implementation(libs.room.rxjava2)
-    testImplementation(libs.room.testing)
-    implementation(libs.rxbinding)
-    implementation(libs.rxjava2.rxandroid)
-    implementation(libs.rxjava2.rxjava)
+    implementation(libs.bundles.rxjava)
     implementation(libs.timber)
 
-    debugImplementation(libs.hyperion.core)
-    debugImplementation(libs.hyperion.attr)
-    debugImplementation(libs.hyperion.build.config)
-    debugImplementation(libs.hyperion.disk)
-    debugImplementation(libs.hyperion.geiger.counter)
-    debugImplementation(libs.hyperion.measurement)
-    debugImplementation(libs.hyperion.phoenix)
-    debugImplementation(libs.hyperion.recorder)
-    debugImplementation(libs.hyperion.shared.preferences)
-    debugImplementation(libs.hyperion.timber)
+    debugImplementation(libs.leak.canary)
+    debugImplementation(libs.bundles.hyperion)
 }
 
 play {
