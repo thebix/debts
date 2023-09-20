@@ -26,4 +26,4 @@ dependencyResolutionManagement {
 }
 
 include(":app")
-// include(":core:common")
+include(":core:common")

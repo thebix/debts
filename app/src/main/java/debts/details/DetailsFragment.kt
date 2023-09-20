@@ -21,14 +21,14 @@ import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
 import debts.adddebt.AddOrEditDebtDialogHolder
 import debts.adddebt.DebtLayoutData
-import debts.common.android.BaseFragment
-import debts.common.android.FragmentArgumentDelegate
 import debts.common.android.FragmentScreenContext
 import debts.common.android.ScreenContextHolder
-import debts.common.android.extensions.getDrawableCompat
-import debts.common.android.extensions.showAlert
-import debts.common.android.extensions.toFormattedCurrency
-import debts.common.android.extensions.tryToGoBack
+import debts.core.common.android.BaseFragment
+import debts.core.common.android.FragmentArgumentDelegate
+import debts.core.common.android.extensions.getDrawableCompat
+import debts.core.common.android.extensions.showAlert
+import debts.core.common.android.extensions.toFormattedCurrency
+import debts.core.common.android.extensions.tryToGoBack
 import debts.details.adapter.DebtItemLayout
 import debts.details.adapter.DebtsAdapter
 import debts.details.mvi.DetailsIntention
@@ -97,7 +97,7 @@ class DetailsFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ) =
         inflater.inflate(R.layout.details_fragment, container, false)
 
@@ -273,7 +273,7 @@ class DetailsFragment : BaseFragment() {
         comment: String = "",
         amount: Double = 0.0,
         date: Long = Date().time,
-        existingDebtId: Long? = null
+        existingDebtId: Long? = null,
     ) {
         if (existingDebtId == null) {
             addOrEditDebtDialogHolder?.showAddDebt(

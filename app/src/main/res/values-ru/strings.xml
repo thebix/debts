@@ -2,11 +2,6 @@
 <resources>
     <string name="app_name">"Долги"</string>
 
-    <!-- Defaults -->
-    <string name="default_positive_button">"OK"</string>
-    <string name="default_negative_button">"Отмена"</string>
-    <string name="default_dialog_title">"Вы уверены?"</string>
-
     <!-- Home activity -->
     <string name="home_pager_tab_all">"Все"</string>
     <string name="home_pager_tab_debtors">"Должники"</string>

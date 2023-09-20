@@ -1,7 +1,7 @@
 package debts.preferences.main.mvi
 
 import debts.common.android.DebtsNavigator
-import debts.common.android.mvi.MviInteractor
+import debts.core.common.android.mvi.MviInteractor
 import debts.repository.DebtsRepository
 import debts.usecase.SyncDebtorsWithContactsUseCase
 import debts.usecase.UpdateDbDebtsCurrencyUseCase
@@ -14,7 +14,7 @@ class MainSettingsInteractor(
     private val debtsNavigator: DebtsNavigator,
     private val updateDbDebtsCurrencyUseCase: UpdateDbDebtsCurrencyUseCase,
     private val syncDebtorsWithContactsUseCase: SyncDebtorsWithContactsUseCase,
-    private val repository: DebtsRepository
+    private val repository: DebtsRepository,
 ) : MviInteractor<MainSettingsAction, MainSettingsResult> {
 
     private val updateCurrencyProcessor =

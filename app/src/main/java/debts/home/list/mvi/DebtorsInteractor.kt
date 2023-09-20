@@ -1,7 +1,7 @@
 package debts.home.list.mvi
 
 import debts.common.android.DebtsNavigator
-import debts.common.android.mvi.MviInteractor
+import debts.core.common.android.mvi.MviInteractor
 import debts.home.list.TabTypes
 import debts.repository.DebtsRepository
 import debts.repository.SortType

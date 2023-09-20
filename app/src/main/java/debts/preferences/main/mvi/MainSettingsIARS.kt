@@ -1,12 +1,12 @@
 package debts.preferences.main.mvi
 
-import debts.common.android.mvi.MviAction
-import debts.common.android.mvi.MviInitIntention
-import debts.common.android.mvi.MviIntention
-import debts.common.android.mvi.MviResult
-import debts.common.android.mvi.MviState
-import debts.common.android.mvi.OneShot
-import debts.common.android.mvi.ViewStateWithId
+import debts.core.common.android.mvi.MviAction
+import debts.core.common.android.mvi.MviInitIntention
+import debts.core.common.android.mvi.MviIntention
+import debts.core.common.android.mvi.MviResult
+import debts.core.common.android.mvi.MviState
+import debts.core.common.android.mvi.OneShot
+import debts.core.common.android.mvi.ViewStateWithId
 
 sealed class MainSettingsIntention : MviIntention {
 
@@ -39,7 +39,7 @@ sealed class MainSettingsResult : MviResult {
 data class MainSettingsState(
     val updateCurrencyState: OneShot<UpdateState> = OneShot.empty(),
     val syncWithContactsState: OneShot<UpdateState> = OneShot.empty(),
-    val isError: OneShot<Boolean> = OneShot.empty()
+    val isError: OneShot<Boolean> = OneShot.empty(),
 ) : MviState, ViewStateWithId() {
 
     enum class UpdateState {

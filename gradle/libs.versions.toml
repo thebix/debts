@@ -23,9 +23,7 @@ rxjava2-rxjava = "2.2.21"
 rxbinding3 = "3.1.0"
 timber = "5.0.1"
 triplet-play = "3.8.4"
-#junit = "5.0-SNAPSHOT"
-#androidx-test-ext-junit = "1.1.5"
-#espresso-core = "3.5.1"
+junit = "4.13.2"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
@@ -60,9 +58,7 @@ rxbinding = { module = "com.jakewharton.rxbinding3:rxbinding", version.ref = "rx
 rxjava2-rxandroid = { module = "io.reactivex.rxjava2:rxandroid", version.ref = "rxjava2-rxandroid" }
 rxjava2-rxjava = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava2-rxjava" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
-#junit = { group = "junit", name = "junit", version.ref = "junit" }
-#androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
-#espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle-plugin" }
@@ -87,16 +83,17 @@ rxjava = ["rxjava2-rxandroid", "rxjava2-rxjava", "rxbinding"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
+android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-gradle" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 triplet-play = { id = "com.github.triplet.play", version.ref = "triplet-play" }
-#androidLibrary = { id = "com.android.library", version.ref = "android-gradle-plugin" }
 
 # Debts plugins defined in build-logic
 debts-android-application = { id = "debts.android.application", version.ref = "android-gradle-plugin" }
+debts-android-library = { id = "debts.android.library", version.ref = "android-gradle-plugin" }
 debts-android-room = { id = "debts.android.room", version.ref = "room" }
 debts-android-application-firebase = { id = "debts.android.application.firebase", version.ref = "firebase-crashlytics-gradle" }
 debts-android-image-loader = { id = "debts.android.image.loader", version.ref = "glide" }

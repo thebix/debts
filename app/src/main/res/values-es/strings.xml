@@ -2,11 +2,6 @@
 <resources>
     <string name="app_name">"Deudas"</string>
 
-    <!-- Defaults -->
-    <string name="default_positive_button">"Vale"</string>
-    <string name="default_negative_button">"Cancelar"</string>
-    <string name="default_dialog_title">"¿Estás seguro?"</string>
-
     <!-- Home activity -->
     <string name="home_pager_tab_all">"Todos"</string>
     <string name="home_pager_tab_debtors">"Deudores"</string>

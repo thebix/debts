@@ -1,13 +1,13 @@
 package debts.usecase
 
-import debts.common.android.extensions.toSimpleDateTimeString
+import debts.core.common.android.extensions.toSimpleDateTimeString
 import debts.repository.DebtsRepository
 import io.reactivex.Single
 import io.reactivex.functions.Function3
 import java.util.Date
 
 class GetDebtsCsvContentUseCase(
-    private val repository: DebtsRepository
+    private val repository: DebtsRepository,
 ) {
 
     fun execute(): Single<String> {

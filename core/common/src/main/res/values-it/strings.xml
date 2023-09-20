@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Defaults -->
+    <string name="default_positive_button">"OK"</string>
+    <string name="default_negative_button">"Annulla"</string>
+    <string name="default_dialog_title">"Sei sicuro?"</string>
+</resources>

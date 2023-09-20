@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Defaults -->
+    <string name="default_positive_button">"ОК"</string>
+    <string name="default_negative_button">"Отказати"</string>
+    <string name="default_dialog_title">"Да ли сте сигурни?"</string>
+
+</resources>

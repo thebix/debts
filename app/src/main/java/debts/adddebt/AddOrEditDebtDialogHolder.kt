@@ -3,7 +3,7 @@ package debts.adddebt
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.datepicker.MaterialDatePicker
-import debts.common.android.extensions.showAlert
+import debts.core.common.android.extensions.showAlert
 import debts.home.list.adapter.ContactsItemViewModel
 import net.thebix.debts.R
 import timber.log.Timber

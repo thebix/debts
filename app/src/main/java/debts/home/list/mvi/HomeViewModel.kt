@@ -1,13 +1,13 @@
 package debts.home.list.mvi
 
-import debts.common.android.mvi.MviViewModel
-import debts.common.android.mvi.OneShot
+import debts.core.common.android.mvi.MviViewModel
+import debts.core.common.android.mvi.OneShot
 import debts.home.list.adapter.toContactsItemViewModel
 import debts.repository.SortType
 import io.reactivex.functions.BiFunction
 
 class HomeViewModel(
-    interactor: HomeInteractor
+    interactor: HomeInteractor,
 ) : MviViewModel<HomeIntention, HomeAction, HomeResult, HomeState>(interactor) {
 
     override val defaultState: HomeState
@@ -26,6 +26,7 @@ class HomeViewModel(
                     else -> SortType.AMOUNT_ASC
                 }
             )
+
             is HomeIntention.ToggleSortByName -> HomeAction.SortBy(
                 when (intent.currentSortType) {
                     SortType.NAME_ASC -> SortType.NAME_DESC
@@ -33,6 +34,7 @@ class HomeViewModel(
                     else -> SortType.NAME_ASC
                 }
             )
+
             HomeIntention.OpenSettings -> HomeAction.OpenSettings
             is HomeIntention.ShareAllDebts -> HomeAction.ShareAllDebts(intent.titleText)
             is HomeIntention.AddDebt -> HomeAction.AddDebt(
@@ -42,10 +44,12 @@ class HomeViewModel(
                 intent.comment,
                 intent.date
             )
+
             is HomeIntention.OpenAddDebtDialog -> HomeAction.OpenAddDebtDialog(
                 intent.contactPermission,
                 intent.requestCode
             )
+
             HomeIntention.SyncWithContacts -> HomeAction.SyncWithContacts
         }
 
@@ -54,11 +58,13 @@ class HomeViewModel(
             when (result) {
                 HomeResult.Error ->
                     prevState.copy(isError = OneShot(true))
+
                 is HomeResult.SortBy -> {
                     prevState.copy(
                         sortType = OneShot(result.sortType)
                     )
                 }
+
                 is HomeResult.ShowAddDebtDialog ->
                     prevState.copy(
                         contacts = result.items.map { it.toContactsItemViewModel() },
