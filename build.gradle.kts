@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.google.services) apply (false)
     alias(libs.plugins.triplet.play) apply (false)
     alias(libs.plugins.detekt)
+    alias(libs.plugins.android.library) apply false
 }
 
 detekt {
