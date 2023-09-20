@@ -20,17 +20,17 @@ import com.android.build.api.dsl.CommonExtension
 import config.AndroidConfig
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
-import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /**
  * Configure base Kotlin with Android options
  */
 internal fun Project.configureKotlinAndroid(
-    commonExtension: CommonExtension<*, *, *, *>,
+    commonExtension: CommonExtension<*, *, *, *, *>,
 ) {
     commonExtension.apply {
         compileSdk = AndroidConfig.compileSdkVersion
@@ -38,15 +38,6 @@ internal fun Project.configureKotlinAndroid(
         defaultConfig {
             minSdk = AndroidConfig.minSdkVersion
         }
-
-        // region This section is added because com.android.tools.build:gradle:7.4.2 is used
-        // this probably can be removed completely when plugin is updated to 8.1.0-alpha09 and upper
-        // link: https://kotlinlang.org/docs/gradle-configure-project.html#gradle-java-toolchains-support
-        compileOptions {
-            sourceCompatibility = JavaVersion.toVersion(libs.findVersion("java").get())
-            targetCompatibility = JavaVersion.toVersion(libs.findVersion("java").get())
-        }
-        // endregion
     }
 
     configureKotlin()
@@ -56,11 +47,6 @@ internal fun Project.configureKotlinAndroid(
  * Configure base Kotlin options for JVM (non-Android)
  */
 internal fun Project.configureKotlinJvm() {
-    extensions.configure<JavaPluginExtension> {
-        sourceCompatibility = JavaVersion.toVersion(libs.findVersion("java").get())
-        targetCompatibility = JavaVersion.toVersion(libs.findVersion("java").get())
-    }
-
     configureKotlin()
 }
 
@@ -68,10 +54,12 @@ internal fun Project.configureKotlinJvm() {
  * Configure base Kotlin options
  */
 private fun Project.configureKotlin() {
+    extensions.configure<KotlinAndroidProjectExtension> {
+        jvmToolchain(JavaVersion.toVersion(libs.findVersion("java").get()).ordinal)
+    }
     // Use withType to workaround https://youtrack.jetbrains.com/issue/KT-55947
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions {
-            jvmTarget = JavaVersion.toVersion(libs.findVersion("java").get()).toString()
             // Treat all Kotlin warnings as errors (disabled by default)
             // Override by setting warningsAsErrors=true in your ~/.gradle/gradle.properties
             val warningsAsErrors: String? by project
