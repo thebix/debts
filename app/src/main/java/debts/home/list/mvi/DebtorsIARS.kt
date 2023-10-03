@@ -8,9 +8,9 @@ import debts.core.common.android.mvi.MviResult
 import debts.core.common.android.mvi.MviState
 import debts.core.common.android.mvi.OneShot
 import debts.core.common.android.mvi.ViewStateWithId
-import debts.home.list.TabTypes
 import debts.home.list.adapter.DebtorsItemViewModel
-import debts.usecase.DebtorsListItemModel
+import debts.core.usecase.data.DebtorsListItemModel
+import debts.core.usecase.data.TabTypes
 
 sealed class DebtorsIntention : MviIntention {
 

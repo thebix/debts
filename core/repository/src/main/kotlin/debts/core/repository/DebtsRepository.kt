@@ -1,4 +1,4 @@
-package debts.repository
+package debts.core.repository
 
 import android.content.ContentResolver
 import android.provider.ContactsContract
@@ -6,9 +6,9 @@ import debts.core.common.android.prefs.Preferences
 import debts.db.DebtEntity
 import debts.db.DebtorEntity
 import debts.db.DebtsDao
-import debts.usecase.ContactsItemModel
-import debts.usecase.DebtModel
-import debts.usecase.DebtorModel
+import debts.core.repository.data.ContactsItemModel
+import debts.core.repository.data.DebtModel
+import debts.core.repository.data.DebtorModel
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

@@ -1,4 +1,4 @@
-package debts.repository
+package debts.core.repository
 
 enum class SortType {
     NOTHING,

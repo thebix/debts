@@ -28,3 +28,4 @@ dependencyResolutionManagement {
 include(":app")
 include(":core:common")
 include(":core:db")
+include(":core:repository")

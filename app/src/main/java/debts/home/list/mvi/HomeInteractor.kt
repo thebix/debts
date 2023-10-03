@@ -2,14 +2,14 @@ package debts.home.list.mvi
 
 import debts.common.android.DebtsNavigator
 import debts.core.common.android.mvi.MviInteractor
-import debts.home.list.TabTypes
-import debts.repository.DebtsRepository
-import debts.usecase.AddDebtUseCase
-import debts.usecase.GetContactsUseCase
-import debts.usecase.GetDebtsCsvContentUseCase
-import debts.usecase.ObserveDebtorsListItemsUseCase
-import debts.usecase.SyncDebtorsWithContactsUseCase
-import debts.usecase.UpdateDbDebtsCurrencyUseCase
+import debts.core.repository.DebtsRepository
+import debts.core.usecase.AddDebtUseCase
+import debts.core.usecase.GetContactsUseCase
+import debts.core.usecase.GetDebtsCsvContentUseCase
+import debts.core.usecase.ObserveDebtorsListItemsUseCase
+import debts.core.usecase.SyncDebtorsWithContactsUseCase
+import debts.core.usecase.UpdateDbDebtsCurrencyUseCase
+import debts.core.usecase.data.TabTypes
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer

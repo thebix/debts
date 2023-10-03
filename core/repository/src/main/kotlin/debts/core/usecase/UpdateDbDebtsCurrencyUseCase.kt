@@ -1,6 +1,6 @@
-package debts.usecase
+package debts.core.usecase
 
-import debts.repository.DebtsRepository
+import debts.core.repository.DebtsRepository
 import io.reactivex.Completable
 
 class UpdateDbDebtsCurrencyUseCase(

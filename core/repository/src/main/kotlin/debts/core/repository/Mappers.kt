@@ -1,9 +1,9 @@
-package debts.repository
+package debts.core.repository
 
 import debts.db.DebtEntity
 import debts.db.DebtorEntity
-import debts.usecase.DebtModel
-import debts.usecase.DebtorModel
+import debts.core.repository.data.DebtModel
+import debts.core.repository.data.DebtorModel
 
 fun DebtorEntity.toDebtorModel() =
     DebtorModel(

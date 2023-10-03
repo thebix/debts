@@ -24,6 +24,7 @@ import debts.home.list.adapter.HeaderItemDecoration
 import debts.home.list.mvi.DebtorsIntention
 import debts.home.list.mvi.DebtorsState
 import debts.home.list.mvi.DebtorsViewModel
+import debts.core.usecase.data.TabTypes
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

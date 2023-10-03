@@ -1,7 +1,7 @@
-package debts.usecase
+package debts.core.usecase
 
 import debts.core.common.android.extensions.toFormattedCurrency
-import debts.repository.DebtsRepository
+import debts.core.repository.DebtsRepository
 import io.reactivex.Single
 import io.reactivex.functions.Function3
 import timber.log.Timber

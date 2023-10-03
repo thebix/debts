@@ -2,9 +2,9 @@ package debts.preferences.main.mvi
 
 import debts.common.android.DebtsNavigator
 import debts.core.common.android.mvi.MviInteractor
-import debts.repository.DebtsRepository
-import debts.usecase.SyncDebtorsWithContactsUseCase
-import debts.usecase.UpdateDbDebtsCurrencyUseCase
+import debts.core.repository.DebtsRepository
+import debts.core.usecase.SyncDebtorsWithContactsUseCase
+import debts.core.usecase.UpdateDbDebtsCurrencyUseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.schedulers.Schedulers

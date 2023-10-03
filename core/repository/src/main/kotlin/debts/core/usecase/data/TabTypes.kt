@@ -1,4 +1,4 @@
-package debts.home.list
+package debts.core.usecase.data
 
 enum class TabTypes(val page: Int) {
     All(0),

@@ -2,16 +2,16 @@ package debts.details.mvi
 
 import debts.common.android.DebtsNavigator
 import debts.core.common.android.mvi.MviInteractor
-import debts.repository.DebtsRepository
-import debts.usecase.AddDebtUseCase
-import debts.usecase.ClearHistoryUseCase
-import debts.usecase.GetDebtUseCase
-import debts.usecase.GetShareDebtorContentUseCase
-import debts.usecase.ObserveDebtorUseCase
-import debts.usecase.ObserveDebtsUseCase
-import debts.usecase.RemoveDebtUseCase
-import debts.usecase.RemoveDebtorUseCase
-import debts.usecase.UpdateDebtUseCase
+import debts.core.repository.DebtsRepository
+import debts.core.usecase.AddDebtUseCase
+import debts.core.usecase.ClearHistoryUseCase
+import debts.core.usecase.GetDebtUseCase
+import debts.core.usecase.GetShareDebtorContentUseCase
+import debts.core.usecase.ObserveDebtorUseCase
+import debts.core.usecase.ObserveDebtsUseCase
+import debts.core.usecase.RemoveDebtUseCase
+import debts.core.usecase.RemoveDebtorUseCase
+import debts.core.usecase.UpdateDebtUseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.schedulers.Schedulers
