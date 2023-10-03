@@ -29,12 +29,12 @@ import debts.core.usecase.UpdateDbDebtsCurrencyUseCase
 import debts.core.usecase.UpdateDebtUseCase
 import debts.details.mvi.DetailsInteractor
 import debts.details.mvi.DetailsViewModel
+import debts.feature.preferences.mvi.MainSettingsInteractor
+import debts.feature.preferences.mvi.MainSettingsViewModel
 import debts.home.list.mvi.DebtorsInteractor
 import debts.home.list.mvi.DebtorsViewModel
 import debts.home.list.mvi.HomeInteractor
 import debts.home.list.mvi.HomeViewModel
-import debts.preferences.main.mvi.MainSettingsInteractor
-import debts.preferences.main.mvi.MainSettingsViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel

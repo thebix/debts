@@ -30,3 +30,5 @@ include(":core:common")
 include(":core:db")
 include(":core:repository")
 include(":core:resource")
+
+include(":feature:preferences")

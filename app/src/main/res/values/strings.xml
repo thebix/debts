@@ -53,19 +53,4 @@
     <string name="details_debts_item_menu_change">"Change"</string>
     <string name="details_remove_debt_message">"Remove one debt?"</string>
 
-    <!-- Preferences activity -->
-    <string name="settings_title">"Settings"</string>
-
-    <!-- MainSettings fragment -->
-    <string name="preference_main_settings_general_title">"General"</string>
-    <string name="preference_main_settings_currency">"Currency"</string>
-    <string name="preference_main_settings_currency_summary">"Selected: %1$s"</string>
-    <string name="preference_main_settings_currency_custom">"Custom currency"</string>
-    <string name="preference_main_settings_version">"Version"</string>
-    <string name="preference_main_settings_sync_title">"Synchronization"</string>
-    <string name="preference_main_settings_sync_contacts">"Sync with contacts"</string>
-    <string name="preference_main_settings_sync_contacts_summary">"Update names and pictures"</string>
-    <string name="preference_main_settings_state_updating">"Updating…"</string>
-    <string name="preference_main_settings_state_updated">"Successfully updated"</string>
-    <string name="preference_main_settings_state_error">"Error occurred"</string>
 </resources>

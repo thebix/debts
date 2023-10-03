@@ -1,11 +1,10 @@
-package debts.preferences
+package debts.feature.preferences
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import debts.core.common.android.BaseActivity
-import debts.preferences.main.MainSettingsFragment
-import net.thebix.debts.R
+import net.thebix.debts.feature.preferences.R
 
 class PreferencesActivity : BaseActivity() {
 

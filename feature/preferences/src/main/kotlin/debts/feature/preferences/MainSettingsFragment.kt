@@ -1,4 +1,4 @@
-package debts.preferences.main
+package debts.feature.preferences
 
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -16,13 +16,13 @@ import debts.core.common.android.buildconfig.BuildConfigData
 import debts.core.common.android.extensions.findViewById
 import debts.core.common.android.navigation.FragmentScreenContext
 import debts.core.common.android.navigation.ScreenContextHolder
-import debts.preferences.main.mvi.MainSettingsIntention
-import debts.preferences.main.mvi.MainSettingsState
-import debts.preferences.main.mvi.MainSettingsViewModel
+import debts.feature.preferences.mvi.MainSettingsIntention
+import debts.feature.preferences.mvi.MainSettingsState
+import debts.feature.preferences.mvi.MainSettingsViewModel
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
-import net.thebix.debts.R
+import net.thebix.debts.feature.preferences.R
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber

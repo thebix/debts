@@ -45,11 +45,12 @@ dependencies {
     implementation(project(":core:repository"))
     implementation(project(":core:resource"))
 
+    implementation(project(":feature:preferences"))
+
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core)
     implementation(libs.google.android.material)
-    implementation(libs.androidx.preference)
     implementation(libs.koin)
     implementation(libs.bundles.rxjava)
 

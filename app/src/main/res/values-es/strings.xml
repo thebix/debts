@@ -50,22 +50,4 @@
     <string name="details_debts_item_menu_remove">"Eliminar"</string>
     <string name="details_remove_debt_message">"¿Eliminar una deuda?"</string>
 
-    <!-- Preferences activity -->
-    <string name="settings_title">"Ajustes"</string>
-
-    <!-- MainSettings fragment -->
-    <string name="preference_main_settings_general_title">"General"</string>
-    <string name="preference_main_settings_currency">"Moneda"</string>
-    <string name="preference_main_settings_currency_summary">"Seleccionado: %1$s"</string>
-    <string name="preference_main_settings_currency_custom">"La moneda personalizada"</string>
-    <string name="preference_main_settings_version">"Versión"</string>
-    <string name="preference_main_settings_sync_title">"Sincronización"</string>
-    <string name="preference_main_settings_sync_contacts">"Sincronizar con contactos"</string>
-    <string name="preference_main_settings_sync_contacts_summary">"Actualizar los nombres y las imágenes"</string>
-    <string name="preference_main_settings_state_updating">"Está actualizando…"</string>
-    <string name="preference_main_settings_state_updated">"Está actualizado con éxito"</string>
-    <string name="preference_main_settings_state_error">"Ocurrió un error"</string>
-    <string name="home_debtors_toast_debt_changed">"La deuda está cambiada"</string>
-    <string name="home_add_debt_change_title">"Cambiar"</string>
-    <string name="details_debts_item_menu_change">"Cambiar"</string>
 </resources>

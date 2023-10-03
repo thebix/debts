@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Preferences activity -->
+    <string name="settings_title">"Impostazioni"</string>
+
+    <!-- MainSettings fragment -->
+    <string name="preference_main_settings_general_title">"Generale"</string>
+    <string name="preference_main_settings_currency">"Valuta"</string>
+    <string name="preference_main_settings_currency_summary">"Selezionato: %1$s"</string>
+    <string name="preference_main_settings_currency_custom">"Valuta personalizzata"</string>
+    <string name="preference_main_settings_version">"Versione"</string>
+    <string name="preference_main_settings_sync_title">"Sincronizzazione"</string>
+    <string name="preference_main_settings_sync_contacts">"Sincronizza con contatti"</string>
+    <string name="preference_main_settings_sync_contacts_summary">"Aggiorna nomi e immagini"</string>
+    <string name="preference_main_settings_state_updating">"Aggiornamento…"</string>
+    <string name="preference_main_settings_state_updated">"Aggiornato con successo"</string>
+    <string name="preference_main_settings_state_error">"Riscontrato errore"</string>
+    <string name="home_debtors_toast_debt_changed">"Il debito è stato modificato"</string>
+    <string name="home_add_debt_change_title">"Modificare"</string>
+    <string name="details_debts_item_menu_change">"Modificare"</string>
+</resources>
