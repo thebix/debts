@@ -1,4 +1,4 @@
-package debts.db
+package debts.core.db
 
 import androidx.room.Dao
 import androidx.room.Database
