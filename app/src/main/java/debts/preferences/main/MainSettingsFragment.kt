@@ -11,10 +11,10 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
-import debts.common.android.FragmentScreenContext
 import debts.core.common.android.BaseActivity
 import debts.core.common.android.buildconfig.BuildConfigData
 import debts.core.common.android.extensions.findViewById
+import debts.core.common.android.navigation.FragmentScreenContext
 import debts.core.common.android.navigation.ScreenContextHolder
 import debts.preferences.main.mvi.MainSettingsIntention
 import debts.preferences.main.mvi.MainSettingsState

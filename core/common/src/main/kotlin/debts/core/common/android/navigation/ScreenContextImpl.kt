@@ -1,4 +1,4 @@
-package debts.common.android
+package debts.core.common.android.navigation
 
 import android.content.Intent
 import android.os.Handler
@@ -10,29 +10,9 @@ import androidx.fragment.app.Fragment
 import debts.core.common.android.BaseActivity
 import debts.core.common.android.extensions.isPermissionGranted
 import debts.core.common.android.extensions.tryToFindActivity
-import debts.core.common.android.navigation.ScreenContext
-import debts.core.common.android.navigation.ScreenContextHolder
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.ref.WeakReference
-
-class ScreenContextHolderImpl : ScreenContextHolder {
-
-    private val screens: MutableMap<String, ScreenContext> = mutableMapOf()
-
-    override fun set(screenKey: String, contextHolder: ScreenContext) {
-        screens[screenKey] = contextHolder
-    }
-
-    override fun get(screenKey: String): ScreenContext? = screens[screenKey]
-
-    override fun remove(screenKey: String) {
-        screens[screenKey]?.let { screen ->
-            screen.dispose()
-        }
-        screens.remove(screenKey)
-    }
-}
 
 class FragmentScreenContext(
     fragment: Fragment,

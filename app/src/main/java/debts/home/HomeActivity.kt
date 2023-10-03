@@ -15,10 +15,10 @@ import com.google.android.material.tabs.TabLayout
 import com.jakewharton.rxbinding3.view.clicks
 import debts.adddebt.AddOrEditDebtDialogHolder
 import debts.adddebt.DebtLayoutData
-import debts.common.android.ActivityScreenContext
 import debts.core.common.android.BaseActivity
 import debts.core.common.android.buildconfig.BuildConfigData
 import debts.core.common.android.extensions.getColorCompat
+import debts.core.common.android.navigation.ActivityScreenContext
 import debts.core.common.android.navigation.ScreenContextHolder
 import debts.core.repository.SortType
 import debts.home.list.adapter.ContactsItemViewModel
