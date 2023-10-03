@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import debts.common.android.FragmentScreenContext
 import debts.core.common.android.BaseFragment
 import debts.core.common.android.FragmentArgumentDelegate
+import debts.core.common.android.buildconfig.BuildConfigData
 import debts.core.common.android.extensions.getDrawableCompat
 import debts.core.common.android.extensions.showAlert
 import debts.core.common.android.extensions.toFormattedCurrency
@@ -74,6 +75,7 @@ class DebtorsFragment : BaseFragment() {
         }
     }
     private val screenContextHolder: ScreenContextHolder by inject()
+    private val buildConfigData: BuildConfigData by inject()
     private val adapter: DebtorsAdapter = DebtorsAdapter(itemCallback)
     private val intentionSubject = PublishSubject.create<DebtorsIntention>()
 
@@ -134,7 +136,10 @@ class DebtorsFragment : BaseFragment() {
 
         screenContextHolder.set(
             getDebtorsDebtsNavigatorName(page),
-            FragmentScreenContext(this)
+            FragmentScreenContext(
+                fragment = this,
+                applicationId = buildConfigData.getApplicationId(),
+            )
         )
         disposables = CompositeDisposable(
             viewModel.states()

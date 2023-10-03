@@ -3,6 +3,8 @@ package debts.di
 import androidx.room.Room
 import debts.common.android.DebtsNavigatorImpl
 import debts.common.android.ScreenContextHolderImpl
+import debts.common.android.buildconfig.BuildConfigDataImpl
+import debts.core.common.android.buildconfig.BuildConfigData
 import debts.core.common.android.navigation.DebtsNavigator
 import debts.core.common.android.navigation.ScreenContextHolder
 import debts.core.common.android.prefs.AndroidPreferences
@@ -61,6 +63,9 @@ val appModule = module {
     }
     single<ScreenContextHolder> {
         ScreenContextHolderImpl()
+    }
+    single<BuildConfigData> {
+        BuildConfigDataImpl()
     }
 }
 
