@@ -17,6 +17,7 @@ import debts.adddebt.AddOrEditDebtDialogHolder
 import debts.adddebt.DebtLayoutData
 import debts.common.android.ActivityScreenContext
 import debts.core.common.android.BaseActivity
+import debts.core.common.android.buildconfig.BuildConfigData
 import debts.core.common.android.extensions.getColorCompat
 import debts.core.common.android.navigation.ScreenContextHolder
 import debts.core.repository.SortType
@@ -43,6 +44,7 @@ class HomeActivity : BaseActivity() {
 
     private val intentionSubject = PublishSubject.create<HomeIntention>()
     private val screenContextHolder: ScreenContextHolder by inject()
+    private val buildConfigData: BuildConfigData by inject()
     private val viewModel: HomeViewModel by viewModel()
     private val addOrEditDebtDialogHolderCallbacks = object : AddOrEditDebtDialogHolder.AddOrEditDebtDialogHolderCallback {
 
@@ -113,7 +115,10 @@ class HomeActivity : BaseActivity() {
 
         screenContextHolder.set(
             ScreenContextHolder.ACTIVITY_HOME,
-            ActivityScreenContext(this)
+            ActivityScreenContext(
+                activity = this,
+                applicationId = buildConfigData.getApplicationId(),
+            )
         )
         disposables = CompositeDisposable(
             viewModel.states()

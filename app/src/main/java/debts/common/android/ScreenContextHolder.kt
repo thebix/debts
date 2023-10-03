@@ -12,7 +12,6 @@ import debts.core.common.android.extensions.isPermissionGranted
 import debts.core.common.android.extensions.tryToFindActivity
 import debts.core.common.android.navigation.ScreenContext
 import debts.core.common.android.navigation.ScreenContextHolder
-import net.thebix.debts.BuildConfig
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.ref.WeakReference
@@ -37,7 +36,8 @@ class ScreenContextHolderImpl : ScreenContextHolder {
 
 class FragmentScreenContext(
     fragment: Fragment,
-    private val fragmentRef: WeakReference<Fragment> = WeakReference(fragment)
+    private val fragmentRef: WeakReference<Fragment> = WeakReference(fragment),
+    private val applicationId: String,
 ) : ScreenContext {
 
     private val handler = Handler(Looper.getMainLooper())
@@ -94,7 +94,8 @@ class FragmentScreenContext(
                     fileName,
                     fileContent,
                     fileMimeType,
-                    activity as BaseActivity
+                    activity as BaseActivity,
+                    applicationId,
                 )
             }
         }
@@ -137,7 +138,8 @@ class FragmentScreenContext(
 
 class ActivityScreenContext(
     activity: BaseActivity,
-    private val activityRef: WeakReference<BaseActivity> = WeakReference(activity)
+    private val activityRef: WeakReference<BaseActivity> = WeakReference(activity),
+    private val applicationId: String,
 ) : ScreenContext {
 
     private val handler = Handler(Looper.getMainLooper())
@@ -191,7 +193,8 @@ class ActivityScreenContext(
                 fileName,
                 fileContent,
                 fileMimeType,
-                activity
+                activity,
+                applicationId,
             )
         }
     }
@@ -259,7 +262,8 @@ private fun sendExplicitFile(
     fileName: String,
     fileContent: String,
     fileMimeType: String,
-    activity: BaseActivity
+    activity: BaseActivity,
+    applicationId: String,
 ) {
     activity.packageManager?.let { packageManager ->
 
@@ -275,7 +279,7 @@ private fun sendExplicitFile(
         outputStream.close()
         val uri = FileProvider.getUriForFile(
             applicationContext,
-            "${BuildConfig.APPLICATION_ID}.fileprovider",
+            "${applicationId}.fileprovider",
             file
         )
         val intentShareFile = Intent(Intent.ACTION_SEND)

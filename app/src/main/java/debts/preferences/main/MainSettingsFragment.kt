@@ -13,6 +13,7 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import debts.common.android.FragmentScreenContext
 import debts.core.common.android.BaseActivity
+import debts.core.common.android.buildconfig.BuildConfigData
 import debts.core.common.android.extensions.findViewById
 import debts.core.common.android.navigation.ScreenContextHolder
 import debts.preferences.main.mvi.MainSettingsIntention
@@ -21,7 +22,6 @@ import debts.preferences.main.mvi.MainSettingsViewModel
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
-import net.thebix.debts.BuildConfig
 import net.thebix.debts.R
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,6 +35,7 @@ class MainSettingsFragment : PreferenceFragmentCompat() {
     }
 
     private val screenContextHolder: ScreenContextHolder by inject()
+    private val buildConfigData: BuildConfigData by inject()
     private val viewModel: MainSettingsViewModel by viewModel()
     private val intentionSubject = PublishSubject.create<MainSettingsIntention>()
 
@@ -78,7 +79,7 @@ class MainSettingsFragment : PreferenceFragmentCompat() {
         syncContactsPref = preferenceScreen.findPreference("preference_main_settings_sync_contacts")
 
         preferenceScreen.findPreference<Preference>("preference_main_settings_version")?.summary =
-            "${BuildConfig.VERSION_NAME}"
+            buildConfigData.getVersionName()
 
         currencyCustomPref?.isVisible = currencyListPref?.value == "Custom"
 
@@ -135,7 +136,10 @@ class MainSettingsFragment : PreferenceFragmentCompat() {
         super.onStart()
         screenContextHolder.set(
             ScreenContextHolder.FRAGMENT_MAIN_PREFERENCES,
-            FragmentScreenContext(this)
+            FragmentScreenContext(
+                fragment = this,
+                applicationId = buildConfigData.getApplicationId(),
+            )
         )
         disposables = CompositeDisposable(
             viewModel.states()
