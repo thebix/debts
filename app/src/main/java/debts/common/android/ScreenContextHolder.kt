@@ -4,32 +4,18 @@ import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
-import androidx.annotation.IdRes
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import debts.core.common.android.BaseActivity
 import debts.core.common.android.extensions.isPermissionGranted
 import debts.core.common.android.extensions.tryToFindActivity
+import debts.core.common.android.navigation.ScreenContext
+import debts.core.common.android.navigation.ScreenContextHolder
 import net.thebix.debts.BuildConfig
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.ref.WeakReference
-
-interface ScreenContextHolder {
-
-    companion object {
-
-        const val ACTIVITY_HOME = "ACTIVITY_HOME"
-        const val FRAGMENT_DEBTORS = "FRAGMENT_DEBTORS"
-        const val FRAGMENT_DETAILS = "FRAGMENT_DETAILS"
-        const val FRAGMENT_MAIN_PREFERENCES = "FRAGMENT_MAIN_PREFERENCES"
-    }
-
-    fun set(screenKey: String, contextHolder: ScreenContext)
-    fun get(screenKey: String): ScreenContext?
-    fun remove(screenKey: String)
-}
 
 class ScreenContextHolderImpl : ScreenContextHolder {
 
@@ -47,70 +33,6 @@ class ScreenContextHolderImpl : ScreenContextHolder {
         }
         screens.remove(screenKey)
     }
-}
-
-interface ScreenContext {
-
-    // region Navigation
-
-    fun replaceFragment(
-        @IdRes rootId: Int,
-        fragment: Fragment,
-        addToBackStack: Boolean = true,
-        animation: NavAnimation = NavAnimation.FADE
-    )
-
-    fun addFragment(
-        @IdRes rootId: Int,
-        fragment: Fragment,
-        addToBackStack: Boolean = true,
-        animation: NavAnimation = NavAnimation.FADE
-    )
-
-    fun openActivity(intent: Intent)
-
-    fun sendExplicit(
-        chooserTitle: String,
-        // TODO: change to Generic
-        message: String
-    )
-
-    fun sendExplicitFile(
-        chooserTitle: String,
-        fileName: String,
-        fileContent: String = "",
-        fileMimeType: String = "text/plain"
-    )
-
-    enum class NavAnimation(val value: List<Int>) {
-
-        FADE(
-            listOf<Int>(
-                net.thebix.debts.core.resource.R.anim.fade_in,
-                net.thebix.debts.core.resource.R.anim.fade_out,
-                net.thebix.debts.core.resource.R.anim.fade_in,
-                net.thebix.debts.core.resource.R.anim.fade_out
-            )
-        )
-    }
-
-    // endregion
-
-    // region Permissions
-
-    fun isPermissionGranted(permission: String): Boolean
-
-    fun requestPermissions(permissions: Array<String>, requestCode: Int)
-
-    // endregion
-
-    // region Notifications
-
-    fun showToast(text: String, duration: Int = Toast.LENGTH_SHORT)
-
-    // endregion
-
-    fun dispose()
 }
 
 class FragmentScreenContext(

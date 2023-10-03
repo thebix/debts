@@ -22,13 +22,13 @@ import com.jakewharton.rxbinding3.view.clicks
 import debts.adddebt.AddOrEditDebtDialogHolder
 import debts.adddebt.DebtLayoutData
 import debts.common.android.FragmentScreenContext
-import debts.common.android.ScreenContextHolder
 import debts.core.common.android.BaseFragment
 import debts.core.common.android.FragmentArgumentDelegate
 import debts.core.common.android.extensions.getDrawableCompat
 import debts.core.common.android.extensions.showAlert
 import debts.core.common.android.extensions.toFormattedCurrency
 import debts.core.common.android.extensions.tryToGoBack
+import debts.core.common.android.navigation.ScreenContextHolder
 import debts.details.adapter.DebtItemLayout
 import debts.details.adapter.DebtsAdapter
 import debts.details.mvi.DetailsIntention

@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import debts.common.android.FragmentScreenContext
-import debts.common.android.ScreenContextHolder
 import debts.core.common.android.BaseFragment
 import debts.core.common.android.FragmentArgumentDelegate
 import debts.core.common.android.extensions.getDrawableCompat
 import debts.core.common.android.extensions.showAlert
 import debts.core.common.android.extensions.toFormattedCurrency
+import debts.core.common.android.navigation.ScreenContextHolder
+import debts.core.usecase.data.TabTypes
 import debts.di.getDebtorsDebtsNavigatorName
 import debts.di.getDebtorsViewModelName
 import debts.home.list.adapter.DebtorsAdapter
@@ -24,7 +25,6 @@ import debts.home.list.adapter.HeaderItemDecoration
 import debts.home.list.mvi.DebtorsIntention
 import debts.home.list.mvi.DebtorsState
 import debts.home.list.mvi.DebtorsViewModel
-import debts.core.usecase.data.TabTypes
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

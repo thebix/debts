@@ -16,15 +16,15 @@ import com.jakewharton.rxbinding3.view.clicks
 import debts.adddebt.AddOrEditDebtDialogHolder
 import debts.adddebt.DebtLayoutData
 import debts.common.android.ActivityScreenContext
-import debts.common.android.ScreenContextHolder
 import debts.core.common.android.BaseActivity
 import debts.core.common.android.extensions.getColorCompat
+import debts.core.common.android.navigation.ScreenContextHolder
+import debts.core.repository.SortType
 import debts.home.list.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtsPagerAdapter
 import debts.home.list.mvi.HomeIntention
 import debts.home.list.mvi.HomeState
 import debts.home.list.mvi.HomeViewModel
-import debts.core.repository.SortType
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
