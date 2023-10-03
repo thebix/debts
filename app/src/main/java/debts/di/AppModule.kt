@@ -1,21 +1,14 @@
 package debts.di
 
 import androidx.room.Room
-import debts.common.android.DebtsNavigator
-import debts.common.android.ScreenContextHolder
+import debts.common.android.DebtsNavigatorImpl
 import debts.common.android.ScreenContextHolderImpl
+import debts.core.common.android.navigation.DebtsNavigator
+import debts.core.common.android.navigation.ScreenContextHolder
 import debts.core.common.android.prefs.AndroidPreferences
 import debts.core.common.android.prefs.Preferences
 import debts.core.db.DebtsDatabase
 import debts.core.db.migrations.migration1To2
-import debts.details.mvi.DetailsInteractor
-import debts.details.mvi.DetailsViewModel
-import debts.home.list.mvi.DebtorsInteractor
-import debts.home.list.mvi.DebtorsViewModel
-import debts.home.list.mvi.HomeInteractor
-import debts.home.list.mvi.HomeViewModel
-import debts.preferences.main.mvi.MainSettingsInteractor
-import debts.preferences.main.mvi.MainSettingsViewModel
 import debts.core.repository.DebtsRepository
 import debts.core.usecase.AddDebtUseCase
 import debts.core.usecase.ClearHistoryUseCase
@@ -32,6 +25,14 @@ import debts.core.usecase.RemoveDebtorUseCase
 import debts.core.usecase.SyncDebtorsWithContactsUseCase
 import debts.core.usecase.UpdateDbDebtsCurrencyUseCase
 import debts.core.usecase.UpdateDebtUseCase
+import debts.details.mvi.DetailsInteractor
+import debts.details.mvi.DetailsViewModel
+import debts.home.list.mvi.DebtorsInteractor
+import debts.home.list.mvi.DebtorsViewModel
+import debts.home.list.mvi.HomeInteractor
+import debts.home.list.mvi.HomeViewModel
+import debts.preferences.main.mvi.MainSettingsInteractor
+import debts.preferences.main.mvi.MainSettingsViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -100,22 +101,22 @@ val useCasesModule = module {
 }
 
 val interactorModule = module {
-    single(qualifier = StringQualifier(ScreenContextHolder.FRAGMENT_MAIN_PREFERENCES)) {
-        DebtsNavigator(
+    single<DebtsNavigator>(qualifier = StringQualifier(ScreenContextHolder.FRAGMENT_MAIN_PREFERENCES)) {
+        DebtsNavigatorImpl(
             screenContextHolder = get(),
             applicationContext = androidContext(),
             name = ScreenContextHolder.FRAGMENT_MAIN_PREFERENCES
         )
     }
-    single(qualifier = StringQualifier(ScreenContextHolder.FRAGMENT_DETAILS)) {
-        DebtsNavigator(
+    single<DebtsNavigator>(qualifier = StringQualifier(ScreenContextHolder.FRAGMENT_DETAILS)) {
+        DebtsNavigatorImpl(
             screenContextHolder = get(),
             applicationContext = androidContext(),
             name = ScreenContextHolder.FRAGMENT_DETAILS
         )
     }
-    single(qualifier = StringQualifier(ScreenContextHolder.ACTIVITY_HOME)) {
-        DebtsNavigator(
+    single<DebtsNavigator>(qualifier = StringQualifier(ScreenContextHolder.ACTIVITY_HOME)) {
+        DebtsNavigatorImpl(
             screenContextHolder = get(),
             applicationContext = androidContext(),
             name = ScreenContextHolder.ACTIVITY_HOME
@@ -123,8 +124,8 @@ val interactorModule = module {
     }
     for (page in 0..2) {
         // TODO: factory?
-        single(qualifier = StringQualifier(getDebtorsDebtsNavigatorName(page))) {
-            DebtsNavigator(
+        single<DebtsNavigator>(qualifier = StringQualifier(getDebtorsDebtsNavigatorName(page))) {
+            DebtsNavigatorImpl(
                 screenContextHolder = get(),
                 applicationContext = androidContext(),
                 name = getDebtorsDebtsNavigatorName(page)

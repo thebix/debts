@@ -9,6 +9,8 @@ android {
 
 dependencies {
 
+    implementation(project(":core:resource"))
+
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core)

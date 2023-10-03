@@ -1,27 +1,28 @@
 package debts.common.android
 
 import android.content.Context
-import android.widget.Toast
 import androidx.annotation.StringRes
+import debts.core.common.android.navigation.DebtsNavigator
+import debts.core.common.android.navigation.ScreenContextHolder
 import debts.details.DetailsActivity
 import debts.preferences.PreferencesActivity
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class DebtsNavigator(
+class DebtsNavigatorImpl(
     private val screenContextHolder: ScreenContextHolder,
     private val applicationContext: Context,
     private val name: String
-) {
+) : DebtsNavigator {
 
     // region App navigation
 
-    fun openDetails(debtorId: Long): Completable =
+    override fun openDetails(debtorId: Long): Completable =
         Completable.fromCallable {
             screenContextHolder.get(name)?.openActivity(DetailsActivity.createIntent(applicationContext, debtorId))
         }
 
-    fun openSettings(): Completable =
+    override fun openSettings(): Completable =
         Completable.fromCallable {
             screenContextHolder.get(name)?.openActivity(
                 PreferencesActivity.createIntent(applicationContext)
@@ -32,7 +33,7 @@ class DebtsNavigator(
 
     // region Share
 
-    fun sendExplicit(
+    override fun sendExplicit(
         chooserTitle: String,
         // TODO: change to Generic
         message: String
@@ -44,7 +45,7 @@ class DebtsNavigator(
             )
         }
 
-    fun sendExplicitFile(
+    override fun sendExplicitFile(
         chooserTitle: String,
         fileName: String,
         fileContent: String,
@@ -63,12 +64,12 @@ class DebtsNavigator(
 
     // region Permissions
 
-    fun isPermissionGranted(permission: String): Single<Boolean> =
+    override fun isPermissionGranted(permission: String): Single<Boolean> =
         Single.fromCallable {
             screenContextHolder.get(name)?.isPermissionGranted(permission) ?: false
         }
 
-    fun requestPermission(permission: String, requestCode: Int): Completable =
+    override fun requestPermission(permission: String, requestCode: Int): Completable =
         Completable.fromCallable {
             screenContextHolder.get(name)?.requestPermissions(arrayOf(permission), requestCode)
         }
@@ -77,11 +78,11 @@ class DebtsNavigator(
 
     // region Notifications
 
-    fun showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
+    override fun showToast(text: String, duration: Int) {
         screenContextHolder.get(name)?.showToast(text, duration)
     }
 
-    fun showToast(@StringRes textId: Int, duration: Int = Toast.LENGTH_SHORT) {
+    override fun showToast(@StringRes textId: Int, duration: Int) {
         showToast(applicationContext.getString(textId), duration)
     }
 

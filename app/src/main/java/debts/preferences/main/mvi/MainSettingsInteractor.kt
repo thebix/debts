@@ -1,7 +1,7 @@
 package debts.preferences.main.mvi
 
-import debts.common.android.DebtsNavigator
 import debts.core.common.android.mvi.MviInteractor
+import debts.core.common.android.navigation.DebtsNavigator
 import debts.core.repository.DebtsRepository
 import debts.core.usecase.SyncDebtorsWithContactsUseCase
 import debts.core.usecase.UpdateDbDebtsCurrencyUseCase

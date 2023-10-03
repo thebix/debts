@@ -1,7 +1,7 @@
 package debts.details.mvi
 
-import debts.common.android.DebtsNavigator
 import debts.core.common.android.mvi.MviInteractor
+import debts.core.common.android.navigation.DebtsNavigator
 import debts.core.repository.DebtsRepository
 import debts.core.usecase.AddDebtUseCase
 import debts.core.usecase.ClearHistoryUseCase
