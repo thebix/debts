@@ -32,6 +32,6 @@ class DetailsActivity : BaseActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        this.overridePendingTransition(0, R.anim.fade_out_activity)
+        this.overridePendingTransition(0, net.thebix.debts.core.resource.R.anim.fade_out_activity)
     }
 }

@@ -15,10 +15,10 @@ class DetailsTitleBehavior(
     attrs: AttributeSet,
 ) : CoordinatorLayout.Behavior<View>(context, attrs) {
 
-    private val marginStart: Int = context.resources.getDimensionPixelOffset(R.dimen.margin_16dp)
-    private val marginEnd: Int = context.resources.getDimensionPixelOffset(R.dimen.margin_16dp)
+    private val marginStart: Int = context.resources.getDimensionPixelOffset(net.thebix.debts.core.resource.R.dimen.margin_16dp)
+    private val marginEnd: Int = context.resources.getDimensionPixelOffset(net.thebix.debts.core.resource.R.dimen.margin_16dp)
     private val marginTop: Int =
-        context.resources.getDimensionPixelOffset(R.dimen.margin_74dp)
+        context.resources.getDimensionPixelOffset(net.thebix.debts.core.resource.R.dimen.margin_74dp)
 
     private var startX: Int = -1
     private var startY: Int = -1

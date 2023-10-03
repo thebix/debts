@@ -44,9 +44,9 @@ class DebtorItemLayout @JvmOverloads constructor(
         selfInflate(R.layout.home_debtors_item_layout)
         doInRuntime {
             applyLayoutParams()
-            setPaddingTopResCompat(R.dimen.padding_16dp)
-            setPaddingBottomResCompat(R.dimen.padding_16dp)
-            setPaddingStartResCompat(R.dimen.padding_16dp)
+            setPaddingTopResCompat(net.thebix.debts.core.resource.R.dimen.padding_16dp)
+            setPaddingBottomResCompat(net.thebix.debts.core.resource.R.dimen.padding_16dp)
+            setPaddingStartResCompat(net.thebix.debts.core.resource.R.dimen.padding_16dp)
             setSelectableItemBackground()
         }
         this.setOnClickListener {
@@ -94,10 +94,10 @@ class DebtorItemLayout @JvmOverloads constructor(
                 Date(lastDate).toSimpleDateString()
             )
             Glide.with(avatarView)
-                .load(if (avatarUrl.isNotBlank()) avatarUrl else R.mipmap.ic_launcher)
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
-                .fallback(R.mipmap.ic_launcher)
+                .load(if (avatarUrl.isNotBlank()) avatarUrl else net.thebix.debts.core.resource.R.mipmap.ic_launcher)
+                .placeholder(net.thebix.debts.core.resource.R.mipmap.ic_launcher)
+                .error(net.thebix.debts.core.resource.R.mipmap.ic_launcher)
+                .fallback(net.thebix.debts.core.resource.R.mipmap.ic_launcher)
                 .apply(RequestOptions.circleCropTransform())
                 .into(avatarView)
         }

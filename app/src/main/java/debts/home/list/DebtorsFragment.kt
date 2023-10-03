@@ -115,7 +115,7 @@ class DebtorsFragment : BaseFragment() {
                     context.applicationContext,
                     DividerItemDecoration.VERTICAL
                 ).apply {
-                    setDrawable(context.applicationContext.getDrawableCompat(R.drawable.list_divider_start_66dp))
+                    setDrawable(context.applicationContext.getDrawableCompat(net.thebix.debts.core.resource.R.drawable.list_divider_start_66dp))
                 }
             )
             layoutManager = LinearLayoutManager(context)

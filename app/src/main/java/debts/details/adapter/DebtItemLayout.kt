@@ -43,10 +43,10 @@ class DebtItemLayout @JvmOverloads constructor(
         selfInflate(R.layout.details_debts_item_layout)
         doInRuntime {
             applyLayoutParams()
-            setPaddingTopResCompat(R.dimen.padding_16dp)
-            setPaddingBottomResCompat(R.dimen.padding_16dp)
-            setPaddingStartResCompat(R.dimen.padding_64dp)
-            setPaddingEndResCompat(R.dimen.padding_8dp)
+            setPaddingTopResCompat(net.thebix.debts.core.resource.R.dimen.padding_16dp)
+            setPaddingBottomResCompat(net.thebix.debts.core.resource.R.dimen.padding_16dp)
+            setPaddingStartResCompat(net.thebix.debts.core.resource.R.dimen.padding_64dp)
+            setPaddingEndResCompat(net.thebix.debts.core.resource.R.dimen.padding_8dp)
             setSelectableItemBackground()
         }
         signView = findViewById(R.id.details_debts_item_sign)

@@ -73,10 +73,10 @@ internal class DebtLayout(context: Context) : ScrollView(context) {
         selfInflate(R.layout.add_or_edit_debt_layout)
         doInRuntime {
             applyLayoutParams()
-            setPaddingTopResCompat(R.dimen.padding_20dp)
-            setPaddingBottomResCompat(R.dimen.padding_20dp)
-            setPaddingStartResCompat(R.dimen.padding_20dp)
-            setPaddingEndResCompat(R.dimen.padding_20dp)
+            setPaddingTopResCompat(net.thebix.debts.core.resource.R.dimen.padding_20dp)
+            setPaddingBottomResCompat(net.thebix.debts.core.resource.R.dimen.padding_20dp)
+            setPaddingStartResCompat(net.thebix.debts.core.resource.R.dimen.padding_20dp)
+            setPaddingEndResCompat(net.thebix.debts.core.resource.R.dimen.padding_20dp)
         }
         avatarView = findViewById(R.id.home_add_debt_avatar)
         nameView = findViewById(R.id.home_add_debt_name)
@@ -112,7 +112,7 @@ internal class DebtLayout(context: Context) : ScrollView(context) {
                 .filter { params.contactId != null && nameView.hasFocus() }
                 .subscribe {
                     params = params.copy(contactId = null, avatarUrl = "")
-                    avatarView.setImageResource(R.mipmap.ic_launcher)
+                    avatarView.setImageResource(net.thebix.debts.core.resource.R.mipmap.ic_launcher)
                 },
             amountView.textChanges()
                 .subscribe {
@@ -162,10 +162,10 @@ internal class DebtLayout(context: Context) : ScrollView(context) {
 
     private fun showAvatar(url: String?) {
         Glide.with(avatarView)
-            .load(if (url.isNullOrBlank()) R.mipmap.ic_launcher else url)
-            .placeholder(R.mipmap.ic_launcher)
-            .error(R.mipmap.ic_launcher)
-            .fallback(R.mipmap.ic_launcher)
+            .load(if (url.isNullOrBlank()) net.thebix.debts.core.resource.R.mipmap.ic_launcher else url)
+            .placeholder(net.thebix.debts.core.resource.R.mipmap.ic_launcher)
+            .error(net.thebix.debts.core.resource.R.mipmap.ic_launcher)
+            .fallback(net.thebix.debts.core.resource.R.mipmap.ic_launcher)
             .apply(RequestOptions.circleCropTransform())
             .into(avatarView)
     }

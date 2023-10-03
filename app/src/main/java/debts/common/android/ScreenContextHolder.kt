@@ -9,10 +9,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import debts.core.common.android.BaseActivity
-import net.thebix.debts.BuildConfig
-import net.thebix.debts.R
 import debts.core.common.android.extensions.isPermissionGranted
 import debts.core.common.android.extensions.tryToFindActivity
+import net.thebix.debts.BuildConfig
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.ref.WeakReference
@@ -85,7 +84,14 @@ interface ScreenContext {
 
     enum class NavAnimation(val value: List<Int>) {
 
-        FADE(listOf<Int>(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out))
+        FADE(
+            listOf<Int>(
+                net.thebix.debts.core.resource.R.anim.fade_in,
+                net.thebix.debts.core.resource.R.anim.fade_out,
+                net.thebix.debts.core.resource.R.anim.fade_in,
+                net.thebix.debts.core.resource.R.anim.fade_out
+            )
+        )
     }
 
     // endregion

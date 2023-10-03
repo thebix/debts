@@ -127,7 +127,7 @@ class DetailsFragment : BaseFragment() {
                     context.applicationContext,
                     DividerItemDecoration.VERTICAL
                 ).apply {
-                    setDrawable(context.applicationContext.getDrawableCompat(R.drawable.list_divider_start_66dp))
+                    setDrawable(context.applicationContext.getDrawableCompat(net.thebix.debts.core.resource.R.drawable.list_divider_start_66dp))
                 }
             )
         }
@@ -233,10 +233,10 @@ class DetailsFragment : BaseFragment() {
 
             if (avatarView != null) {
                 Glide.with(avatarView!!)
-                    .load(if (avatarUrl.isNotBlank()) avatarUrl else R.mipmap.ic_launcher)
-                    .placeholder(R.mipmap.ic_launcher)
-                    .error(R.mipmap.ic_launcher)
-                    .fallback(R.mipmap.ic_launcher)
+                    .load(if (avatarUrl.isNotBlank()) avatarUrl else net.thebix.debts.core.resource.R.mipmap.ic_launcher)
+                    .placeholder(net.thebix.debts.core.resource.R.mipmap.ic_launcher)
+                    .error(net.thebix.debts.core.resource.R.mipmap.ic_launcher)
+                    .fallback(net.thebix.debts.core.resource.R.mipmap.ic_launcher)
                     .apply(RequestOptions.circleCropTransform())
                     .into(avatarView!!)
             }

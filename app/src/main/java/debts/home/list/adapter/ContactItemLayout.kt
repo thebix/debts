@@ -36,10 +36,10 @@ class ContactItemLayout @JvmOverloads constructor(
         with(data) {
             nameView.text = name
             Glide.with(context)
-                .load(if (avatarUrl.isNotBlank()) avatarUrl else R.mipmap.ic_launcher)
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
-                .fallback(R.mipmap.ic_launcher)
+                .load(if (avatarUrl.isNotBlank()) avatarUrl else net.thebix.debts.core.resource.R.mipmap.ic_launcher)
+                .placeholder(net.thebix.debts.core.resource.R.mipmap.ic_launcher)
+                .error(net.thebix.debts.core.resource.R.mipmap.ic_launcher)
+                .fallback(net.thebix.debts.core.resource.R.mipmap.ic_launcher)
                 .apply(RequestOptions.circleCropTransform())
                 .into(avatarView)
         }
