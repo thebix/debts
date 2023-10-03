@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Preferences activity -->
+    <string name="settings_title">"Подешавања"</string>
+
+    <!-- MainSettings fragment -->
+    <string name="preference_main_settings_general_title">"Општа"</string>
+    <string name="preference_main_settings_currency">"Валута"</string>
+    <string name="preference_main_settings_currency_summary">"Изабрано: %1$s"</string>
+    <string name="preference_main_settings_currency_custom">"Друга валута"</string>
+    <string name="preference_main_settings_version">"Верзиjа"</string>
+    <string name="preference_main_settings_sync_title">"Синхронизација"</string>
+    <string name="preference_main_settings_sync_contacts">"Синхронизовати са контактима"</string>
+    <string name="preference_main_settings_sync_contacts_summary">"Ажурирати имена и фотографиjе"</string>
+    <string name="preference_main_settings_state_updating">"Ажурирање..."</string>
+    <string name="preference_main_settings_state_updated">"Успешно jе ажурирано"</string>
+    <string name="preference_main_settings_state_error">"Дошло jе до грешке"</string>
+    <string name="home_debtors_toast_debt_changed"></string>
+    <string name="home_add_debt_change_title">"Променити"</string>
+    <string name="details_debts_item_menu_change">"Променити"</string>
+</resources>

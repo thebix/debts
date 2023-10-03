@@ -1,4 +1,4 @@
-package debts.preferences.main.mvi
+package debts.feature.preferences.mvi
 
 import debts.core.common.android.mvi.MviAction
 import debts.core.common.android.mvi.MviInitIntention

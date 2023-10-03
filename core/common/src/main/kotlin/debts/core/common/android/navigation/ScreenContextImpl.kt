@@ -259,7 +259,7 @@ private fun sendExplicitFile(
         outputStream.close()
         val uri = FileProvider.getUriForFile(
             applicationContext,
-            "${applicationId}.fileprovider",
+            "$applicationId.fileprovider",
             file
         )
         val intentShareFile = Intent(Intent.ACTION_SEND)

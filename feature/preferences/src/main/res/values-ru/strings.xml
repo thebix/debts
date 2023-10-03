@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Preferences activity -->
+    <string name="settings_title">"Настройки"</string>
+
+    <!-- MainSettings fragment -->
+    <string name="preference_main_settings_general_title">"Общие"</string>
+    <string name="preference_main_settings_currency">"Валюта"</string>
+    <string name="preference_main_settings_currency_summary">"Выбрано: %1$s"</string>
+    <string name="preference_main_settings_currency_custom">"Валюта вручную"</string>
+    <string name="preference_main_settings_version">"Версия"</string>
+    <string name="preference_main_settings_sync_title">"Синхронизация"</string>
+    <string name="preference_main_settings_sync_contacts">"Синхронизировать с контактами"</string>
+    <string name="preference_main_settings_sync_contacts_summary">"Обновить имена и картинки"</string>
+    <string name="preference_main_settings_state_updating">"Обновление…"</string>
+    <string name="preference_main_settings_state_updated">"Успешно обновлено"</string>
+    <string name="preference_main_settings_state_error">"Возникла ошибка"</string>
+    <string name="home_debtors_toast_debt_changed">"Долг изменен"</string>
+    <string name="home_add_debt_change_title">"Изменить"</string>
+    <string name="details_debts_item_menu_change">"Изменить"</string>
+</resources>
