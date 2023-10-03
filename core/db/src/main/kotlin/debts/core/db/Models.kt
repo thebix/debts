@@ -1,4 +1,4 @@
-package debts.db
+package debts.core.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

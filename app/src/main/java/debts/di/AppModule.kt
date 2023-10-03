@@ -6,8 +6,8 @@ import debts.common.android.ScreenContextHolder
 import debts.common.android.ScreenContextHolderImpl
 import debts.core.common.android.prefs.AndroidPreferences
 import debts.core.common.android.prefs.Preferences
-import debts.db.DebtsDatabase
-import debts.db.migrations.migration1To2
+import debts.core.db.DebtsDatabase
+import debts.core.db.migrations.migration1To2
 import debts.details.mvi.DetailsInteractor
 import debts.details.mvi.DetailsViewModel
 import debts.home.list.mvi.DebtorsInteractor

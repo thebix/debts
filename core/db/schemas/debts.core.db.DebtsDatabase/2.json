@@ -52,10 +52,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -102,10 +102,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [
           {
@@ -114,7 +114,8 @@
             "columnNames": [
               "debtorId"
             ],
-            "createSql": "CREATE  INDEX `index_debts_table_debtorId` ON `${TABLE_NAME}` (`debtorId`)"
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_debts_table_debtorId` ON `${TABLE_NAME}` (`debtorId`)"
           }
         ],
         "foreignKeys": [
@@ -135,7 +136,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"78d21b7e9b7bad0d9ee6ba3575aa1a0b\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '78d21b7e9b7bad0d9ee6ba3575aa1a0b')"
     ]
   }
 }

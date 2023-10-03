@@ -5,8 +5,7 @@ plugins {
 }
 
 android {
-    // TODO: rename to net.thebix.debts.core.db
-    namespace = "net.thebix.debts.db"
+    namespace = "net.thebix.debts.core.db"
 }
 
 dependencies {

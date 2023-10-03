@@ -1,9 +1,9 @@
-package debts.db.migrations
+package debts.core.db.migrations
 
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import debts.db.DebtEntity
-import debts.db.DebtorEntity
+import debts.core.db.DebtEntity
+import debts.core.db.DebtorEntity
 
 private const val DEBTORS_TABLE_NAME_LEGACY = "Debitors"
 private const val DEBTS_TABLE_NAME_LEGACY = "Debits"

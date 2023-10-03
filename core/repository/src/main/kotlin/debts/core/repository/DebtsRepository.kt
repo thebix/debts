@@ -3,9 +3,9 @@ package debts.core.repository
 import android.content.ContentResolver
 import android.provider.ContactsContract
 import debts.core.common.android.prefs.Preferences
-import debts.db.DebtEntity
-import debts.db.DebtorEntity
-import debts.db.DebtsDao
+import debts.core.db.DebtEntity
+import debts.core.db.DebtorEntity
+import debts.core.db.DebtsDao
 import debts.core.repository.data.ContactsItemModel
 import debts.core.repository.data.DebtModel
 import debts.core.repository.data.DebtorModel

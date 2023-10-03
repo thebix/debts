@@ -1,7 +1,7 @@
 package debts.core.repository
 
-import debts.db.DebtEntity
-import debts.db.DebtorEntity
+import debts.core.db.DebtEntity
+import debts.core.db.DebtorEntity
 import debts.core.repository.data.DebtModel
 import debts.core.repository.data.DebtorModel
 
