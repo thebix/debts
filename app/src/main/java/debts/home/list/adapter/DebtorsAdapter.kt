@@ -48,11 +48,11 @@ class DebtorsAdapter(
                     init {
                         doInRuntime {
                             applyLayoutParams()
-                            setPaddingTopResCompat(R.dimen.padding_8dp)
-                            setPaddingBottomResCompat(R.dimen.padding_8dp)
-                            setPaddingStartResCompat(R.dimen.padding_16dp)
-                            setBackgroundColor(context.getColorCompat(R.color.colorAccent))
-                            setTextColor(context.getColorCompat(R.color.debts_white))
+                            setPaddingTopResCompat(net.thebix.debts.core.resource.R.dimen.padding_8dp)
+                            setPaddingBottomResCompat(net.thebix.debts.core.resource.R.dimen.padding_8dp)
+                            setPaddingStartResCompat(net.thebix.debts.core.resource.R.dimen.padding_16dp)
+                            setBackgroundColor(context.getColorCompat(net.thebix.debts.core.resource.R.color.colorAccent))
+                            setTextColor(context.getColorCompat(net.thebix.debts.core.resource.R.color.debts_white))
                             isAllCaps = true
                         }
                     }

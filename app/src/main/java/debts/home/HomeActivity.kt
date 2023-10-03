@@ -83,7 +83,7 @@ class HomeActivity : BaseActivity() {
         setSupportActionBar(toolbarView)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         toolbarView.title = getString(R.string.app_name)
-        toolbarView.setBackgroundColor(applicationContext.getColorCompat(R.color.colorPrimary))
+        toolbarView.setBackgroundColor(applicationContext.getColorCompat(net.thebix.debts.core.resource.R.color.colorPrimary))
 
         fabView = findViewById(R.id.home_fab)
     }
@@ -178,13 +178,13 @@ class HomeActivity : BaseActivity() {
                     this@HomeActivity.sortType = sortType
                     val sortName = menu.findItem(R.id.home_debtors_menu_sort_name)
                     val sortAmount = menu.findItem(R.id.home_debtors_menu_sort_amount)
-                    sortAmount.setIcon(R.drawable.ic_arrow_drop_down)
-                    sortName.setIcon(R.drawable.ic_arrow_drop_down)
+                    sortAmount.setIcon(net.thebix.debts.core.resource.R.drawable.ic_arrow_drop_down)
+                    sortName.setIcon(net.thebix.debts.core.resource.R.drawable.ic_arrow_drop_down)
                     when (sortType) {
-                        SortType.AMOUNT_DESC -> sortAmount.setIcon(R.drawable.ic_clear)
-                        SortType.AMOUNT_ASC -> sortAmount.setIcon(R.drawable.ic_arrow_drop_up)
-                        SortType.NAME_DESC -> sortName.setIcon(R.drawable.ic_clear)
-                        SortType.NAME_ASC -> sortName.setIcon(R.drawable.ic_arrow_drop_up)
+                        SortType.AMOUNT_DESC -> sortAmount.setIcon(net.thebix.debts.core.resource.R.drawable.ic_clear)
+                        SortType.AMOUNT_ASC -> sortAmount.setIcon(net.thebix.debts.core.resource.R.drawable.ic_arrow_drop_up)
+                        SortType.NAME_DESC -> sortName.setIcon(net.thebix.debts.core.resource.R.drawable.ic_clear)
+                        SortType.NAME_ASC -> sortName.setIcon(net.thebix.debts.core.resource.R.drawable.ic_arrow_drop_up)
                         else -> {
                             // no-op
                         }
