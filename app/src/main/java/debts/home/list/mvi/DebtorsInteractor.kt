@@ -2,13 +2,13 @@ package debts.home.list.mvi
 
 import debts.common.android.DebtsNavigator
 import debts.core.common.android.mvi.MviInteractor
-import debts.home.list.TabTypes
-import debts.repository.DebtsRepository
-import debts.repository.SortType
-import debts.usecase.DebtorsListItemModel
-import debts.usecase.GetShareDebtorContentUseCase
-import debts.usecase.ObserveDebtorsListItemsUseCase
-import debts.usecase.RemoveDebtorUseCase
+import debts.core.repository.DebtsRepository
+import debts.core.repository.SortType
+import debts.core.usecase.GetShareDebtorContentUseCase
+import debts.core.usecase.ObserveDebtorsListItemsUseCase
+import debts.core.usecase.RemoveDebtorUseCase
+import debts.core.usecase.data.DebtorsListItemModel
+import debts.core.usecase.data.TabTypes
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.functions.Function4

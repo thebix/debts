@@ -1,6 +1,8 @@
-package debts.usecase
+package debts.core.usecase
 
-import debts.repository.DebtsRepository
+import debts.core.repository.DebtsRepository
+import debts.core.repository.data.DebtModel
+import debts.core.usecase.data.DebtorDetailsModel
 import io.reactivex.Observable
 import io.reactivex.functions.Function3
 

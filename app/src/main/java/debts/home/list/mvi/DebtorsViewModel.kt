@@ -2,8 +2,8 @@ package debts.home.list.mvi
 
 import debts.core.common.android.mvi.MviViewModel
 import debts.core.common.android.mvi.OneShot
-import debts.home.list.TabTypes
 import debts.home.list.adapter.toDebtorsItemViewModel
+import debts.core.usecase.data.TabTypes
 import io.reactivex.functions.BiFunction
 import kotlin.math.absoluteValue
 

@@ -3,7 +3,7 @@ package debts.home.list.mvi
 import debts.core.common.android.mvi.MviViewModel
 import debts.core.common.android.mvi.OneShot
 import debts.home.list.adapter.toContactsItemViewModel
-import debts.repository.SortType
+import debts.core.repository.SortType
 import io.reactivex.functions.BiFunction
 
 class HomeViewModel(

@@ -1,7 +1,8 @@
-package debts.usecase
+package debts.core.usecase
 
-import debts.home.list.TabTypes
-import debts.repository.DebtsRepository
+import debts.core.repository.DebtsRepository
+import debts.core.usecase.data.DebtorsListItemModel
+import debts.core.usecase.data.TabTypes
 import io.reactivex.Observable
 import io.reactivex.functions.Function3
 

@@ -42,6 +42,7 @@ android {
 dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:db"))
+    implementation(project(":core:repository"))
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)

@@ -8,7 +8,7 @@ import debts.core.common.android.mvi.MviState
 import debts.core.common.android.mvi.OneShot
 import debts.core.common.android.mvi.ViewStateWithId
 import debts.details.adapter.DebtsItemViewModel
-import debts.usecase.DebtItemModel
+import debts.core.usecase.data.DebtItemModel
 
 sealed class DetailsIntention : MviIntention {
 

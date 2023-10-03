@@ -1,8 +1,8 @@
 package debts.home.list.adapter
 
 import androidx.annotation.StringRes
-import debts.usecase.ContactsItemModel
-import debts.usecase.DebtorsListItemModel
+import debts.core.repository.data.ContactsItemModel
+import debts.core.usecase.data.DebtorsListItemModel
 
 sealed class DebtorsItemViewModel(open val id: Long) {
 

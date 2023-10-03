@@ -1,6 +1,7 @@
-package debts.usecase
+package debts.core.usecase
 
-import debts.repository.DebtsRepository
+import debts.core.repository.DebtsRepository
+import debts.core.usecase.data.DebtItemModel
 import io.reactivex.Observable
 
 class ObserveDebtsUseCase(

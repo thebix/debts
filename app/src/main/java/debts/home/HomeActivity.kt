@@ -24,7 +24,7 @@ import debts.home.list.adapter.DebtsPagerAdapter
 import debts.home.list.mvi.HomeIntention
 import debts.home.list.mvi.HomeState
 import debts.home.list.mvi.HomeViewModel
-import debts.repository.SortType
+import debts.core.repository.SortType
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
