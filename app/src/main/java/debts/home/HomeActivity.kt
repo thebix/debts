@@ -21,7 +21,7 @@ import debts.core.common.android.extensions.getColorCompat
 import debts.core.common.android.navigation.ActivityScreenContext
 import debts.core.common.android.navigation.ScreenContextHolder
 import debts.core.repository.SortType
-import debts.home.list.adapter.ContactsItemViewModel
+import debts.feature.contacts.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtsPagerAdapter
 import debts.home.list.mvi.HomeIntention
 import debts.home.list.mvi.HomeState

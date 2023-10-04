@@ -1,4 +1,4 @@
-package debts.home.list.adapter
+package debts.feature.contacts.adapter
 
 import android.content.Context
 import android.util.AttributeSet
@@ -11,7 +11,7 @@ import debts.core.common.android.adapters.ItemRenderer
 import debts.core.common.android.extensions.applyLayoutParams
 import debts.core.common.android.extensions.doInRuntime
 import debts.core.common.android.extensions.selfInflate
-import net.thebix.debts.R
+import net.thebix.debts.feature.contacts.R
 
 class ContactItemLayout @JvmOverloads constructor(
     context: Context,
@@ -36,7 +36,7 @@ class ContactItemLayout @JvmOverloads constructor(
         with(data) {
             nameView.text = name
             Glide.with(context)
-                .load(if (avatarUrl.isNotBlank()) avatarUrl else net.thebix.debts.core.resource.R.mipmap.ic_launcher)
+                .load(avatarUrl.ifBlank { net.thebix.debts.core.resource.R.mipmap.ic_launcher })
                 .placeholder(net.thebix.debts.core.resource.R.mipmap.ic_launcher)
                 .error(net.thebix.debts.core.resource.R.mipmap.ic_launcher)
                 .fallback(net.thebix.debts.core.resource.R.mipmap.ic_launcher)

@@ -45,6 +45,7 @@ dependencies {
     implementation(project(":core:repository"))
     implementation(project(":core:resource"))
 
+    implementation(project(":feature:contacts"))
     implementation(project(":feature:preferences"))
 
     implementation(libs.androidx.appcompat)

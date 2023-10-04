@@ -1,4 +1,4 @@
-package debts.home.list.adapter
+package debts.feature.contacts.adapter
 
 import android.content.Context
 import android.view.View

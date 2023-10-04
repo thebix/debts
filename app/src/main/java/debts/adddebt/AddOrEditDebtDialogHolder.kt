@@ -4,7 +4,7 @@ import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.datepicker.MaterialDatePicker
 import debts.core.common.android.extensions.showAlert
-import debts.home.list.adapter.ContactsItemViewModel
+import debts.feature.contacts.adapter.ContactsItemViewModel
 import net.thebix.debts.R
 import timber.log.Timber
 import java.lang.ref.WeakReference

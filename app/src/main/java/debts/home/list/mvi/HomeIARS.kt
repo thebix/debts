@@ -7,9 +7,9 @@ import debts.core.common.android.mvi.MviResult
 import debts.core.common.android.mvi.MviState
 import debts.core.common.android.mvi.OneShot
 import debts.core.common.android.mvi.ViewStateWithId
-import debts.home.list.adapter.ContactsItemViewModel
 import debts.core.repository.SortType
 import debts.core.repository.data.ContactsItemModel
+import debts.feature.contacts.adapter.ContactsItemViewModel
 
 sealed class HomeIntention : MviIntention {
 
