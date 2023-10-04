@@ -1,4 +1,4 @@
-package debts.common.android
+package debts.common.android.navigation
 
 import android.content.Context
 import androidx.annotation.StringRes

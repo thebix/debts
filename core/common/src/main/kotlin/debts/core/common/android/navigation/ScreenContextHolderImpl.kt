@@ -1,7 +1,4 @@
-package debts.common.android
-
-import debts.core.common.android.navigation.ScreenContext
-import debts.core.common.android.navigation.ScreenContextHolder
+package debts.core.common.android.navigation
 
 class ScreenContextHolderImpl : ScreenContextHolder {
 

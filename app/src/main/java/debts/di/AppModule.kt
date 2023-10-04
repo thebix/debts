@@ -1,8 +1,8 @@
 package debts.di
 
 import androidx.room.Room
-import debts.common.android.DebtsNavigatorImpl
-import debts.common.android.ScreenContextHolderImpl
+import debts.common.android.navigation.DebtsNavigatorImpl
+import debts.core.common.android.navigation.ScreenContextHolderImpl
 import debts.common.android.buildconfig.BuildConfigDataImpl
 import debts.core.common.android.buildconfig.BuildConfigData
 import debts.core.common.android.navigation.DebtsNavigator
@@ -28,7 +28,6 @@ import debts.core.usecase.SyncDebtorsWithContactsUseCase
 import debts.core.usecase.UpdateDbDebtsCurrencyUseCase
 import debts.core.usecase.UpdateDebtUseCase
 import debts.feature.details.mvi.DetailsInteractor
-import debts.feature.details.mvi.DetailsViewModel
 import debts.feature.home.di.getDebtorsDebtsNavigatorName
 import debts.feature.home.di.getDebtorsInteractorName
 import debts.feature.home.di.getDebtorsViewModelName
