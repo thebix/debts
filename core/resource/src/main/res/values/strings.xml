@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"Debts"</string>
+
+    <!-- These 6 strings are used on Home and Details screens. Need to be renamed to smth like resource_dialog_delete_message -->
+    <string name="details_dialog_delete_message">"Delete debtor and clear debts history?"</string>
+    <string name="details_share_title">"Share debt information with"</string>
+    <string name="details_share_message_borrowed">"Hey, I borrowed %3$s%2$s from %1$s"</string>
+    <string name="details_share_message_lent">"Hey, I've lent %3$s%2$s to %1$s"</string>
+    <string name="home_debtors_toast_debt_added">"Debt has been added"</string>
+    <string name="home_debtors_toast_debt_changed">"Debt has been changed"</string>
+</resources>

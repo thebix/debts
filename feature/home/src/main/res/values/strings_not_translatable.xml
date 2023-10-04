@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_debtors_item_amount" translatable="false">%1$s %2$s</string>
+    <string name="home_debtors_item_date" translatable="false">- %1$s</string>
+</resources>

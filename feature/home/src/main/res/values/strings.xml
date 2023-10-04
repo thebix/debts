@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home activity -->
+    <string name="home_pager_tab_all">"All"</string>
+    <string name="home_pager_tab_debtors">"Debtors"</string>
+    <string name="home_pager_tab_creditors">"Creditors"</string>
+
+    <!-- Debtors fragment -->
+    <string name="home_debtors_empty_debt_fields">"Empty debtor or debt amount"</string>
+    <string name="home_debtors_search_hint">"Search"</string>
+    <string name="home_debtors_share_title">"Share all debts as .csv file"</string>
+    <string name="home_debtors_menu_search">"Search"</string>
+    <string name="home_debtors_menu_settings">"Settings"</string>
+    <string name="home_debtors_menu_sort">"Sort"</string>
+    <string name="home_debtors_menu_sort_name">"Name"</string>
+    <string name="home_debtors_menu_sort_amount">"Amount"</string>
+    <string name="home_debtors_item_menu_remove">"Remove"</string>
+    <string name="home_debtors_item_menu_share">"Share"</string>
+</resources>

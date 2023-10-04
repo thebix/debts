@@ -1,46 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">"Дугови"</string>
-
-    <!-- Home activity -->
-    <string name="home_pager_tab_all">"Сви"</string>
-    <string name="home_pager_tab_debtors">"Дужници"</string>
-    <string name="home_pager_tab_creditors">"Кредитори"</string>
-
-    <!-- Debtors fragment -->
-    <string name="home_debtors_empty_debt_fields">"Име дужника или износ ниje попуњен"</string>
-    <string name="home_debtors_search_hint">"Претрага"</string>
-    <string name="home_debtors_share_title">"Поделити све дугове као .csv фаjл"</string>
-    <string name="home_debtors_toast_debt_added">"Дуг је додат"</string>
-    <string name="home_debtors_menu_search">"Претрага"</string>
-    <string name="home_debtors_menu_settings">"Подешавања"</string>
-    <string name="home_debtors_menu_sort">"Сортирати"</string>
-    <string name="home_debtors_menu_sort_name">"Име"</string>
-    <string name="home_debtors_menu_sort_amount">"Износ"</string>
-    <string name="home_debtors_item_menu_remove">"Избрисати"</string>
-    <string name="home_debtors_item_menu_share">"Поделити"</string>
-
-    <!-- AddDebt dialog -->
-    <string name="home_add_debt_title">"Додати"</string>
-    <string name="home_add_debt_name">"Назив"</string>
-    <string name="home_add_debt_action">"Шта jе урађено?"</string>
-    <string name="home_add_debt_add">"Дато"</string>
-    <string name="home_add_debt_subtract">"Узето"</string>
-    <string name="home_add_debt_amount">"Износ"</string>
-    <string name="home_add_debt_amount_error">"Сума jе превелика"</string>
-    <string name="home_add_debt_comment">"Коментар"</string>
-    <string name="home_add_debt_confirm">"Потврдити"</string>
-
     <!-- Details fragment -->
     <string name="details_debt_title">"Назив"</string>
     <string name="details_debt_total">"Укупно"</string>
     <string name="details_debt_change">"Променити"</string>
     <string name="details_debt_clear">"Обрисати"</string>
-    <string name="details_dialog_delete_message">"Избрисати дужника и историју дугова?"</string>
     <string name="details_history_title">"Историја"</string>
-    <string name="details_share_title">"Поделити податке дуга са"</string>
-    <string name="details_share_message_borrowed">"Ћао! Узео/ла сам %3$s%2$s од %1$s"</string>
-    <string name="details_share_message_lent">"Ћао! Дао/ла сам %3$s%2$s %1$s"</string>
     <string name="details_debts_item_sign_borrowed">"Узето"</string>
     <string name="details_debts_item_sign_lent">"Дато"</string>
     <string name="details_menu_delete">"Избрисати"</string>

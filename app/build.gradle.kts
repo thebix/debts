@@ -45,6 +45,7 @@ dependencies {
     implementation(project(":core:repository"))
     implementation(project(":core:resource"))
 
+    implementation(project(":feature:home"))
     implementation(project(":feature:contacts"))
     implementation(project(":feature:adddebt"))
     implementation(project(":feature:preferences"))

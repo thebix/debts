@@ -1,36 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">"Debts"</string>
-
-    <!-- Home activity -->
-    <string name="home_pager_tab_all">"All"</string>
-    <string name="home_pager_tab_debtors">"Debtors"</string>
-    <string name="home_pager_tab_creditors">"Creditors"</string>
-
-    <!-- Debtors fragment -->
-    <string name="home_debtors_empty_debt_fields">"Empty debtor or debt amount"</string>
-    <string name="home_debtors_search_hint">"Search"</string>
-    <string name="home_debtors_share_title">"Share all debts as .csv file"</string>
-    <string name="home_debtors_toast_debt_added">"Debt has been added"</string>
-    <string name="home_debtors_toast_debt_changed">"Debt has been changed"</string>
-    <string name="home_debtors_menu_search">"Search"</string>
-    <string name="home_debtors_menu_settings">"Settings"</string>
-    <string name="home_debtors_menu_sort">"Sort"</string>
-    <string name="home_debtors_menu_sort_name">"Name"</string>
-    <string name="home_debtors_menu_sort_amount">"Amount"</string>
-    <string name="home_debtors_item_menu_remove">"Remove"</string>
-    <string name="home_debtors_item_menu_share">"Share"</string>
-
     <!-- Details fragment -->
     <string name="details_debt_title">"Debt"</string>
     <string name="details_debt_total">"Total"</string>
     <string name="details_debt_change">"Change"</string>
     <string name="details_debt_clear">"Clear"</string>
-    <string name="details_dialog_delete_message">"Delete debtor and clear debts history?"</string>
     <string name="details_history_title">"History"</string>
-    <string name="details_share_title">"Share debt information with"</string>
-    <string name="details_share_message_borrowed">"Hey, I borrowed %3$s%2$s from %1$s"</string>
-    <string name="details_share_message_lent">"Hey, I've lent %3$s%2$s to %1$s"</string>
     <string name="details_debts_item_sign_borrowed">"Borrowed"</string>
     <string name="details_debts_item_sign_lent">"Lent"</string>
     <string name="details_menu_delete">"Delete"</string>
@@ -40,5 +15,4 @@
     <string name="details_debts_item_menu_remove">"Remove"</string>
     <string name="details_debts_item_menu_change">"Change"</string>
     <string name="details_remove_debt_message">"Remove one debt?"</string>
-
 </resources>

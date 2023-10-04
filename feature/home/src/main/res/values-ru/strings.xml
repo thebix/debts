@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home activity -->
+    <string name="home_pager_tab_all">"Все"</string>
+    <string name="home_pager_tab_debtors">"Должники"</string>
+    <string name="home_pager_tab_creditors">"Кредиторы"</string>
+
+    <!-- Debtors fragment -->
+    <string name="home_debtors_empty_debt_fields">"Пустой контакт или сумма"</string>
+    <string name="home_debtors_search_hint">"Поиск"</string>
+    <string name="home_debtors_share_title">"Отправить все долги файлом csv"</string>
+    <string name="home_debtors_menu_search">"Поиск"</string>
+    <string name="home_debtors_menu_settings">"Настройки"</string>
+
+    <!-- Order -->
+    <string name="home_debtors_menu_sort">"Порядок"</string>
+    <string name="home_debtors_menu_sort_name">"Имя"</string>
+    <string name="home_debtors_menu_sort_amount">"Сумма"</string>
+    <string name="home_debtors_item_menu_remove">"Удалить"</string>
+    <string name="home_debtors_item_menu_share">"Отправить"</string>
+</resources>

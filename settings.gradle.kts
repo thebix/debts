@@ -31,6 +31,7 @@ include(":core:db")
 include(":core:repository")
 include(":core:resource")
 
+include(":feature:home")
 include(":feature:contacts")
 include(":feature:adddebt")
 include(":feature:preferences")

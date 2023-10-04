@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"Dugovi"</string>
+
+    <!-- These 5 strings are used on Home and Details screens. Need to be renamed to smth like resource_dialog_delete_message -->
+    <string name="details_dialog_delete_message">"Izbrisati dužnika i istoriju dugova?"</string>
+    <string name="details_share_title">"Podeliti podatke duga sa"</string>
+    <string name="details_share_message_borrowed">"Ćao! Uzeo/la sam %3$s%2$s od %1$s"</string>
+    <string name="details_share_message_lent">"Ćao! Dao/la sam %3$s%2$s %1$s"</string>
+    <string name="home_debtors_toast_debt_added">"Dug je dodat"</string>
+</resources>

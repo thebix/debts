@@ -147,7 +147,7 @@ class DetailsFragment : BaseFragment() {
             }
 
             R.id.home_details_menu_delete -> {
-                context?.showAlert(messageId = R.string.details_dialog_delete_message) {
+                context?.showAlert(messageId = net.thebix.debts.core.resource.R.string.details_dialog_delete_message) {
                     intentionSubject.onNext(
                         DetailsIntention.RemoveDebtor(debtorId)
                     )
@@ -160,9 +160,9 @@ class DetailsFragment : BaseFragment() {
                 intentionSubject.onNext(
                     DetailsIntention.ShareDebtor(
                         debtorId,
-                        resources.getString(R.string.details_share_title),
-                        resources.getString(R.string.details_share_message_borrowed),
-                        resources.getString(R.string.details_share_message_lent)
+                        resources.getString(net.thebix.debts.core.resource.R.string.details_share_title),
+                        resources.getString(net.thebix.debts.core.resource.R.string.details_share_message_borrowed),
+                        resources.getString(net.thebix.debts.core.resource.R.string.details_share_message_lent)
                     )
                 )
 

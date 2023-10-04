@@ -29,21 +29,20 @@ import debts.core.usecase.UpdateDbDebtsCurrencyUseCase
 import debts.core.usecase.UpdateDebtUseCase
 import debts.details.mvi.DetailsInteractor
 import debts.details.mvi.DetailsViewModel
+import debts.feature.home.di.getDebtorsDebtsNavigatorName
+import debts.feature.home.di.getDebtorsInteractorName
+import debts.feature.home.di.getDebtorsViewModelName
+import debts.feature.home.list.mvi.DebtorsInteractor
+import debts.feature.home.list.mvi.DebtorsViewModel
+import debts.feature.home.list.mvi.HomeInteractor
+import debts.feature.home.list.mvi.HomeViewModel
 import debts.feature.preferences.mvi.MainSettingsInteractor
 import debts.feature.preferences.mvi.MainSettingsViewModel
-import debts.home.list.mvi.DebtorsInteractor
-import debts.home.list.mvi.DebtorsViewModel
-import debts.home.list.mvi.HomeInteractor
-import debts.home.list.mvi.HomeViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.StringQualifier
 import org.koin.dsl.module
-
-fun getDebtorsDebtsNavigatorName(page: Int) = "${ScreenContextHolder.FRAGMENT_DEBTORS}$page"
-fun getDebtorsInteractorName(page: Int) = "DebtorsInteractor_$page"
-fun getDebtorsViewModelName(page: Int) = "DebtorsViewModel_$page"
 
 val appModule = module {
     single {

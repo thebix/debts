@@ -84,7 +84,7 @@ class DetailsInteractor(
                     }
                     .doOnComplete {
                         // TODO: this resource id should be provided from Fragment through intent/action
-                        debtsNavigator.showToast(R.string.home_debtors_toast_debt_added)
+                        debtsNavigator.showToast(net.thebix.debts.core.resource.R.string.home_debtors_toast_debt_added)
                     }
                     .subscribeOn(Schedulers.io())
                     .toObservable<DetailsResult>()
@@ -144,7 +144,7 @@ class DetailsInteractor(
                     }
                     .doOnComplete {
                         // TODO: this resource id should be provided from Fragment through intent/action
-                        debtsNavigator.showToast(R.string.home_debtors_toast_debt_changed)
+                        debtsNavigator.showToast(net.thebix.debts.core.resource.R.string.home_debtors_toast_debt_changed)
                     }
                     .toObservable<DetailsResult>()
                     .doOnError { error -> Timber.e(error) }
