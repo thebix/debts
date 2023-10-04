@@ -190,9 +190,7 @@ class HomeActivity : BaseActivity() {
                         SortType.AMOUNT_ASC -> sortAmount.setIcon(net.thebix.debts.core.resource.R.drawable.ic_arrow_drop_up)
                         SortType.NAME_DESC -> sortName.setIcon(net.thebix.debts.core.resource.R.drawable.ic_clear)
                         SortType.NAME_ASC -> sortName.setIcon(net.thebix.debts.core.resource.R.drawable.ic_arrow_drop_up)
-                        else -> {
-                            // no-op
-                        }
+                        else -> Unit
                     }
                 }
             }

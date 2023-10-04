@@ -2,10 +2,12 @@
 <resources>
     <string name="app_name">"Дугови"</string>
 
-    <!-- These 5 strings are used on Home and Details screens. Need to be renamed to smth like resource_dialog_delete_message -->
+    <!-- These 7 strings are used on Home and Details screens. Need to be renamed to smth like resource_dialog_delete_message -->
+    <string name="details_debt_total">"Укупно"</string>
     <string name="details_dialog_delete_message">"Избрисати дужника и историју дугова?"</string>
     <string name="details_share_title">"Поделити податке дуга са"</string>
     <string name="details_share_message_borrowed">"Ћао! Узео/ла сам %3$s%2$s од %1$s"</string>
     <string name="details_share_message_lent">"Ћао! Дао/ла сам %3$s%2$s %1$s"</string>
+    <string name="details_menu_share">"Поделити"</string>
     <string name="home_debtors_toast_debt_added">"Дуг је додат"</string>
 </resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Details fragment -->
+    <string name="details_debt_title">"Долг"</string>
+    <string name="details_debt_change">"Изменить"</string>
+    <string name="details_debt_clear">"Очистить"</string>
+    <string name="details_history_title">"История"</string>
+    <string name="details_debts_item_sign_borrowed">"Получил"</string>
+    <string name="details_debts_item_sign_lent">"Дал"</string>
+    <string name="details_menu_delete">"Удалить"</string>
+    <string name="details_clear_all_dialog_confirmation_message">"Удалить историю долгов?"</string>
+    <string name="details_empty_debt_fields">"Пустая сумма долга"</string>
+    <string name="details_debts_item_menu_remove">"Удалить"</string>
+    <string name="details_remove_debt_message">"Удалить один долг?"</string>
+
+</resources>

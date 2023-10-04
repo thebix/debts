@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Details fragment -->
+    <string name="details_debt_title">"Naziv"</string>
+    <string name="details_debt_change">"Promeniti"</string>
+    <string name="details_debt_clear">"Obrisati"</string>
+    <string name="details_history_title">"Istorija"</string>
+    <string name="details_debts_item_sign_borrowed">"Uzeto"</string>
+    <string name="details_debts_item_sign_lent">"Dato"</string>
+    <string name="details_menu_delete">"Izbrisati"</string>
+    <string name="details_clear_all_dialog_confirmation_message">"Obrisati istoriju dugova?"</string>
+    <string name="details_empty_debt_fields">"Iznos duga je prazan"</string>
+    <string name="details_debts_item_menu_remove">"Izbriši"</string>
+    <string name="details_remove_debt_message">"Izbrisati jedan dug?"</string>
+
+</resources>

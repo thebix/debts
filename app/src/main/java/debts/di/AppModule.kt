@@ -27,8 +27,8 @@ import debts.core.usecase.RemoveDebtorUseCase
 import debts.core.usecase.SyncDebtorsWithContactsUseCase
 import debts.core.usecase.UpdateDbDebtsCurrencyUseCase
 import debts.core.usecase.UpdateDebtUseCase
-import debts.details.mvi.DetailsInteractor
-import debts.details.mvi.DetailsViewModel
+import debts.feature.details.mvi.DetailsInteractor
+import debts.feature.details.mvi.DetailsViewModel
 import debts.feature.home.di.getDebtorsDebtsNavigatorName
 import debts.feature.home.di.getDebtorsInteractorName
 import debts.feature.home.di.getDebtorsViewModelName
@@ -193,7 +193,7 @@ val viewModelModule = module {
             )
         }
     }
-    viewModel { DetailsViewModel(interactor = get()) }
+    viewModel { debts.feature.details.mvi.DetailsViewModel(interactor = get()) }
     viewModel { MainSettingsViewModel(interactor = get()) }
     viewModel { HomeViewModel(interactor = get()) }
 }

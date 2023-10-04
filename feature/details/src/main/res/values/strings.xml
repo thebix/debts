@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Details fragment -->
+    <string name="details_debt_title">"Debt"</string>
+    <string name="details_debt_change">"Change"</string>
+    <string name="details_debt_clear">"Clear"</string>
+    <string name="details_history_title">"History"</string>
+    <string name="details_debts_item_sign_borrowed">"Borrowed"</string>
+    <string name="details_debts_item_sign_lent">"Lent"</string>
+    <string name="details_menu_delete">"Delete"</string>
+    <string name="details_clear_all_dialog_confirmation_message">"Clear debts history?"</string>
+    <string name="details_empty_debt_fields">"Empty debt amount"</string>
+    <string name="details_debts_item_menu_remove">"Remove"</string>
+    <string name="details_debts_item_menu_change">"Change"</string>
+    <string name="details_remove_debt_message">"Remove one debt?"</string>
+</resources>

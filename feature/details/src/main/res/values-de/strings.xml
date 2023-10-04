@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Details fragment -->
+    <string name="details_debt_title">"Schuld"</string>
+    <string name="details_debt_change">"Ändern"</string>
+    <string name="details_debt_clear">"Löschen"</string>
+    <string name="details_history_title">"Schuldgeschichte"</string>
+    <string name="details_debts_item_sign_borrowed">"Entlieh"</string>
+    <string name="details_debts_item_sign_lent">"Verlieh"</string>
+    <string name="details_menu_delete">"Löschen"</string>
+    <string name="details_clear_all_dialog_confirmation_message">"Löschen die Schuldgeschichte?"</string>
+    <string name="details_empty_debt_fields">"Leerschuldenbetrag"</string>
+    <string name="details_debts_item_menu_remove">"Löschen"</string>
+    <string name="details_remove_debt_message">"Löschen eine Schuld?"</string>
+
+</resources>

@@ -46,16 +46,12 @@ dependencies {
     implementation(project(":core:resource"))
 
     implementation(project(":feature:home"))
+    implementation(project(":feature:details"))
     implementation(project(":feature:contacts"))
     implementation(project(":feature:adddebt"))
     implementation(project(":feature:preferences"))
 
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.core)
-    implementation(libs.google.android.material)
     implementation(libs.koin)
-    implementation(libs.bundles.rxjava)
 
     debugImplementation(libs.leak.canary)
     debugImplementation(libs.bundles.hyperion)

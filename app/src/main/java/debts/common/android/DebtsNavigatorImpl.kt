@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.annotation.StringRes
 import debts.core.common.android.navigation.DebtsNavigator
 import debts.core.common.android.navigation.ScreenContextHolder
-import debts.details.DetailsActivity
+import debts.feature.details.DetailsActivity
 import debts.feature.preferences.PreferencesActivity
 import io.reactivex.Completable
 import io.reactivex.Single

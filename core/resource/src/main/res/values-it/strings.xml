@@ -2,10 +2,12 @@
 <resources>
     <string name="app_name">"Debiti"</string>
 
-    <!-- These 5 strings are used on Home and Details screens. Need to be renamed to smth like resource_dialog_delete_message -->
+    <!-- These 7 strings are used on Home and Details screens. Need to be renamed to smth like resource_dialog_delete_message -->
+    <string name="details_debt_total">"Totale"</string>
     <string name="details_dialog_delete_message">"Eliminare il debitore e cancellare la cronologia dei debiti?"</string>
     <string name="details_share_title">"Condividi le informazioni sul debito"</string>
     <string name="details_share_message_borrowed">"Ehi, ho preso in prestito %3$s%2$s da %1$s"</string>
     <string name="details_share_message_lent">"Ehi, ho prestato %3$s%2$s a %1$s"</string>
+    <string name="details_menu_share">"Condividi"</string>
     <string name="home_debtors_toast_debt_added">"Debito aggiunto"</string>
 </resources>

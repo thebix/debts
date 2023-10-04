@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Details fragment -->
+    <string name="details_debt_title">"Deuda"</string>
+    <string name="details_debt_change">"Cambiar"</string>
+    <string name="details_debt_clear">"Borrar"</string>
+    <string name="details_history_title">"Historial"</string>
+    <string name="details_debts_item_sign_borrowed">"Tomé prestado"</string>
+    <string name="details_debts_item_sign_lent">"Le presté"</string>
+    <string name="details_menu_delete">"Eliminar"</string>
+    <string name="details_clear_all_dialog_confirmation_message">"¿Borrar el historial de deudas?"</string>
+    <string name="details_empty_debt_fields">"El importe de la deuda está vacío"</string>
+    <string name="details_debts_item_menu_remove">"Eliminar"</string>
+    <string name="details_remove_debt_message">"¿Eliminar una deuda?"</string>
+</resources>

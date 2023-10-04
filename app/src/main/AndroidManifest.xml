@@ -15,16 +15,6 @@
             android:name="firebase_analytics_collection_deactivated"
             android:value="true" />
 
-        <activity
-            android:name="debts.details.DetailsActivity"
-            android:exported="false"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
