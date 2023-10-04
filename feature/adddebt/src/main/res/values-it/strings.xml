@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AddDebt dialog -->
+    <string name="home_add_debt_title">"Aggiungi"</string>
+    <string name="home_add_debt_name">"Nome"</string>
+    <string name="home_add_debt_action">"Azione"</string>
+    <string name="home_add_debt_add">"Prestato"</string>
+    <string name="home_add_debt_subtract">"Preso in prestito"</string>
+    <string name="home_add_debt_amount">"Quantità"</string>
+    <string name="home_add_debt_amount_error">"Valore troppo lungo"</string>
+    <string name="home_add_debt_comment">"Commento"</string>
+    <string name="home_add_debt_confirm">"Conferma"</string>
+
+</resources>

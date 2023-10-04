@@ -19,8 +19,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
-import debts.adddebt.AddOrEditDebtDialogHolder
-import debts.adddebt.DebtLayoutData
 import debts.core.common.android.BaseFragment
 import debts.core.common.android.FragmentArgumentDelegate
 import debts.core.common.android.buildconfig.BuildConfigData
@@ -35,6 +33,8 @@ import debts.details.adapter.DebtsAdapter
 import debts.details.mvi.DetailsIntention
 import debts.details.mvi.DetailsState
 import debts.details.mvi.DetailsViewModel
+import debts.feature.adddebt.AddOrEditDebtDialogHolder
+import debts.feature.adddebt.DebtLayoutData
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -303,21 +303,19 @@ class DetailsFragment : BaseFragment() {
         with(data) {
             if (this.amount != 0.0) {
                 intentionSubject.onNext(
-                    if (this.existingDebtId == null) {
-                        DetailsIntention.AddDebt(
-                            debtorId,
-                            this.amount,
-                            this.comment,
-                            this.date
-                        )
-                    } else {
+                    this.existingDebtId?.let {
                         DetailsIntention.EditDebtSave(
-                            this.existingDebtId,
+                            it,
                             this.amount,
                             this.comment,
                             this.date
                         )
-                    }
+                    } ?: DetailsIntention.AddDebt(
+                        debtorId,
+                        this.amount,
+                        this.comment,
+                        this.date
+                    )
                 )
             } else {
                 Snackbar

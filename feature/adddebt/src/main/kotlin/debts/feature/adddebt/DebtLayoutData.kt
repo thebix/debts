@@ -1,4 +1,4 @@
-package debts.adddebt
+package debts.feature.adddebt
 
 data class DebtLayoutData(
     val contactId: Long?,

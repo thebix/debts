@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AddDebt dialog -->
+    <string name="home_add_debt_title">"Hinzufügen"</string>
+    <string name="home_add_debt_name">"Name"</string>
+
+    <!-- Не факт -->
+    <string name="home_add_debt_action">"Aktion"</string>
+    <string name="home_add_debt_add">"Verlieh"</string>
+    <string name="home_add_debt_subtract">"Entlieh"</string>
+    <string name="home_add_debt_amount">"Betrag"</string>
+    <string name="home_add_debt_amount_error">"Zahlenwert ist zu lang"</string>
+    <string name="home_add_debt_comment">"Kommentar"</string>
+    <string name="home_add_debt_confirm">"Bestätigen"</string>
+
+</resources>

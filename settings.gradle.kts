@@ -32,4 +32,5 @@ include(":core:repository")
 include(":core:resource")
 
 include(":feature:contacts")
+include(":feature:adddebt")
 include(":feature:preferences")

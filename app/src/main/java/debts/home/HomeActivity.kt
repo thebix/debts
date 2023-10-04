@@ -13,14 +13,14 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.jakewharton.rxbinding3.view.clicks
-import debts.adddebt.AddOrEditDebtDialogHolder
-import debts.adddebt.DebtLayoutData
 import debts.core.common.android.BaseActivity
 import debts.core.common.android.buildconfig.BuildConfigData
 import debts.core.common.android.extensions.getColorCompat
 import debts.core.common.android.navigation.ActivityScreenContext
 import debts.core.common.android.navigation.ScreenContextHolder
 import debts.core.repository.SortType
+import debts.feature.adddebt.AddOrEditDebtDialogHolder
+import debts.feature.adddebt.DebtLayoutData
 import debts.feature.contacts.adapter.ContactsItemViewModel
 import debts.home.list.adapter.DebtsPagerAdapter
 import debts.home.list.mvi.HomeIntention
@@ -95,7 +95,7 @@ class HomeActivity : BaseActivity() {
         this.menu = menu
         val menuSearch = menu.findItem(R.id.home_debtors_menu_search)
         val searchView = menuSearch.actionView as SearchView
-        searchView.queryHint = applicationContext.getString(R.string.home_debtors_search_hint) ?: ""
+        searchView.queryHint = applicationContext.getString(R.string.home_debtors_search_hint)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false

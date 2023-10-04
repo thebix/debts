@@ -1,4 +1,4 @@
-package debts.adddebt
+package debts.feature.adddebt
 
 import android.content.Context
 import android.view.View
@@ -25,7 +25,7 @@ import debts.core.common.android.extensions.toSimpleDateString
 import debts.feature.contacts.adapter.ContactsAdapter
 import debts.feature.contacts.adapter.ContactsItemViewModel
 import io.reactivex.disposables.CompositeDisposable
-import net.thebix.debts.R
+import net.thebix.debts.feature.adddebt.R
 import java.util.Date
 import kotlin.math.absoluteValue
 
