@@ -22,8 +22,8 @@ import debts.core.common.android.extensions.setPaddingStartResCompat
 import debts.core.common.android.extensions.setPaddingTopResCompat
 import debts.core.common.android.extensions.showKeyboard
 import debts.core.common.android.extensions.toSimpleDateString
-import debts.home.list.adapter.ContactsAdapter
-import debts.home.list.adapter.ContactsItemViewModel
+import debts.feature.contacts.adapter.ContactsAdapter
+import debts.feature.contacts.adapter.ContactsItemViewModel
 import io.reactivex.disposables.CompositeDisposable
 import net.thebix.debts.R
 import java.util.Date

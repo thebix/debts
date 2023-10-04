@@ -3,6 +3,7 @@ package debts.home.list.adapter
 import androidx.annotation.StringRes
 import debts.core.repository.data.ContactsItemModel
 import debts.core.usecase.data.DebtorsListItemModel
+import debts.feature.contacts.adapter.ContactsItemViewModel
 
 sealed class DebtorsItemViewModel(open val id: Long) {
 
@@ -18,8 +19,6 @@ sealed class DebtorsItemViewModel(open val id: Long) {
     // INFO: title must be unique for adapter
     data class TitleItem(@StringRes val titleId: Int) : DebtorsItemViewModel(titleId.toLong())
 }
-
-data class ContactsItemViewModel(val id: Long, val name: String, val avatarUrl: String)
 
 // region Mapping
 

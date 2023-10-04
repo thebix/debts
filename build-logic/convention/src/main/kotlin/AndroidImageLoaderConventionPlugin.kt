@@ -11,7 +11,7 @@ class AndroidImageLoaderConventionPlugin : Plugin<Project> {
 
             dependencies {
                 add("implementation", libs.findLibrary("glide.core").get())
-                add("ksp", libs.findLibrary("glide.compiler").get())
+                add("ksp", libs.findLibrary("glide.ksp").get())
             }
         }
     }
