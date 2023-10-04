@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AddDebt dialog -->
+    <string name="home_add_debt_title">"Добавить"</string>
+    <string name="home_add_debt_name">"Имя"</string>
+    <string name="home_add_debt_action">"Действие"</string>
+    <string name="home_add_debt_add">"Дал"</string>
+    <string name="home_add_debt_subtract">"Получил"</string>
+    <string name="home_add_debt_amount">"Сумма"</string>
+    <string name="home_add_debt_amount_error">"Значение слишком большое"</string>
+    <string name="home_add_debt_comment">"Комментарий"</string>
+    <string name="home_add_debt_confirm">"Подтвердить"</string>
+
+</resources>

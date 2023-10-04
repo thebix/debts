@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AddDebt dialog -->
+    <string name="home_add_debt_title">"Додати"</string>
+    <string name="home_add_debt_name">"Назив"</string>
+    <string name="home_add_debt_action">"Шта jе урађено?"</string>
+    <string name="home_add_debt_add">"Дато"</string>
+    <string name="home_add_debt_subtract">"Узето"</string>
+    <string name="home_add_debt_amount">"Износ"</string>
+    <string name="home_add_debt_amount_error">"Сума jе превелика"</string>
+    <string name="home_add_debt_comment">"Коментар"</string>
+    <string name="home_add_debt_confirm">"Потврдити"</string>
+
+</resources>
