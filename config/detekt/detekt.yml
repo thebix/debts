@@ -243,7 +243,6 @@ formatting:
     autoCorrect: true
     indentSize: 4
   MaximumLineLength:
-    active: true
     maxLineLength: 160
   ModifierOrdering:
     active: true
@@ -332,7 +331,6 @@ formatting:
     # Set whether to use hanging indent for wrapped arguments
     # hangingIndent: false
   ParameterListWrapping:
-    active: true
     autoCorrect: true
     indentSize: 4
     # Set the wrapping style for arguments. Possible values are:
@@ -349,6 +347,17 @@ formatting:
     # alignWrappedArguments: true
     # Set whether to use hanging indent for wrapped arguments
     # hangingIndent: false
+  ContextReceiverMapping:
+    active: true
+    maxLineLength: 160
+  FunctionReturnTypeSpacing:
+    maxLineLength: 160
+  FunctionSignature:
+    maxLineLength: 160
+  ParameterWrapping:
+    maxLineLength: 160
+  Wrapping:
+    maxLineLength: 160
 
 naming:
   active: true
@@ -512,7 +521,7 @@ style:
   ForbiddenComment:
     active: true
     values: ['FIXME:', 'STOPSHIP:']
-    allowedPatterns: ''
+    allowedPatterns: 'TODO:'
   ForbiddenImport:
     active: false
     imports: []
@@ -548,7 +557,6 @@ style:
   MandatoryBracesIfStatements:
     active: false
   MaxLineLength:
-    active: true
     maxLineLength: 160
     excludePackageStatements: true
     excludeImportStatements: true

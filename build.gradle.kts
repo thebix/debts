@@ -1,3 +1,5 @@
+import io.gitlab.arturbosch.detekt.Detekt
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 plugins {
@@ -13,23 +15,15 @@ plugins {
 
 detekt {
     toolVersion = libs.versions.detekt.get()
-    source = files(projectDir)
-    config = files("$projectDir/config/detekt/detekt.yml")
+    source.setFrom(projectDir)
+    config.setFrom("$projectDir/config/detekt/detekt.yml")
     buildUponDefaultConfig = true
+}
 
+tasks.withType<Detekt>().configureEach {
     reports {
-        xml {
-            required.set(true)
-            outputLocation.set(file("build/reports/detekt.xml"))
-        }
-        html {
-            required.set(true)
-            outputLocation.set(file("build/reports/detekt.html"))
-        }
-        txt {
-            required.set(true)
-            outputLocation.set(file("build/reports/detekt.txt"))
-        }
+        sarif.required.set(false)
+        xml.required.set(false)
     }
 }
 
