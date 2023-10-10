@@ -1,6 +1,56 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:recommended"
+  ],
+  "prHourlyLimit": 4,
+  "labels": [
+    "renovatebot"
+  ],
+  "assignees": [
+    "thebix"
+  ],
+  "reviewers": [
+    "thebix"
+  ],
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "^debts.android"
+      ],
+      "enabled": false
+    },
+    {
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
+      "automerge": true
+    },
+    {
+      "matchPackagePatterns": [
+        "androidx.compose"
+      ],
+      "groupName": "jetpack-compose"
+    },
+    {
+      "matchPackagePatterns": [
+        "com.google.firebase"
+      ],
+      "groupName": "firebase"
+    },
+    {
+      "matchPackagePatterns": [
+        "io.reactivex.rxjava2",
+        "com.jakewharton.rxbinding3"
+      ],
+      "groupName": "rxjava2"
+    }
+  ],
+  "ignorePaths": [
+    "buildSrc/**",
+    "gradle/gradle-profiler/**"
   ]
 }
