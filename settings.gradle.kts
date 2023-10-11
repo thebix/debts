@@ -14,7 +14,7 @@ plugins {
        > download a toolchain from. As an example, add to your settings.gradle(.kts) the following plugin:"
        source: https://kotlinlang.org/docs/gradle-configure-project.html?utm_campaign=gradle-jvm-toolchain&utm_medium=kgp&utm_source=warnings#gradle-java-toolchains-support
      */
-    id("org.gradle.toolchains.foojay-resolver-convention") version ("0.5.0")
+    id("org.gradle.toolchains.foojay-resolver-convention") version ("0.7.0")
 }
 
 dependencyResolutionManagement {
