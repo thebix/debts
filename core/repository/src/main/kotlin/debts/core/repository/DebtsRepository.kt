@@ -25,6 +25,7 @@ class DebtsRepository(
         const val PREFS_IS_CONTACT_SYNCED = "PREFS_IS_CONTACT_SYNCED"
         const val PREFS_IS_FIRST_START = "PREFS_IS_FIRST_START"
         const val PREFS_CURRENCY = "preference_main_settings_currency_custom"
+        const val PREFS_CURRENCY_LIST_SELECTION = "preference_main_settings_currency"
         const val PREFS_SORT_KEY = "PREFS_SORT_KEY"
         const val PREFS_FILTER_KEY = "PREFS_FILTER_KEY"
     }
@@ -161,6 +162,13 @@ class DebtsRepository(
     fun observeCurrency() = preferences.observeString(PREFS_CURRENCY, "")
     fun setCurrency(currency: String) =
         Completable.fromCallable { preferences.putString(PREFS_CURRENCY, currency) }
+
+    fun observeCurrencyListSelection(): Observable<String> = preferences.observeString(PREFS_CURRENCY_LIST_SELECTION, "")
+
+    fun setCurrencyListSelection(value: String) = Completable
+        .fromCallable {
+            preferences.putString(PREFS_CURRENCY_LIST_SELECTION, value)
+        }
 
     fun isAppFirstStart() =
         Single.fromCallable { preferences.getBoolean(PREFS_IS_FIRST_START, true) }
