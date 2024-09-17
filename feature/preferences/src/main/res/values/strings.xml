@@ -16,4 +16,6 @@
     <string name="preference_main_settings_state_updated">"Successfully updated"</string>
     <string name="preference_main_settings_state_error">"Error occurred"</string>
 
+    <string name="preference_main_content_descr_go_back">Go back to previous screen</string>
+
 </resources>
