@@ -3,29 +3,31 @@
 # Debts app
 
 ## Developer setup
-- create apps `net.thebix.debts` and `net.thebix.debts.debug` in Firebase and save `/app/google-services.json`
-- put `debts.keystore` to `/app/debts.keystore`
-- make file `./private/debts_credentials.properties` with
+All private files live outside the project in `../private/debts/` (not tracked by git).
+
+- create apps `net.thebix.debts` and `net.thebix.debts.debug` in Firebase and save `../private/debts/google-services.json`
+- put `debts.keystore` to `../private/debts/debts.keystore`
+- make file `../private/debts/debts_credentials.properties` with
 ```text
     DEBTS_STORE_KEY_ALIAS=
     DEBTS_STORE_KEY_ALIAS_PASSWORD=
-    DEBTS_STORE_KEY_FILE=debts.keystore
+    DEBTS_STORE_KEY_FILE=../private/debts/debts.keystore
     DEBTS_STORE_KEY_PASSWORD=
 ```
-- Prepare file `app/google-play-publisher.json`. More info: [Google Play Publisher](https://github.com/Triple-T/gradle-play-publisher)
+- Prepare file `../private/debts/google-play-publisher.json`. More info: [Google Play Publisher](https://github.com/Triple-T/gradle-play-publisher)
 
 ## Github setup
 1. Convert `debts.keystore` file to base64
 ```shell script
-openssl base64 -in app/debts.keystore -out debts.keystore.base64
+openssl base64 -in ../private/debts/debts.keystore -out ./private/debts/debts.keystore.base64
 ```
 2. Convert `google-services.json` file to base64
 ```shell script
-openssl base64 -in app/google-services.json -out google-services.json.base64
+openssl base64 -in ../private/debts/google-services.json -out ./private/debts/google-services.json.base64
 ```
 3. Convert `google-play-publisher.json` file to base64
 ```shell script
-openssl base64 -in ./app/google-play-publisher.json -out ./google-play-publisher.json.base64
+openssl base64 -in ../private/debts/google-play-publisher.json -out ./private/debts/google-play-publisher.json.base64
 ```
 4. create [secrets](https://github.com/thebix/debts/settings/secrets/)
 - `DEBTS_STORE_KEY_ALIAS`

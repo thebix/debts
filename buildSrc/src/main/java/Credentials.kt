@@ -10,7 +10,7 @@ data class Credentials(
 
 @Suppress("ThrowsCount")
 fun Project.credentials(): Credentials {
-    val localDebtsCredentialsFile = "${project.rootDir}/private/debts_credentials.properties"
+    val localDebtsCredentialsFile = "${project.rootDir}/../private/debts/debts_credentials.properties"
     val configuration: Map<String, String> = if (File(localDebtsCredentialsFile).exists()) {
         File(localDebtsCredentialsFile).useLines { lines ->
             lines.map { line ->

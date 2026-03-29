@@ -6,6 +6,22 @@ plugins {
     alias(libs.plugins.debts.android.image.loader)
 }
 
+// The google-services plugin doesn't support configuring a custom path for google-services.json.
+// By default it searches inside the app folder. To support keeping the file outside the project
+// (e.g. in a private folder not tracked by git), we override the task's input via reflection after
+// the plugin has set its defaults. If the external file is not found, the default search paths
+// inside the app folder remain in effect (to use on CI).
+afterEvaluate {
+    tasks.matching { it.name.startsWith("process") && it.name.endsWith("GoogleServices") }.configureEach {
+        val externalJson = rootProject.file("../private/debts/google-services.json")
+        if (externalJson.exists()) {
+            @Suppress("UNCHECKED_CAST")
+            (javaClass.getMethod("getGoogleServicesJsonFiles").invoke(this) as org.gradle.api.provider.Property<Collection<File>>)
+                .set(listOf(externalJson))
+        }
+    }
+}
+
 android {
     namespace = AppConfig.applicationId
 
@@ -62,6 +78,7 @@ play {
     // Note: the userFraction is only applicable where releaseStatus=[IN_PROGRESS/HALTED]
     // userFraction = 1.0
     defaultToAppBundles.set(true)
+    // TODO: 2026 03 30 Didn't touch this when was moving creds out of the repository folder. This needs to be adjusted: point to the new location locally, but keep the old one on CI.
     serviceAccountCredentials.set(file("google-play-publisher.json"))
 
     // defaults, just to make explicit
