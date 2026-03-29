@@ -13,7 +13,7 @@ plugins {
 // inside the app folder remain in effect (to use on CI).
 afterEvaluate {
     tasks.matching { it.name.startsWith("process") && it.name.endsWith("GoogleServices") }.configureEach {
-        val externalJson = rootProject.file("../private/debts/google-services.json")
+        val externalJson = File("${System.getProperty("user.home")}/private/macbook/debts/app/google-services.json")
         if (externalJson.exists()) {
             @Suppress("UNCHECKED_CAST")
             (javaClass.getMethod("getGoogleServicesJsonFiles").invoke(this) as org.gradle.api.provider.Property<Collection<File>>)
