@@ -52,6 +52,9 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             dependencies {
                 add("androidTestImplementation", kotlin("test"))
                 add("testImplementation", kotlin("test"))
+                add("testImplementation", libs.findLibrary("mockk").get())
+                add("testImplementation", libs.findLibrary("kotlinx.coroutines.test").get())
+                add("testImplementation", libs.findLibrary("turbine").get())
                 add("implementation", libs.findLibrary("timber").get())
             }
         }
