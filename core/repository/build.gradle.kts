@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.debts.android.library)
-    alias(libs.plugins.kover)
 }
 
 android {

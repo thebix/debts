@@ -5,6 +5,9 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
+    plugins {
+        id("org.jetbrains.kotlinx.kover.aggregation") version "0.9.8"
+    }
 }
 
 plugins {
@@ -15,6 +18,7 @@ plugins {
        source: https://kotlinlang.org/docs/gradle-configure-project.html?utm_campaign=gradle-jvm-toolchain&utm_medium=kgp&utm_source=warnings#gradle-java-toolchains-support
      */
     id("org.gradle.toolchains.foojay-resolver-convention") version ("0.7.0")
+    id("org.jetbrains.kotlinx.kover.aggregation")
 }
 
 dependencyResolutionManagement {
@@ -22,6 +26,20 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+    }
+}
+
+kover {
+    reports {
+        verify {
+            rule {
+                // Starting threshold — raised incrementally as tests are added (ratchet)
+                bound {
+                    // minimum line coverage %; raise incrementally as tests are added (ratchet)
+                    minValue.set(1)
+                }
+            }
+        }
     }
 }
 
