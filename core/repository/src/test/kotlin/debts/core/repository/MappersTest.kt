@@ -66,7 +66,7 @@ class MappersTest {
     }
 
     @Test
-    fun `DebtorModel maps to DebtorEntity with empty legacy fields`() {
+    fun `DebtorModel maps to DebtorEntity with email and phone defaulting to empty string`() {
         val model = debts.core.repository.data.DebtorModel(
             id = 5L,
             name = "Alice",
