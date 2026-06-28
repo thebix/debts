@@ -22,9 +22,4 @@ class PreferencesActivity : BaseActivity() {
             replaceFragment(MainSettingsFragment(), R.id.preferences_root, false)
         }
     }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
 }

@@ -1,12 +1,12 @@
 package debts.di
 
 import androidx.room.Room
-import debts.common.android.navigation.DebtsNavigatorImpl
-import debts.core.common.android.navigation.ScreenContextHolderImpl
 import debts.common.android.buildconfig.BuildConfigDataImpl
+import debts.common.android.navigation.DebtsNavigatorImpl
 import debts.core.common.android.buildconfig.BuildConfigData
 import debts.core.common.android.navigation.DebtsNavigator
 import debts.core.common.android.navigation.ScreenContextHolder
+import debts.core.common.android.navigation.ScreenContextHolderImpl
 import debts.core.common.android.prefs.AndroidPreferences
 import debts.core.common.android.prefs.Preferences
 import debts.core.db.DebtsDatabase
@@ -165,7 +165,8 @@ val interactorModule = module {
             debtsNavigator = get(qualifier = StringQualifier(ScreenContextHolder.FRAGMENT_MAIN_PREFERENCES)),
             updateDbDebtsCurrencyUseCase = get(),
             syncDebtorsWithContactsUseCase = get(),
-            repository = get()
+            repository = get(),
+            buildConfigData = get(),
         )
     }
     factory {
