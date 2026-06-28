@@ -70,7 +70,6 @@ dependencies {
     implementation(libs.koin)
 
     debugImplementation(libs.leak.canary)
-    debugImplementation(libs.bundles.hyperion)
 }
 
 play {
@@ -78,7 +77,8 @@ play {
     // Note: the userFraction is only applicable where releaseStatus=[IN_PROGRESS/HALTED]
     // userFraction = 1.0
     defaultToAppBundles.set(true)
-    // TODO: 2026 03 30 Didn't touch this when was moving creds out of the repository folder. This needs to be adjusted: point to the new location locally, but keep the old one on CI.
+    // TODO: 2026 03 30 Adjust credentials path: point to the new location locally,
+    //  but keep the old one on CI.
     serviceAccountCredentials.set(file("google-play-publisher.json"))
 
     // defaults, just to make explicit
