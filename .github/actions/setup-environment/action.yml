@@ -16,12 +16,11 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v4
     - name: set up JDK
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         distribution: 'zulu'
-        java-version: '20'
+        java-version: '17'
     - name: Github environment info
       run: |
         echo "GITHUB_ACTION=$GITHUB_ACTION"
