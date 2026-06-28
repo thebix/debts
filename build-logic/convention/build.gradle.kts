@@ -24,6 +24,7 @@ dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.firebase.crashlytics.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.kotlin.compose.gradlePlugin)
     compileOnly(libs.ksp.gradlePlugin)
 }
 
