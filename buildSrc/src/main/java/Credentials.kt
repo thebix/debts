@@ -8,6 +8,7 @@ data class Credentials(
     val storeKeyPassword: String,
 )
 
+@Suppress("ThrowsCount")
 fun Project.credentials(): Credentials {
     val localDebtsCredentialsFile = "${System.getProperty("user.home")}/private/macbook/debts/private/debts_credentials.properties"
     val configuration: Map<String, String> = if (File(localDebtsCredentialsFile).exists()) {
