@@ -70,7 +70,6 @@ dependencies {
     implementation(libs.koin)
 
     debugImplementation(libs.leak.canary)
-    debugImplementation(libs.bundles.hyperion)
 }
 
 play {

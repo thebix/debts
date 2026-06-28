@@ -15,7 +15,6 @@ java = "20"
 glide = "4.16.0"
 google-android-material = "1.11.0"
 google-services = "4.4.0"
-hyperion = "0.9.37"
 ksp = "1.9.10-1.0.13"
 koin = "3.5.0"
 kotlin = "1.9.10"
@@ -47,16 +46,6 @@ firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashly
 glide-core = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "glide" }
 google-android-material = { group = "com.google.android.material", name = "material", version.ref = "google-android-material" }
-hyperion-core = { module = "com.willowtreeapps.hyperion:hyperion-core", version.ref = "hyperion" }
-hyperion-attr = { module = "com.willowtreeapps.hyperion:hyperion-attr", version.ref = "hyperion" }
-hyperion-build-config = { module = "com.willowtreeapps.hyperion:hyperion-build-config", version.ref = "hyperion" }
-hyperion-disk = { module = "com.willowtreeapps.hyperion:hyperion-disk", version.ref = "hyperion" }
-hyperion-geiger-counter = { module = "com.willowtreeapps.hyperion:hyperion-geiger-counter", version.ref = "hyperion" }
-hyperion-measurement = { module = "com.willowtreeapps.hyperion:hyperion-measurement", version.ref = "hyperion" }
-hyperion-phoenix = { module = "com.willowtreeapps.hyperion:hyperion-phoenix", version.ref = "hyperion" }
-hyperion-recorder = { module = "com.willowtreeapps.hyperion:hyperion-recorder", version.ref = "hyperion" }
-hyperion-shared-preferences = { module = "com.willowtreeapps.hyperion:hyperion-shared-preferences", version.ref = "hyperion" }
-hyperion-timber = { module = "com.willowtreeapps.hyperion:hyperion-timber", version.ref = "hyperion" }
 koin = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 leak-canary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leak-canary" }
@@ -82,18 +71,6 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
 [bundles]
-hyperion = [
-    "hyperion-core",
-    "hyperion-attr",
-    "hyperion-build-config",
-    "hyperion-disk",
-    "hyperion-geiger-counter",
-    "hyperion-measurement",
-    "hyperion-phoenix",
-    "hyperion-recorder",
-    "hyperion-shared-preferences",
-    "hyperion-timber"
-]
 rxjava = ["rxjava2-rxandroid", "rxjava2-rxjava", "rxbinding"]
 
 [plugins]
