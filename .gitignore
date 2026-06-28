@@ -36,5 +36,8 @@ debts.keystore
 google-play-publisher.json
 /private
 
+# Kotlin daemon metadata
+/.kotlin
+
 # Local dev ai stuff: prompts, plans, worklogs, etc
 /.ai
