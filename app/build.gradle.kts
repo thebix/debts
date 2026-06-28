@@ -26,12 +26,14 @@ android {
     namespace = AppConfig.applicationId
 
     signingConfigs {
-        create("release") {
-            val credentials = credentials()
-            storeFile = file(credentials.storeKeyFile)
-            storePassword = credentials.storeKeyPassword
-            keyAlias = credentials.storeKeyAlias
-            keyPassword = credentials.storeKeyAliasPassword
+        val credentials = tryCredentials()
+        if (credentials != null) {
+            create("release") {
+                storeFile = file(credentials.storeKeyFile)
+                storePassword = credentials.storeKeyPassword
+                keyAlias = credentials.storeKeyAlias
+                keyPassword = credentials.storeKeyAliasPassword
+            }
         }
     }
     defaultConfig {
@@ -50,7 +52,7 @@ android {
             isShrinkResources = true
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = signingConfigs.findByName("release")
         }
     }
 }
