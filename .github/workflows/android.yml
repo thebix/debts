@@ -26,7 +26,7 @@ jobs:
       - name: Run unit tests with coverage
         run: ./gradlew test koverVerify koverXmlReport
       - name: Upload coverage report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-report
           path: '**/build/reports/kover/report.xml'
