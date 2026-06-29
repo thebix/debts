@@ -2,16 +2,22 @@
 
     <style name="Debts" />
 
-    <style name="Debts.Theme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Debts.Theme" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- colorAccent for AppCompat/M2 widgets; colorSecondary for M3 widgets — both map to the brand accent -->
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="colorSecondary">@color/colorAccent</item>
+        <!-- Android 15+: bars are transparent; windowBackground shows through the fitsSystemWindows padding areas -->
+        <!-- Pre-15: statusBarColor/navigationBarColor apply directly -->
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
     </style>
 
     <!-- Text Input-->
 
-    <style name="Debts.Theme.TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="Debts.Theme.TextInput" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="android:textColor">@color/debts_grey</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textCursorDrawable">@null</item>
@@ -27,7 +33,7 @@
         <item name="android:textSize">@dimen/text_size_12sp</item>
     </style>
 
-    <style name="Debts.Theme.TextAutocompleteInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+    <style name="Debts.Theme.TextAutocompleteInput" parent="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="android:textColor">@color/debts_grey</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textCursorDrawable">@null</item>
@@ -42,10 +48,15 @@
 
     <!-- Tabs -->
 
-    <style name="Debts.Tabs" parent="Widget.MaterialComponents.TabLayout">
+    <style name="Debts.Tabs" parent="Widget.Material3.TabLayout">
         <item name="android:background">@color/debts_white_pressed</item>
         <item name="tabTextColor">@color/tabs_color</item>
         <item name="tabIndicatorColor">@color/debts_accent_pressed</item>
+        <item name="tabTextAppearance">@style/Debts.Tabs.Label</item>
+    </style>
+
+    <style name="Debts.Tabs.Label" parent="TextAppearance.Material3.TitleSmall">
+        <item name="textAllCaps">true</item>
     </style>
 
     <!-- Text -->
@@ -142,7 +153,7 @@
         <item name="android:textColor">@color/button_accent_text_color_selector</item>
     </style>
 
-    <style name="Debts.FloatingButton" parent="Widget.MaterialComponents.FloatingActionButton">
+    <style name="Debts.FloatingButton" parent="Widget.Material3.FloatingActionButton.Primary">
         <item name="backgroundTint">@color/colorAccent</item>
         <item name="tint">@color/debts_white</item>
     </style>
