@@ -15,6 +15,7 @@ import debts.core.usecase.UpdateDebtUseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.rx2.rxSingle
 import timber.log.Timber
 
 @Suppress("LongParameterList")
@@ -68,7 +69,7 @@ class DetailsInteractor(
     private val addDebtProcessor =
         ObservableTransformer<DetailsAction.AddDebt, DetailsResult> { actions ->
             actions.switchMap { action ->
-                repository.getCurrency()
+                rxSingle { repository.getCurrency() }
                     .flatMapCompletable { currency ->
                         addDebtUseCase
                             .execute(

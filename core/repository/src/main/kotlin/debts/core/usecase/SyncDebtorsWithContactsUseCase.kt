@@ -1,10 +1,8 @@
 package debts.core.usecase
 
 import debts.core.repository.DebtsRepository
-import debts.core.repository.data.ContactsItemModel
-import debts.core.repository.data.DebtorModel
 import io.reactivex.Completable
-import io.reactivex.Single
+import kotlinx.coroutines.rx2.rxCompletable
 
 class SyncDebtorsWithContactsUseCase(
     private val repository: DebtsRepository
@@ -13,54 +11,22 @@ class SyncDebtorsWithContactsUseCase(
     /**
      * forceSync ignores preferences check
      */
-    fun execute(forceSync: Boolean = false): Completable =
-        if (forceSync) {
-            Single.fromCallable { true }
-        } else {
-            repository.isContactsSynced()
-                .map { it.not() }
+    fun execute(forceSync: Boolean = false): Completable = rxCompletable {
+        val shouldSync = if (forceSync) true else !repository.isContactsSynced()
+        if (shouldSync) {
+            val debtors = repository.getDebtors().filter { it.contactId != null }
+            if (debtors.isNotEmpty()) {
+                val contacts = repository.getContacts()
+                val updateItems = debtors.mapNotNull { debtor ->
+                    val contact = contacts.firstOrNull { it.name == debtor.name }
+                        ?: contacts.firstOrNull { it.id == debtor.contactId }
+                    contact?.let {
+                        debtor.copy(contactId = it.id, name = it.name, avatarUrl = it.avatarUrl)
+                    }
+                }
+                if (updateItems.isNotEmpty()) repository.updateDebtors(updateItems)
+            }
         }
-            .flatMap { isShouldSync ->
-                if (isShouldSync) repository.getDebtors() else Single.fromCallable { listOf<DebtorModel>() }
-            }
-            .map { items ->
-                items.filter { it.contactId != null }
-            }
-            .flatMap { debtors ->
-                if (debtors.isEmpty()) {
-                    return@flatMap Single.fromCallable { debtors to emptyList<ContactsItemModel>() }
-                }
-                repository.getContacts()
-                    .map { contacts -> debtors to contacts }
-            }
-            .map { (debtors, contacts) ->
-                val updateItems = mutableListOf<DebtorModel>()
-                debtors.forEach { debtor ->
-                    var contactItem = contacts.firstOrNull { contact ->
-                        contact.name == debtor.name
-                    }
-                    if (contactItem == null) {
-                        contactItem = contacts.firstOrNull { contact ->
-                            contact.id == debtor.contactId
-                        }
-                    }
-                    contactItem?.let { contact ->
-                        updateItems.add(
-                            debtor.copy(
-                                contactId = contact.id,
-                                name = contact.name,
-                                avatarUrl = contact.avatarUrl
-                            )
-                        )
-                    }
-                }
-                updateItems
-            }
-            .flatMapCompletable { updateItems ->
-                if (updateItems.isEmpty()) return@flatMapCompletable Completable.complete()
-                repository.updateDebtors(updateItems)
-            }
-            .andThen(
-                repository.setContactsSynced(true)
-            )
+        repository.setContactsSynced(true)
+    }
 }

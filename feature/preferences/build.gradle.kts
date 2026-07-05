@@ -16,4 +16,7 @@ dependencies {
     implementation(libs.google.android.material)
     implementation(libs.koin)
     implementation(libs.bundles.rxjava)
+    // Temporary interop bridge: repository is on coroutines, interactors are still RxJava.
+    // Removed in D1.3 when interactors are migrated to coroutines.
+    implementation(libs.kotlinx.coroutines.rx2)
 }
