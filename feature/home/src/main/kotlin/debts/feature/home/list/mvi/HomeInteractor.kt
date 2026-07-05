@@ -178,7 +178,13 @@ class HomeInteractor(
                     .flatMapCompletable { currency ->
                         rxCompletable {
                             addDebtUseCase.execute(
-                                null, action.contactId, action.name, action.amount, currency, action.comment, action.date
+                                null,
+                                action.contactId,
+                                action.name,
+                                action.amount,
+                                currency,
+                                action.comment,
+                                action.date
                             )
                         }
                     }

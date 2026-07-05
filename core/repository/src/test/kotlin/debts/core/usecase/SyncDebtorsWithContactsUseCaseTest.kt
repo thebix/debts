@@ -5,7 +5,6 @@ import debts.core.repository.data.ContactsItemModel
 import debts.core.repository.data.DebtorModel
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -65,11 +64,13 @@ class SyncDebtorsWithContactsUseCaseTest {
         useCase.execute()
 
         coVerify {
-            repository.updateDebtors(match { items ->
-                items.size == 1 &&
-                        items[0].name == "Alice" &&
-                        items[0].avatarUrl == "new_avatar"
-            })
+            repository.updateDebtors(
+                match { items ->
+                    items.size == 1 &&
+                            items[0].name == "Alice" &&
+                            items[0].avatarUrl == "new_avatar"
+                }
+            )
         }
     }
 
@@ -86,11 +87,13 @@ class SyncDebtorsWithContactsUseCaseTest {
         useCase.execute()
 
         coVerify {
-            repository.updateDebtors(match { items ->
-                items.size == 1 &&
-                        items[0].contactId == 42L &&
-                        items[0].name == "New Name"
-            })
+            repository.updateDebtors(
+                match { items ->
+                    items.size == 1 &&
+                            items[0].contactId == 42L &&
+                            items[0].name == "New Name"
+                }
+            )
         }
     }
 

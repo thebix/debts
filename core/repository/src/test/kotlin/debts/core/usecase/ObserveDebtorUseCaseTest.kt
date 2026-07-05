@@ -20,10 +20,12 @@ class ObserveDebtorUseCaseTest {
     fun `combines debtor debts and currency into DebtorDetailsModel`() = runTest {
         val debtor = DebtorModel(1L, "Alice", null, "avatar.png")
         every { repository.observeDebtor(1L) } returns flowOf(debtor)
-        every { repository.observeDebts(1L) } returns flowOf(listOf(
-            DebtModel(1L, 1L, 100.0, "USD", 0L, ""),
-            DebtModel(2L, 1L, 50.0, "USD", 0L, "")
-        ))
+        every { repository.observeDebts(1L) } returns flowOf(
+            listOf(
+                DebtModel(1L, 1L, 100.0, "USD", 0L, ""),
+                DebtModel(2L, 1L, 50.0, "USD", 0L, "")
+            )
+        )
         every { repository.observeCurrency() } returns flowOf("EUR")
 
         useCase.execute(1L).test {
@@ -53,9 +55,11 @@ class ObserveDebtorUseCaseTest {
     fun `negative amounts are summed correctly`() = runTest {
         val debtor = DebtorModel(1L, "Carol", null, "")
         every { repository.observeDebtor(1L) } returns flowOf(debtor)
-        every { repository.observeDebts(1L) } returns flowOf(listOf(
-            DebtModel(1L, 1L, -200.0, "USD", 0L, "")
-        ))
+        every { repository.observeDebts(1L) } returns flowOf(
+            listOf(
+                DebtModel(1L, 1L, -200.0, "USD", 0L, "")
+            )
+        )
         every { repository.observeCurrency() } returns flowOf("USD")
 
         useCase.execute(1L).test {

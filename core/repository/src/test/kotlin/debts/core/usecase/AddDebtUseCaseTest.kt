@@ -20,8 +20,13 @@ class AddDebtUseCaseTest {
     @Test
     fun `uses provided debtorId directly without querying`() = runTest {
         useCase.execute(
-            debtorId = 5L, contactId = null, name = "Alice",
-            amount = 100.0, currency = "USD", comment = "", date = 0L
+            debtorId = 5L,
+            contactId = null,
+            name = "Alice",
+            amount = 100.0,
+            currency = "USD",
+            comment = "",
+            date = 0L
         )
 
         coVerify(exactly = 0) { repository.getDebtors() }
@@ -33,8 +38,13 @@ class AddDebtUseCaseTest {
         coEvery { repository.getDebtors() } returns listOf(debtor(3L, "Alice", contactId = 10L))
 
         useCase.execute(
-            debtorId = null, contactId = 10L, name = "Alice",
-            amount = 50.0, currency = "EUR", comment = "lunch", date = 1000L
+            debtorId = null,
+            contactId = 10L,
+            name = "Alice",
+            amount = 50.0,
+            currency = "EUR",
+            comment = "lunch",
+            date = 1000L
         )
 
         coVerify(exactly = 0) { createDebtorUseCase.execute(any(), any()) }
@@ -46,8 +56,13 @@ class AddDebtUseCaseTest {
         coEvery { repository.getDebtors() } returns listOf(debtor(4L, "Bob", contactId = null))
 
         useCase.execute(
-            debtorId = null, contactId = null, name = "Bob",
-            amount = 20.0, currency = "USD", comment = "", date = 0L
+            debtorId = null,
+            contactId = null,
+            name = "Bob",
+            amount = 20.0,
+            currency = "USD",
+            comment = "",
+            date = 0L
         )
 
         coVerify(exactly = 0) { createDebtorUseCase.execute(any(), any()) }
@@ -60,8 +75,13 @@ class AddDebtUseCaseTest {
         coEvery { createDebtorUseCase.execute("NewPerson", null) } returns 7L
 
         useCase.execute(
-            debtorId = null, contactId = null, name = "NewPerson",
-            amount = 75.0, currency = "USD", comment = "book", date = 5000L
+            debtorId = null,
+            contactId = null,
+            name = "NewPerson",
+            amount = 75.0,
+            currency = "USD",
+            comment = "book",
+            date = 5000L
         )
 
         coVerify { createDebtorUseCase.execute("NewPerson", null) }
@@ -76,8 +96,13 @@ class AddDebtUseCaseTest {
         )
 
         useCase.execute(
-            debtorId = null, contactId = 10L, name = "Bob",
-            amount = 10.0, currency = "USD", comment = "", date = 0L
+            debtorId = null,
+            contactId = 10L,
+            name = "Bob",
+            amount = 10.0,
+            currency = "USD",
+            comment = "",
+            date = 0L
         )
 
         // Should use debtor 1 (matched by contactId), not debtor 2 (matched by name)

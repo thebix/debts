@@ -70,7 +70,13 @@ class DetailsInteractor(
                     .flatMapCompletable { currency ->
                         rxCompletable {
                             addDebtUseCase.execute(
-                                action.debtorId, null, "", action.amount, currency, action.comment, action.date
+                                action.debtorId,
+                                null,
+                                "",
+                                action.amount,
+                                currency,
+                                action.comment,
+                                action.date
                             )
                         }
                     }

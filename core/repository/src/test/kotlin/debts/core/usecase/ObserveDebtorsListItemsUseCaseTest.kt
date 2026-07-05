@@ -40,10 +40,12 @@ class ObserveDebtorsListItemsUseCaseTest {
     @Test
     fun `TabTypes Debtors filters out creditors`() = runTest {
         every { repository.observeDebtors() } returns flowOf(listOf(debtor(1, "Alice"), debtor(2, "Bob")))
-        every { repository.observeDebts() } returns flowOf(listOf(
-            debt(1, 1L, 50.0),   // Alice owes → positive amount → Debtor
-            debt(2, 2L, -30.0)   // Bob lent → negative → Creditor
-        ))
+        every { repository.observeDebts() } returns flowOf(
+            listOf(
+                debt(1, 1L, 50.0), // Alice owes → positive amount → Debtor
+                debt(2, 2L, -30.0) // Bob lent → negative → Creditor
+            )
+        )
         every { repository.observeCurrency() } returns flowOf("USD")
 
         useCase.execute(TabTypes.Debtors).test {
@@ -57,10 +59,12 @@ class ObserveDebtorsListItemsUseCaseTest {
     @Test
     fun `TabTypes Creditors filters out debtors`() = runTest {
         every { repository.observeDebtors() } returns flowOf(listOf(debtor(1, "Alice"), debtor(2, "Bob")))
-        every { repository.observeDebts() } returns flowOf(listOf(
-            debt(1, 1L, 50.0),
-            debt(2, 2L, -30.0)
-        ))
+        every { repository.observeDebts() } returns flowOf(
+            listOf(
+                debt(1, 1L, 50.0),
+                debt(2, 2L, -30.0)
+            )
+        )
         every { repository.observeCurrency() } returns flowOf("USD")
 
         useCase.execute(TabTypes.Creditors).test {
@@ -74,11 +78,13 @@ class ObserveDebtorsListItemsUseCaseTest {
     @Test
     fun `amount is sum of all debts for debtor`() = runTest {
         every { repository.observeDebtors() } returns flowOf(listOf(debtor(1, "Alice")))
-        every { repository.observeDebts() } returns flowOf(listOf(
-            debt(1, 1L, 100.0),
-            debt(2, 1L, 50.0),
-            debt(3, 1L, -25.0)
-        ))
+        every { repository.observeDebts() } returns flowOf(
+            listOf(
+                debt(1, 1L, 100.0),
+                debt(2, 1L, 50.0),
+                debt(3, 1L, -25.0)
+            )
+        )
         every { repository.observeCurrency() } returns flowOf("USD")
 
         useCase.execute(TabTypes.All).test {
@@ -91,10 +97,12 @@ class ObserveDebtorsListItemsUseCaseTest {
     @Test
     fun `currency is taken from last debt when available`() = runTest {
         every { repository.observeDebtors() } returns flowOf(listOf(debtor(1, "Alice")))
-        every { repository.observeDebts() } returns flowOf(listOf(
-            debt(1, 1L, 10.0, currency = "EUR", date = 2000L),
-            debt(2, 1L, 10.0, currency = "GBP", date = 1000L)
-        ))
+        every { repository.observeDebts() } returns flowOf(
+            listOf(
+                debt(1, 1L, 10.0, currency = "EUR", date = 2000L),
+                debt(2, 1L, 10.0, currency = "GBP", date = 1000L)
+            )
+        )
         every { repository.observeCurrency() } returns flowOf("USD")
 
         useCase.execute(TabTypes.All).test {
@@ -120,10 +128,12 @@ class ObserveDebtorsListItemsUseCaseTest {
     @Test
     fun `debts from other debtors are not included in amount`() = runTest {
         every { repository.observeDebtors() } returns flowOf(listOf(debtor(1, "Alice")))
-        every { repository.observeDebts() } returns flowOf(listOf(
-            debt(1, 1L, 100.0),
-            debt(2, 99L, 999.0)  // belongs to debtor 99, not Alice
-        ))
+        every { repository.observeDebts() } returns flowOf(
+            listOf(
+                debt(1, 1L, 100.0),
+                debt(2, 99L, 999.0) // belongs to debtor 99, not Alice
+            )
+        )
         every { repository.observeCurrency() } returns flowOf("USD")
 
         useCase.execute(TabTypes.All).test {
