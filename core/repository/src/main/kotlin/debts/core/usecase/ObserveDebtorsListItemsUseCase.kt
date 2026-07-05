@@ -3,15 +3,14 @@ package debts.core.usecase
 import debts.core.repository.DebtsRepository
 import debts.core.usecase.data.DebtorsListItemModel
 import debts.core.usecase.data.TabTypes
-import io.reactivex.Observable
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.rx2.asObservable
 
 class ObserveDebtorsListItemsUseCase(
     private val repository: DebtsRepository
 ) {
 
-    fun execute(tabType: TabTypes): Observable<List<DebtorsListItemModel.Debtor>> =
+    fun execute(tabType: TabTypes): Flow<List<DebtorsListItemModel.Debtor>> =
         combine(
             repository.observeDebtors(),
             repository.observeDebts(),
@@ -34,5 +33,5 @@ class ObserveDebtorsListItemsUseCase(
                         (tabType == TabTypes.Debtors && debtor.amount >= 0) ||
                         (tabType == TabTypes.Creditors && debtor.amount < 0)
             }
-        }.asObservable()
+        }
 }

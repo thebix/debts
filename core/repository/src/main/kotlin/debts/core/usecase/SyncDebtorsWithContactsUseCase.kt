@@ -1,8 +1,6 @@
 package debts.core.usecase
 
 import debts.core.repository.DebtsRepository
-import io.reactivex.Completable
-import kotlinx.coroutines.rx2.rxCompletable
 
 class SyncDebtorsWithContactsUseCase(
     private val repository: DebtsRepository
@@ -11,7 +9,7 @@ class SyncDebtorsWithContactsUseCase(
     /**
      * forceSync ignores preferences check
      */
-    fun execute(forceSync: Boolean = false): Completable = rxCompletable {
+    suspend fun execute(forceSync: Boolean = false) {
         val shouldSync = if (forceSync) true else !repository.isContactsSynced()
         if (shouldSync) {
             val debtors = repository.getDebtors().filter { it.contactId != null }

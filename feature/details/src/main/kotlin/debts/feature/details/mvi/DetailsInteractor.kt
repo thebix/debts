@@ -15,6 +15,8 @@ import debts.core.usecase.UpdateDebtUseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.rx2.asObservable
+import kotlinx.coroutines.rx2.rxCompletable
 import kotlinx.coroutines.rx2.rxSingle
 import timber.log.Timber
 
@@ -38,14 +40,10 @@ class DetailsInteractor(
         ObservableTransformer<DetailsAction.Init, DetailsResult> { actions ->
             actions.switchMap { action ->
                 Observable.merge(
-                    observeDebtorUseCase.execute(action.id)
-                        .map {
-                            DetailsResult.Debtor(it.name, it.amount, it.currency, it.avatarUrl)
-                        },
-                    observeDebtsUseCase.execute(action.id)
-                        .map { items ->
-                            DetailsResult.History(items.map { it })
-                        }
+                    observeDebtorUseCase.execute(action.id).asObservable()
+                        .map { DetailsResult.Debtor(it.name, it.amount, it.currency, it.avatarUrl) },
+                    observeDebtsUseCase.execute(action.id).asObservable()
+                        .map { items -> DetailsResult.History(items.map { it }) }
                 )
                     .subscribeOn(Schedulers.io())
                     .doOnError { Timber.e(it) }
@@ -56,8 +54,7 @@ class DetailsInteractor(
     private val clearHistoryProcessor =
         ObservableTransformer<DetailsAction.ClearHistory, DetailsResult> { actions ->
             actions.switchMap { action ->
-                clearHistoryUseCase
-                    .execute(action.id)
+                rxCompletable { clearHistoryUseCase.execute(action.id) }
                     .subscribeOn(Schedulers.io())
                     .doOnError { Timber.e(it) }
                     .toSingleDefault(DetailsResult.History(emptyList()) as DetailsResult)
@@ -71,8 +68,8 @@ class DetailsInteractor(
             actions.switchMap { action ->
                 rxSingle { repository.getCurrency() }
                     .flatMapCompletable { currency ->
-                        addDebtUseCase
-                            .execute(
+                        rxCompletable {
+                            addDebtUseCase.execute(
                                 action.debtorId,
                                 null,
                                 "",
@@ -81,6 +78,7 @@ class DetailsInteractor(
                                 action.comment,
                                 action.date
                             )
+                        }
                     }
                     .doOnComplete {
                         // TODO: this resource id should be provided from Fragment through intent/action
@@ -95,9 +93,8 @@ class DetailsInteractor(
 
     private val removeDebtProcessor =
         ObservableTransformer<DetailsAction.RemoveDebt, DetailsResult> { actions ->
-            actions.switchMap {
-                removeDebtUseCase
-                    .execute(it.id)
+            actions.switchMap { action ->
+                rxCompletable { removeDebtUseCase.execute(action.id) }
                     .subscribeOn(Schedulers.io())
                     .toObservable<DetailsResult>()
                     .doOnError { error -> Timber.e(error) }
@@ -107,13 +104,12 @@ class DetailsInteractor(
 
     private val editDebtProcessor =
         ObservableTransformer<DetailsAction.EditDebt, DetailsResult> { actions ->
-            actions.switchMap {
-                getDebtUseCase
-                    .execute(it.id)
+            actions.switchMap { action ->
+                rxSingle { getDebtUseCase.execute(action.id) }
                     .subscribeOn(Schedulers.io())
                     .map { debtModel ->
                         DetailsResult.EditDebt(
-                            debtId = it.id,
+                            debtId = action.id,
                             amount = debtModel.amount,
                             comment = debtModel.comment,
                             date = debtModel.date
@@ -127,20 +123,20 @@ class DetailsInteractor(
 
     private val editDebtSaveProcessor =
         ObservableTransformer<DetailsAction.EditDebtSave, DetailsResult> { actions ->
-            actions.switchMap {
-                getDebtUseCase.execute(it.debtId)
+            actions.switchMap { action ->
+                rxSingle { getDebtUseCase.execute(action.debtId) }
                     .subscribeOn(Schedulers.io())
                     .flatMapCompletable { debtModel ->
-                        updateDebtUseCase
-                            .execute(
+                        rxCompletable {
+                            updateDebtUseCase.execute(
                                 id = debtModel.id,
                                 debtorId = debtModel.debtorId,
-                                amount = it.amount,
-                                date = it.date,
+                                amount = action.amount,
+                                date = action.date,
                                 currency = debtModel.currency,
-                                comment = it.comment
+                                comment = action.comment
                             )
-                            .doOnError { error -> Timber.e(error) }
+                        }.doOnError { error -> Timber.e(error) }
                     }
                     .doOnComplete {
                         // TODO: this resource id should be provided from Fragment through intent/action
@@ -154,9 +150,8 @@ class DetailsInteractor(
 
     private val removeDebtorProcessor =
         ObservableTransformer<DetailsAction.RemoveDebtor, DetailsResult> { actions ->
-            actions.switchMap {
-                removeDebtorUseCase
-                    .execute(it.debtorId)
+            actions.switchMap { action ->
+                rxCompletable { removeDebtorUseCase.execute(action.debtorId) }
                     .subscribeOn(Schedulers.io())
                     .toSingleDefault(DetailsResult.DebtorRemoved as DetailsResult)
                     .doOnError { error -> Timber.e(error) }
@@ -168,16 +163,15 @@ class DetailsInteractor(
     private val shareDebtorProcessor =
         ObservableTransformer<DetailsAction.ShareDebtor, DetailsResult> { actions ->
             actions.switchMap { action ->
-                getShareDebtorContentUseCase.execute(
-                    action.debtorId,
-                    action.borrowedTemplate,
-                    action.lentTemplate
-                )
+                rxSingle {
+                    getShareDebtorContentUseCase.execute(
+                        action.debtorId,
+                        action.borrowedTemplate,
+                        action.lentTemplate
+                    )
+                }
                     .flatMapCompletable { content ->
-                        debtsNavigator.sendExplicit(
-                            action.titleText,
-                            content
-                        )
+                        debtsNavigator.sendExplicit(action.titleText, content)
                     }
                     .subscribeOn(Schedulers.io())
                     .toObservable<DetailsResult>()
