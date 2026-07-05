@@ -12,6 +12,11 @@ import debts.core.repository.data.DebtorModel
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.rx2.asObservable
+import kotlinx.coroutines.rx2.rxCompletable
+import kotlinx.coroutines.rx2.rxSingle
 
 @Suppress("TooManyFunctions")
 class DebtsRepository(
@@ -29,11 +34,16 @@ class DebtsRepository(
         const val PREFS_FILTER_KEY = "PREFS_FILTER_KEY"
     }
 
-    fun observeDebtors(): Observable<List<DebtorModel>> = dao.observeDebtors()
-        .map { items -> items.map { it.toDebtorModel() } }
+    fun observeDebtors(): Observable<List<DebtorModel>> =
+        dao.observeDebtors()
+            .map { items -> items.map { it.toDebtorModel() } }
+            .asObservable()
 
-    fun observeDebtor(debtorId: Long): Observable<DebtorModel> = dao.observeDebtor(debtorId)
-        .map { items -> items.toDebtorModel() }
+    fun observeDebtor(debtorId: Long): Observable<DebtorModel> =
+        dao.observeDebtor(debtorId)
+            .filterNotNull()
+            .map { it.toDebtorModel() }
+            .asObservable()
 
     fun getDebtors(): Single<List<DebtorModel>> =
         observeDebtors()
@@ -41,12 +51,12 @@ class DebtsRepository(
             .single(emptyList())
 
     fun getDebt(debtId: Long): Single<DebtModel> =
-        dao.getDebt(debtId)
-            .map { it.toDebtModel() }
+        rxSingle { dao.getDebt(debtId).toDebtModel() }
 
     fun observeDebts(debtorId: Long = 0): Observable<List<DebtModel>> =
         (if (debtorId == 0L) dao.observeDebts() else dao.observeDebts(debtorId))
             .map { items -> items.map { it.toDebtModel() } }
+            .asObservable()
 
     fun getDebts(debtorId: Long = 0L): Single<List<DebtModel>> =
         observeDebts(debtorId)
@@ -93,21 +103,21 @@ class DebtsRepository(
         email: String = "",
         phone: String = "",
     ): Single<Long> =
-        dao.insertDebtor(
-            DebtorEntity(
-                INSERT_ID,
-                contactId,
-                name,
-                avatarUrl,
-                email,
-                phone
+        rxSingle {
+            dao.insertDebtor(
+                DebtorEntity(
+                    INSERT_ID,
+                    contactId,
+                    name,
+                    avatarUrl,
+                    email,
+                    phone
+                )
             )
-        )
+        }
 
     fun updateDebtors(items: List<DebtorModel>): Completable =
-        Completable.fromCallable {
-            dao.updateDebtors(items.map { it.toDebtorEntity() })
-        }
+        rxCompletable { dao.updateDebtors(items.map { it.toDebtorEntity() }) }
 
     fun saveDebt(
         debtorId: Long,
@@ -116,16 +126,18 @@ class DebtsRepository(
         comment: String,
         date: Long,
     ): Single<Long> =
-        dao.insertDebt(
-            DebtEntity(
-                INSERT_ID,
-                debtorId,
-                amount,
-                currency,
-                date,
-                comment
+        rxSingle {
+            dao.insertDebt(
+                DebtEntity(
+                    INSERT_ID,
+                    debtorId,
+                    amount,
+                    currency,
+                    date,
+                    comment
+                )
             )
-        )
+        }
 
     fun updateDebt(
         id: Long,
@@ -134,20 +146,19 @@ class DebtsRepository(
         currency: String,
         date: Long,
         comment: String,
-    ): Completable = dao.updateDebt(
-        DebtEntity(id, debtorId, amount, currency, date, comment)
-    )
+    ): Completable =
+        rxCompletable { dao.updateDebt(DebtEntity(id, debtorId, amount, currency, date, comment)) }
 
-    fun clearDebts(debtorId: Long): Completable = dao.clearAllDebts(debtorId)
+    fun clearDebts(debtorId: Long): Completable = rxCompletable { dao.clearAllDebts(debtorId) }
 
-    fun removeDebt(id: Long): Completable = dao.deleteDebt(id)
+    fun removeDebt(id: Long): Completable = rxCompletable { dao.deleteDebt(id) }
 
     fun updateDebtsCurrency(): Completable = getCurrency()
-        .flatMapCompletable {
-            Completable.fromCallable { dao.updateDebtsCurrency(it) }
+        .flatMapCompletable { currency ->
+            rxCompletable { dao.updateDebtsCurrency(currency) }
         }
 
-    fun removeDebtor(debtorId: Long): Completable = dao.deleteDebtor(debtorId)
+    fun removeDebtor(debtorId: Long): Completable = rxCompletable { dao.deleteDebtor(debtorId) }
 
     // region Preferences
 

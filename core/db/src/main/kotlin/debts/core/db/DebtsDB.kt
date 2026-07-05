@@ -8,9 +8,7 @@ import androidx.room.Query
 import androidx.room.RoomDatabase
 import androidx.room.Transaction
 import androidx.room.Update
-import io.reactivex.Completable
-import io.reactivex.Observable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
 @Database(
     version = DebtsDatabase.DB_VERSION,
@@ -35,57 +33,57 @@ abstract class DebtsDatabase : RoomDatabase() {
 abstract class DebtsDao {
 
     @Insert
-    abstract fun insertDebtor(debtorEntity: DebtorEntity): Single<Long>
+    abstract suspend fun insertDebtor(debtorEntity: DebtorEntity): Long
 
     @Insert
-    abstract fun insertDebt(debtEntity: DebtEntity): Single<Long>
+    abstract suspend fun insertDebt(debtEntity: DebtEntity): Long
 
     @Update
-    abstract fun updateDebtor(debtorEntity: DebtorEntity): Completable
+    abstract suspend fun updateDebtor(debtorEntity: DebtorEntity)
 
     @Query("UPDATE ${DebtorEntity.TABLE_NAME} SET ${DebtorEntity.NAME} = :name, ${DebtorEntity.AVATAR} = :avatar WHERE ${DebtorEntity.ID} = :id")
-    abstract fun updateDebtor(id: Long, name: String, avatar: String)
+    abstract suspend fun updateDebtor(id: Long, name: String, avatar: String)
 
     @Transaction
-    open fun updateDebtors(debtors: List<DebtorEntity>) {
+    open suspend fun updateDebtors(debtors: List<DebtorEntity>) {
         for (item in debtors) {
             updateDebtor(item.id, item.name, item.avatarUrl)
         }
     }
 
     @Update
-    abstract fun updateDebt(debtEntity: DebtEntity): Completable
+    abstract suspend fun updateDebt(debtEntity: DebtEntity)
 
     @Query("UPDATE ${DebtEntity.TABLE_NAME} SET ${DebtEntity.CURRENCY} = :currency")
-    abstract fun updateDebtsCurrency(currency: String)
+    abstract suspend fun updateDebtsCurrency(currency: String)
 
     @Delete
-    abstract fun deleteDebtor(debtorEntity: DebtorEntity): Completable
+    abstract suspend fun deleteDebtor(debtorEntity: DebtorEntity)
 
     @Delete
-    abstract fun deleteDebt(debtEntity: DebtEntity): Completable
+    abstract suspend fun deleteDebt(debtEntity: DebtEntity)
 
     @Query("DELETE FROM ${DebtorEntity.TABLE_NAME} WHERE ${DebtorEntity.ID} = :id")
-    abstract fun deleteDebtor(id: Long): Completable
+    abstract suspend fun deleteDebtor(id: Long)
 
     @Query("DELETE FROM ${DebtEntity.TABLE_NAME} WHERE ${DebtEntity.DEBTOR_ID} = :debtorId")
-    abstract fun clearAllDebts(debtorId: Long): Completable
+    abstract suspend fun clearAllDebts(debtorId: Long)
 
     @Query("SELECT * FROM ${DebtorEntity.TABLE_NAME} WHERE ${DebtorEntity.ID} = :id")
-    abstract fun observeDebtor(id: Long): Observable<DebtorEntity>
+    abstract fun observeDebtor(id: Long): Flow<DebtorEntity?>
 
     @Query("SELECT * FROM ${DebtorEntity.TABLE_NAME}")
-    abstract fun observeDebtors(): Observable<List<DebtorEntity>>
+    abstract fun observeDebtors(): Flow<List<DebtorEntity>>
 
     @Query("SELECT * FROM ${DebtEntity.TABLE_NAME}")
-    abstract fun observeDebts(): Observable<List<DebtEntity>>
+    abstract fun observeDebts(): Flow<List<DebtEntity>>
 
     @Query("SELECT * FROM ${DebtEntity.TABLE_NAME} WHERE ${DebtEntity.ID} = :id")
-    abstract fun getDebt(id: Long): Single<DebtEntity>
+    abstract suspend fun getDebt(id: Long): DebtEntity
 
     @Query("SELECT * FROM ${DebtEntity.TABLE_NAME} WHERE ${DebtEntity.DEBTOR_ID} = :debtorId")
-    abstract fun observeDebts(debtorId: Long): Observable<List<DebtEntity>>
+    abstract fun observeDebts(debtorId: Long): Flow<List<DebtEntity>>
 
     @Query("DELETE FROM ${DebtEntity.TABLE_NAME} WHERE ${DebtEntity.ID} = :id")
-    abstract fun deleteDebt(id: Long): Completable
+    abstract suspend fun deleteDebt(id: Long)
 }
