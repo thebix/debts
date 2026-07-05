@@ -31,6 +31,14 @@ dependencyResolutionManagement {
 
 kover {
     reports {
+        // Pure UI glue — no testable logic; business logic lives in ViewModels
+        excludedClasses.addAll(
+            "*Activity",
+            "*Fragment",
+        )
+        // Compose UI functions — declarative rendering, not business logic
+        excludesAnnotatedBy.add("androidx.compose.runtime.Composable")
+
         verify {
             rule {
                 // Starting threshold — raised incrementally as tests are added (ratchet)
