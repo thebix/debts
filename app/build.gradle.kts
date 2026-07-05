@@ -70,6 +70,7 @@ dependencies {
     implementation(project(":feature:preferences"))
 
     implementation(libs.koin)
+    implementation(libs.bundles.rxjava)
 
     debugImplementation(libs.leak.canary)
 }
