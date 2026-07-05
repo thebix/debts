@@ -7,6 +7,13 @@ on:
     tags-ignore:
       - internal/*
       - release/*
+  pull_request:
+    branches:
+      - '**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   static-analysis:
@@ -15,6 +22,8 @@ jobs:
   test:
     needs: static-analysis
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - name: Setup environment
@@ -30,6 +39,16 @@ jobs:
         with:
           name: coverage-report
           path: '**/build/reports/kover/report.xml'
+      - name: Post coverage comment
+        if: github.event_name == 'pull_request'
+        uses: madrapps/jacoco-report@v1.7.1
+        with:
+          paths: '**/build/reports/kover/report.xml'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: Test Coverage
+          update-comment: true
+          min-coverage-overall: 0
+          min-coverage-changed-files: 0
   build:
     needs: static-analysis
     runs-on: ubuntu-latest
