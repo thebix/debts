@@ -31,6 +31,12 @@ internal fun Project.configureAndroidCompose(
             compose = true
         }
 
+        testOptions {
+            unitTests {
+                isIncludeAndroidResources = true
+            }
+        }
+
         dependencies {
             val bom = libs.findLibrary("androidx-compose-bom").get()
             add("implementation", platform(bom))
@@ -39,7 +45,15 @@ internal fun Project.configureAndroidCompose(
             add("implementation", libs.findLibrary("androidx.compose.runtime").get())
             add("implementation", libs.findLibrary("androidx.compose.material3").get())
             add("implementation", libs.findLibrary("androidx.compose.ui.tooling.preview").get())
+            add("implementation", libs.findLibrary("androidx-activity-compose").get())
+            add("implementation", libs.findLibrary("androidx-lifecycle-runtime-compose").get())
             add("debugImplementation", libs.findLibrary("androidx.compose.ui.tooling").get())
+
+            add("testImplementation", libs.findLibrary("robolectric").get())
+            add("testImplementation", libs.findLibrary("androidx-compose-ui-test-junit4").get())
+            add("testImplementation", libs.findLibrary("roborazzi").get())
+            add("testImplementation", libs.findLibrary("roborazzi-compose").get())
+            add("testImplementation", libs.findLibrary("roborazzi-junit-rule").get())
         }
     }
 }

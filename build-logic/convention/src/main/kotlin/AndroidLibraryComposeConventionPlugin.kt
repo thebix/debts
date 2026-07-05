@@ -25,7 +25,7 @@ class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply("com.android.library")
             pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
-            // Screenshot Tests
+            // Screenshot Tests — plugin added in a dedicated story when CI recording workflow is set up
 //            pluginManager.apply("io.github.takahirom.roborazzi")
 
             val extension = extensions.getByType<LibraryExtension>()
