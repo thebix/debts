@@ -35,8 +35,7 @@ import debts.feature.home.list.mvi.DebtorsInteractor
 import debts.feature.home.list.mvi.DebtorsViewModel
 import debts.feature.home.list.mvi.HomeInteractor
 import debts.feature.home.list.mvi.HomeViewModel
-import debts.feature.preferences.mvi.MainSettingsInteractor
-import debts.feature.preferences.mvi.MainSettingsViewModel
+import debts.feature.preferences.PreferencesViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -104,13 +103,6 @@ val useCasesModule = module {
 }
 
 val interactorModule = module {
-    single<DebtsNavigator>(qualifier = StringQualifier(ScreenContextHolder.FRAGMENT_MAIN_PREFERENCES)) {
-        DebtsNavigatorImpl(
-            screenContextHolder = get(),
-            applicationContext = androidContext(),
-            name = ScreenContextHolder.FRAGMENT_MAIN_PREFERENCES
-        )
-    }
     single<DebtsNavigator>(qualifier = StringQualifier(ScreenContextHolder.FRAGMENT_DETAILS)) {
         DebtsNavigatorImpl(
             screenContextHolder = get(),
@@ -161,14 +153,6 @@ val interactorModule = module {
         )
     }
     factory {
-        MainSettingsInteractor(
-            debtsNavigator = get(qualifier = StringQualifier(ScreenContextHolder.FRAGMENT_MAIN_PREFERENCES)),
-            updateDbDebtsCurrencyUseCase = get(),
-            syncDebtorsWithContactsUseCase = get(),
-            repository = get()
-        )
-    }
-    factory {
         HomeInteractor(
             getContactsUseCase = get(),
             addDebtUseCase = get(),
@@ -193,6 +177,13 @@ val viewModelModule = module {
         }
     }
     viewModel { debts.feature.details.mvi.DetailsViewModel(interactor = get()) }
-    viewModel { MainSettingsViewModel(interactor = get()) }
+    viewModel {
+        PreferencesViewModel(
+            updateDbDebtsCurrencyUseCase = get(),
+            syncDebtorsWithContactsUseCase = get(),
+            repository = get(),
+            buildConfigData = get(),
+        )
+    }
     viewModel { HomeViewModel(interactor = get()) }
 }

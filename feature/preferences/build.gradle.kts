@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.debts.android.library)
+    alias(libs.plugins.debts.android.library.compose)
 }
 
 android {
@@ -11,12 +12,11 @@ dependencies {
     implementation(project(":core:repository"))
     implementation(project(":core:resource"))
 
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.preference)
-    implementation(libs.google.android.material)
     implementation(libs.koin)
-    implementation(libs.bundles.rxjava)
-    // Temporary interop bridge: repository is on coroutines, interactors are still RxJava.
-    // Removed in D1.3 when interactors are migrated to coroutines.
-    implementation(libs.kotlinx.coroutines.rx2)
+    implementation(libs.androidx.compose.material.icons.core)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
 }
