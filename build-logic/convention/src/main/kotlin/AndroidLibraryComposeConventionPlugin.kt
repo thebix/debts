@@ -16,8 +16,10 @@
 
 import com.android.build.gradle.LibraryExtension
 import common.configureAndroidCompose
+import io.github.takahirom.roborazzi.RoborazziExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.getByType
 
 class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
@@ -25,8 +27,10 @@ class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply("com.android.library")
             pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
-            // Screenshot Tests — plugin added in a dedicated story when CI recording workflow is set up
-//            pluginManager.apply("io.github.takahirom.roborazzi")
+            pluginManager.apply("io.github.takahirom.roborazzi")
+            configure<RoborazziExtension> {
+                outputDir.set(layout.projectDirectory.dir("src/test/screenshots"))
+            }
 
             val extension = extensions.getByType<LibraryExtension>()
             configureAndroidCompose(extension)
