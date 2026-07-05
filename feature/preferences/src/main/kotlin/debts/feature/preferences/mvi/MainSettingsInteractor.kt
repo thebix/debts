@@ -8,6 +8,7 @@ import debts.core.usecase.UpdateDbDebtsCurrencyUseCase
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.rx2.rxCompletable
 import timber.log.Timber
 
 class MainSettingsInteractor(
@@ -22,7 +23,7 @@ class MainSettingsInteractor(
             actions.switchMap {
                 updateDbDebtsCurrencyUseCase.execute()
                     // to send new currency to all observers
-                    .andThen(repository.setCurrency(it.currency))
+                    .andThen(rxCompletable { repository.setCurrency(it.currency) })
                     .subscribeOn(Schedulers.io())
                     .toSingleDefault(MainSettingsResult.UpdateCurrencyEnd as MainSettingsResult)
                     .doOnError { Timber.e(it) }

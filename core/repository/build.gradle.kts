@@ -11,7 +11,11 @@ dependencies {
     implementation(project(":core:db"))
 
     implementation(libs.bundles.rxjava)
-    // Temporary interop bridge: DAO is on coroutines, repository public API is still RxJava.
-    // Removed in D1.2 when the repository is migrated to suspend/Flow.
+    // Temporary interop bridge: use cases still expose RxJava API.
+    // Removed in D1.3 when use cases are migrated to suspend/Flow.
     implementation(libs.kotlinx.coroutines.rx2)
+
+    testImplementation(libs.mockk)
+    testImplementation(libs.turbine)
+    testImplementation(libs.kotlinx.coroutines.test)
 }

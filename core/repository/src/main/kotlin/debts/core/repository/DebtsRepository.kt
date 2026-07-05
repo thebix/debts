@@ -9,14 +9,10 @@ import debts.core.db.DebtsDao
 import debts.core.repository.data.ContactsItemModel
 import debts.core.repository.data.DebtModel
 import debts.core.repository.data.DebtorModel
-import io.reactivex.Completable
-import io.reactivex.Observable
-import io.reactivex.Single
-import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.rx2.asObservable
-import kotlinx.coroutines.rx2.rxCompletable
-import kotlinx.coroutines.rx2.rxSingle
+import kotlinx.coroutines.rx2.asFlow
 
 @Suppress("TooManyFunctions")
 class DebtsRepository(
@@ -34,163 +30,104 @@ class DebtsRepository(
         const val PREFS_FILTER_KEY = "PREFS_FILTER_KEY"
     }
 
-    fun observeDebtors(): Observable<List<DebtorModel>> =
-        dao.observeDebtors()
-            .map { items -> items.map { it.toDebtorModel() } }
-            .asObservable()
+    fun observeDebtors(): Flow<List<DebtorModel>> =
+        dao.observeDebtors().map { items -> items.map { it.toDebtorModel() } }
 
-    fun observeDebtor(debtorId: Long): Observable<DebtorModel> =
-        dao.observeDebtor(debtorId)
-            .filterNotNull()
-            .map { it.toDebtorModel() }
-            .asObservable()
+    fun observeDebtor(debtorId: Long): Flow<DebtorModel?> =
+        dao.observeDebtor(debtorId).map { it?.toDebtorModel() }
 
-    fun getDebtors(): Single<List<DebtorModel>> =
-        observeDebtors()
-            .take(1)
-            .single(emptyList())
+    suspend fun getDebtors(): List<DebtorModel> =
+        dao.observeDebtors().map { items -> items.map { it.toDebtorModel() } }.first()
 
-    fun getDebt(debtId: Long): Single<DebtModel> =
-        rxSingle { dao.getDebt(debtId).toDebtModel() }
+    suspend fun getDebt(debtId: Long): DebtModel = dao.getDebt(debtId).toDebtModel()
 
-    fun observeDebts(debtorId: Long = 0): Observable<List<DebtModel>> =
+    fun observeDebts(debtorId: Long = 0): Flow<List<DebtModel>> =
         (if (debtorId == 0L) dao.observeDebts() else dao.observeDebts(debtorId))
             .map { items -> items.map { it.toDebtModel() } }
-            .asObservable()
 
-    fun getDebts(debtorId: Long = 0L): Single<List<DebtModel>> =
-        observeDebts(debtorId)
-            .take(1)
-            .single(emptyList())
+    suspend fun getDebts(debtorId: Long = 0L): List<DebtModel> =
+        observeDebts(debtorId).first()
 
-    fun getContacts(): Single<List<ContactsItemModel>> =
-        Single.fromCallable {
-            val items = mutableListOf<ContactsItemModel>()
-            val cursor =
-                contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null)
-            cursor?.let {
-                if (cursor.count > 0) {
-                    while (cursor.moveToNext()) {
-                        val id = cursor.getLong(
-                            cursor.getColumnIndex(ContactsContract.Contacts._ID)
-                        )
-                        val name = cursor.getString(
-                            cursor.getColumnIndex(
-                                ContactsContract.Contacts.DISPLAY_NAME
-                            )
-                        )
-                        val avatar = cursor.getString(
-                            cursor.getColumnIndex(
-                                ContactsContract.Contacts.PHOTO_URI
-                            )
-                        )
-                        items.add(
-                            ContactsItemModel(id, name ?: "", avatar ?: "")
-                        )
-                    }
+    fun getContacts(): List<ContactsItemModel> {
+        val items = mutableListOf<ContactsItemModel>()
+        val cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null)
+        cursor?.use {
+            if (cursor.count > 0) {
+                while (cursor.moveToNext()) {
+                    val id = cursor.getLong(cursor.getColumnIndex(ContactsContract.Contacts._ID))
+                    val name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                    val avatar = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_URI))
+                    items.add(ContactsItemModel(id, name ?: "", avatar ?: ""))
                 }
             }
-
-            cursor?.close()
-
-            items
         }
+        return items
+    }
 
-    fun createDebtor(
+    suspend fun createDebtor(
         name: String,
         contactId: Long?,
         avatarUrl: String,
         email: String = "",
         phone: String = "",
-    ): Single<Long> =
-        rxSingle {
-            dao.insertDebtor(
-                DebtorEntity(
-                    INSERT_ID,
-                    contactId,
-                    name,
-                    avatarUrl,
-                    email,
-                    phone
-                )
-            )
-        }
+    ): Long = dao.insertDebtor(DebtorEntity(INSERT_ID, contactId, name, avatarUrl, email, phone))
 
-    fun updateDebtors(items: List<DebtorModel>): Completable =
-        rxCompletable { dao.updateDebtors(items.map { it.toDebtorEntity() }) }
+    suspend fun updateDebtors(items: List<DebtorModel>) =
+        dao.updateDebtors(items.map { it.toDebtorEntity() })
 
-    fun saveDebt(
+    suspend fun saveDebt(
         debtorId: Long,
         amount: Double,
         currency: String,
         comment: String,
         date: Long,
-    ): Single<Long> =
-        rxSingle {
-            dao.insertDebt(
-                DebtEntity(
-                    INSERT_ID,
-                    debtorId,
-                    amount,
-                    currency,
-                    date,
-                    comment
-                )
-            )
-        }
+    ): Long = dao.insertDebt(DebtEntity(INSERT_ID, debtorId, amount, currency, date, comment))
 
-    fun updateDebt(
+    suspend fun updateDebt(
         id: Long,
         debtorId: Long,
         amount: Double,
         currency: String,
         date: Long,
         comment: String,
-    ): Completable =
-        rxCompletable { dao.updateDebt(DebtEntity(id, debtorId, amount, currency, date, comment)) }
+    ) = dao.updateDebt(DebtEntity(id, debtorId, amount, currency, date, comment))
 
-    fun clearDebts(debtorId: Long): Completable = rxCompletable { dao.clearAllDebts(debtorId) }
+    suspend fun clearDebts(debtorId: Long) = dao.clearAllDebts(debtorId)
 
-    fun removeDebt(id: Long): Completable = rxCompletable { dao.deleteDebt(id) }
+    suspend fun removeDebt(id: Long) = dao.deleteDebt(id)
 
-    fun updateDebtsCurrency(): Completable = getCurrency()
-        .flatMapCompletable { currency ->
-            rxCompletable { dao.updateDebtsCurrency(currency) }
-        }
+    suspend fun updateDebtsCurrency() {
+        val currency = getCurrency()
+        dao.updateDebtsCurrency(currency)
+    }
 
-    fun removeDebtor(debtorId: Long): Completable = rxCompletable { dao.deleteDebtor(debtorId) }
+    suspend fun removeDebtor(debtorId: Long) = dao.deleteDebtor(debtorId)
 
     // region Preferences
 
-    fun isContactsSynced() =
-        Single.fromCallable { preferences.getBoolean(PREFS_IS_CONTACT_SYNCED, false) }
+    suspend fun isContactsSynced(): Boolean = preferences.getBoolean(PREFS_IS_CONTACT_SYNCED, false)
 
-    fun setContactsSynced(isSynced: Boolean = true) =
-        Completable.fromCallable { preferences.putBoolean(PREFS_IS_CONTACT_SYNCED, isSynced) }
+    suspend fun setContactsSynced(isSynced: Boolean = true) =
+        preferences.putBoolean(PREFS_IS_CONTACT_SYNCED, isSynced)
 
-    fun getCurrency(): Single<String> = Single.fromCallable { preferences.getString(PREFS_CURRENCY, "") }
-    fun observeCurrency() = preferences.observeString(PREFS_CURRENCY, "")
-    fun setCurrency(currency: String) =
-        Completable.fromCallable { preferences.putString(PREFS_CURRENCY, currency) }
+    suspend fun getCurrency(): String = preferences.getString(PREFS_CURRENCY, "")
+    fun observeCurrency(): Flow<String> = preferences.observeString(PREFS_CURRENCY, "").asFlow()
+    suspend fun setCurrency(currency: String) = preferences.putString(PREFS_CURRENCY, currency)
 
-    fun isAppFirstStart() =
-        Single.fromCallable { preferences.getBoolean(PREFS_IS_FIRST_START, true) }
+    suspend fun isAppFirstStart(): Boolean = preferences.getBoolean(PREFS_IS_FIRST_START, true)
 
-    fun setAppFirstStart(isAppFirstStart: Boolean = true) =
-        Completable.fromCallable { preferences.putBoolean(PREFS_IS_FIRST_START, isAppFirstStart) }
+    suspend fun setAppFirstStart(isAppFirstStart: Boolean = true) =
+        preferences.putBoolean(PREFS_IS_FIRST_START, isAppFirstStart)
 
-    fun observeSortType(): Observable<SortType> =
+    fun observeSortType(): Flow<SortType> =
         preferences.observeString(PREFS_SORT_KEY, SortType.NOTHING.name)
+            .asFlow()
             .map { SortType.valueOf(it) }
 
-    fun setSortType(sortType: SortType) {
-        preferences.putString(PREFS_SORT_KEY, sortType.name)
-    }
+    fun setSortType(sortType: SortType) = preferences.putString(PREFS_SORT_KEY, sortType.name)
 
-    fun observeDebtorsFilter(): Observable<String> = preferences.observeString(PREFS_FILTER_KEY, "")
-    fun setDebtorsFilter(name: String) {
-        preferences.putString(PREFS_FILTER_KEY, name)
-    }
+    fun observeDebtorsFilter(): Flow<String> = preferences.observeString(PREFS_FILTER_KEY, "").asFlow()
+    fun setDebtorsFilter(name: String) = preferences.putString(PREFS_FILTER_KEY, name)
 
     // endregion
 }

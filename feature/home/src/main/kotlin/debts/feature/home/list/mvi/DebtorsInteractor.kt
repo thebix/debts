@@ -13,6 +13,7 @@ import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.functions.Function4
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.rx2.asObservable
 import net.thebix.debts.feature.home.R
 import timber.log.Timber
 import kotlin.math.absoluteValue
@@ -31,9 +32,9 @@ class DebtorsInteractor(
                 Observable.combineLatest<List<DebtorsListItemModel.Debtor>, SortType, String, String, Pair<Pair<String, Double>, List<DebtorsListItemModel>>>(
                     observeDebtorsListItemsUseCase
                         .execute(action.tabType),
-                    repository.observeSortType(),
-                    repository.observeDebtorsFilter(),
-                    repository.observeCurrency(),
+                    repository.observeSortType().asObservable(),
+                    repository.observeDebtorsFilter().asObservable(),
+                    repository.observeCurrency().asObservable(),
                     Function4 { debtors, sortType, nameFilter, defaultCurrency ->
                         val filtered = getFiltered(debtors, nameFilter)
                         val totalAmount = filtered.sumByDouble { it.amount }

@@ -15,6 +15,9 @@ import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.rx2.asObservable
+import kotlinx.coroutines.rx2.rxCompletable
+import kotlinx.coroutines.rx2.rxSingle
 import timber.log.Timber
 import java.text.NumberFormat
 import java.util.Locale
@@ -34,13 +37,13 @@ class HomeInteractor(
     private val initProcessor = ObservableTransformer<HomeAction.Init, HomeResult> { actions ->
         actions.switchMap { action ->
             Observable.merge(
-                repository.isAppFirstStart()
+                rxSingle { repository.isAppFirstStart() }
                     .filter { it }
                     .flatMapCompletable {
-                        repository.setCurrency(NumberFormat.getCurrencyInstance(Locale.getDefault()).currency.symbol)
+                        rxCompletable { repository.setCurrency(NumberFormat.getCurrencyInstance(Locale.getDefault()).currency.symbol) }
                     }
                     .andThen(updateDbDebtsCurrencyUseCase.execute())
-                    .andThen(repository.setAppFirstStart(false))
+                    .andThen(rxCompletable { repository.setAppFirstStart(false) })
                     .toObservable<HomeResult>(),
                 checkContactsPermissionAndSyncWithContacts(action.contactPermission, action.requestCode)
                     .toObservable()
@@ -55,7 +58,7 @@ class HomeInteractor(
         ObservableTransformer<HomeAction.InitMenu, HomeResult> { actions ->
             actions.switchMap { action ->
                 Observable.merge(
-                    repository.observeSortType()
+                    repository.observeSortType().asObservable()
                         .switchMap { sortType ->
                             Observable.fromCallable { HomeResult.SortBy(sortType) as HomeResult }
                         }
@@ -172,7 +175,7 @@ class HomeInteractor(
     private val addDebtProcessor =
         ObservableTransformer<HomeAction.AddDebt, HomeResult> { actions ->
             actions.switchMap {
-                repository.getCurrency()
+                rxSingle { repository.getCurrency() }
                     .flatMapCompletable { currency ->
                         addDebtUseCase
                             .execute(null, it.contactId, it.name, it.amount, currency, it.comment, it.date)
