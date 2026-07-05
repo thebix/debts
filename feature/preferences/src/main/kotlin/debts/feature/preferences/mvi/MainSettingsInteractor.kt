@@ -20,10 +20,12 @@ class MainSettingsInteractor(
 
     private val updateCurrencyProcessor =
         ObservableTransformer<MainSettingsAction.UpdateCurrency, MainSettingsResult> { actions ->
-            actions.switchMap {
-                updateDbDebtsCurrencyUseCase.execute()
+            actions.switchMap { action ->
+                rxCompletable {
+                    updateDbDebtsCurrencyUseCase.execute()
                     // to send new currency to all observers
-                    .andThen(rxCompletable { repository.setCurrency(it.currency) })
+                    repository.setCurrency(action.currency)
+                }
                     .subscribeOn(Schedulers.io())
                     .toSingleDefault(MainSettingsResult.UpdateCurrencyEnd as MainSettingsResult)
                     .doOnError { Timber.e(it) }
@@ -41,7 +43,7 @@ class MainSettingsInteractor(
                     .toObservable()
                     .flatMapSingle { (action, isContactsAccessGranted) ->
                         if (isContactsAccessGranted) {
-                            syncDebtorsWithContactsUseCase.execute(true)
+                            rxCompletable { syncDebtorsWithContactsUseCase.execute(true) }
                                 .toSingleDefault(MainSettingsResult.SyncWithContactsEnd as MainSettingsResult)
                         } else {
                             debtsNavigator.requestPermission(

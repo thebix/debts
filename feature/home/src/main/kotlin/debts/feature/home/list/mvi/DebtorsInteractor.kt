@@ -14,6 +14,8 @@ import io.reactivex.ObservableTransformer
 import io.reactivex.functions.Function4
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.rx2.asObservable
+import kotlinx.coroutines.rx2.rxCompletable
+import kotlinx.coroutines.rx2.rxSingle
 import net.thebix.debts.feature.home.R
 import timber.log.Timber
 import kotlin.math.absoluteValue
@@ -31,7 +33,7 @@ class DebtorsInteractor(
             actions.switchMap { action ->
                 Observable.combineLatest<List<DebtorsListItemModel.Debtor>, SortType, String, String, Pair<Pair<String, Double>, List<DebtorsListItemModel>>>(
                     observeDebtorsListItemsUseCase
-                        .execute(action.tabType),
+                        .execute(action.tabType).asObservable(),
                     repository.observeSortType().asObservable(),
                     repository.observeDebtorsFilter().asObservable(),
                     repository.observeCurrency().asObservable(),
@@ -65,8 +67,7 @@ class DebtorsInteractor(
     private val removeDebtorProcessor =
         ObservableTransformer<DebtorsAction.RemoveDebtor, DebtorsResult> { actions ->
             actions.switchMap {
-                removeDebtorUseCase
-                    .execute(it.debtorId)
+                rxCompletable { removeDebtorUseCase.execute(it.debtorId) }
                     .subscribeOn(Schedulers.io())
                     .toObservable<DebtorsResult>()
                     .doOnError { error -> Timber.e(error) }
@@ -88,11 +89,13 @@ class DebtorsInteractor(
     private val shareDebtorProcessor =
         ObservableTransformer<DebtorsAction.ShareDebtor, DebtorsResult> { actions ->
             actions.switchMap { action ->
-                getShareDebtorContentUseCase.execute(
-                    action.debtorId,
-                    action.borrowedTemplate,
-                    action.lentTemplate
-                )
+                rxSingle {
+                    getShareDebtorContentUseCase.execute(
+                        action.debtorId,
+                        action.borrowedTemplate,
+                        action.lentTemplate
+                    )
+                }
                     .flatMapCompletable { content ->
                         debtsNavigator.sendExplicit(
                             action.titleText,

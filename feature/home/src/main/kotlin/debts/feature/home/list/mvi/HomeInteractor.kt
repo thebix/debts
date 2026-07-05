@@ -42,7 +42,7 @@ class HomeInteractor(
                     .flatMapCompletable {
                         rxCompletable { repository.setCurrency(NumberFormat.getCurrencyInstance(Locale.getDefault()).currency.symbol) }
                     }
-                    .andThen(updateDbDebtsCurrencyUseCase.execute())
+                    .andThen(rxCompletable { updateDbDebtsCurrencyUseCase.execute() })
                     .andThen(rxCompletable { repository.setAppFirstStart(false) })
                     .toObservable<HomeResult>(),
                 checkContactsPermissionAndSyncWithContacts(action.contactPermission, action.requestCode)
@@ -105,7 +105,7 @@ class HomeInteractor(
     private val shareAllDebtsProcessor =
         ObservableTransformer<HomeAction.ShareAllDebts, HomeResult> { actions ->
             actions.switchMap { action ->
-                getDebtsCsvContentUseCase.execute()
+                rxSingle { getDebtsCsvContentUseCase.execute() }
                     .flatMapCompletable { content ->
                         debtsNavigator.sendExplicitFile(
                             action.titleText,
@@ -122,7 +122,7 @@ class HomeInteractor(
         }
 
     private fun checkContactsPermissionAndSyncWithContacts(contactPermission: String, requestCode: Int) =
-        observeDebtorsListItemsUseCase.execute(TabTypes.All)
+        observeDebtorsListItemsUseCase.execute(TabTypes.All).asObservable()
             .take(1)
             .singleElement()
             .filter { items -> items.any { it.name.isEmpty() } }
@@ -132,7 +132,7 @@ class HomeInteractor(
             }
             .flatMapCompletable { isContactsAccessGranted ->
                 if (isContactsAccessGranted) {
-                    syncDebtorsWithContactsUseCase.execute()
+                    rxCompletable { syncDebtorsWithContactsUseCase.execute() }
                 } else {
                     debtsNavigator.requestPermission(
                         contactPermission,
@@ -165,8 +165,7 @@ class HomeInteractor(
                 .onErrorReturnItem(HomeResult.ShowAddDebtDialog(emptyList()))
         }
 
-    private fun getContactsResult() = getContactsUseCase
-        .execute()
+    private fun getContactsResult() = rxSingle { getContactsUseCase.execute() }
         .flatMap { items ->
             Single.fromCallable { HomeResult.ShowAddDebtDialog(items) as HomeResult }
         }
@@ -174,11 +173,14 @@ class HomeInteractor(
 
     private val addDebtProcessor =
         ObservableTransformer<HomeAction.AddDebt, HomeResult> { actions ->
-            actions.switchMap {
+            actions.switchMap { action ->
                 rxSingle { repository.getCurrency() }
                     .flatMapCompletable { currency ->
-                        addDebtUseCase
-                            .execute(null, it.contactId, it.name, it.amount, currency, it.comment, it.date)
+                        rxCompletable {
+                            addDebtUseCase.execute(
+                                null, action.contactId, action.name, action.amount, currency, action.comment, action.date
+                            )
+                        }
                     }
                     .doOnComplete {
                         // TODO: this resource id should be provided from Fragment through intent/action
