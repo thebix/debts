@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package debts.feature.preferences
 
 import androidx.compose.foundation.clickable
@@ -39,7 +41,6 @@ import debts.feature.preferences.PreferencesUiState.SyncStatus
 import net.thebix.debts.feature.preferences.R
 
 @Suppress("LongParameterList")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PreferencesScreen(
     uiState: PreferencesUiState,
@@ -52,24 +53,7 @@ fun PreferencesScreen(
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.settings_title)) },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateUp) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = null,
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
-                ),
-            )
-        },
+        topBar = { PreferencesTopAppBar(onNavigateUp = onNavigateUp) },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         modifier = modifier,
     ) { padding ->
@@ -109,6 +93,26 @@ fun PreferencesScreen(
             }
         }
     }
+}
+
+@Composable
+private fun PreferencesTopAppBar(onNavigateUp: () -> Unit) {
+    TopAppBar(
+        title = { Text(stringResource(R.string.settings_title)) },
+        navigationIcon = {
+            IconButton(onClick = onNavigateUp) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = null,
+                )
+            }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            titleContentColor = MaterialTheme.colorScheme.onPrimary,
+            navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
+        ),
+    )
 }
 
 @Composable
