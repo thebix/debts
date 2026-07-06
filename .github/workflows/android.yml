@@ -34,7 +34,7 @@ jobs:
           path: '**/build/reports/kover/report.xml'
       - name: Post coverage comment
         if: github.event_name == 'pull_request'
-        uses: madrapps/jacoco-report@v1.7.1
+        uses: madrapps/jacoco-report@v1.8.0
         with:
           paths: '**/build/reports/kover/report.xml'
           token: ${{ secrets.GITHUB_TOKEN }}
