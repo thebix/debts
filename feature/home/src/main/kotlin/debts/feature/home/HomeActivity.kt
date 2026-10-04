@@ -1,280 +1,137 @@
 package debts.feature.home
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import androidx.annotation.UiThread
-import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.tabs.TabLayout
-import com.jakewharton.rxbinding3.view.clicks
+import android.widget.Toast
+import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import debts.core.common.android.BaseActivity
 import debts.core.common.android.buildconfig.BuildConfigData
-import debts.core.common.android.extensions.getColorCompat
+import debts.core.common.android.extensions.isPermissionGranted
 import debts.core.common.android.navigation.ActivityScreenContext
-import debts.core.common.android.navigation.ScreenContextHolder
-import debts.core.repository.SortType
+import debts.core.resource.theme.AppTheme
 import debts.feature.adddebt.AddOrEditDebtDialogHolder
 import debts.feature.adddebt.DebtLayoutData
-import debts.feature.contacts.adapter.ContactsItemViewModel
-import debts.feature.home.list.adapter.DebtsPagerAdapter
-import debts.feature.home.list.mvi.HomeIntention
-import debts.feature.home.list.mvi.HomeState
-import debts.feature.home.list.mvi.HomeViewModel
-import io.reactivex.Observable
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.PublishSubject
+import kotlinx.coroutines.launch
 import net.thebix.debts.feature.home.R
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
+import net.thebix.debts.core.resource.R as ResourceR
 
 class HomeActivity : BaseActivity() {
 
     private companion object {
 
-        const val READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE = 1
-        const val READ_CONTACTS_SYNC_PERMISSION_CODE = 2
+        const val CSV_FILE_NAME = "debts.csv"
+        const val CSV_MIME_TYPE = "text/csv"
     }
 
-    private val intentionSubject = PublishSubject.create<HomeIntention>()
-    private val screenContextHolder: ScreenContextHolder by inject()
-    private val buildConfigData: BuildConfigData by inject()
     private val viewModel: HomeViewModel by viewModel()
-    private val addOrEditDebtDialogHolderCallbacks = object : AddOrEditDebtDialogHolder.AddOrEditDebtDialogHolderCallback {
-
-        override fun onConfirm(data: DebtLayoutData) {
-            handleAddOrEditDialogConfirmation(data)
-        }
+    private val homeNavigator: HomeNavigator by inject()
+    private val buildConfigData: BuildConfigData by inject()
+    private val snackbarHostState = SnackbarHostState()
+    private val screenContext by lazy {
+        ActivityScreenContext(activity = this, applicationId = buildConfigData.getApplicationId())
     }
 
-    private var fabView: View? = null
-    private lateinit var menu: Menu
-    private lateinit var disposables: CompositeDisposable
+    private val addDebtPermissionLauncher = contactsPermissionLauncher(ContactsPermissionPurpose.AddDebt)
+    private val syncPermissionLauncher = contactsPermissionLauncher(ContactsPermissionPurpose.Sync)
 
     private var addOrEditDebtDialogHolder: AddOrEditDebtDialogHolder? = null
-    private var contacts: List<ContactsItemViewModel> = emptyList()
-    private var dontShowAddDebtDialog: Boolean = true
-
-    private var sortType: SortType = SortType.NOTHING
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.home_activity)
-        val pager = findViewById<ViewPager>(R.id.home_pager)
-        val tabsTitles = listOf<String>(
-            this.getString(R.string.home_pager_tab_all),
-            this.getString(R.string.home_pager_tab_debtors),
-            this.getString(R.string.home_pager_tab_creditors)
+        addOrEditDebtDialogHolder = AddOrEditDebtDialogHolder(
+            this,
+            object : AddOrEditDebtDialogHolder.AddOrEditDebtDialogHolderCallback {
+                override fun onConfirm(data: DebtLayoutData) {
+                    viewModel.onAddDebtConfirmed(data)
+                }
+            }
         )
-        pager.apply {
-            adapter = DebtsPagerAdapter(supportFragmentManager, tabsTitles)
-            offscreenPageLimit = 2
+        val actions = HomeActions(
+            onSearchOpened = viewModel::onSearchOpened,
+            onSearchClosed = viewModel::onSearchClosed,
+            onSearchQueryChanged = viewModel::onSearchQueryChanged,
+            onSortByNameClicked = viewModel::onSortByNameClicked,
+            onSortByAmountClicked = viewModel::onSortByAmountClicked,
+            onShareAllClicked = viewModel::onShareAllClicked,
+            onSettingsClicked = viewModel::onSettingsClicked,
+            onAddDebtClicked = viewModel::onAddDebtClicked,
+            onDebtorClicked = viewModel::onDebtorClicked,
+            onShareDebtorClicked = { debtorId ->
+                viewModel.onShareDebtorClicked(
+                    debtorId,
+                    getString(ResourceR.string.details_share_message_borrowed),
+                    getString(ResourceR.string.details_share_message_lent),
+                )
+            },
+            onRemoveDebtorConfirmed = viewModel::onRemoveDebtorConfirmed,
+        )
+        setContent {
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+            AppTheme {
+                HomeScreen(uiState = uiState, snackbarHostState = snackbarHostState, actions = actions)
+            }
         }
-        val tabs = findViewById<TabLayout>(R.id.home_pager_tabs)
-        tabs.setupWithViewPager(pager)
-
-        addOrEditDebtDialogHolder = AddOrEditDebtDialogHolder(this, addOrEditDebtDialogHolderCallbacks)
-
-        val toolbarView: Toolbar = findViewById(R.id.home_toolbar)
-        setSupportActionBar(toolbarView)
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        toolbarView.title = getString(net.thebix.debts.core.resource.R.string.app_name)
-        toolbarView.setBackgroundColor(applicationContext.getColorCompat(net.thebix.debts.core.resource.R.color.colorPrimary))
-
-        fabView = findViewById(R.id.home_fab)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.home_debtors_menu, menu)
-        this.menu = menu
-        val menuSearch = menu.findItem(R.id.home_debtors_menu_search)
-        val searchView = menuSearch.actionView as SearchView
-        searchView.queryHint = applicationContext.getString(R.string.home_debtors_search_hint)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                return false
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.events.collect(::handleEvent)
             }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                intentionSubject.onNext(HomeIntention.Filter(newText))
-                return true
-            }
-        })
-        intentionSubject.onNext(HomeIntention.InitMenu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        screenContextHolder.set(
-            ScreenContextHolder.ACTIVITY_HOME,
-            ActivityScreenContext(
-                activity = this,
-                applicationId = buildConfigData.getApplicationId(),
-            )
-        )
-        disposables = CompositeDisposable(
-            viewModel.states()
-                .subscribe(::render),
-            viewModel.processIntentions(intentions())
-        )
-    }
-
-    override fun onStop() {
-        screenContextHolder.remove(ScreenContextHolder.ACTIVITY_HOME)
-        disposables.dispose()
-        super.onStop()
+        }
     }
 
     override fun onDestroy() {
-        fabView = null
         addOrEditDebtDialogHolder = null
         super.onDestroy()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.home_debtors_menu_sort_name -> {
-                intentionSubject.onNext(HomeIntention.ToggleSortByName(sortType))
-                return true
-            }
-
-            R.id.home_debtors_menu_sort_amount -> {
-                intentionSubject.onNext(HomeIntention.ToggleSortByAmount(sortType))
-                return true
-            }
-
-            R.id.home_debtors_menu_settings -> {
-                intentionSubject.onNext(HomeIntention.OpenSettings)
-                return true
-            }
-
-            R.id.home_debtors_menu_share -> {
-                intentionSubject.onNext(
-                    HomeIntention.ShareAllDebts(
-                        applicationContext?.getString(R.string.home_debtors_share_title) ?: ""
-                    )
-                )
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
-
-    @UiThread
-    @Suppress("NestedBlockDepth")
-    private fun render(state: HomeState) {
-        Timber.d("State is: $state")
-        with(state) {
-            if (::menu.isInitialized) {
-                sortType.get(this)?.let { sortType ->
-                    this@HomeActivity.sortType = sortType
-                    val sortName = menu.findItem(R.id.home_debtors_menu_sort_name)
-                    val sortAmount = menu.findItem(R.id.home_debtors_menu_sort_amount)
-                    sortAmount.setIcon(net.thebix.debts.core.resource.R.drawable.ic_arrow_drop_down)
-                    sortName.setIcon(net.thebix.debts.core.resource.R.drawable.ic_arrow_drop_down)
-                    when (sortType) {
-                        SortType.AMOUNT_DESC -> sortAmount.setIcon(net.thebix.debts.core.resource.R.drawable.ic_clear)
-                        SortType.AMOUNT_ASC -> sortAmount.setIcon(net.thebix.debts.core.resource.R.drawable.ic_arrow_drop_up)
-                        SortType.NAME_DESC -> sortName.setIcon(net.thebix.debts.core.resource.R.drawable.ic_clear)
-                        SortType.NAME_ASC -> sortName.setIcon(net.thebix.debts.core.resource.R.drawable.ic_arrow_drop_up)
-                        else -> Unit
-                    }
-                }
-            }
-            this@HomeActivity.contacts = contacts
-            showAddDebtDialog.get(this)?.let {
-                if (dontShowAddDebtDialog.not()) {
-                    dontShowAddDebtDialog = true
-                    showAddDebtDialog()
-                }
-            }
-        }
-    }
-
-    private fun intentions() =
-        Observable.merge(
-            listOf(
-                Observable.fromCallable {
-                    HomeIntention.Init(
-                        Manifest.permission.READ_CONTACTS,
-                        READ_CONTACTS_SYNC_PERMISSION_CODE
-                    )
-                },
-                intentionSubject,
-                (fabView?.clicks() ?: Observable.empty<HomeIntention>())
-                    .doOnNext { dontShowAddDebtDialog = false }
-                    .map {
-                        HomeIntention.OpenAddDebtDialog(
-                            Manifest.permission.READ_CONTACTS,
-                            READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE
-                        )
-                    }
+    private fun handleEvent(event: HomeEvent) {
+        when (event) {
+            is HomeEvent.OpenDetails -> startActivity(homeNavigator.detailsIntent(this, event.debtorId))
+            HomeEvent.OpenSettings -> startActivity(homeNavigator.settingsIntent(this))
+            is HomeEvent.ShareDebtor -> screenContext.sendExplicit(
+                getString(ResourceR.string.details_share_title),
+                event.message,
             )
-        )
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray,
-    ) {
-        when (requestCode) {
-            READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                intentionSubject
-                    .onNext(
-                        HomeIntention.OpenAddDebtDialog(
-                            Manifest.permission.READ_CONTACTS,
-                            READ_CONTACTS_FOR_ADD_DEBT_DIALOG_PERMISSION_CODE
-                        )
-                    )
-            } else {
-                showAddDebtDialog()
-            }
+            is HomeEvent.ShareAllDebts -> screenContext.sendExplicitFile(
+                getString(R.string.home_debtors_share_title),
+                CSV_FILE_NAME,
+                event.csvContent,
+                CSV_MIME_TYPE,
+            )
 
-            READ_CONTACTS_SYNC_PERMISSION_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                intentionSubject.onNext(HomeIntention.SyncWithContacts)
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
+            is HomeEvent.RequestContactsPermission -> requestContactsPermission(event.purpose)
+            is HomeEvent.ShowAddDebtDialog -> addOrEditDebtDialogHolder?.showAddDebt(contacts = event.contacts)
+            HomeEvent.DebtAdded ->
+                Toast.makeText(this, ResourceR.string.home_debtors_toast_debt_added, Toast.LENGTH_SHORT).show()
 
-    private fun showAddDebtDialog() {
-        addOrEditDebtDialogHolder?.showAddDebt(contacts = contacts)
-    }
-
-    private fun handleAddOrEditDialogConfirmation(data: DebtLayoutData) {
-        with(data) {
-            if (this.name.isNotBlank() && this.amount != 0.0) {
-                intentionSubject.onNext(
-                    HomeIntention.AddDebt(
-                        this.contactId,
-                        this.name,
-                        this.amount,
-                        this.comment,
-                        this.date
-                    )
-                )
-            } else {
-                Snackbar
-                    .make(
-                        fabView!!,
-                        R.string.home_debtors_empty_debt_fields,
-                        Snackbar.LENGTH_SHORT
-                    )
-                    .show()
+            HomeEvent.EmptyDebtFields -> lifecycleScope.launch {
+                snackbarHostState.showSnackbar(getString(R.string.home_debtors_empty_debt_fields))
             }
         }
     }
+
+    private fun requestContactsPermission(purpose: ContactsPermissionPurpose) {
+        if (isPermissionGranted(Manifest.permission.READ_CONTACTS)) {
+            viewModel.onContactsPermissionResult(purpose, isGranted = true)
+        } else {
+            when (purpose) {
+                ContactsPermissionPurpose.AddDebt -> addDebtPermissionLauncher
+                ContactsPermissionPurpose.Sync -> syncPermissionLauncher
+            }.launch(Manifest.permission.READ_CONTACTS)
+        }
+    }
+
+    private fun contactsPermissionLauncher(purpose: ContactsPermissionPurpose) =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            viewModel.onContactsPermissionResult(purpose, isGranted)
+        }
 }

@@ -27,7 +27,6 @@ class DebtsRepository(
         const val PREFS_IS_FIRST_START = "PREFS_IS_FIRST_START"
         const val PREFS_CURRENCY = "preference_main_settings_currency_custom"
         const val PREFS_SORT_KEY = "PREFS_SORT_KEY"
-        const val PREFS_FILTER_KEY = "PREFS_FILTER_KEY"
     }
 
     fun observeDebtors(): Flow<List<DebtorModel>> =
@@ -125,9 +124,6 @@ class DebtsRepository(
             .map { SortType.valueOf(it) }
 
     fun setSortType(sortType: SortType) = preferences.putString(PREFS_SORT_KEY, sortType.name)
-
-    fun observeDebtorsFilter(): Flow<String> = preferences.observeString(PREFS_FILTER_KEY, "").asFlow()
-    fun setDebtorsFilter(name: String) = preferences.putString(PREFS_FILTER_KEY, name)
 
     // endregion
 }
