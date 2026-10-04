@@ -145,36 +145,68 @@ class AddDebtViewModelTest {
         }
     }
 
+    private suspend fun confirmedResult(): DebtLayoutData {
+        var result: DebtLayoutData? = null
+        viewModel.events.test {
+            viewModel.onConfirm()
+            result = (awaitItem() as AddDebtEvent.Confirmed).result
+            cancelAndIgnoreRemainingEvents()
+        }
+        return requireNotNull(result)
+    }
+
     @Test
-    fun `buildResult returns positive amount for lent`() = runTest {
+    fun `onConfirm sends positive amount for lent`() = runTest {
         viewModel.onAmountChanged("100.0")
         viewModel.onSubtractChanged(false)
-        val result = viewModel.buildResult()
-        assertEquals(100.0, result.amount, 0.001)
+        assertEquals(100.0, confirmedResult().amount, 0.001)
     }
 
     @Test
-    fun `buildResult returns negative amount for borrowed`() = runTest {
+    fun `onConfirm sends negative amount for borrowed`() = runTest {
         viewModel.onAmountChanged("50.5")
         viewModel.onSubtractChanged(true)
-        val result = viewModel.buildResult()
-        assertEquals(-50.5, result.amount, 0.001)
+        assertEquals(-50.5, confirmedResult().amount, 0.001)
     }
 
     @Test
-    fun `buildResult returns zero for non-numeric amount`() = runTest {
+    fun `onConfirm sends zero for non-numeric amount`() = runTest {
         viewModel.onAmountChanged("abc")
-        val result = viewModel.buildResult()
-        assertEquals(0.0, result.amount, 0.001)
+        assertEquals(0.0, confirmedResult().amount, 0.001)
     }
 
     @Test
-    fun `buildResult trims name and comment`() = runTest {
+    fun `onConfirm sends zero for too long amount`() = runTest {
+        viewModel.onAmountChanged("1".repeat(17))
+        assertEquals(0.0, confirmedResult().amount, 0.001)
+    }
+
+    @Test
+    fun `onConfirm trims name and comment`() = runTest {
         viewModel.onNameChanged("  Alice  ")
         viewModel.onCommentChanged("  note  ")
-        val result = viewModel.buildResult()
+        val result = confirmedResult()
         assertEquals("Alice", result.name)
         assertEquals("note", result.comment)
+    }
+
+    @Test
+    fun `onConfirm carries contact, debt id and date`() = runTest {
+        viewModel.init(
+            name = "",
+            avatarUrl = "",
+            amount = 0.0,
+            comment = "",
+            dateMs = 123L,
+            contacts = emptyList(),
+            existingDebtId = 9L,
+            canChangeDebtor = false,
+        )
+        viewModel.onContactSelected(ContactsItemViewModel(id = 5L, name = "Dan", avatarUrl = ""))
+        val result = confirmedResult()
+        assertEquals(5L, result.contactId)
+        assertEquals(9L, result.existingDebtId)
+        assertEquals(123L, result.date)
     }
 
     @Test

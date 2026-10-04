@@ -1,21 +1,14 @@
 package debts.feature.adddebt
 
-import androidx.lifecycle.ViewModel
+import debts.core.common.android.mvvm.BaseViewModel
 import debts.feature.contacts.adapter.ContactsItemViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlin.math.absoluteValue
 
-class AddDebtViewModel : ViewModel() {
+class AddDebtViewModel : BaseViewModel<AddDebtUiState, AddDebtEvent>(AddDebtUiState()) {
 
     companion object {
         private const val AMOUNT_MAX_LENGTH = 16
     }
-
-    private val _uiState = MutableStateFlow(AddDebtUiState())
-    val uiState: StateFlow<AddDebtUiState> = _uiState.asStateFlow()
 
     @Suppress("LongParameterList")
     fun init(
@@ -28,8 +21,8 @@ class AddDebtViewModel : ViewModel() {
         existingDebtId: Long?,
         canChangeDebtor: Boolean,
     ) {
-        _uiState.update {
-            it.copy(
+        updateState {
+            copy(
                 name = name,
                 avatarUrl = avatarUrl,
                 amountText = if (amount != 0.0) amount.absoluteValue.toString() else "",
@@ -44,19 +37,19 @@ class AddDebtViewModel : ViewModel() {
     }
 
     fun onNameChanged(value: String) {
-        _uiState.update { state ->
-            val hadContact = state.contactId != null
-            state.copy(
+        updateState {
+            val hadContact = contactId != null
+            copy(
                 name = value,
                 contactId = null,
-                avatarUrl = if (hadContact) "" else state.avatarUrl,
+                avatarUrl = if (hadContact) "" else avatarUrl,
             )
         }
     }
 
     fun onContactSelected(contact: ContactsItemViewModel) {
-        _uiState.update {
-            it.copy(
+        updateState {
+            copy(
                 contactId = contact.id,
                 name = contact.name,
                 avatarUrl = contact.avatarUrl,
@@ -65,8 +58,8 @@ class AddDebtViewModel : ViewModel() {
     }
 
     fun onAmountChanged(value: String) {
-        _uiState.update {
-            it.copy(
+        updateState {
+            copy(
                 amountText = value,
                 amountError = value.length > AMOUNT_MAX_LENGTH,
             )
@@ -74,26 +67,30 @@ class AddDebtViewModel : ViewModel() {
     }
 
     fun onSubtractChanged(isSubtract: Boolean) {
-        _uiState.update { it.copy(isSubtract = isSubtract) }
+        updateState { copy(isSubtract = isSubtract) }
     }
 
     fun onCommentChanged(value: String) {
-        _uiState.update { it.copy(comment = value) }
+        updateState { copy(comment = value) }
     }
 
     fun onCalendarClicked() {
-        _uiState.update { it.copy(showDatePicker = true) }
+        updateState { copy(showDatePicker = true) }
     }
 
     fun onDateSelected(ms: Long) {
-        _uiState.update { it.copy(dateMs = ms, showDatePicker = false) }
+        updateState { copy(dateMs = ms, showDatePicker = false) }
     }
 
     fun onDatePickerDismissed() {
-        _uiState.update { it.copy(showDatePicker = false) }
+        updateState { copy(showDatePicker = false) }
     }
 
-    fun buildResult(): DebtLayoutData {
+    fun onConfirm() {
+        sendEvent(AddDebtEvent.Confirmed(buildResult()))
+    }
+
+    private fun buildResult(): DebtLayoutData {
         val s = uiState.value
         val amount = runCatching {
             if (s.amountText.length > AMOUNT_MAX_LENGTH) {

@@ -9,9 +9,13 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.DialogFragment
 import android.view.WindowManager
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import debts.core.resource.theme.AppTheme
 import debts.feature.contacts.adapter.ContactsItemViewModel
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddDebtDialogFragment : DialogFragment() {
@@ -41,10 +45,7 @@ class AddDebtDialogFragment : DialogFragment() {
                         onCalendarClicked = viewModel::onCalendarClicked,
                         onDateSelected = viewModel::onDateSelected,
                         onDatePickerDismissed = viewModel::onDatePickerDismissed,
-                        onConfirm = {
-                            onConfirmListener?.invoke(viewModel.buildResult())
-                            dismiss()
-                        },
+                        onConfirm = viewModel::onConfirm,
                         onDismiss = ::dismiss,
                     )
                 }
@@ -61,6 +62,20 @@ class AddDebtDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState == null) {
             initViewModel()
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.events.collect(::handleEvent)
+            }
+        }
+    }
+
+    private fun handleEvent(event: AddDebtEvent) {
+        when (event) {
+            is AddDebtEvent.Confirmed -> {
+                onConfirmListener?.invoke(event.result)
+                dismiss()
+            }
         }
     }
 
