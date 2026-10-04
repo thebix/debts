@@ -1,12 +1,10 @@
 package debts.di
 
 import androidx.room.Room
-import debts.common.android.navigation.DebtsNavigatorImpl
 import debts.common.android.navigation.HomeNavigatorImpl
 import debts.core.common.android.navigation.ScreenContextHolderImpl
 import debts.common.android.buildconfig.BuildConfigDataImpl
 import debts.core.common.android.buildconfig.BuildConfigData
-import debts.core.common.android.navigation.DebtsNavigator
 import debts.core.common.android.navigation.ScreenContextHolder
 import debts.core.common.android.prefs.AndroidPreferences
 import debts.core.common.android.prefs.Preferences
@@ -28,7 +26,7 @@ import debts.core.usecase.RemoveDebtorUseCase
 import debts.core.usecase.SyncDebtorsWithContactsUseCase
 import debts.core.usecase.UpdateDbDebtsCurrencyUseCase
 import debts.core.usecase.UpdateDebtUseCase
-import debts.feature.details.mvi.DetailsInteractor
+import debts.feature.details.DetailsViewModel
 import debts.feature.home.HomeNavigator
 import debts.feature.home.HomeViewModel
 import debts.feature.adddebt.AddDebtViewModel
@@ -36,7 +34,6 @@ import debts.feature.preferences.PreferencesViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.qualifier.StringQualifier
 import org.koin.dsl.module
 
 val appModule = module {
@@ -100,17 +97,13 @@ val useCasesModule = module {
 }
 
 val interactorModule = module {
-    single<DebtsNavigator>(qualifier = StringQualifier(ScreenContextHolder.FRAGMENT_DETAILS)) {
-        DebtsNavigatorImpl(
-            screenContextHolder = get(),
-            applicationContext = androidContext(),
-            name = ScreenContextHolder.FRAGMENT_DETAILS
-        )
-    }
     single<HomeNavigator> { HomeNavigatorImpl() }
-    factory {
-        DetailsInteractor(
-            debtsNavigator = get(qualifier = StringQualifier(ScreenContextHolder.FRAGMENT_DETAILS)),
+}
+
+val viewModelModule = module {
+    viewModel { params ->
+        DetailsViewModel(
+            debtorId = params.get(),
             clearHistoryUseCase = get(),
             addDebtUseCase = get(),
             observeDebtorUseCase = get(),
@@ -120,13 +113,9 @@ val interactorModule = module {
             updateDebtUseCase = get(),
             removeDebtorUseCase = get(),
             getShareDebtorContentUseCase = get(),
-            repository = get()
+            repository = get(),
         )
     }
-}
-
-val viewModelModule = module {
-    viewModel { debts.feature.details.mvi.DetailsViewModel(interactor = get()) }
     viewModel {
         PreferencesViewModel(
             updateDbDebtsCurrencyUseCase = get(),
