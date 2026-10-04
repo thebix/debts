@@ -58,10 +58,11 @@ class AddDebtViewModel : BaseViewModel<AddDebtUiState, AddDebtEvent>(AddDebtUiSt
     }
 
     fun onAmountChanged(value: String) {
+        val amount = sanitizeAmount(value)
         updateState {
             copy(
-                amountText = value,
-                amountError = value.length > AMOUNT_MAX_LENGTH,
+                amountText = amount,
+                amountError = amount.length > AMOUNT_MAX_LENGTH,
             )
         }
     }
@@ -88,6 +89,23 @@ class AddDebtViewModel : BaseViewModel<AddDebtUiState, AddDebtEvent>(AddDebtUiSt
 
     fun onConfirm() {
         sendEvent(AddDebtEvent.Confirmed(buildResult()))
+    }
+
+    // The sign comes from the Lent/Borrowed switch, so the field takes digits and one decimal separator only,
+    // like the numberDecimal EditText of the original dialog.
+    private fun sanitizeAmount(raw: String): String {
+        var hasSeparator = false
+        return buildString {
+            raw.forEach { char ->
+                when {
+                    char in '0'..'9' -> append(char)
+                    (char == '.' || char == ',') && !hasSeparator -> {
+                        hasSeparator = true
+                        append('.')
+                    }
+                }
+            }
+        }
     }
 
     private fun buildResult(): DebtLayoutData {

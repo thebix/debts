@@ -137,6 +137,22 @@ class AddDebtViewModelTest {
     }
 
     @Test
+    fun `onAmountChanged drops minus and letters`() = runTest {
+        viewModel.onAmountChanged("-12a")
+        viewModel.uiState.test {
+            assertEquals("12", awaitItem().amountText)
+        }
+    }
+
+    @Test
+    fun `onAmountChanged keeps only the first decimal separator and normalizes comma`() = runTest {
+        viewModel.onAmountChanged("1,5.2")
+        viewModel.uiState.test {
+            assertEquals("1.52", awaitItem().amountText)
+        }
+    }
+
+    @Test
     fun `onAmountChanged clears error for valid length`() = runTest {
         viewModel.onAmountChanged("123.45")
         viewModel.uiState.test {
