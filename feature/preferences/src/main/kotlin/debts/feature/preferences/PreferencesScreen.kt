@@ -37,6 +37,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import debts.core.resource.component.NavigationBarBackground
 import debts.feature.preferences.PreferencesUiState.SyncStatus
 import net.thebix.debts.feature.preferences.R
 
@@ -54,6 +55,7 @@ fun PreferencesScreen(
 ) {
     Scaffold(
         topBar = { PreferencesTopAppBar(onNavigateUp = onNavigateUp) },
+        bottomBar = { NavigationBarBackground() },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         modifier = modifier,
     ) { padding ->
