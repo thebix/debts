@@ -1,5 +1,6 @@
 [versions]
 android-gradle-plugin = "8.13.2"
+coil = "2.7.0"
 androidx-appcompat = "1.6.1"
 androidx-compose-bom = "2026.06.00"
 androidx-constraintlayout = "2.2.1"
@@ -54,6 +55,7 @@ androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 glide-core = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "glide" }
 google-android-material = { group = "com.google.android.material", name = "material", version.ref = "google-android-material" }

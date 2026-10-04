@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.debts.android.library)
-    alias(libs.plugins.debts.android.image.loader)
+    alias(libs.plugins.debts.android.library.compose)
 }
 
 android {
@@ -14,6 +14,13 @@ dependencies {
     implementation(project(":feature:contacts"))
 
     implementation(libs.androidx.appcompat)
-    implementation(libs.google.android.material)
-    implementation(libs.bundles.rxjava)
+    implementation(libs.koin)
+    implementation(libs.coil.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.compose.material.icons.core)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
 }

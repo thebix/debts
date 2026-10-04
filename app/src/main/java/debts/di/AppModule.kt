@@ -35,6 +35,7 @@ import debts.feature.home.list.mvi.DebtorsInteractor
 import debts.feature.home.list.mvi.DebtorsViewModel
 import debts.feature.home.list.mvi.HomeInteractor
 import debts.feature.home.list.mvi.HomeViewModel
+import debts.feature.adddebt.AddDebtViewModel
 import debts.feature.preferences.PreferencesViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -186,4 +187,5 @@ val viewModelModule = module {
         )
     }
     viewModel { HomeViewModel(interactor = get()) }
+    viewModel { AddDebtViewModel() }
 }
