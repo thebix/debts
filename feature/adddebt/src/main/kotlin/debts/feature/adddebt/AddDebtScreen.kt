@@ -87,14 +87,11 @@ fun AddDebtContent(
 ) {
     val nameFocusRequester = remember { FocusRequester() }
     val amountFocusRequester = remember { FocusRequester() }
-    val keyboardController = LocalSoftwareKeyboardController.current
-    // Same as the original dialog: the name when there is nothing to pick yet, the amount otherwise.
-    LaunchedEffect(Unit) {
-        withFrameNanos { }
-        val target = if (uiState.name.isBlank() && uiState.canChangeDebtor) nameFocusRequester else amountFocusRequester
-        target.requestFocus()
-        keyboardController?.show()
-    }
+    InitialFocusEffect(
+        nameFirst = uiState.name.isBlank() && uiState.canChangeDebtor,
+        nameFocusRequester = nameFocusRequester,
+        amountFocusRequester = amountFocusRequester,
+    )
     Column(
         modifier = modifier
             .padding(24.dp)
@@ -113,56 +110,28 @@ fun AddDebtContent(
             onNameChanged = onNameChanged,
             nameFocusRequester = nameFocusRequester,
         )
-        val suggestions = remember(uiState.name, uiState.contacts) {
-            if (uiState.name.length < MIN_QUERY_LENGTH) {
-                emptyList()
-            } else {
-                uiState.contacts.filter { it.name.contains(uiState.name, ignoreCase = true) }
-            }
-        }
-        if (uiState.canChangeDebtor && uiState.contactId == null && suggestions.isNotEmpty()) {
-            ContactSuggestions(
-                contacts = suggestions,
+        if (uiState.canChangeDebtor && uiState.contactId == null) {
+            NameSuggestions(
+                name = uiState.name,
+                contacts = uiState.contacts,
                 onContactSelected = {
                     onContactSelected(it)
                     // As in the original dialog: once the contact is chosen, the amount is what comes next.
                     amountFocusRequester.requestFocus()
                 },
-                modifier = Modifier
-                    // Zero layout height and a higher z-index: the list floats over the fields below instead of pushing them.
-                    .layout { measurable, constraints ->
-                        val placeable = measurable.measure(constraints.copy(maxHeight = Constraints.Infinity))
-                        layout(placeable.width, 0) { placeable.place(0, 0) }
-                    }
-                    .zIndex(1f)
-                    .padding(start = AVATAR_SIZE + AVATAR_GAP, top = 4.dp),
             )
         }
         Spacer(Modifier.height(12.dp))
         DebtActionRow(isSubtract = uiState.isSubtract, onSubtractChanged = onSubtractChanged)
         Spacer(Modifier.height(8.dp))
-        OutlinedTextField(
+        AmountField(
             value = uiState.amountText,
-            onValueChange = onAmountChanged,
-            label = { Text(stringResource(R.string.home_add_debt_amount)) },
             isError = uiState.amountError,
-            supportingText = if (uiState.amountError) {
-                { Text(stringResource(R.string.home_add_debt_amount_error)) }
-            } else {
-                null
-            },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth().focusRequester(amountFocusRequester),
+            onValueChange = onAmountChanged,
+            focusRequester = amountFocusRequester,
         )
         CalendarRow(dateMs = uiState.dateMs, onClick = onCalendarClicked)
-        OutlinedTextField(
-            value = uiState.comment,
-            onValueChange = onCommentChanged,
-            label = { Text(stringResource(R.string.home_add_debt_comment)) },
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth(),
-        )
+        CommentField(value = uiState.comment, onValueChange = onCommentChanged)
         Spacer(Modifier.height(16.dp))
         DebtDialogButtons(onDismiss = onDismiss, onConfirm = onConfirm)
     }
@@ -173,6 +142,83 @@ fun AddDebtContent(
             onDismiss = onDatePickerDismissed,
         )
     }
+}
+
+@Composable
+private fun InitialFocusEffect(
+    nameFirst: Boolean,
+    nameFocusRequester: FocusRequester,
+    amountFocusRequester: FocusRequester,
+) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+    // Same as the original dialog: the name when there is nothing to pick yet, the amount otherwise.
+    LaunchedEffect(Unit) {
+        withFrameNanos { }
+        (if (nameFirst) nameFocusRequester else amountFocusRequester).requestFocus()
+        keyboardController?.show()
+    }
+}
+
+@Composable
+private fun NameSuggestions(
+    name: String,
+    contacts: List<ContactsItemViewModel>,
+    onContactSelected: (ContactsItemViewModel) -> Unit,
+) {
+    val suggestions = remember(name, contacts) {
+        if (name.length < MIN_QUERY_LENGTH) {
+            emptyList()
+        } else {
+            contacts.filter { it.name.contains(name, ignoreCase = true) }
+        }
+    }
+    if (suggestions.isEmpty()) return
+    ContactSuggestions(
+        contacts = suggestions,
+        onContactSelected = onContactSelected,
+        modifier = Modifier
+            // Zero layout height and a higher z-index: the list floats over the fields below instead of pushing them.
+            .layout { measurable, constraints ->
+                val placeable = measurable.measure(constraints.copy(maxHeight = Constraints.Infinity))
+                layout(placeable.width, 0) { placeable.place(0, 0) }
+            }
+            .zIndex(1f)
+            .padding(start = AVATAR_SIZE + AVATAR_GAP, top = 4.dp),
+    )
+}
+
+@Composable
+private fun AmountField(
+    value: String,
+    isError: Boolean,
+    onValueChange: (String) -> Unit,
+    focusRequester: FocusRequester,
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(stringResource(R.string.home_add_debt_amount)) },
+        isError = isError,
+        supportingText = if (isError) {
+            { Text(stringResource(R.string.home_add_debt_amount_error)) }
+        } else {
+            null
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+        singleLine = true,
+        modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
+    )
+}
+
+@Composable
+private fun CommentField(value: String, onValueChange: (String) -> Unit) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(stringResource(R.string.home_add_debt_comment)) },
+        singleLine = true,
+        modifier = Modifier.fillMaxWidth(),
+    )
 }
 
 @Composable
