@@ -12,7 +12,7 @@ internal fun buildHomeTabs(
 ): Map<TabTypes, HomeTabUiState> =
     TabTypes.entries.associateWith { tabType -> buildHomeTab(debtors, tabType, searchQuery, sortType) }
 
-internal fun buildHomeTab(
+private fun buildHomeTab(
     debtors: List<DebtorsListItemModel.Debtor>,
     tabType: TabTypes,
     searchQuery: String,

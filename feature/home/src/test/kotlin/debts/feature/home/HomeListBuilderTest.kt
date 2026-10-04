@@ -17,7 +17,7 @@ class HomeListBuilderTest {
 
     @Test
     fun `all tab splits debtors and creditors into sections with headers`() {
-        val tab = buildHomeTab(all, TabTypes.All, "", SortType.NOTHING)
+        val tab = tab(all, TabTypes.All, "", SortType.NOTHING)
 
         assertEquals(
             listOf("header:Debtors", "Carl", "Anna", "header:Creditors", "Bob", "Dave"),
@@ -27,7 +27,7 @@ class HomeListBuilderTest {
 
     @Test
     fun `all tab has no header for an empty section`() {
-        val tab = buildHomeTab(listOf(bob, dave), TabTypes.All, "", SortType.NOTHING)
+        val tab = tab(listOf(bob, dave), TabTypes.All, "", SortType.NOTHING)
 
         assertEquals(listOf("header:Creditors", "Bob", "Dave"), tab.items.labels())
     }
@@ -36,44 +36,44 @@ class HomeListBuilderTest {
     fun `zero amount belongs to debtors`() {
         val zero = debtor(id = 5, name = "Zero", amount = 0.0)
 
-        assertEquals(listOf("Zero"), buildHomeTab(listOf(zero), TabTypes.Debtors, "", SortType.NOTHING).items.labels())
-        assertTrue(buildHomeTab(listOf(zero), TabTypes.Creditors, "", SortType.NOTHING).items.isEmpty())
+        assertEquals(listOf("Zero"), tab(listOf(zero), TabTypes.Debtors, "", SortType.NOTHING).items.labels())
+        assertTrue(tab(listOf(zero), TabTypes.Creditors, "", SortType.NOTHING).items.isEmpty())
     }
 
     @Test
     fun `debtors and creditors tabs have no headers`() {
-        assertEquals(listOf("Carl", "Anna"), buildHomeTab(all, TabTypes.Debtors, "", SortType.NOTHING).items.labels())
-        assertEquals(listOf("Bob", "Dave"), buildHomeTab(all, TabTypes.Creditors, "", SortType.NOTHING).items.labels())
+        assertEquals(listOf("Carl", "Anna"), tab(all, TabTypes.Debtors, "", SortType.NOTHING).items.labels())
+        assertEquals(listOf("Bob", "Dave"), tab(all, TabTypes.Creditors, "", SortType.NOTHING).items.labels())
     }
 
     @Test
     fun `amounts are shown as absolute values`() {
-        val tab = buildHomeTab(all, TabTypes.Creditors, "", SortType.NOTHING)
+        val tab = tab(all, TabTypes.Creditors, "", SortType.NOTHING)
 
         assertEquals(listOf(50.0, 5.0), tab.items.filterIsInstance<HomeListItem.Debtor>().map { it.amount })
     }
 
     @Test
     fun `search ignores case and surrounding spaces`() {
-        val tab = buildHomeTab(all, TabTypes.All, "  aN ", SortType.NOTHING)
+        val tab = tab(all, TabTypes.All, "  aN ", SortType.NOTHING)
 
         assertEquals(listOf("header:Debtors", "Anna"), tab.items.labels())
     }
 
     @Test
     fun `blank search keeps all items`() {
-        assertEquals(4, buildHomeTab(all, TabTypes.All, "   ", SortType.NOTHING).debtorsCount())
+        assertEquals(4, tab(all, TabTypes.All, "   ", SortType.NOTHING).debtorsCount())
     }
 
     @Test
     fun `sorting by name is applied inside each section`() {
         assertEquals(
             listOf("header:Debtors", "Anna", "Carl", "header:Creditors", "Bob", "Dave"),
-            buildHomeTab(all, TabTypes.All, "", SortType.NAME_ASC).items.labels(),
+            tab(all, TabTypes.All, "", SortType.NAME_ASC).items.labels(),
         )
         assertEquals(
             listOf("header:Debtors", "Carl", "Anna", "header:Creditors", "Dave", "Bob"),
-            buildHomeTab(all, TabTypes.All, "", SortType.NAME_DESC).items.labels(),
+            tab(all, TabTypes.All, "", SortType.NAME_DESC).items.labels(),
         )
     }
 
@@ -81,28 +81,28 @@ class HomeListBuilderTest {
     fun `sorting by amount uses absolute values`() {
         assertEquals(
             listOf("Dave", "Bob"),
-            buildHomeTab(all, TabTypes.Creditors, "", SortType.AMOUNT_ASC).items.labels(),
+            tab(all, TabTypes.Creditors, "", SortType.AMOUNT_ASC).items.labels(),
         )
         assertEquals(
             listOf("Bob", "Dave"),
-            buildHomeTab(all, TabTypes.Creditors, "", SortType.AMOUNT_DESC).items.labels(),
+            tab(all, TabTypes.Creditors, "", SortType.AMOUNT_DESC).items.labels(),
         )
         assertEquals(
             listOf("Anna", "Carl"),
-            buildHomeTab(all, TabTypes.Debtors, "", SortType.AMOUNT_DESC).items.labels(),
+            tab(all, TabTypes.Debtors, "", SortType.AMOUNT_DESC).items.labels(),
         )
     }
 
     @Test
     fun `total is signed on all and debtors tabs and absolute on creditors tab`() {
-        assertEquals(-15.0, buildHomeTab(all, TabTypes.All, "", SortType.NOTHING).total, 0.0)
-        assertEquals(40.0, buildHomeTab(all, TabTypes.Debtors, "", SortType.NOTHING).total, 0.0)
-        assertEquals(55.0, buildHomeTab(all, TabTypes.Creditors, "", SortType.NOTHING).total, 0.0)
+        assertEquals(-15.0, tab(all, TabTypes.All, "", SortType.NOTHING).total, 0.0)
+        assertEquals(40.0, tab(all, TabTypes.Debtors, "", SortType.NOTHING).total, 0.0)
+        assertEquals(55.0, tab(all, TabTypes.Creditors, "", SortType.NOTHING).total, 0.0)
     }
 
     @Test
     fun `total counts only items matching the search`() {
-        assertEquals(-50.0, buildHomeTab(all, TabTypes.All, "bob", SortType.NOTHING).total, 0.0)
+        assertEquals(-50.0, tab(all, TabTypes.All, "bob", SortType.NOTHING).total, 0.0)
     }
 
     @Test
@@ -115,6 +115,13 @@ class HomeListBuilderTest {
             assertEquals(0.0, tab.total, 0.0)
         }
     }
+
+    private fun tab(
+        debtors: List<DebtorsListItemModel.Debtor>,
+        tabType: TabTypes,
+        searchQuery: String,
+        sortType: SortType,
+    ) = buildHomeTabs(debtors, searchQuery, sortType).getValue(tabType)
 
     private fun HomeTabUiState.debtorsCount() = items.count { it is HomeListItem.Debtor }
 
