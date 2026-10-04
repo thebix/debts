@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.debts.android.library)
     alias(libs.plugins.debts.android.image.loader)
+    id("org.jetbrains.kotlin.plugin.parcelize")
 }
 
 android {
