@@ -1,14 +1,20 @@
 package debts.feature.home
 
 import androidx.compose.material3.SnackbarHostState
+import coil.Coil
+import coil.ImageLoader
 import com.github.takahirom.roborazzi.captureRoboImage
 import debts.core.repository.SortType
 import debts.core.resource.theme.AppTheme
 import debts.core.usecase.data.DebtorsListItemModel
 import debts.core.usecase.data.TabTypes
+import kotlinx.coroutines.Dispatchers
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
@@ -29,6 +35,27 @@ class HomeScreenTest {
         debtor(3, "Dad", -9873.0),
         debtor(4, "No debts yet", 0.0, lastDate = Long.MIN_VALUE),
     )
+
+    /**
+     * Coil loads images on background dispatchers, and the capture does not wait for them:
+     * a snapshot could be taken before the avatars appear. Loading on the calling thread
+     * makes the avatars part of every snapshot.
+     */
+    @Before
+    fun setUp() {
+        val context = RuntimeEnvironment.getApplication()
+        Coil.setImageLoader(
+            ImageLoader.Builder(context)
+                .dispatcher(Dispatchers.Unconfined)
+                .interceptorDispatcher(Dispatchers.Unconfined)
+                .build()
+        )
+    }
+
+    @After
+    fun tearDown() {
+        Coil.reset()
+    }
 
     @Test
     fun homeScreen_allTab() = capture("homeScreen_allTab", uiState(debtors))
